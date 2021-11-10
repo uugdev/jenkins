@@ -5,11 +5,11 @@
 <head>
     <%--page title--%>
     <title>이건못참조</title>
-	<c:import url="/WEB-INF/views/layout/head.jsp" />
+	<c:import url="../layout/head.jsp"/>
 </head>
-<body style="height:1500px">
+<body>
 <%--header--%>
-<c:import url="/WEB-INF/views/layout/header.jsp" />
+<c:import url="../layout/header.jsp"/>
 
 <%--
 
@@ -18,6 +18,6 @@
 --%>
 
 <%--footer--%>
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
+<c:import url="../layout/footer.jsp"/>
 </body>
 </html>
