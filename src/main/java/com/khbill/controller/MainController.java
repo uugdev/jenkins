@@ -15,6 +15,7 @@ public class MainController {
 		logger.info("메인 테스트");
 		logger.debug("메인 테스트 디버그");
 		logger.info("파이널 테스트");
+		System.out.println("하이");
 	}
 	
 }
