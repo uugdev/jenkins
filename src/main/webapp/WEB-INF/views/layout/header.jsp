@@ -5,7 +5,9 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a href="/member/main"><img src="/resources/img/main.PNG"
+				<a href="/member/main">
+<!-- 				<img src="/resources/img/main.PNG" -->
+				<img src="https://i.imgur.com/DEHqUdu.png"
 				   alt="huxley" width="250px" height="65px" style="margin: 15px;"></a>
 				   
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
