@@ -13,6 +13,7 @@ public class MainController {
 	@RequestMapping(value="/main")
 	public void main() {
 		logger.info("메인 테스트");
+		logger.debug("메인 테스트 디버그");
 	}
 	
 }
