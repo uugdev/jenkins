@@ -9,17 +9,17 @@ public class User {
 	private String userId;
 	private String userPw;
 	private String userNick;
+	private String userMail;
 	private Date joinDate;
 	private int extraMoney;
 	private String userBday;
 	private String userGender;
 	private int userPoint;
-	
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
-				+ ", joinDate=" + joinDate + ", extraMoney=" + extraMoney + ", userBday=" + userBday + ", userGender="
-				+ userGender + ", userPoint=" + userPoint + "]";
+				+ ", userMail=" + userMail + ", joinDate=" + joinDate + ", extraMoney=" + extraMoney + ", userBday="
+				+ userBday + ", userGender=" + userGender + ", userPoint=" + userPoint + "]";
 	}
 	public int getUserNo() {
 		return userNo;
@@ -44,6 +44,12 @@ public class User {
 	}
 	public void setUserNick(String userNick) {
 		this.userNick = userNick;
+	}
+	public String getUserMail() {
+		return userMail;
+	}
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
 	}
 	public Date getJoinDate() {
 		return joinDate;
@@ -76,7 +82,7 @@ public class User {
 		this.userPoint = userPoint;
 	}
 	
-
+	
 	
 	
 	
