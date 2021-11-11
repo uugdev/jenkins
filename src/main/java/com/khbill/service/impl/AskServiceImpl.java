@@ -1,15 +1,21 @@
 package com.khbill.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.AskDao;
 import com.khbill.dto.Ask;
+import com.khbill.dto.Item;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
 import com.khbill.util.Paging;
 
@@ -55,8 +61,84 @@ public class AskServiceImpl implements AskService {
 		return user;
 	}
 	
+	@Override
+	public void setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd) {
+
+		//빈 파일
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		int userNo = ask.getUserNo();
+		int fileNo = askDao.getNextFileNo();
+		int itemNo = askDao.getNextItemNo();
+		int askNo = askDao.getNextAskNo();
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+	
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+				
+		//저장될 파일의 이름 생성하기
+		String fileOrigin = file.getOriginalFilename();
+		String fileStored = fileOrigin + UUID.randomUUID().toString().split("-")[4];
+				
+		//저장할 파일 객체
+		File dest = new File(storedPath, fileStored);
+		
+		try {
+			file.transferTo(dest); //업로드 파일 저장
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		//--------------------------------------------------------
+		com.khbill.dto.File askFile = new com.khbill.dto.File();
+		askFile.setFileOrigin(fileOrigin);
+		askFile.setFileStored(fileStored);
+		askFile.setFileSize((int)file.getSize());
+		askFile.setFileNo(fileNo);
+		
+		item.setUserNo(userNo);
+		item.setFileNo(fileNo);
+		item.setItemNo(itemNo);
+
+		ask.setProductNo(itemNo);
+		ask.setAskNo(askNo);
+		
+		
+		Vote vote = new Vote();
+		vote.setUserNo(userNo);
+		vote.setAskNo(askNo);
+		
+		askDao.insertFile(askFile); //1
+		askDao.insertItem(item); //2
+		askDao.insertAsk(ask); //3
+		
+		if(voteEnd.equals("sysdate+1")) {
+			
+			askDao.insertVote1(vote); //4
+			
+		} else if(voteEnd.equals("sysdate+2")) {
+			
+			askDao.insertVote2(vote); //4
+			
+		} else if(voteEnd.equals("sysdate+3")) {
+			
+			askDao.insertVote3(vote); //4
+			
+		}
+		
+		
+	}
+
 	
 	
 	
 	
-}//class
+	
+	
+}// class

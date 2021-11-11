@@ -3,7 +3,10 @@ package com.khbill.dao.face;
 import java.util.List;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
 
 public interface AskDao {
@@ -43,4 +46,69 @@ public interface AskDao {
 	 */
 	public List<User> selectUserList();
 
+	/**
+	 * 다음 파일번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextFileNo();
+
+
+	/**
+	 * 다음 상품번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextItemNo();
+
+
+	/**
+	 * 다음 질문글번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextAskNo();
+
+
+	/**
+	 * 첨부파일 삽입
+	 * 
+	 * @param askFile
+	 */
+	public void insertFile(File askFile);
+
+
+	/**
+	 * 상품 삽입
+	 * 
+	 * @param item
+	 */
+	public void insertItem(Item item);
+
+
+	/**
+	 * 질문글 삽입
+	 * 
+	 * @param ask
+	 */
+	public void insertAsk(Ask ask);
+
+
+	/**
+	 * 투표 삽입
+	 * 
+	 * @param vote
+	 * @param voteEnd
+	 */
+	public void insertVote1(Vote vote);
+	public void insertVote2(Vote vote);
+	public void insertVote3(Vote vote);
+	
+
+	
+	
+	
+	
+	
+	
 }

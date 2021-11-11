@@ -2,7 +2,10 @@ package com.khbill.service.face;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.khbill.dto.Ask;
+import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
@@ -39,7 +42,22 @@ public interface AskService {
 
 	
 	
-	
+	/**
+	 * 모든 유저 목록 조회
+	 * 
+	 * @return 유저리스트
+	 */
 	public List<User> getUserList();
+
+	
+	/**
+	 * 질문 게시판 글쓰기
+	 * 
+	 * @param ask - 전달받은 질문게시글 객체
+	 * @param item - 전달받은 상품 객체
+	 * @param file - 전달받은 파일 객체
+	 * @param voteEnd - 투표마감일자
+	 */
+	public void setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd);
 	
 }

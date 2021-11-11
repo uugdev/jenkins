@@ -5,17 +5,6 @@
 
 <mapper namespace="com.khbill.dao.face.AskDao">
 
-
-<resultMap type="com.khbill.dto.Ask" id="Ask">
-	<id column="ask_no" property="askNo" />
-	<result column="user_no" property="userNo" />
-	<result column="product_no" property="productNo" />
-	<result column="ask_title" property="askTitle" />
-	<result column="ask_content" property="askContent" />
-	<result column="ask_date" property="askDate" />
-	<result column="ask_hit" property="askHit" />
-</resultMap>
-	
 <resultMap type="com.khbill.dto.User" id="User">
 	<id column="user_no" property="userNo" />
 	<result column="user_id" property="userId" />
@@ -27,6 +16,43 @@
 	<result column="user_bday" property="userBday" />
 	<result column="user_gender" property="userGender" />
 	<result column="user_point" property="userPoint" />
+</resultMap>
+
+<resultMap type="com.khbill.dto.Ask" id="Ask">
+	<id column="ask_no" property="askNo" />
+	<result column="user_no" property="userNo" />
+	<result column="product_no" property="productNo" />
+	<result column="ask_title" property="askTitle" />
+	<result column="ask_content" property="askContent" />
+	<result column="ask_date" property="askDate" />
+	<result column="ask_hit" property="askHit" />
+</resultMap>
+	
+<resultMap type="com.khbill.dto.File" id="File">
+	<id column="file_no" property="fileNo" />
+	<result column="file_origin" property="fileOrigin" />
+	<result column="file_stored" property="fileStored" />
+	<result column="file_size" property="fileSize" />
+	<result column="file_date" property="fileDate" />
+</resultMap>
+
+<resultMap type="com.khbill.dto.Item" id="Item">
+	<id column="item_no" property="itemNo" />
+	<result column="user_no" property="userNo" />
+	<result column="file_no" property="fileNo" />
+	<result column="item_brand" property="itemBrand" />
+	<result column="item_name" property="itemName" />
+	<result column="item_price" property="itemPrice" />
+	<result column="item_status" property="itemStatus" />
+</resultMap>
+
+<resultMap type="com.khbill.dto.Vote" id="Vote">
+	<id column="vote_no" property="voteNo" />
+	<result column="user_no" property="userNo" />
+	<result column="ask_no" property="askNo" />
+	<result column="vote_state" property="voteState" />
+	<result column="vote_start" property="voteStart" />
+	<result column="vote_end" property="voteEnd" />
 </resultMap>
 
 <sql id="selectAsk">
@@ -68,8 +94,48 @@
 </select>
 
 
+<select id="getNextFileNo" resultType="int">
+SELECT zfile_seq.nextval FROM dual
+</select>
+
+<select id="getNextItemNo" resultType="int">
+SELECT zitem_seq.nextval FROM dual
+</select>
+
+<select id="getNextAskNo" resultType="int">
+SELECT zask_seq.nextval FROM dual
+</select>
 
 
+<insert id="insertFile" parameterType="com.khbill.dto.File">
+	INSERT INTO ZFILE (file_no, file_origin, file_stored, file_size, file_date)
+	VALUES (#{fileNo},#{fileOrigin},#{fileStored},#{fileSize},sysdate)
+</insert>
+
+<insert id="insertItem" parameterType="com.khbill.dto.Item">
+	INSERT INTO zitem(item_no,user_no,file_no,item_brand,item_name,item_price)
+	VALUES (#{itemNo},#{userNo},#{fileNo},#{itemBrand},#{itemName},#{itemPrice})
+</insert>
+
+<insert id="insertAsk" parameterType="com.khbill.dto.Ask">
+	INSERT INTO ZASK
+	VALUES (#{askNo},#{userNo},#{productNo},#{askTitle},#{askContent},sysdate,0) 
+</insert>
+
+<insert id="insertVote1" parameterType="com.khbill.dto.Vote">
+	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+1)
+</insert>
+
+<insert id="insertVote2" parameterType="com.khbill.dto.Vote">
+	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+2)
+</insert>
+
+<insert id="insertVote3" parameterType="com.khbill.dto.Vote">
+	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+3)
+</insert>
 
 
 </mapper>
