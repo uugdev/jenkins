@@ -1,15 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<!doctype html>
-<html lang="ko">
-<head>
-    <%--page title--%>
-    <title>이건못참조</title>
-	<c:import url="/WEB-INF/views/layout/head.jsp" />
-</head>
-<body>
-<%--header--%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
+<!-- header end -->
+
+<!-- 개별 스타일 및 스크립트 영역 -->
+
+<!-- 개별 영역 끝 -->
+
+<div class="wrap">
+<div class="container">
 
 <%--
 
@@ -17,7 +20,9 @@
 
 --%>
 
-<%--footer--%>
+</div><!-- .container end -->
+</div><!-- .wrap end -->
+
+<!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>
+
