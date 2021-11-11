@@ -1,7 +1,7 @@
 package com.khbill.util;
 
 public class Paging {
-	private int curPage;	//현재 페이지 번호
+private int curPage;	//현재 페이지 번호
 	
 	private int totalCount;	//총 게시글 수
 	private int listCount;	//한 페이지 당 보여질 게시글의 수
@@ -14,9 +14,10 @@ public class Paging {
 	private int startNo;	//화면에 보이는 게시글의 시작 번호
 	private int endNo;	//화면에 보이는 게시글의 끝 번호
 	
+	private String search; //검색어
+
 	
-	
-	
+
 	
 	//디폴트 생성자 - 페이징 계산이 완료되지 않는다
 	public Paging() { }
@@ -91,9 +92,9 @@ public class Paging {
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + "]";
 	}
-	
+
 	public int getCurPage() {
 		return curPage;
 	}
@@ -148,4 +149,11 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
 }
