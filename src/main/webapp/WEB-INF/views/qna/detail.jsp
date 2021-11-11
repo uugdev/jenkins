@@ -15,6 +15,12 @@ $(document).ready(function(){
 	$("#btnList").click(function(){
 		location.href="/qna/list"
 	})
+	$("#btnUpdate").click(function(){
+		location.href="/qna/update"
+	})
+	$("#btnDelete").click(function(){
+		location.href="/qna/delete"
+	})
 })
 
 </script>
@@ -31,7 +37,11 @@ $(document).ready(function(){
 	width: 95%;
 	height: 95%;
 	text-align: center;
-	vertical-align: middle;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f2f2f2;
+	padding: 10px;
 }
 
 td, th {
@@ -79,8 +89,11 @@ th{
 	</td>
 </tr>
 </table>
-
-<button id="btnList">목록으로</button>
+<div class="text-center">
+	<button id="btnUpdate">수정</button>
+	<button id="btnDelete">삭제</button>
+	<button id="btnList">목록으로</button>
+</div><!-- .text-center end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

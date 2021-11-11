@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.khbill.dto.Qna;
 import com.khbill.dto.QnaComment;
@@ -48,5 +50,16 @@ public class QnaController {
 		
 		model.addAttribute("qna", qna);
 		model.addAttribute("qnaComment", qnaComment);
+	}
+	
+	@RequestMapping(value="/qna/write", method=RequestMethod.GET)
+	public void qnaWrite(HttpSession session) {	}
+	
+	@RequestMapping(value="/qna/write", method=RequestMethod.POST)
+	public String qnaWriteProc(Qna qna, @RequestParam(value="userNick") String userNick) {
+//		logger.info("qna : {}", qna);
+		qnaService.setQnaWrite(qna);
+		
+		return "redirect:/qna/list";
 	}
 }

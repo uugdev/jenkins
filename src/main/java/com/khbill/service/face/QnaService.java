@@ -37,4 +37,10 @@ public interface QnaService {
 	 */
 	public QnaComment getQnaComment(int qnaNo);
 
+	/**
+	 * 
+	 * @param qna
+	 */
+	public void setQnaWrite(Qna qna);
+
 }

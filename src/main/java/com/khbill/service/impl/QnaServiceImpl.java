@@ -48,4 +48,9 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.selectQnaCommentByQnaNo(qnaNo);
 	}
 
+	@Override
+	public void setQnaWrite(Qna qna) {
+		qnaDao.insertQna(qna);
+	}
+
 }

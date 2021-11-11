@@ -14,6 +14,10 @@ $(document).ready(function(){
 	$("#btnBack").click(function(){
 		history.go(-1);
 	})
+	
+	$("#qnaWrite").click(function(){
+		location.href="/qna/write";
+	})
 })
 </script>
 
@@ -54,6 +58,10 @@ th, td {
 </tr>
 </c:forEach>
 </table>
+<button id="qnaWrite" class="pull-right">글쓰기</button>
+
+<div class="clearfix"></div>
+
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 <button id="btnBack">뒤로가기</button>

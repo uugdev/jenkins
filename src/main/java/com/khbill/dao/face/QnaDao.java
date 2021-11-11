@@ -37,4 +37,10 @@ public interface QnaDao {
 	 */
 	public QnaComment selectQnaCommentByQnaNo(int qnaNo);
 
+	/**
+	 * 
+	 * @param qna
+	 */
+	public void insertQna(Qna qna);
+
 }
