@@ -8,18 +8,21 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
-
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/main.css" />
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
     <div class="container-fluid" style="background-color: black;">
-        <div class="container">
-            <div class="col-md-7" style="width: 58%; margin: 20px;">
+        <div class="container" style="padding: 0; margin-bottom: 25px;">
+            <div class="col-md-8" style="margin-top: 25px;">
             	<div>
 	                <div>
+			           	<!-- 인기 게시글 -->
 						<div class="table-responsive" style="background-color:#eee;">
-							<p style="font-size: 16px;">현재 뜨거운 게시글</p>
-							<table class="table">
+							<p style="font-size: 25px;">
+								<img alt="fire" src="https://i.imgur.com/9LX0LXQ.png" width="30px;" height="30px;"> 현재 뜨거운 게시글
+							</p>
+							<table class="table" id="popular_table">
 								<tr>
 									<td><img alt="#" src="#"></td>
 									<td>게시글1</td>
@@ -42,15 +45,39 @@
 						</div>
 					</div>
 					<br>
-	                <div class="table-responsive" style="background-color:#eee;">
+					<!-- 메인 멘트 -->
+	                <div class="table-responsive" style="background-color:#eee; height: 148px;">
 	                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 - 원입니다.</p>
 	                </div>
                 </div>
             </div>
-            <div class="col-md-4" style="background-color:#eee; margin: 20px;">
-                <p>Content.</p>
-                <p>Content.</p>
-                <p>Content.</p>
+            
+            <div class="col-md-1"></div>
+            
+            <!-- 영수증 -->
+            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 25px;">
+                <p>[주문(대기)번호]</p>
+	                <div style="margin: auto; text-align: center;">
+		                <c:choose>
+		                	<c:when test="${!empty userNo }">
+				                <span style="font-size: 30px;">${userNo }</span>
+		                	</c:when>
+		                	<c:when test="${empty userNo }">
+				                <span style="font-size: 30px;">1004</span>
+		                	</c:when>
+		                </c:choose>
+	                </div>
+	            <span>주문내역</span>
+                <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
+                <div style="width: auto; height: 300px; overflow: auto;">
+                
+                </div>
+                <hr style="border: 2px dashed black; margin: 0 10px 10px 0;">
+                <span>총 주문금액</span>
+                <span style="float: right;">0 원</span>
+                <img alt="barcode" src="https://i.imgur.com/hGHStFZ.png" style="margin-top: 10px; width: 100%;">
+                <span id="time" style="float: right;"></span>
+                
             </div>
         </div>
     </div>
@@ -60,6 +87,9 @@
 
 	<!-- 등수 -->
 	<div class="row">
+		<p style="font-size: 30px; text-align: center;">
+			<img alt="good" src="https://i.imgur.com/jGvv25B.png" width="30px;" height="30px;"> 너가 최고야!
+		</p>
 		<div class="col-lg-4">
 			<img class="img-circle"
 				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
@@ -84,25 +114,79 @@
 	</div>
 
 	<hr class="featurette-divider">
-      
-	<div class="row featurette">
-		<div class="col-md-7 col-md-push-5">
-			<h2 class="featurette-heading">
-				테스트
-			</h2>
-			<p class="lead">
-				테스트
-			</p>
+
+		<div class="row featurette">
+			<!-- 공지사항 -->
+			<div class="col-md-9">
+				<div class="table-responsive">
+					<table class="table table-hover" id="notice_table" style="height: 350px;">
+						<tr>
+							<th style="text-align: center; font-size: 20px; background-color: gray;">공지사항</th>
+						</tr>
+						<tr>
+							<td>게시글1</td>
+						</tr>
+						<tr>
+							<td>게시글2</td>
+						</tr>
+						<tr>
+							<td>게시글3</td>
+						</tr>
+						<tr>
+							<td>게시글4</td>
+						</tr>
+						<tr>
+							<td>게시글5</td>
+						</tr>
+						<tr>
+							<td>게시글6</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			
+			<div class="col-md-1"></div>
+			
+			<!-- 인기 게시글 -->
+			<div class="col-md-3">
+				<table class="table table-hover" id="rank_table" style="height: 342px;">
+					<tr>
+						<td>1</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>유저</td>
+					</tr>
+				</table>
+			</div>
 		</div>
-		<div class="col-md-5 col-md-pull-7">
-			<img class="featurette-image img-responsive center-block"
-				data-src="holder.js/500x500/auto" alt="500x500"
-				src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNTAwIiBoZWlnaHQ9IjUwMCIgdmlld0JveD0iMCAwIDUwMCA1MDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzUwMHg1MDAvYXV0bwpDcmVhdGVkIHdpdGggSG9sZGVyLmpzIDIuNi4wLgpMZWFybiBtb3JlIGF0IGh0dHA6Ly9ob2xkZXJqcy5jb20KKGMpIDIwMTItMjAxNSBJdmFuIE1hbG9waW5za3kgLSBodHRwOi8vaW1za3kuY28KLS0+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48IVtDREFUQVsjaG9sZGVyXzE3ZDBjOGUxMmVjIHRleHQgeyBmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MjVwdCB9IF1dPjwvc3R5bGU+PC9kZWZzPjxnIGlkPSJob2xkZXJfMTdkMGM4ZTEyZWMiPjxyZWN0IHdpZHRoPSI1MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjRUVFRUVFIi8+PGc+PHRleHQgeD0iMTg1LjEyNSIgeT0iMjYxLjI4MjgxMjUiPjUwMHg1MDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="
-				data-holder-rendered="true">
-		</div>
-    </div>
-    
-	<hr class="featurette-divider">
+
+		<hr class="featurette-divider">
 	<p class="pull-right"><a href="#">맨 위로</a></p>
 
 </div><!-- .container #main end -->
@@ -110,4 +194,4 @@
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-
+<script src="/resources/js/main.js"></script>
