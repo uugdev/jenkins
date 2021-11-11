@@ -29,13 +29,14 @@
 	    <result column="user_bday" property="userBday" />
 	    <result column="user_gender" property="userGender" />
 	    <result column="user_point" property="userPoint" />
-</resultMap>
+	</resultMap>
 	
 	<select id="selectReviewList" resultMap="Review" parameterType="com.khbill.util.Paging">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
 		        SELECT 
-		        	review_no, item_no, file_no, U.user_no, user_nick, review_title, review_content, review_date, review_hit
+		        	review_no, item_no, file_no, U.user_no, user_nick
+		        	, review_title, review_content, review_date, review_hit
 		        FROM zreview R
 		        INNER JOIN zuser U
 		            ON U.user_no = R.user_no
@@ -47,6 +48,23 @@
 	
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM ZREVIEW
+	</select>
+	
+	<update id="updatehit" parameterType="com.khbill.dto.Review">
+		UPDATE ZREVIEW
+		SET review_hit = review_hit + 1
+		WHERE review_no = #{reviewNo }
+	</update>
+	
+	<select id="selectReviewByReviewNo" resultMap="Review" parameterType="com.khbill.dto.Review">
+		SELECT * FROM (
+		        SELECT review_no, item_no, U.user_no, user_nick, file_no, review_title, review_content, review_date, review_hit
+		        FROM zuser U
+		        INNER JOIN zreview R
+		            ON U.user_no = R.user_no
+		        ORDER BY user_no
+		) ZREVIEW
+		WHERE review_no = #{reviewNo }
 	</select>
 	
 </mapper>

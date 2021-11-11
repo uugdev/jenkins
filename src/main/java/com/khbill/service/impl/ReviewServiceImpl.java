@@ -6,9 +6,13 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.ReviewDao;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -33,6 +37,25 @@ public class ReviewServiceImpl implements ReviewService {
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 
 		return paging;
+	}
+
+	@Override
+	public Review getReviewDetail(Review detailReview) {
+		
+		reviewDao.updatehit(detailReview); //조회수 증가
+		
+		return reviewDao.selectReviewByReviewNo(detailReview);
+	}
+
+	@Override
+	public File getAttachFile(Review detailReview) {
+
+		return null;
+	}
+
+	@Override
+	public void setReviewWrite(Review review, User user, Item item, MultipartFile file) {
+		
 	}
 	
 }

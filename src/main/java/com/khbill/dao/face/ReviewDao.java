@@ -22,6 +22,21 @@ public interface ReviewDao {
 	 * 
 	 * @return 총 게시글 수
 	 */
-	public int selectCntAll();	
+	public int selectCntAll();
+
+	/**
+	 * 조회하려는 게시글의 조회수를 1 증가시킨다
+	 * 
+	 * @param detailReview - 게시글 번호 객체
+	 */
+	public void updatehit(Review detailReview);
+
+	/**
+	 * 게시글 번호를 이용하여 게시글을 조회한다
+	 * 
+	 * @param detailReview- 조회하려는 게시글의 글 번호 객체
+	 * @return 조회된 게시글 정보
+	 */
+	public Review selectReviewByReviewNo(Review detailReview);
 
 }
