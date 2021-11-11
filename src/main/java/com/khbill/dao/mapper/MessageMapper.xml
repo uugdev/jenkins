@@ -14,6 +14,19 @@
 		<result column="msg_date" property="msgDate" />
 		<result column="msg_check" property="msgCheck" />
 	</resultMap>
+	
+	<resultMap type="com.khbill.dto.User" id="User">
+	    <id column="user_no" property="userNo" />
+	    <result column="user_id" property="userId" />
+	    <result column="user_pw" property="userPw" />
+	    <result column="user_nick" property="userNick" />
+	    <result column="user_mail" property="userMail" />
+	    <result column="join_date" property="joinDate" />
+	    <result column="extra_money" property="extraMoney" />
+	    <result column="user_bday" property="userBday" />
+	    <result column="user_gender" property="userGender" />
+	    <result column="user_point" property="userPoint" />
+	</resultMap>
 
 	<insert id="insertMessage" parameterType="com.khbill.dto.Message">
 		<selectKey order="BEFORE" resultType="int" keyProperty="msgNo">
@@ -24,7 +37,44 @@
 		VALUES (#{msgNo }, #{receiverNo }, #{senderNo }, #{msgTitle }, #{msgContent })
 		
 	</insert>
+	
+	<select id="selectRcvdMsgList" resultType="HashMap">
+		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
+		FROM ZMESSAGE m
+		INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
+		WHERE receiver_no = #{userNo }
+	</select>
+	
+	<select id="selectSendMsgList" resultType="HashMap">
+		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
+		FROM ZMESSAGE m
+		INNER JOIN ZUSER u ON(m.receiver_no = u.user_no)
+		WHERE sender_no = #{userNo }
+	</select>
+	
+	<select id="selectReceiverNoByMsgNo" resultType="int">
+		SELECT receiver_no
+		FROM zmessage
+		WHERE msg_no = #{msgNo }
+	</select>
+	
+	<select id="selectSenderNoByMsgNo" resultType="int">
+		SELECT sender_no
+		FROM zmessage
+		WHERE msg_no = #{msgNo }
+	</select>
+	
+	<update id="updateMsgCheckToY" parameterType="com.khbill.dto.Message">
+		UPDATE zmessage
+		SET msg_check = 'y'
+		WHERE msg_no = #{msgNo }
+	</update>
 
+	<select id="selectMsgByMsgNo" resultMap="Message" parameterType="com.khbill.dto.Message">
+		SELECT msg_no, receiver_no, sender_no, msg_title, msg_content, msg_date, msg_check
+		FROM zmessage
+		WHERE msg_no = #{msgNo }
+	</select>
 
 
 
