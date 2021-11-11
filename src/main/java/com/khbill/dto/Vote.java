@@ -9,11 +9,11 @@ public class Vote {
 	private int askNo;
 	private String voteState;
 	private Date voteStart;
-	private String voteEnd;
+	private Date voteEnd;
 	@Override
 	public String toString() {
 		return "Vote [voteNo=" + voteNo + ", userNo=" + userNo + ", askNo=" + askNo + ", voteState=" + voteState
-				+ ", voteEnd=" + voteEnd + "]";
+				+ ", voteStart=" + voteStart + ", voteEnd=" + voteEnd + "]";
 	}
 	public int getVoteNo() {
 		return voteNo;
@@ -45,13 +45,14 @@ public class Vote {
 	public void setVoteStart(Date voteStart) {
 		this.voteStart = voteStart;
 	}
-	public String getVoteEnd() {
+	public Date getVoteEnd() {
 		return voteEnd;
 	}
-	public void setVoteEnd(String voteEnd) {
+	public void setVoteEnd(Date voteEnd) {
 		this.voteEnd = voteEnd;
 	}
 
 	
+
 
 }
