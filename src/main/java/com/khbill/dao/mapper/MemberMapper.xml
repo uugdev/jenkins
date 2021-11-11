@@ -39,7 +39,7 @@
 	
 	<select id="selectUserNoByUserNick" parameterType="com.khbill.dto.User"  resultType="int">
 		SELECT user_no FROM zuser
-		WHERE user_nick #{userNick}
+		WHERE user_nick = #{userNick}
 	</select>
 	
 </mapper>
