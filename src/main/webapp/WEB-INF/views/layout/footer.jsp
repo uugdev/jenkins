@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <footer>
     <div id="footer">
-		footer
+        footer
     </div>
 </footer>
 </body>
