@@ -42,6 +42,9 @@ td:nth-child(2) {
 <h1 style="text-align: center;">구매 후기</h1>
 <hr>
 <!-- 구분선 삭제 예정 -->
+<span class="pull-left">총게시글수  ${paging.totalCount }</span>
+<div class="clearfix"></div>
+<br>
 
 <table class="table table-striped table-hover">
 <thead>
@@ -57,7 +60,7 @@ td:nth-child(2) {
 <c:forEach items="${list }" var="review">
 	<tr>
 		<td>${review.reviewNo }</td>
-		<td><a href="/review/view?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
+		<td><a href="/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
 		<td>${review.user.userNick }</td>
 		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
 		<td>${review.reviewHit }</td>
@@ -67,8 +70,6 @@ td:nth-child(2) {
 </table>
 
 <button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
-<span class="pull-right">total : ${paging.totalCount }</span>
-<div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
