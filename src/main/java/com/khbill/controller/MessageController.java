@@ -57,7 +57,7 @@ public class MessageController {
 		
 		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(userNo);
 	
-		logger.info("resultMapList 정보 : {}", resultMapList);
+//		logger.info("resultMapList 정보 : {}", resultMapList);
 		
 		model.addAttribute("resultMapList", resultMapList);
 		
@@ -98,6 +98,23 @@ public class MessageController {
 						
 		return "message/detail";
 
+	}
+	
+	@RequestMapping(value="/message/delete")
+	public String msgDelete(Message msg, HttpSession session) {
+		logger.info("/message/delete [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		int receiverNo = messageService.getReceiverNo(msg);
+		int senderNo = messageService.getSenderNo(msg);
+		
+		if(userNo != receiverNo && userNo != senderNo) {
+			return "message/error";
+		}
+		
+		messageService.setMsgDelete(msg, userNo, receiverNo, senderNo);
+		
+		return "message/send"; //referer 값 받아서 수정해야함
 	}
 	
 	

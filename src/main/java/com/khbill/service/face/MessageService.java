@@ -54,5 +54,15 @@ public interface MessageService {
 	 */
 	public Message getMsgDetail(Message msg, int userNo, int receiverNo);
 
+	/**
+	 * 메세지 삭제
+	 * 
+	 * @param msg - 삭제하려는 메세지 객체
+	 * @param senderNo - 수신자 번호
+	 * @param receiverNo - 송신자 번호
+	 * @param userNo - 세션에 있는 유저 번호
+	 */
+	public void setMsgDelete(Message msg, int userNo, int receiverNo, int senderNo);
+
 
 }

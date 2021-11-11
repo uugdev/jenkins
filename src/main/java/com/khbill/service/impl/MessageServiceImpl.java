@@ -55,4 +55,15 @@ public class MessageServiceImpl implements MessageService {
 		
 		return messageDao.selectMsgByMsgNo(msg);
 	}
+
+	@Override
+	public void setMsgDelete(Message msg, int userNo, int receiverNo, int senderNo) {
+		
+		if(userNo == receiverNo) { 
+			messageDao.updateReceiverShowToN(msg);
+		}
+		
+		messageDao.updateSenderShowToN(msg);
+	}
+		
 }
