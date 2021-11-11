@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
 function submitContents(elClickedObj) {
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+	oEditors.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
 	
 	try {
 		elClickedObj.form.submit();
@@ -50,8 +50,8 @@ $(document).ready(function() {
 	<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>
 </div>
 <div class="form-group">
-	<label for="title">제목</label>
-	<input type="text" id="title" name="title" class="form-control"/>
+	<label for="askTitle">제목</label>
+	<input type="text" id="askTitle" name="askTitle" class="form-control"/>
 </div>
 
 <!-- 상품 브랜드명 상품명 가격 사진 구매고민이유가본문  -->
@@ -60,16 +60,16 @@ $(document).ready(function() {
 
 
 <div class="form-group">
-	<label for="">브랜드</label>
-	<input type="text" id="title" name="title" class="form-control"/>
+	<label for="itemBrand">브랜드</label>
+	<input type="text" id="itemBrand" name="itemBrand" class="form-control"/>
 </div>
 <div class="form-group">
-	<label for="">상품명</label>
-	<input type="text" id="title" name="title" class="form-control"/>
+	<label for="itemName">상품명</label>
+	<input type="text" id="itemName" name="itemName" class="form-control"/>
 </div>
 <div class="form-group">
-	<label for="">가격</label>
-	<input type="text" id="title" name="title" class="form-control"/>
+	<label for="itemPrice">가격</label>
+	<input type="text" id="itemPrice" name="itemPrice" class="form-control"/>
 </div>
 
 <div class="form-group">
@@ -78,8 +78,8 @@ $(document).ready(function() {
 </div>
 
 <div class="form-group">
-	<label for="content">구구절절</label>
-	<textarea rows="10" style="width: 100%;" id="content" name="content"></textarea>
+	<label for="askContent">구구절절</label>
+	<textarea rows="10" style="width: 100%;" id="askContent" name="askContent"></textarea>
 </div>
 
 <div class="form-group">
@@ -111,7 +111,7 @@ $(document).ready(function() {
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "content",
+	elPlaceHolder: "askContent",
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 });
