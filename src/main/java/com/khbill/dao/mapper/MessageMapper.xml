@@ -43,6 +43,7 @@
 		FROM ZMESSAGE m
 		INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
 		WHERE receiver_no = #{userNo }
+		ORDER BY msg_date DESC
 	</select>
 	
 	<select id="selectSendMsgList" resultType="HashMap">
@@ -50,6 +51,7 @@
 		FROM ZMESSAGE m
 		INNER JOIN ZUSER u ON(m.receiver_no = u.user_no)
 		WHERE sender_no = #{userNo }
+		ORDER BY msg_date DESC
 	</select>
 	
 	<select id="selectReceiverNoByMsgNo" resultType="int">

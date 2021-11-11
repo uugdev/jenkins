@@ -34,15 +34,15 @@ $(document).ready(function() {
 <form action="/message/write" method="post">
 
 
-	<label for="to">받는 사람</label>
-	<input type="text" id="to" name="to" />
+	<label for="userNick">받는 사람</label>
+	<input type="text" id="userNick" name="userNick" />
 	<br>
 	
-	<label for="title">제목</label>
+	<label for="msgTitle">제목</label>
 	<input type="text" id="msgTitle" name="msgTitle" />
 	<br>
 	
-	<label for="content">내용</label>
+	<label for="msgContent">내용</label>
 	<textarea rows="10" id="msgContent" name="msgContent"></textarea>
 	<br>
 
