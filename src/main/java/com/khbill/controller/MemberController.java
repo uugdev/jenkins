@@ -22,8 +22,7 @@ public class MemberController {
 	
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
-	public void login( ) {
-	}
+	public void login( ) {	}
 
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String loginProc(User user, HttpSession session ) {
@@ -58,26 +57,25 @@ public class MemberController {
 		return "/main";
 	}
 	
-//	@RequestMapping(value="/member/join", method=RequestMethod.GET)
-//	public void join( ) {
-//		logger.info("/member/join [GET]");
-//	}
-//	
-//	@RequestMapping(value="/member/join", method=RequestMethod.POST)
-//	public String joinProc(Member member) {
+	@RequestMapping(value="/member/join", method=RequestMethod.GET)
+	public void join( ) {	}
+	
+	@RequestMapping(value="/member/join", method=RequestMethod.POST)
+	public String joinProc(User user) {
 //		logger.info("/member/join [POST]");
-//		
-//		boolean join = memberService.checkInfo(member);
-//		
-//		if( join == true) {
-//			memberService.join(member);
-//			return "member/login";
-//		} else {
-//			logger.info("JOIN failed");
-//			return "member/main";
-//		}
-//		
-//		
-//	}
+//		logger.info("{}", user);
+		
+		boolean join = memberService.checkInfo(user);
+		
+		if( join == true) {
+			memberService.join(user);
+			return "member/login";
+		} else {
+			logger.info("JOIN failed");
+			return "/main";
+		}
+		
+		
+	}
 	
 }

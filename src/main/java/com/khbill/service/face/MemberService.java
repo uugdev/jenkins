@@ -18,4 +18,17 @@ public interface MemberService {
 	 */
 	public User getUserInfo(User user);
 
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public boolean checkInfo(User user);
+
+	/**
+	 * 
+	 * @param user
+	 */
+	public void join(User user);
+
 }

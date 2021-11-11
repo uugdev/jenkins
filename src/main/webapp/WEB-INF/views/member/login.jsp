@@ -12,7 +12,7 @@
 $(document).ready(function(){
 	
 	$("#btnBack").click(function(){
-		history.go(-1);
+		location.href = "/main"
 	})
 	
 })
@@ -47,7 +47,7 @@ input[type=text]{
 </tr>
 </table>
 <button type="submit">로그인</button>
-<button type="button" id="btnBack">메인으로</button>
+<button type="button" id="btnMain">메인으로</button>
 </div>
 </form>
 

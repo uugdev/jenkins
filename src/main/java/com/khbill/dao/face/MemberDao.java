@@ -18,4 +18,17 @@ public interface MemberDao {
 	 */
 	public User selectUserByUserInfo(User user);
 
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public int checkInfo(User user);
+
+	/**
+	 * 
+	 * @param user
+	 */
+	public void insertMember(User user);
+
 }

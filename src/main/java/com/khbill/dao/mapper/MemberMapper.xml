@@ -27,4 +27,14 @@
 		WHERE user_id=#{userId} AND user_pw=#{userPw}
 	</select>
 	
+	<select id="checkInfo" parameterType="com.khbill.dto.User" resultType="int">
+		SELECT COUNT(*) FROM zuser
+		WHERE user_id=#{userId} OR user_nick=#{userNick}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.khbill.dto.User">
+		INSERT INTO zuser( user_no, user_id, user_pw, user_nick, user_mail, extra_money, user_bday, user_gender)
+		VALUES (zuser_seq.nextval, #{userId}, #{userPw}, #{userNick}, #{userMail}, #{extraMoney}, #{userBday}, #{userGender} )
+	</insert>
+	
 </mapper>

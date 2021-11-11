@@ -34,4 +34,20 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.selectUserByUserInfo(user);
 	}
 
+	@Override
+	public boolean checkInfo(User user) {
+		
+		int i = memberDao.checkInfo(user);
+		if(i <= 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public void join(User user) {
+		memberDao.insertMember(user);
+	}
+
 }
