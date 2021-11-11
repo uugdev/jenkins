@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Qna {
 
-	
 	private int qnaNo;
 	private String qnaTitle;
 	private String qnaContent;

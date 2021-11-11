@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.khbill.dao.face.QnaDao">
+	
+	<resultMap type="com.khbill.dto.Qna" id="Qna">
+		<result column="qna_no" property="qnaNo" />
+		<result column="qna_title" property="qnaTitle" />
+		<result column="qna_content" property="qnaContent" />
+		<result column="qna_category" property="qnaCategory" />
+		<result column="qna_status" property="qnaStatus" />
+		<result column="qna_date" property="qnaDate" />
+		<result column="user_no" property="userNo" />
+	</resultMap>
+	<resultMap type="com.khbill.dto.QnaComment" id="QnaComment">
+		<result column="qna_com_no" property="qnaComNo" />
+		<result column="qna_no" property="qnaNo" />
+		<result column="admin_no" property="adminNo" />
+		<result column="qna_com_content" property="qnaComContent" />
+		<result column="qna_com_date" property="qnaComDate" />
+	</resultMap>
+	
+	<select id="selectQnaListByUserNo" parameterType="hashmap" resultMap="Qna">
+		SELECT * FROM (
+			SELECT rownum rnum, Q.* FROM (
+				SELECT * FROM zqna
+				WHERE user_no = #{userNo}
+				ORDER BY qna_date DESC
+			) Q
+		) zqna
+		WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
+	<select id="selectCntAll" parameterType="int" resultType="int">
+		SELECT count(*) FROM zqna
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectQnaDetailByQnaNo" parameterType="int" resultMap="Qna">
+		SELECT * FROM zqna
+		WHERE qna_no = #{qnaNo}
+	</select>
+	
+	<select id="selectQnaCommentByQnaNo" parameterType="int" resultMap="QnaComment">
+		SELECT * FROM zqna_comment
+		WHERE qna_no = #{qnaNo}
+		ORDER BY qna_com_date DESC
+	</select>
+	
+	
+</mapper>
