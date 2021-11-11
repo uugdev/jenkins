@@ -18,7 +18,12 @@ body {
 	padding-top: 30px;
 }
 
-.marketing .col-lg-4 {
+#main .col-lg-4 {
 	margin-bottom: 20px;
 	text-align: center;
+}
+
+.container {
+	text-align: center;
+	vertical-align: middle;
 }
