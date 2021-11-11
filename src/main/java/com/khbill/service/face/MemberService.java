@@ -30,5 +30,12 @@ public interface MemberService {
 	 * @param user
 	 */
 	public void join(User user);
+	
+	/**
+	 * 
+	 * 
+	 * @param userNick
+	 */
+	public int getUserNo(String userNick);
 
 }

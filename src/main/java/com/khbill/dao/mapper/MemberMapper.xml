@@ -37,4 +37,9 @@
 		VALUES (zuser_seq.nextval, #{userId}, #{userPw}, #{userNick}, #{userMail}, #{extraMoney}, #{userBday}, #{userGender} )
 	</insert>
 	
+	<select id="selectUserNoByUserNick" parameterType="com.khbill.dto.User"  resultType="int">
+		SELECT user_no FROM zuser
+		WHERE user_nick #{userNick}
+	</select>
+	
 </mapper>

@@ -30,5 +30,12 @@ public interface MemberDao {
 	 * @param user
 	 */
 	public void insertMember(User user);
+	
+	/**
+	 * 
+	 * @param userNick
+	 * @return
+	 */
+	public int selectUserNoByUserNick(String userNick);
 
 }

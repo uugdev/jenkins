@@ -49,5 +49,11 @@ public class MemberServiceImpl implements MemberService {
 	public void join(User user) {
 		memberDao.insertMember(user);
 	}
+	
+	@Override
+	public int getUserNo(String userNick) {
+		return memberDao.selectUserNoByUserNick(userNick);
+		
+	}
 
 }
