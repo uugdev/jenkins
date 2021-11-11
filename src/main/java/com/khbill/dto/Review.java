@@ -5,19 +5,32 @@ import java.util.Date;
 public class Review {
 
 	private int reviewNo;
+	private int itemNo;
 	private int userNo;
 	private int fileNo;
-	private int itemNo;
 	private String reviewTitle;
 	private String reviewContent;
 	private Date reviewDate;
 	private int reviewHit;
+	
+	
+	
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Review [reviewNo=" + reviewNo + ", userNo=" + userNo + ", fileNo=" + fileNo + ", itemNo=" + itemNo
 				+ ", reviewTitle=" + reviewTitle + ", reviewContent=" + reviewContent + ", reviewDate=" + reviewDate
-				+ ", reviewHit=" + reviewHit + "]";
+				+ ", reviewHit=" + reviewHit + ", user=" + user + "]";
 	}
+	
 	public int getReviewNo() {
 		return reviewNo;
 	}
@@ -66,6 +79,4 @@ public class Review {
 	public void setReviewHit(int reviewHit) {
 		this.reviewHit = reviewHit;
 	}
-	
-	
 }

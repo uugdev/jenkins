@@ -15,12 +15,14 @@ public class User {
 	private String userBday;
 	private String userGender;
 	private int userPoint;
+	
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userMail=" + userMail + ", joinDate=" + joinDate + ", extraMoney=" + extraMoney + ", userBday="
 				+ userBday + ", userGender=" + userGender + ", userPoint=" + userPoint + "]";
 	}
+	
 	public int getUserNo() {
 		return userNo;
 	}
