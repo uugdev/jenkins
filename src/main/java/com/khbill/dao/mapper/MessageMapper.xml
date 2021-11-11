@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.khbill.dao.face.MessageDao">
+
+	<resultMap type="com.khbill.dto.Message" id="Message">
+		<id column="msg_no" property="msgNo" />
+		<result column="receiver_no" property="receiverNo" />
+		<result column="sender_no" property="senderNo" />
+		<result column="msg_title" property="msgTitle" />
+		<result column="msg_content" property="msgContent" />
+		<result column="msg_date" property="msgDate" />
+		<result column="msg_check" property="msgCheck" />
+	</resultMap>
+
+	<insert id="insertMessage" parameterType="com.khbill.dto.Message">
+		<selectKey order="BEFORE" resultType="int" keyProperty="msgNo">
+			SELECT zmessage_seq.nextval FROM dual
+		</selectKey>
+
+		INSERT INTO zmessage (msg_no, receiver_no, sender_no, msg_title, msg_content)
+		VALUES (#{msgNo }, #{receiverNo }, #{senderNo }, #{msgTitle }, #{msgContent })
+		
+	</insert>
+
+
+
+
+
+</mapper>
