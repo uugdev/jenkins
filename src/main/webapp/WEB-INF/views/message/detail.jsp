@@ -18,14 +18,17 @@
 
 <table>
 	<tr>
-		<td>제목<td>
+		<td>제목</td>
 		<td>${msg.msgTitle }</td>
 	</tr>
-	<tr height="250">
+	<tr>
 		<td>내용</td>
 		<td>${msg.msgContent }</td>
 	</tr>
 </table>
+
+
+<a href="/message/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

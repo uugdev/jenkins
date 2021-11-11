@@ -62,5 +62,19 @@ public interface MessageDao {
 	 */
 	public Message selectMsgByMsgNo(Message msg);
 
+	/**
+	 * 세션에서 받아온 userNo와 receiverNo가 일치하면, 받은 쪽지함에서 안보이게 한다
+	 * 
+	 * @param msg - 상태를 변경하려는 쪽지 객체
+	 */
+	public void updateReceiverShowToN(Message msg);
+	
+	/**
+	 * 세션에서 받아온 userNo와 senderNo가 일치하면, 보낸 쪽지함에서 안보이게 한다
+	 * 
+	 * @param msg - 상태를 변경하려는 쪽지 객체
+	 */
+	public void updateSenderShowToN(Message msg);
+
 
 }

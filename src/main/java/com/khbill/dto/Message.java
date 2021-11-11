@@ -11,11 +11,14 @@ public class Message {
 	private String msgContent;
 	private Date msgDate;
 	private String msgCheck;
+	private String receiverShow;
+	private String senderShow;
 	
 	@Override
 	public String toString() {
 		return "Message [msgNo=" + msgNo + ", receiverNo=" + receiverNo + ", senderNo=" + senderNo + ", msgTitle="
-				+ msgTitle + ", msgContent=" + msgContent + ", msgDate=" + msgDate + ", msgCheck=" + msgCheck + "]";
+				+ msgTitle + ", msgContent=" + msgContent + ", msgDate=" + msgDate + ", msgCheck=" + msgCheck
+				+ ", receiverShow=" + receiverShow + ", senderShow=" + senderShow + "]";
 	}
 
 	public int getMsgNo() {
@@ -70,8 +73,25 @@ public class Message {
 		return msgCheck;
 	}
 
-	public void setMsgcheck(String msgCheck) {
+	public void setMsgCheck(String msgCheck) {
 		this.msgCheck = msgCheck;
 	}
+
+	public String getReceiverShow() {
+		return receiverShow;
+	}
+
+	public void setReceiverShow(String receiverShow) {
+		this.receiverShow = receiverShow;
+	}
+
+	public String getSenderShow() {
+		return senderShow;
+	}
+
+	public void setSenderShow(String senderShow) {
+		this.senderShow = senderShow;
+	}
+	
 	
 }

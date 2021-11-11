@@ -2,7 +2,12 @@ package com.khbill.service.face;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewService {
@@ -13,7 +18,7 @@ public interface ReviewService {
 	 * @param paging - 페이징 정보 객체
 	 * @return 페이징이 적용된 게시글 목록
 	 */
-	List<Review> getReviewList(Paging paging);
+	public List<Review> getReviewList(Paging paging);
 
 	/**
 	 * 게시글 목록을 위한 페이징 객체를 생성한다
@@ -26,7 +31,33 @@ public interface ReviewService {
 	 * @param paramData - curPage를 저장하고있는 객체
 	 * @return 계산이 완료된 Paging객체
 	 */
-	Paging getPaging(Paging paramData);
+	public Paging getPaging(Paging paramData);
+
+	/**
+	 * 게시글 상세보기
+	 * 
+	 * @param detailReview - 상세 조회할 게시글 번호 DTO
+	 * @return 조회된 상세 게시글 정보
+	 */
+	public Review getReviewDetail(Review detailReview);
+
+	/**
+	 * 게시글번호를 이용하여 업로드된 파일의 정보를 조회한다
+	 * 
+	 * @param detailReview - 조회할 게시글 번호를 가진 객체
+	 * @return 첨부파일 정보
+	 */
+	public File getAttachFile(Review detailReview);
+
+	/**
+	 * 후기 게시판 글쓰기
+	 * 
+	 * @param review - 전달 받은 게시글 객체
+	 * @param user - 전달 받은 사용자 객체
+	 * @param item - 전달 받은 상품 객체 
+	 * @param file - 전달 받은 파일 객체
+	 */
+	public void setReviewWrite(Review review, User user, Item item, MultipartFile file);
 
 
 }

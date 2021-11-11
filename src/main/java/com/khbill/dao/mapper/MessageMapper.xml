@@ -13,6 +13,8 @@
 		<result column="msg_content" property="msgContent" />
 		<result column="msg_date" property="msgDate" />
 		<result column="msg_check" property="msgCheck" />
+		<result column="receiver_show" property="receiverShow" />
+		<result column="sender_show" property="senderShow" />
 	</resultMap>
 	
 	<resultMap type="com.khbill.dto.User" id="User">
@@ -42,7 +44,7 @@
 		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
 		FROM ZMESSAGE m
 		INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
-		WHERE receiver_no = #{userNo }
+		WHERE receiver_no = #{userNo } AND receiver_show = 'y'
 		ORDER BY msg_date DESC
 	</select>
 	
@@ -50,7 +52,7 @@
 		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
 		FROM ZMESSAGE m
 		INNER JOIN ZUSER u ON(m.receiver_no = u.user_no)
-		WHERE sender_no = #{userNo }
+		WHERE sender_no = #{userNo } AND sender_show = 'y'
 		ORDER BY msg_date DESC
 	</select>
 	
@@ -77,8 +79,18 @@
 		FROM zmessage
 		WHERE msg_no = #{msgNo }
 	</select>
+	
+	<update id="updateReceiverShowToN" parameterType="com.khbill.dto.Message">
+		UPDATE zmessage
+		SET receiver_show = 'n'
+		WHERE msg_no = #{msgNo }
+	</update>
 
-
+	<update id="updateSenderShowToN" parameterType="com.khbill.dto.Message">
+		UPDATE zmessage
+		SET sender_show = 'n'
+		WHERE msg_no = #{msgNo }
+	</update>
 
 
 </mapper>
