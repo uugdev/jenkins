@@ -46,7 +46,7 @@
 					</div>
 					<br>
 					<!-- 메인 멘트 -->
-	                <div class="table-responsive" style="background-color:#eee; height: 148px;">
+	                <div class="table-responsive" style="background-color:#eee; height: 153px;">
 	                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 - 원입니다.</p>
 	                </div>
                 </div>
@@ -151,18 +151,6 @@
 			<div class="col-md-3">
 				<table class="table table-hover" id="rank_table" style="height: 342px;">
 					<tr>
-						<td>1</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>유저</td>
-					</tr>
-					<tr>
 						<td>4</td>
 						<td>유저</td>
 					</tr>
@@ -180,6 +168,14 @@
 					</tr>
 					<tr>
 						<td>8</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>유저</td>
+					</tr>
+					<tr>
+						<td>10</td>
 						<td>유저</td>
 					</tr>
 				</table>

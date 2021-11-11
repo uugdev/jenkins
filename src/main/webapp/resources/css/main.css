@@ -17,6 +17,10 @@
 	font-size: 16px;
 }
 
+#rank_table td {
+	height: 50px;
+}
+
 #notice_table td {
 	font-size: 20px;
 	padding-left: 30px;
@@ -24,6 +28,9 @@
 
 #popular_table td {
 	font-size: 20px;
-	height: 100px;
-	
+	height: 105px;
+}
+
+#popular_table {
+	margin-bottom: 0;
 }
