@@ -10,12 +10,12 @@ public class Message {
 	private String msgTitle;
 	private String msgContent;
 	private Date msgDate;
-	private String msgcheck;
+	private String msgCheck;
 	
 	@Override
 	public String toString() {
 		return "Message [msgNo=" + msgNo + ", receiverNo=" + receiverNo + ", senderNo=" + senderNo + ", msgTitle="
-				+ msgTitle + ", msgContent=" + msgContent + ", msgDate=" + msgDate + ", msgcheck=" + msgcheck + "]";
+				+ msgTitle + ", msgContent=" + msgContent + ", msgDate=" + msgDate + ", msgCheck=" + msgCheck + "]";
 	}
 
 	public int getMsgNo() {
@@ -66,12 +66,12 @@ public class Message {
 		this.msgDate = msgDate;
 	}
 
-	public String getMsgcheck() {
-		return msgcheck;
+	public String getMsgCheck() {
+		return msgCheck;
 	}
 
-	public void setMsgcheck(String msgcheck) {
-		this.msgcheck = msgcheck;
+	public void setMsgcheck(String msgCheck) {
+		this.msgCheck = msgCheck;
 	}
 	
 }
