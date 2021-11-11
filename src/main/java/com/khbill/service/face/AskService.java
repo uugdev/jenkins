@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
 
 public interface AskService {
@@ -59,5 +61,37 @@ public interface AskService {
 	 * @param voteEnd - 투표마감일자
 	 */
 	public void setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd);
+
+	/**
+	 * 질문글번호로 상세조회
+	 * 
+	 * @param askNo - 전달받은 질문글번호
+	 * @return
+	 */
+	public Ask getAskDetail(int askNo);
+
+	/**
+	 * 질문글번호로 투표조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public Vote getVote(int askNo);
+
+	/**
+	 * 질문글번호롤 상품조회
+	 * 
+	 * @param productNo
+	 * @return
+	 */
+	public Item getItem(int productNo);
+
+	/**
+	 * 파일번호로 파일조회
+	 * 
+	 * @param fileNo
+	 * @return
+	 */
+	public File getFile(int fileNo);
 	
 }

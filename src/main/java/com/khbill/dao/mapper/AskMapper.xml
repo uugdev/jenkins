@@ -137,5 +137,32 @@ SELECT zask_seq.nextval FROM dual
 	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+3)
 </insert>
 
+<select id="selectAskByAskNo" resultMap="Ask" parameterType="int">
+	<include refid="selectAsk"/>
+	WHERE ask_no = #{askNo }
+</select>
+
+<select id="selectFileByFileNo" resultMap="File" parameterType="int">
+	SELECT * FROM zfile
+	WHERE file_no = #{fileNo}
+</select>
+
+<select id="selectItemByProductNo" resultMap="Item" parameterType="int">
+	SELECT * FROM zitem
+	WHERE item_no = #{productNo}
+</select>
+
+<select id="selectVoteByAskNo" resultMap="Vote" parameterType="int">
+	SELECT * FROM zvote
+	WHERE ask_no = #{askNo}
+</select>
+
+
+
+
+
+
+
+
 
 </mapper>

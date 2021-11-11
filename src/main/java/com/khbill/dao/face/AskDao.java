@@ -103,6 +103,41 @@ public interface AskDao {
 	public void insertVote1(Vote vote);
 	public void insertVote2(Vote vote);
 	public void insertVote3(Vote vote);
+
+
+	/**
+	 * 질문글번호로 조회
+	 * 
+	 * @param askNo
+	 */
+	public Ask selectAskByAskNo(int askNo);
+
+
+	/**
+	 * 파일번호로 파일조회
+	 * 
+	 * @param fileNo
+	 * @return
+	 */
+	public File selectFileByFileNo(int fileNo);
+
+
+	/**
+	 * 상품번호로 상품조회
+	 * 
+	 * @param productNo
+	 * @return
+	 */
+	public Item selectItemByProductNo(int productNo);
+
+
+	/**
+	 * 투표번호로 투표객체조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public Vote selectVoteByAskNo(int askNo);
 	
 
 	

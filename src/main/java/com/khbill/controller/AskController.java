@@ -1,9 +1,5 @@
 package com.khbill.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
@@ -92,9 +89,33 @@ public class AskController {
 	
 	
 	
+	@RequestMapping(value="/detail", method=RequestMethod.GET)
+	public void detail(int askNo,Model model) {
+		logger.info("/ask/detail [GET]");
+		
+		Ask ask = askService.getAskDetail(askNo);
+		logger.info("ask : {}", ask);
+		
+		Vote vote = askService.getVote(askNo);
+		logger.info("vote : {}", vote);
+		Item item = askService.getItem(ask.getProductNo());
+		logger.info("item : {}", item);
+		File file = askService.getFile(item.getFileNo());
+		logger.info("file : {}", file);
+		
+		User user = askService.getUserInfoByUserNo(ask.getUserNo());
+		
+		model.addAttribute("user",user);
+		
+		model.addAttribute("ask",ask);
+		model.addAttribute("vote",vote);
+		model.addAttribute("item",item);
+		model.addAttribute("file",file);
+		
+		
 	
 	
-	
+	}
 	
 	
 	

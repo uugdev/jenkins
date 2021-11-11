@@ -76,7 +76,7 @@ public class AskServiceImpl implements AskService {
 		
 		//파일이 저장될 경로
 		String storedPath = context.getRealPath("upload");
-	
+		
 		File storedFolder = new File(storedPath);
 		if( !storedFolder.exists() ) {
 			storedFolder.mkdir();
@@ -84,7 +84,7 @@ public class AskServiceImpl implements AskService {
 				
 		//저장될 파일의 이름 생성하기
 		String fileOrigin = file.getOriginalFilename();
-		String fileStored = fileOrigin + UUID.randomUUID().toString().split("-")[4];
+		String fileStored = UUID.randomUUID().toString().split("-")[4] + fileOrigin;
 				
 		//저장할 파일 객체
 		File dest = new File(storedPath, fileStored);
@@ -135,9 +135,38 @@ public class AskServiceImpl implements AskService {
 		
 	}
 
+	@Override
+	public Ask getAskDetail(int askNo) {
+
+		Ask ask = askDao.selectAskByAskNo(askNo);
+		
+		return ask;
+	}
+	
+	@Override
+	public com.khbill.dto.File getFile(int fileNo) {
+		com.khbill.dto.File file = askDao.selectFileByFileNo(fileNo);
+		
+		return file;
+	}
 	
 	
+	@Override
+	public Item getItem(int productNo) {
+
+		Item item = askDao.selectItemByProductNo(productNo);
+		
+		return item;
+	}
 	
+	
+	@Override
+	public Vote getVote(int askNo) {
+		
+		Vote vote = askDao.selectVoteByAskNo(askNo);
+		
+		return vote;
+	}
 	
 	
 	
