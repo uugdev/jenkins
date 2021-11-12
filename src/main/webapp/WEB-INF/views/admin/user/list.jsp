@@ -13,11 +13,8 @@
 $(document).ready(function(){
 	$("#btnDelete").click(function(){
 		var answer = confirm("선택한 회원 정보를 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
-		var delchk = []; // key 값을 담을 배열
-                
-	    //삭제 key value
-	    // chk라는 클래스를 가진 체크박스 중에 체크가 된
-	    // object들을 찾아서 delchk라는 배열에 담는다.
+		var delchk = [];
+   
 	    $('.chk:checked').each(function(){
 	        delchk.push($(this).val());
 	    });
@@ -71,7 +68,7 @@ label {
 <c:forEach items="${userList }" var="i">
 <tr>
 	<td><input type="checkbox" id="${i.userNo }" class="chk" value="${i.userNo }" /></td>
-	<td><label for="${i.userNo }">${i.userNo }</label></td>
+	<td><label for="${i.userNo}">${i.userNo }</label></td>
 	<td><label for="${i.userNo }">${i.userId }</label></td>
 	<td><label for="${i.userNo }">${i.userNick }</label></td>
 	<td><label for="${i.userNo }">${i.userMail }</label></td>
