@@ -3,7 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.khbill.dao.face.AdminQnaDao">
-
-
-
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT COUNT(*) FROM zqna
+	</select>
+	
+	<select id="selectQnaList" parameterType="com.khbill.util.Paging" resultType="com.khbill.dto.Qna">
+		SELECT * FROM (
+			SELECT rownum rnum, Q.* FROM (
+				SELECT * FROM zqna
+				ORDER BY qna_no DESC
+			) Q
+		) zqna
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectQnaDetail" parameterType="int" resultType="com.khbill.dto.Qna">
+		SELECT * FROM zqna
+		WHERE qna_no = #{qnaNo}
+	</select>
+	
+	<select id="selectQnaComment" parameterType="int" resultType="com.khbill.dto.QnaComment">
+		SELECT * FROM zqna_comment
+		WHERE qna_no = #{qnaNo}
+	</select>
+	
+	<select id="selectNickByUserNo" parameterType="int" resultType="String">
+		SELECT user_nick FROM zuser
+		WHERE user_no = #{userNo}
+	</select>
+	
 </mapper>
