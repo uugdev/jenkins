@@ -65,9 +65,10 @@ public class MemberController {
 //		logger.info("/member/join [POST]");
 //		logger.info("{}", user);
 		
-		boolean join = memberService.checkInfo(user);
+		boolean checkId = memberService.checkUserId(user);
+		boolean checkNick = memberService.checkUserNick(user);
 		
-		if( join == true) {
+		if( checkId == true && checkNick == true ) {
 			memberService.join(user);
 			return "member/login";
 		} else {
@@ -75,6 +76,11 @@ public class MemberController {
 			return "/main";
 		}
 		
+		
+	}
+	
+	@RequestMapping(value="/layout/error")
+	public void test() {
 		
 	}
 	

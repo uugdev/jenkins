@@ -5,31 +5,14 @@
 
 <mapper namespace="com.khbill.dao.face.MemberDao">
 	
-	<resultMap type="com.khbill.dto.User" id="User">
-		<result column="user_no" property="userNo"/>
-		<result column="user_id" property="userId"/>
-		<result column="user_pw" property="userPw"/>
-		<result column="user_nick" property="userNick"/>
-		<result column="join_date" property="joinDate"/>
-		<result column="extra_money" property="extraMoney"/>
-		<result column="user_bday" property="userBday"/>
-		<result column="user_gender" property="userGender"/>
-		<result column="user_point" property="userPoint"/>
-	</resultMap>
-	
 	<select id="countLoginInfo" parameterType="com.khbill.dto.User" resultType="int">
 		SELECT COUNT(*) FROM zuser
 		WHERE user_id=#{userId} AND user_pw=#{userPw}
 	</select>
 	
-	<select id="selectUserByUserInfo" parameterType="com.khbill.dto.User" resultMap="User">
+	<select id="selectUserByUserInfo" parameterType="com.khbill.dto.User" resultType="com.khbill.dto.User">
 		SELECT * FROM zuser
 		WHERE user_id=#{userId} AND user_pw=#{userPw}
-	</select>
-	
-	<select id="checkInfo" parameterType="com.khbill.dto.User" resultType="int">
-		SELECT COUNT(*) FROM zuser
-		WHERE user_id=#{userId} OR user_nick=#{userNick}
 	</select>
 	
 	<insert id="insertMember" parameterType="com.khbill.dto.User">
@@ -41,5 +24,16 @@
 		SELECT user_no FROM zuser
 		WHERE user_nick = #{userNick}
 	</select>
+	
+	<select id="countUserIdDupl" parameterType="com.khbill.dto.User" resultType="int">
+		SELECT COUNT(*) FROM zuser
+		WHERE user_id=#{userId}
+	</select>
+
+	<select id="countUserNickDupl" parameterType="com.khbill.dto.User" resultType="int">
+		SELECT COUNT(*) FROM zuser
+		WHERE user_nick=#{userNick}
+	</select>
+	
 	
 </mapper>
