@@ -28,14 +28,21 @@ $(document).ready(function() {
 <div class="wrap">
 <div class="container">
 
-<h1>상대 지정해서 쪽지 작성하기(로그인 구현 전까지 임시)</h1>
+<h1>쪽지 보내기</h1>
 <hr>
 
 <form action="/message/write" method="post">
 
 
 	<label for="userNick">받는 사람</label>
+	<c:if test="${empty userNick}">
 	<input type="text" id="userNick" name="userNick" />
+	</c:if>
+	
+	<c:if test="${not empty userNick }">
+	${userNick }
+	</c:if>
+	
 	<br>
 	
 	<label for="msgTitle">제목</label>

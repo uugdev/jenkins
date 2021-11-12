@@ -28,8 +28,11 @@ public class MessageController {
 	@Autowired private MemberService memberService;
 	
 	@RequestMapping(value="/message/write", method=RequestMethod.GET)
-	public void writeMessage() {
+	public void writeMessage(@RequestParam("userNick") String userNick, Model model) {
 		logger.info("/message/write [GET]");
+		
+		model.addAttribute("userNick", userNick);
+		
 		
 	}
 	
