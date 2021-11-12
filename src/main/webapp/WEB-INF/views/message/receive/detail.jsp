@@ -26,8 +26,12 @@
 		<td>${msg.msgContent }</td>
 	</tr>
 	<tr>
-		<td>쪽지 보낸 사람</td>
+		<td>보낸 사람</td>
 		<td>${userNick } </td>
+	</tr>
+	<tr>
+		<td>받은 시간</td>
+		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:MM" /></td>
 	</tr>
 </table>
 
