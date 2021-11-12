@@ -9,6 +9,6 @@ public interface TradeDao {
 	
 	public List<Trade> selectTradeList(Paging paging);
 
-	public int selectCntAll();
+	public int selectCntAll(Paging paramData);
 
 }

@@ -60,10 +60,10 @@ td:nth-child(2) {
 				<c:forEach items="${tradeList }" var="board">
 					<tr>
 						<td>${board.TRADE_NO }</td>
-						<td><a href="/ask/detail?askNo=${board.TRADE_NO }">${board.TRADE_TITLE }</a></td>
+						<td><a href="/trade/detail?tradeNo=${board.TRADE_NO }">${board.TRADE_TITLE }</a></td>
 						<td>${board.USER_NICK }</td>
-						<td>${board.tradeHit }</td>
-						<td><fmt:formatDate value="${board.tradeDate }" pattern="yy-MM-dd HH:mm:ss" /></td>
+						<td>${board.TRADE_HIT }</td>
+						<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -79,7 +79,7 @@ td:nth-child(2) {
 				value="${param.search }" />
 			<button id="btnSearch" class="btn">검색</button>
 		</div>
-
+		<c:import url="/WEB-INF/views/layout/paging.jsp" />
 	</div>
 	<!-- .container end -->
 </div>

@@ -33,9 +33,9 @@ public class MainController {
 		List<Notice> noticeSix = mainService.getNoticeListSix();
 		Map<String, Integer> moneyAndPercent = null;
 		
-		//로그인을 하지 않았을 경우
+		//로그인을 했을 경우
 		if( session.getAttribute("userNo") != null ) {
-			moneyAndPercent = mainService.getAvailableAmountAndPercent(session);
+//			moneyAndPercent = mainService.getAvailableAmountAndPercent(session);
 		}
 		
 		logger.info("userTen {}", userTen);

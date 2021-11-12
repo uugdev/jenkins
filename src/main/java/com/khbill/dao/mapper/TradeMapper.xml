@@ -5,23 +5,35 @@
   
 <mapper namespace="com.khbill.dao.face.TradeDao">
 
+	<sql id="selectTrade">
+        SELECT 
+        	trade_no, U.user_no, user_nick
+        	, trade_title, trade_date, trade_hit
+        FROM ztrade T
+        INNER JOIN zuser U
+        ON U.user_no = T.user_no
+	</sql>
+
+	<sql id="whereTitleSearch">
+		WHERE trade_title LIKE '%' || #{search} || '%'
+	</sql>
+
 	<select id="selectTradeList" resultType="HashMap" parameterType="com.khbill.util.Paging">
         SELECT * FROM (
 		    SELECT rownum rnum, T.* FROM (
-		        SELECT 
-		        	trade_no, U.user_no, user_nick
-		        	, trade_title, trade_date, trade_hit
-		        FROM ztrade T
-		        INNER JOIN zuser U
-		            ON U.user_no = T.user_no
-		        ORDER BY trade_no DESC
+				<include refid="selectTrade"/>
+				<include refid="whereTitleSearch"/>
+				ORDER BY trade_no DESC
 		    ) T
 		) ZTRADE
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM ZTRADE
+		SELECT count(*) FROM (
+			<include refid="selectTrade"/>
+			<include refid="whereTitleSearch"/>
+		)
 	</select>
 	
 </mapper>
