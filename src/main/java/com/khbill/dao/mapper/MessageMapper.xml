@@ -40,20 +40,44 @@
 		
 	</insert>
 	
-	<select id="selectRcvdMsgList" resultType="HashMap">
-		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
-		FROM ZMESSAGE m
-		INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
-		WHERE receiver_no = #{userNo } AND receiver_show = 'y'
-		ORDER BY msg_date DESC
+	<select id="selectRcvdCntAll" resultType="int" parameterType="int">
+		SELECT count (*) FROM zmessage
+		WHERE receiver_no = #{userNo }
+		AND receiver_show = 'y'
 	</select>
 	
-	<select id="selectSendMsgList" resultType="HashMap">
-		SELECT m.msg_no, m.sender_no, m.receiver_no, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
-		FROM ZMESSAGE m
-		INNER JOIN ZUSER u ON(m.receiver_no = u.user_no)
-		WHERE sender_no = #{userNo } AND sender_show = 'y'
-		ORDER BY msg_date DESC
+	<select id="selectSendCntAll" resultType="int" parameterType="int">
+		SELECT count (*) FROM zmessage
+		WHERE sender_no = #{userNo }
+		AND sender_show = 'y'
+	</select>
+	
+	<select id="selectRcvdMsgList" resultType="HashMap" parameterType="Hashmap">
+		SELECT * FROM (
+			SELECT rownum rnum, M.* FROM (
+				SELECT m.msg_no, m.sender_no, m.receiver_no
+				, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
+				FROM ZMESSAGE m
+				INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
+				WHERE receiver_no = #{userNo } AND receiver_show = 'y'
+				ORDER BY msg_date DESC
+			) M
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	
+	</select>
+	
+	<select id="selectSendMsgList" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, M.* FROM (
+				SELECT m.msg_no, m.sender_no, m.receiver_no
+				, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
+				FROM ZMESSAGE m
+				INNER JOIN ZUSER u ON(m.receiver_no = u.user_no)
+				WHERE sender_no = #{userNo } AND sender_show = 'y'
+				ORDER BY msg_date DESC
+			) M
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
 	
 	<update id="updateMsgCheckToY" parameterType="com.khbill.dto.Message">

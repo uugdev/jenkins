@@ -14,13 +14,13 @@
 <div class="wrap">
 <div class="container">
 
-<h3>보낸 쪽지 리스트</h3>
+<h3>받은 쪽지 리스트</h3>
 <hr>
 
 <table class="table table-hover">
 	<thead>
 	<tr>
-		<th>받는 이</th>
+		<th>보낸 사람</th>
 		<th>제목</th>
 		<th>상태</th>
 		<th>보낸 날짜</th>
@@ -40,7 +40,7 @@
 	</tbody>
 </table>
 
-
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

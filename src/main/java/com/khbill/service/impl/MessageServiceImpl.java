@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.khbill.dao.face.MessageDao;
 import com.khbill.dto.Message;
 import com.khbill.service.face.MessageService;
+import com.khbill.util.Paging;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -26,13 +27,31 @@ public class MessageServiceImpl implements MessageService {
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> getRcvdMsgList(int userNo) {
-		return messageDao.selectRcvdMsgList(userNo);
+	public Paging getPaging(Paging paramData, int userNo, String where) {
+		
+		//총 게시글 수 조회
+		int totalCount = 0; 
+				
+		if(where.equals("receive")) {
+			totalCount = messageDao.selectRcvdCntAll(userNo);
+		} else {
+			totalCount = messageDao.selectSendCntAll(userNo);
+		}
+		
+		//페이징 계산
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
 	}
 	
 	@Override
-	public List<HashMap<String, Object>> getSendMsgList(int userNo) {
-		return messageDao.selectSendMsgList(userNo);
+	public List<HashMap<String, Object>> getRcvdMsgList(HashMap<String, Object> map) {
+		return messageDao.selectRcvdMsgList(map);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getSendMsgList(HashMap<String, Object> map) {
+		return messageDao.selectSendMsgList(map);
 	}
 		
 	@Override

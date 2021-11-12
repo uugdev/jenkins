@@ -17,18 +17,18 @@ public interface MessageDao {
 	/**
 	 * 받은 쪽지 리스트를 반환한다
 	 * 
-	 * @param userNo - 수신자 회원 번호
+	 * @param map - 수신자 회원 번호
 	 * @return 받은 쪽지의 list
 	 */
-	public List<HashMap<String, Object>> selectRcvdMsgList(int userNo);
+	public List<HashMap<String, Object>> selectRcvdMsgList(HashMap<String, Object> map);	
 	
 	/**
 	 * 보낸 쪽지 리스트를 반환한다
 	 * 
-	 * @param userNo - 발신자 회원 번호
+	 * @param map - 발신자 회원 번호
 	 * @return 보낸 쪽지의 list
 	 */
-	public List<HashMap<String, Object>> selectSendMsgList(int userNo);
+	public List<HashMap<String, Object>> selectSendMsgList(HashMap<String, Object> map);	
 
 	/**
 	 * 쪽지의 상태를 y로 변경한다
@@ -58,6 +58,25 @@ public interface MessageDao {
 	 * @param msg - 상태를 변경하려는 쪽지 객체
 	 */
 	public void updateSenderShowToN(Message msg);
+
+	/**
+	 * 회원번호로 검색한 수신한 전체 쪽지 수 조회
+	 * 
+	 * @param userNo - 회원 번호
+	 * @return totalCount
+	 */
+	public int selectRcvdCntAll(int userNo);
+
+	/**
+	 * 회원번호로 검색한 발송한 전체 쪽지 수 조회
+	 * 
+	 * @param userNo - 회원 번호
+	 * @return totalCount
+	 */
+	public int selectSendCntAll(int userNo);
+
+	
+	
 
 
 }

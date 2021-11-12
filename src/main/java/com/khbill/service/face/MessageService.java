@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Message;
+import com.khbill.util.Paging;
 
 public interface MessageService {
 
@@ -13,22 +14,31 @@ public interface MessageService {
 	 * @param msg
 	 */
 	public void setMessageWrite(Message msg);
+	
+	/**
+	 * 쪽지 목록을 위한 페이징 객체를 생성한다
+	 * 
+	 * @param paramData - curPage를 저장하고 있는 객체
+	 * @param userNo - 세션에 저장된 유저 번호
+	 * @return 페이징 객체
+	 */
+	public Paging getPaging(Paging paramData, int userNo, String where);
 
 	/**
 	 * 받은 쪽지 리스트를 가져온다
 	 * 
-	 * @param userNo - 세션에 저장된 유저번호
+	 * @param map - 세션에 저장된 유저번호
 	 * @return 받은 쪽지 리스트
 	 */
-	public List<HashMap<String, Object>> getRcvdMsgList(int userNo);
+	public List<HashMap<String, Object>> getRcvdMsgList(HashMap<String, Object> map);
 	
 	/**
 	 * 보낸 쪽지 리스트를 가져온다
 	 * 
-	 * @param userNo - 세션에 저장된 유저번호
+	 * @param map - 세션에 저장된 유저번호
 	 * @return 보낸 쪽지 리스트
 	 */
-	public List<HashMap<String, Object>> getSendMsgList(int userNo);
+	public List<HashMap<String, Object>> getSendMsgList(HashMap<String, Object> map);
 
 	/**
 	 * 메시지 상세보기 페이지
@@ -53,6 +63,8 @@ public interface MessageService {
 	 * @return db에서 조회한 메세지 객체
 	 */
 	public Message getMsgByMsgNo(Message msg);
+
+
 
 
 }

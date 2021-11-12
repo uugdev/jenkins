@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.khbill.dto.Message;
 import com.khbill.service.face.MemberService;
 import com.khbill.service.face.MessageService;
+import com.khbill.util.Paging;
 
 @Controller
 public class MessageController {
@@ -33,7 +34,7 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/message/write", method=RequestMethod.POST)
-	public String writeMessageProc(Message msg, HttpSession session,@RequestParam("userNick") String userNick) {
+	public String writeMessageProc(Message msg, HttpSession session, @RequestParam("userNick") String userNick) {
 		logger.info("/message/write [POST]");
 		
 		logger.info("쪽지 정보 : {}", msg);
@@ -49,32 +50,46 @@ public class MessageController {
 		return "redirect:/main";
 	}
 	
-	@RequestMapping(value="/message/receive")
-	public void msgReceiveList(HttpSession session, Model model) {
-		logger.info("/message/receive [GET]");
+	@RequestMapping(value="/message/receive/list")
+	public void msgReceiveList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/message/receive/list [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
+		String where = "receive";
 		
-		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(userNo);
+		Paging paging = messageService.getPaging(paramData, userNo, where);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(map);
 	
 //		logger.info("resultMapList 정보 : {}", resultMapList);
 		
 		model.addAttribute("resultMapList", resultMapList);
-		
+		model.addAttribute("paging", paging);		
 	}
 	
-	@RequestMapping(value="/message/send")
-	public void msgSendList(HttpSession session, Model model) {
-		logger.info("/message/send [GET]");
+	@RequestMapping(value="/message/send/list")
+	public void msgSendList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/message/send/list [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
+		String where = "send";
 		
-		List<HashMap<String, Object>> resultMapList = messageService.getSendMsgList(userNo);
+		Paging paging = messageService.getPaging(paramData, userNo, where);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> resultMapList = messageService.getSendMsgList(map);
 	
 //		logger.info("resultMapList 정보 : {}", resultMapList);
 		
 		model.addAttribute("resultMapList", resultMapList);
-		
+		model.addAttribute("paging", paging);		
 	}
 	
 	@RequestMapping(value="/message/detail")
@@ -117,7 +132,7 @@ public class MessageController {
 		
 		messageService.setMsgDelete(viewMsg, userNo);
 		
-		return "message/send"; //referer 값 받아서 수정해야함
+		return "redirect: send/list"; //referer 값 받아서 수정해야함
 	}
 	
 	
