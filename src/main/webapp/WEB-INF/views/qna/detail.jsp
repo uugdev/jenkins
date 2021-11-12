@@ -16,10 +16,22 @@ $(document).ready(function(){
 		location.href="/qna/list"
 	})
 	$("#btnUpdate").click(function(){
-		location.href="/qna/update"
+		
+		if(${qna.qnaStatus == 'y'}){
+			alert("답변 완료된 문의글은 수정하실 수 없습니다.")
+		} else {
+			location.href="/qna/update?qnaNo="+${qna.qnaNo};
+		}
+		
 	})
 	$("#btnDelete").click(function(){
-		location.href="/qna/delete"
+		var answer = confirm("문의글을 삭제하시겠습니까?");
+		
+		if(answer == true){
+			location.href="/qna/delete?qnaNo="+${qna.qnaNo};
+		} else {
+			return false;
+		}
 	})
 })
 

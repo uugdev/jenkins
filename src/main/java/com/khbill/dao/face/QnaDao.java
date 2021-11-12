@@ -47,4 +47,25 @@ public interface QnaDao {
 	 */
 	public void insertQna(Qna qna);
 
+	/**
+	 * 문의글 수정하기
+	 * 
+	 * @param qna - 문의글 수정 정보
+	 */
+	public void updateQna(Qna qna);
+
+	/**
+	 * 문의글 삭제하기
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void deleteQna(int qnaNo);
+
+	/**
+	 * 문의글 삭제 시 해당 문의글의 답변도 같이 삭제하기
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void deleteQnaComment(int qnaNo);
+
 }
