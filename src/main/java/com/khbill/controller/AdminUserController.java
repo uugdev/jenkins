@@ -29,7 +29,18 @@ public class AdminUserController {
 		//게시글 목록 조회		
 		List<User> userList = adminUserService.getUserlist(paging);
 		
+//		logger.info("list : {}", userList);
+		
 		model.addAttribute("userList", userList);
 		model.addAttribute("paging", paging);
+	}
+	
+	@RequestMapping(value="/admin/user/delete")
+	public String userDelete(int[] userNo) {
+		int size = userNo.length;
+		for(int i=0 ; i<size ; i++) {
+			adminUserService.setUserDelete(userNo[i]);
+		}
+		return "redirect:/admin/user/list";
 	}
 }

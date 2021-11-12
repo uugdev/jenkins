@@ -22,4 +22,10 @@ public interface AdminUserDao {
 	 */
 	public List<User> selectUserList(Paging paging);
 
+	/**
+	 * 선택한 회원 정보 삭제
+	 * @param i - 회원번호
+	 */
+	public void deleteUser(int i);
+
 }

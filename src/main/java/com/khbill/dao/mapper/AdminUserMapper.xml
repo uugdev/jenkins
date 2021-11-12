@@ -18,4 +18,9 @@
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<delete id="deleteUser" parameterType="int">
+		DELETE zuser
+		WHERE user_no = #{userNo}
+	</delete>
+	
 </mapper>

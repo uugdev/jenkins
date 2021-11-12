@@ -23,4 +23,11 @@ public interface AdminUserService {
 	 */
 	public List<User> getUserlist(Paging paging);
 
+	/**
+	 * 회원 선택 삭제
+	 * 
+	 * @param userNo - 선택된 회원 번호
+	 */
+	public void setUserDelete(int i);
+
 }

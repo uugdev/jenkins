@@ -32,4 +32,9 @@ public class AdminUserServiceImpl implements AdminUserService {
 		return adminUserDao.selectUserList(paging);
 	}
 
+	@Override
+	public void setUserDelete(int i) {
+		adminUserDao.deleteUser(i);
+	}
+
 }
