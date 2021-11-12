@@ -31,7 +31,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${login }">
-							<li><a href="/message" style="padding: 3px; margin: 12px 0 0 0;">MESSAGE</a></li>
+							<li><a href="/message/send/list" style="padding: 3px; margin: 12px 0 0 0;">MESSAGE</a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
 							<li><a href="/member/logout" style="padding: 3px; margin: 12px 15px 0 0;">LOGOUT</a></li>
 						</c:when>
