@@ -36,7 +36,7 @@
 		<property name="dataSource" ref="dataSource" />
 		
 		<!-- Configuration XML 파일의 위치 설정하기 -->
-<!-- 		<property name="configLocation" value="classpath:mybatis-config.xml" /> -->
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		
 		<!-- Mapper XML 파일의 위치 설정하기 -->
 		<property name="mapperLocations">
