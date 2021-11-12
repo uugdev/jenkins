@@ -93,5 +93,29 @@ public interface AskService {
 	 * @return
 	 */
 	public File getFile(int fileNo);
+
+	/**
+	 * 
+	 * 투표기간이 끝나면 투표를 종료한다
+	 * 
+	 * @param voteEnd - 끝나는날짜
+	 * @return 진행중
+	 */
+	public String voteCheck(Vote vote);
+
+	
+	/**
+	 * 질문게시판 수정하기
+	 * 
+	 * @param ask
+	 */
+	public void setAskUpdate(Ask ask);
+
+	/**
+	 * 질문게시판 글 번호로 게시글 삭제
+	 * 
+	 * @param askNo
+	 */
+	public void setAskDelete(int askNo);
 	
 }

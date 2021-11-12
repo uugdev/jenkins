@@ -108,12 +108,67 @@ public class AskController {
 		model.addAttribute("item",item);
 		model.addAttribute("file",file);
 		
+		String check = askService.voteCheck(vote);
 		
-	
-	
+		model.addAttribute("check",check);
+		
+		
 	}
 	
 	
 	
+	@RequestMapping(value="/update", method=RequestMethod.GET)
+	public void setAskUpdate(int askNo,Model model) {
+		logger.info("/ask/update [GET]");
+		
+		Ask ask = askService.getAskDetail(askNo);
+		Vote vote = askService.getVote(askNo);
+		Item item = askService.getItem(ask.getProductNo());
+		File file = askService.getFile(item.getFileNo());
+		User user = askService.getUserInfoByUserNo(ask.getUserNo());
+		
+		model.addAttribute("user",user);
+		model.addAttribute("ask",ask);
+		model.addAttribute("vote",vote);
+		model.addAttribute("item",item);
+		model.addAttribute("file",file);
+		
+	}
+	
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public String setAskUpdateProcess(Ask ask, HttpServletRequest req) {
+		logger.info("/ask/update [POST]");
+	
+		logger.info("ask : {}", ask);
+		
+		HttpSession session = req.getSession();
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		ask.setUserNo(userNo);
+		
+		askService.setAskUpdate(ask);
+		
+		return "redirect:/ask/detail?askNo="+ask.getAskNo();
+		
 
-}
+	}
+
+	@RequestMapping(value ="/delete")
+	public String delete(int askNo) {
+		logger.info("/ask/delete []");
+		
+		askService.setAskDelete(askNo);
+		
+		return "redirect:/ask/list?askNo="+askNo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//class

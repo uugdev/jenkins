@@ -80,7 +80,7 @@ table, th {
 	text-align: center;
 }
 
-#choice {
+.check{
 	text-align: center;
 	height: 100px;
 }
@@ -106,7 +106,7 @@ table, th {
 
 <span>작성자 : ${user.userNick }</span> |
 <span><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm"/></span>
-조회수 : ${ask.askHit }
+<span class="pull-right">조회수 : ${ask.askHit }</span>
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -136,13 +136,22 @@ table, th {
 
 
 
+
+
+
 <div id="votedate">
 <fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm"/>
 ~
 <fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm"/>
 </div>
 
-<div id="choice">투표 영역</div>
+<c:if test="${check eq 'y'}">
+<div class="check">----투표 영역----</div>
+</c:if>
+
+<c:if test="${check eq 'n'}">
+<div class="check">투표가 종료되었습니다</div>
+</c:if>
 
 <!-- 댓글 처리 -->
 <hr>
@@ -183,7 +192,7 @@ table, th {
 		<td style="width: 10%;">${comment.id }</td><!-- 닉네임으로 해도 좋음 -->
 		<td style="width: 50%;">${comment.content }</td>
 		<td style="width: 20%;"><fmt:formatDate value="${comment.writeDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
-		<td style="width: 5%;">
+		<td style="width: 15%;">
 			<c:if test="${sessionScope.id eq comment.id }">
 			<button class="btn btn-default btn-xs"
 				onclick="deleteComment(${comment.commentNo });">삭제</button>

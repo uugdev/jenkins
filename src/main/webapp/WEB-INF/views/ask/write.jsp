@@ -24,7 +24,15 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
 		
-		$("form").submit();
+		var result = confirm("글쓰기 완료 시 상품정보,투표설정은 수정이 불가합니다. 확인버튼을 누르시면 글쓰기가 완료됩니다.");
+
+		if (result == true) {
+			$("form").submit();
+		} else {
+			
+			$("#askContent").focus();
+		}
+		
 	})
 	
 	$("#cancel").click(function() {
@@ -93,7 +101,7 @@ $(document).ready(function() {
 </div>
 
 <div class="text-center">
-	<button class="btn btn-primary" id="btnWrite">작성</button>
+	<button type="button" class="btn btn-primary" id="btnWrite">작성</button>
 	<input type="reset" id="cancel" class="btn btn-danger" value="취소"/>
 </div>
 

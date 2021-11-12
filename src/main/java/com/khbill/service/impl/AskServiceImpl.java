@@ -138,6 +138,8 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public Ask getAskDetail(int askNo) {
 
+		askDao.hit(askNo);
+		
 		Ask ask = askDao.selectAskByAskNo(askNo);
 		
 		return ask;
@@ -167,6 +169,51 @@ public class AskServiceImpl implements AskService {
 		
 		return vote;
 	}
+	
+	
+	@Override
+	public String voteCheck(Vote vote) {
+		System.out.println(vote);
+		
+		int res = askDao.selectVoteEnd(vote);
+		String check = null;
+		
+		if(res == 1) {
+			
+			check = "y";	
+			
+		} else if (res <= 0) {
+			
+			check = "n";	
+			
+		}
+		
+		return check;
+	}
+	
+	
+	@Override
+	public void setAskUpdate(Ask ask) {
+
+		if( "".equals(ask.getAskTitle()) ) {
+			ask.setAskTitle("(제목없음)");
+		}
+		
+		askDao.updateAsk(ask);
+		
+	}
+	
+	
+	@Override
+	public void setAskDelete(int askNo) {
+
+		askDao.deleteFile(askNo);
+		askDao.deleteItem(askNo);
+		askDao.deleteVote(askNo);
+		askDao.deleteAsk(askNo);
+	
+	}
+	
 	
 	
 	

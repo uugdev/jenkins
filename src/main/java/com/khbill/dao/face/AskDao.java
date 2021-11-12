@@ -138,6 +138,62 @@ public interface AskDao {
 	 * @return
 	 */
 	public Vote selectVoteByAskNo(int askNo);
+
+
+	
+	/**
+	 * 투표종료날짜가 현재시간보다 작으면 투표 종료
+	 * 
+	 * @param voteEnd
+	 * @return - 시간을 지나면 0 반환
+	 */
+	public int selectVoteEnd(Vote vote);
+
+
+	/**
+	 * 상세보기페이지에 들어가면 조회수를 1씩 증가시킨다
+	 * 
+	 * @param askNo
+	 */
+	public void hit(int askNo);
+
+
+	/**
+	 * 질문게시판 업데이트
+	 * 
+	 * @param ask
+	 */
+	public void updateAsk(Ask ask);
+
+
+	/**
+	 * ask게시글번호로 삭제할 게시글 조회
+	 * 
+	 * @param askNo
+	 */
+	public void deleteAsk(int askNo);
+	
+	/**
+	 * ask게시글번호로 삭제할 투표객체 조회
+	 * 
+	 * @param askNo
+	 */
+	public void deleteVote(int askNo);
+	
+	/**
+	 * ask게시글번호로 삭제할 파일 조회
+	 * 
+	 * @param askNo
+	 */
+	public void deleteFile(int askNo);
+	
+	
+	/**
+	 * ask게시글번호로 삭제할 아이템 조회
+	 * 
+	 * @param askNo
+	 */
+	public void deleteItem(int askNo);
 	
 
 	

@@ -107,5 +107,45 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo}
 </select>
 
+<select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
+	SELECT COUNT(*) FROM zvote
+	WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
+	and ask_no = #{askNo}
+</select>
+
+<update id="hit" parameterType="int">
+	UPDATE zask 
+	SET ask_hit = ask_hit+1
+	WHERE ask_no = #{askNo}
+</update>
+
+<update id="updateAsk" parameterType="com.khbill.dto.Ask">
+	UPDATE zask
+	SET ask_title = #{askTitle }
+		, ask_content = #{askContent }
+	WHERE ask_no = #{askNo }
+</update>
+
+<delete id="deleteAsk">
+	DELETE zask
+	WHERE ask_no = #{askNo}
+</delete>
+
+<delete id="deleteFile">
+	DELETE zfile
+	WHERE ask_no = #{askNo}
+</delete>
+
+<delete id="deleteItem">
+	DELETE zitem
+	WHERE ask_no = #{askNo}
+</delete>
+
+<delete id="deleteVote">
+	DELETE zvote
+	WHERE ask_no = #{askNo}
+</delete>
+
+
 
 </mapper>
