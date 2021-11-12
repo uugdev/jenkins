@@ -21,17 +21,26 @@
 
 			<div class="collapse navbar-collapse" id="myNavbar"
 				 style="background: white; height: 100px;">
-				<ul class="nav navbar-nav">
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>게시판</h3></a></li>
+				<ul class="nav navbar-nav" id="navbar">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-target="#" data-toggle="dropdown" role="button" aria-expanded="false" style="margin: 7px 0 0 30px;"><h3>게시판</h3></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/ask/list">질문 게시판</a></li>
+							<li class="divider"></li>
+							<li><a href="/review/list">후기 게시판</a></li>
+							<li class="divider"></li>
+							<li><a href="/trade/list">거래 게시판</a></li>
+						</ul>
+					</li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>가계부</h3></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
+					<li><a href="/mypage" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
 					<li><a href="/qna/list" style="margin: 7px 0 0 30px;"><h3>문의</h3></a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${login }">
-							<li><a href="/message/send/list" style="padding: 3px; margin: 12px 0 0 0;">MESSAGE</a></li>
+							<li><a href="/message/receive/list" style="padding: 3px; margin: 12px 0 0 0;">MESSAGE</a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
 							<li><a href="/member/logout" style="padding: 3px; margin: 12px 15px 0 0;">LOGOUT</a></li>
 						</c:when>

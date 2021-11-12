@@ -9,12 +9,13 @@ public class AskComment {
 	private int userNo;
 	private String askComContent;
 	private Date askComDate;
-	private int tradeComLike;
-	private int tradeComHate;
+	private int askComLike;
+	private int askComHate;
 	@Override
 	public String toString() {
 		return "AskComment [askComNo=" + askComNo + ", askNo=" + askNo + ", userNo=" + userNo + ", askComContent="
-				+ askComContent + ", tradeComLike=" + tradeComLike + ", tradeComHate=" + tradeComHate + "]";
+				+ askComContent + ", askComDate=" + askComDate + ", askComLike=" + askComLike + ", askComHate="
+				+ askComHate + "]";
 	}
 	public int getAskComNo() {
 		return askComNo;
@@ -46,18 +47,19 @@ public class AskComment {
 	public void setAskComDate(Date askComDate) {
 		this.askComDate = askComDate;
 	}
-	public int getTradeComLike() {
-		return tradeComLike;
+	public int getAskComLike() {
+		return askComLike;
 	}
-	public void setTradeComLike(int tradeComLike) {
-		this.tradeComLike = tradeComLike;
+	public void setAskComLike(int askComLike) {
+		this.askComLike = askComLike;
 	}
-	public int getTradeComHate() {
-		return tradeComHate;
+	public int getAskComHate() {
+		return askComHate;
 	}
-	public void setTradeComHate(int tradeComHate) {
-		this.tradeComHate = tradeComHate;
+	public void setAskComHate(int askComHate) {
+		this.askComHate = askComHate;
 	}
+	
 	
 
 	

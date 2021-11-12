@@ -35,5 +35,9 @@
 		WHERE user_nick=#{userNick}
 	</select>
 	
+	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
+		SELECT user_nick FROM zuser
+		WHERE user_no = #{userNo }
+	</select>
 	
 </mapper>

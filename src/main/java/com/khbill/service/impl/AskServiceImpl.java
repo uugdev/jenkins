@@ -207,14 +207,25 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public void setAskDelete(int askNo) {
 
-		askDao.deleteFile(askNo);
-		askDao.deleteItem(askNo);
+		Ask ask = askDao.selectAskByAskNo(askNo);
+		Item item = new Item();
+		com.khbill.dto.File file = new com.khbill.dto.File();
+				
+		item.setItemNo(ask.getProductNo());
+		System.out.println(item.getItemNo());
+		file.setFileNo(item.getFileNo());
+		System.out.println(item.getFileNo());
+		
+		
+		int itemNo = item.getItemNo();
+		int fileNo = file.getFileNo();
+		
 		askDao.deleteVote(askNo);
 		askDao.deleteAsk(askNo);
+		askDao.deleteItem(itemNo);
+		askDao.deleteFile(fileNo);
 	
 	}
-	
-	
 	
 	
 }// class

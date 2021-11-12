@@ -185,7 +185,7 @@ public interface AskDao {
 	 * 
 	 * @param askNo
 	 */
-	public void deleteFile(int askNo);
+	public void deleteFile(int fileNo);
 	
 	
 	/**
@@ -193,7 +193,7 @@ public interface AskDao {
 	 * 
 	 * @param askNo
 	 */
-	public void deleteItem(int askNo);
+	public void deleteItem(int itemNo);
 	
 
 	

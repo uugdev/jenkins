@@ -51,4 +51,14 @@ public interface MemberService {
 	 */
 	public boolean checkUserNick(User user);
 
+	/**
+	 * 유저 번호로 닉네임을 구한다
+	 * 
+	 * @param msgUserNo
+	 * @return 유저 닉네임
+	 */
+	public String getUserNickByUserNo(int msgUserNo);
+
+
+
 }

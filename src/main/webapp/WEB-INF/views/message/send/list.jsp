@@ -31,7 +31,7 @@
 	<c:forEach items="${resultMapList }" var="map">
 	<tr>
 		<td>${map.USER_NICK }</td>
-		<td><a href="<%=request.getContextPath() %>/message/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
+		<td><a href="<%=request.getContextPath() %>/message/send/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
 		<td>${map.MSG_CHECK }</td>
 		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd" /></td>
 		<td>추후 수정</td>

@@ -14,7 +14,7 @@
 <div class="wrap">
 <div class="container">
 
-<h1>쪽지 상세보기 페이지</h1>
+<h1>받은 쪽지 상세보기 페이지</h1>
 
 <table>
 	<tr>
@@ -24,6 +24,14 @@
 	<tr>
 		<td>내용</td>
 		<td>${msg.msgContent }</td>
+	</tr>
+	<tr>
+		<td>보낸 사람</td>
+		<td>${userNick } </td>
+	</tr>
+	<tr>
+		<td>받은 시간</td>
+		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:MM" /></td>
 	</tr>
 </table>
 

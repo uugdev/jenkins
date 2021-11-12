@@ -126,22 +126,22 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo }
 </update>
 
-<delete id="deleteAsk">
+<delete id="deleteAsk" parameterType="int">
 	DELETE zask
 	WHERE ask_no = #{askNo}
 </delete>
 
-<delete id="deleteFile">
+<delete id="deleteFile" parameterType="int">
 	DELETE zfile
-	WHERE ask_no = #{askNo}
+	WHERE file_no = #{fileNo}
 </delete>
 
-<delete id="deleteItem">
+<delete id="deleteItem" parameterType="int">
 	DELETE zitem
-	WHERE ask_no = #{askNo}
+	WHERE item_no = #{itemNo}
 </delete>
 
-<delete id="deleteVote">
+<delete id="deleteVote" parameterType="int">
 	DELETE zvote
 	WHERE ask_no = #{askNo}
 </delete>

@@ -27,14 +27,40 @@ public class MessageController {
 	@Autowired private MessageService messageService;
 	@Autowired private MemberService memberService;
 	
+	@RequestMapping(value="/message/mem/write", method=RequestMethod.GET)
+	public void writeMessageByOwn() {
+		logger.info("/message/mem/write [GET]");
+		
+	}
+	
+	@RequestMapping(value="/message/mem/write", method=RequestMethod.POST)
+	public String writeMessageByOwnProc(Message msg, HttpSession session, @RequestParam(value="userNick") String userNick) {
+		logger.info("/message/mem/write [POST]");
+		
+		logger.info("쪽지 정보 : {}", msg);
+		
+		int ReceiverNo = memberService.getUserNo(userNick);
+
+		msg.setSenderNo((int)session.getAttribute("userNo"));
+		msg.setReceiverNo(ReceiverNo);
+		logger.info("발신자, 수신자 정보 저장한 쪽지 정보 : {}", msg);
+	
+		messageService.setMessageWrite(msg);
+		
+		return "redirect:/main";
+		
+	}
+	
 	@RequestMapping(value="/message/write", method=RequestMethod.GET)
-	public void writeMessage() {
+	public void writeMessage(@RequestParam("userNick") String userNick, Model model) {
 		logger.info("/message/write [GET]");
+		
+		model.addAttribute("userNick", userNick);
 		
 	}
 	
 	@RequestMapping(value="/message/write", method=RequestMethod.POST)
-	public String writeMessageProc(Message msg, HttpSession session, @RequestParam("userNick") String userNick) {
+	public String writeMessageProc(Message msg, HttpSession session, @RequestParam(value="userNick") String userNick) {
 		logger.info("/message/write [POST]");
 		
 		logger.info("쪽지 정보 : {}", msg);
@@ -92,13 +118,16 @@ public class MessageController {
 		model.addAttribute("paging", paging);		
 	}
 	
-	@RequestMapping(value="/message/detail")
-	public String msgDetail(Message msg, Model model, HttpSession session) {
-		logger.info("/message/detail [GET]");
+	@RequestMapping(value="/message/receive/detail")
+	public String rcvdMsgDetail(Message msg, Model model, HttpSession session) {
+		logger.info("/message/receive/detail [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
-		
+				
 		Message viewMsg = messageService.getMsgByMsgNo(msg);
+		
+		int msgUserNo = viewMsg.getSenderNo();
+		String senderNick = memberService.getUserNickByUserNo(msgUserNo);
 		
 		logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
 		logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
@@ -110,8 +139,37 @@ public class MessageController {
 		viewMsg = messageService.getMsgDetail(viewMsg, userNo);
 		
 		model.addAttribute("msg", viewMsg);
+		model.addAttribute("userNick", senderNick);
 						
-		return "message/detail";
+		return "message/receive/detail";
+
+	}
+	
+	@RequestMapping(value="/message/send/detail")
+	public String sendMsgDetail(Message msg, Model model, HttpSession session) {
+		logger.info("/message/send/detail [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		
+		Message viewMsg = messageService.getMsgByMsgNo(msg);
+		
+		int msgUserNo = viewMsg.getReceiverNo();
+		String receiverNick = memberService.getUserNickByUserNo(msgUserNo);
+
+		logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
+		logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
+		logger.info("쪽지 receiverNick : {}", receiverNick);
+		
+		if(userNo != viewMsg.getReceiverNo() && userNo != viewMsg.getSenderNo()) {
+			return "message/error";
+		}
+
+		viewMsg = messageService.getMsgDetail(viewMsg, userNo);
+		
+		model.addAttribute("msg", viewMsg);
+		model.addAttribute("userNick", receiverNick);
+						
+		return "message/send/detail";
 
 	}
 	

@@ -14,36 +14,34 @@
 <div class="wrap">
 <div class="container">
 
-<h3>받은 쪽지 리스트</h3>
-<hr>
+<h1>보낸 쪽지 상세보기 페이지</h1>
 
-<table class="table table-hover">
-	<thead>
+<table>
 	<tr>
-		<th>보낸 사람</th>
-		<th>제목</th>
-		<th>상태</th>
-		<th>보낸 날짜</th>
-		<th>삭제</th>
+		<td>제목</td>
+		<td>${msg.msgTitle }</td>
 	</tr>
-	</thead>
-	<tbody>
-	<c:forEach items="${resultMapList }" var="map">
 	<tr>
-		<td>${map.USER_NICK }</td>
-		<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
-		<td>${map.MSG_CHECK }</td>
-		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd" /></td>
-		<td>추후 수정</td>
+		<td>내용</td>
+		<td>${msg.msgContent }</td>
 	</tr>
-	</c:forEach>
-	</tbody>
+	<tr>
+		<td>받는 사람</td>
+		<td>${userNick } </td>
+	</tr>
+	<tr>
+		<td>보낸 시간</td>
+		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:MM" /></td>
+	</tr>
+	
 </table>
 
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
+
+<a href="/message/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+
