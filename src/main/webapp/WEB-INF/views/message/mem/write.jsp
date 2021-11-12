@@ -28,24 +28,21 @@ $(document).ready(function() {
 <div class="wrap">
 <div class="container">
 
-<h1>쪽지 보내기</h1>
+<h1>상대 지정해서 쪽지 작성하기</h1>
 <hr>
 
-<form action="/message/write" method="post">
+<form action="/message/mem/write" method="post">
 
 
-
-	
-	받는 사람 ${userNick }
-	<input type="hidden" name="userNick" value="${userNick }">
-	
+	<label for="userNick">받는 사람</label>
+	<input type="text" id="userNick" name="userNick" />
 	<br>
-	
-	<label for="msgTitle">제목</label>
+
+	<label for="title">제목</label>
 	<input type="text" id="msgTitle" name="msgTitle" />
 	<br>
-	
-	<label for="msgContent">내용</label>
+
+	<label for="content">내용</label>
 	<textarea rows="10" id="msgContent" name="msgContent"></textarea>
 	<br>
 

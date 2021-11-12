@@ -27,17 +27,40 @@ public class MessageController {
 	@Autowired private MessageService messageService;
 	@Autowired private MemberService memberService;
 	
+	@RequestMapping(value="/message/mem/write", method=RequestMethod.GET)
+	public void writeMessageByOwn() {
+		logger.info("/message/mem/write [GET]");
+		
+	}
+	
+	@RequestMapping(value="/message/mem/write", method=RequestMethod.POST)
+	public String writeMessageByOwnProc(Message msg, HttpSession session, @RequestParam(value="userNick") String userNick) {
+		logger.info("/message/mem/write [POST]");
+		
+		logger.info("쪽지 정보 : {}", msg);
+		
+		int ReceiverNo = memberService.getUserNo(userNick);
+
+		msg.setSenderNo((int)session.getAttribute("userNo"));
+		msg.setReceiverNo(ReceiverNo);
+		logger.info("발신자, 수신자 정보 저장한 쪽지 정보 : {}", msg);
+	
+		messageService.setMessageWrite(msg);
+		
+		return "redirect:/main";
+		
+	}
+	
 	@RequestMapping(value="/message/write", method=RequestMethod.GET)
 	public void writeMessage(@RequestParam("userNick") String userNick, Model model) {
 		logger.info("/message/write [GET]");
 		
 		model.addAttribute("userNick", userNick);
 		
-		
 	}
 	
 	@RequestMapping(value="/message/write", method=RequestMethod.POST)
-	public String writeMessageProc(Message msg, HttpSession session, @RequestParam("userNick") String userNick) {
+	public String writeMessageProc(Message msg, HttpSession session, @RequestParam(value="userNick") String userNick) {
 		logger.info("/message/write [POST]");
 		
 		logger.info("쪽지 정보 : {}", msg);
