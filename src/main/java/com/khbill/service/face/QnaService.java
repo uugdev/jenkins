@@ -48,4 +48,18 @@ public interface QnaService {
 	 */
 	public void setQnaWrite(Qna qna);
 
+	/**
+	 * 문의글 수정하기
+	 * 
+	 * @param qna - 문의글 수정 정보
+	 */
+	public void setQnaUpdate(Qna qna);
+
+	/**
+	 * 문의글 삭제하기
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void setQnaDelete(int qnaNo);
+
 }

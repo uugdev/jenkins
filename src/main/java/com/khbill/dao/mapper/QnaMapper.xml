@@ -10,7 +10,7 @@
 			SELECT rownum rnum, Q.* FROM (
 				SELECT * FROM zqna
 				WHERE user_no = #{userNo}
-				ORDER BY qna_date DESC
+				ORDER BY qna_no DESC
 			) Q
 		) zqna
 		WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
@@ -36,5 +36,21 @@
 		INSERT INTO zqna (qna_no, qna_title, qna_content, qna_category, user_no)
 		VALUES (zqna_seq.nextval, #{qnaTitle}, #{qnaContent}, #{qnaCategory}, #{userNo})
 	</insert>
+	
+	<update id="updateQna" parameterType="com.khbill.dto.Qna">
+		UPDATE zqna
+		SET qna_title = #{qnaTitle}, qna_content=#{qnaContent}, qna_category=#{qnaCategory}
+		WHERE qna_no=#{qnaNo}
+	</update>
+	
+	<delete id="deleteQna" parameterType="int">
+		DELETE zqna
+		WHERE qna_no=#{qnaNo}
+	</delete>
+	
+	<delete id="deleteQnaComment" parameterType="int">
+		DELETE zqna_comment
+		WHERE qna_no=#{qnaNo}
+	</delete>
 	
 </mapper>

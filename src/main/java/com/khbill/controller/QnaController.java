@@ -62,4 +62,23 @@ public class QnaController {
 		
 		return "redirect:/qna/list";
 	}
+	
+	@RequestMapping(value="/qna/update", method=RequestMethod.GET)
+	public void qnaUpdate(int qnaNo, Model model) {
+		Qna qna = qnaService.getQnaDetail(qnaNo);
+		model.addAttribute("qna", qna);
+	}
+	
+	@RequestMapping(value="/qna/update", method=RequestMethod.POST)
+	public String qnaUpdateProc(Qna qna, @RequestParam(value="userNick") String userNick) {
+//		logger.info("{}",qna);
+		qnaService.setQnaUpdate(qna);
+		return "redirect:/qna/list";
+	}
+	
+	@RequestMapping(value="/qna/delete")
+	public String qnaDelete(int qnaNo) {
+		qnaService.setQnaDelete(qnaNo);
+		return "redirect:/qna/list";
+	}
 }

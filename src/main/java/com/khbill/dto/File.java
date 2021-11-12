@@ -4,17 +4,18 @@ import java.util.Date;
 
 public class File {
 
-	
 	private int fileNo;
 	private String fileOrigin;
 	private String fileStored;
 	private int fileSize;
 	private Date fileDate;
+	
 	@Override
 	public String toString() {
 		return "File [fileNo=" + fileNo + ", fileOrigin=" + fileOrigin + ", fileStored=" + fileStored + ", fileSize="
 				+ fileSize + ", fileDate=" + fileDate + "]";
 	}
+	
 	public int getFileNo() {
 		return fileNo;
 	}
