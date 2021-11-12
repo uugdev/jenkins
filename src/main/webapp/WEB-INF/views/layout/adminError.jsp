@@ -11,10 +11,10 @@
 
 $(document).ready(function(){
 	$("#btnMain").click(function(){
-		location.href="/main"
+		location.href="/main";
 	})
 	$("#btnAdminLogin").click(function(){
-		location.href="/admin/login"
+		location.href="/admin/login";
 	})
 })
 

@@ -17,7 +17,7 @@
 			<beans:bean class="com.khbill.interceptor.UserInterceptor" />
 		</interceptor>
 		<interceptor>
-			<mapping path="/admin/*"/>
+			<mapping path="/admin/**"/>
 			<exclude-mapping path="/admin/login"/>
 			<beans:bean class="com.khbill.interceptor.AdminInterceptor" />
 		</interceptor>
