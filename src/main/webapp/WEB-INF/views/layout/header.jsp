@@ -21,11 +21,20 @@
 
 			<div class="collapse navbar-collapse" id="myNavbar"
 				 style="background: white; height: 100px;">
-				<ul class="nav navbar-nav">
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>게시판</h3></a></li>
+				<ul class="nav navbar-nav" id="navbar">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-target="#" data-toggle="dropdown" role="button" aria-expanded="false" style="margin: 7px 0 0 30px;"><h3>게시판</h3></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="/ask/list">질문 게시판</a></li>
+							<li class="divider"></li>
+							<li><a href="/review/list">후기 게시판</a></li>
+							<li class="divider"></li>
+							<li><a href="/trade/list">거래 게시판</a></li>
+						</ul>
+					</li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>가계부</h3></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>문의</h3></a></li>
+					<li><a href="/mypage" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
+					<li><a href="/qna/list" style="margin: 7px 0 0 30px;"><h3>문의</h3></a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

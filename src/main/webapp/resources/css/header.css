@@ -17,3 +17,8 @@ body {
 #in-footer p:first-child {
 	padding-top: 30px;
 }
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}

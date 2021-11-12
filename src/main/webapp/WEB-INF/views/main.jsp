@@ -19,7 +19,7 @@
 	                <div>
 			           	<!-- 인기 게시글 -->
 						<div class="table-responsive" style="background-color:#eee;">
-							<p style="font-size: 25px;">
+							<p style="font-size: 25px; text-align: left;">
 								<img alt="fire" src="https://i.imgur.com/9LX0LXQ.png" width="30px;" height="30px;"> 현재 뜨거운 게시글
 							</p>
 							<table class="table" id="popular_table">
@@ -57,23 +57,25 @@
             <!-- 영수증 -->
             <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 25px;">
                 <p>[주문(대기)번호]</p>
-	                <div style="margin: auto; text-align: center;">
-		                <c:choose>
-		                	<c:when test="${!empty userNo }">
-				                <span style="font-size: 30px;">${userNo }</span>
-		                	</c:when>
-		                	<c:when test="${empty userNo }">
-				                <span style="font-size: 30px;">1004</span>
-		                	</c:when>
-		                </c:choose>
-	                </div>
-	            <span>주문내역</span>
-                <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
-                <div style="width: auto; height: 300px; overflow: auto;">
-                
+                <div style="margin: auto; text-align: center;">
+	                <c:choose>
+	                	<c:when test="${!empty userNo }">
+			                <span style="font-size: 30px; background-color: gray;">${userNo }</span>
+	                	</c:when>
+	                	<c:when test="${empty userNo }">
+			                <span style="font-size: 30px; background-color: gray;">1004</span>
+	                	</c:when>
+	                </c:choose>
                 </div>
+	            <div style="margin: auto; text-align: left;">
+		            <span>주문내역</span>
+	            </div>
+                <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
+                
+                <div style="width: auto; height: 300px; overflow: auto;"></div>
+                
                 <hr style="border: 2px dashed black; margin: 0 10px 10px 0;">
-                <span>총 주문금액</span>
+                <span style="float: left;">총 주문금액</span>
                 <span style="float: right;">0 원</span>
                 <img alt="barcode" src="https://i.imgur.com/hGHStFZ.png" style="margin-top: 10px; width: 100%;">
                 <span id="time" style="float: right;"></span>
@@ -87,7 +89,7 @@
 
 	<!-- 등수 -->
 	<div class="row">
-		<p style="font-size: 30px; text-align: center;">
+		<p style="font-size: 30px;">
 			<img alt="good" src="https://i.imgur.com/jGvv25B.png" width="30px;" height="30px;"> 너가 최고야!
 		</p>
 		<div class="col-lg-4">
@@ -95,21 +97,21 @@
 				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>1등</h2>
-			<p>1등 닉네임</p>
+			<p>${userTen[0].userNick }</p>
 		</div>
 		<div class="col-lg-4">
 			<img class="img-circle"
 				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>2등</h2>
-			<p>2등 닉네임</p>
+			<p>${userTen[1].userNick }</p>
 		</div>
 		<div class="col-lg-4">
 			<img class="img-circle"
 				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>3등</h2>
-			<p>3등 닉네임</p>
+			<p>${userTen[2].userNick }</p>
 		</div>
 	</div>
 
@@ -123,24 +125,15 @@
 						<tr>
 							<th style="text-align: center; font-size: 20px; background-color: gray;">공지사항</th>
 						</tr>
-						<tr>
-							<td>게시글1</td>
-						</tr>
-						<tr>
-							<td>게시글2</td>
-						</tr>
-						<tr>
-							<td>게시글3</td>
-						</tr>
-						<tr>
-							<td>게시글4</td>
-						</tr>
-						<tr>
-							<td>게시글5</td>
-						</tr>
-						<tr>
-							<td>게시글6</td>
-						</tr>
+						<c:forEach var="i" begin="0" end="5">
+							<tr>
+								<td style="text-align: left;">
+									<a href="/notice/detail?noticeno=${noticeSix[i].noticeNo }">
+										<p style="margin-bottom: 0;">${noticeSix[i].noticeTitle }</p>
+									</a>
+								</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</div>
@@ -150,34 +143,12 @@
 			<!-- 인기 게시글 -->
 			<div class="col-md-3">
 				<table class="table table-hover" id="rank_table" style="height: 342px;">
-					<tr>
-						<td>4</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>8</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>9</td>
-						<td>유저</td>
-					</tr>
-					<tr>
-						<td>10</td>
-						<td>유저</td>
-					</tr>
+					<c:forEach var="i" begin="3" end="9">
+						<tr>
+							<td>${i+1 }</td>
+							<td>${userTen[i].userNick }</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
