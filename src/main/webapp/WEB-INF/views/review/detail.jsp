@@ -10,12 +10,12 @@
 <div class="container">
 
 
-<h1 style="text-align: center;">${review.reviewTitle }</h1>
+<h1 style="text-align: center;">${review.REVIEW_TITLE }</h1>
 <hr>
 
-<span>작성자 : ${user.userNick }</span>
-<span><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm"/></span>
-<span class="pull-right">조회수 : ${review.reviewHit }</span>
+<span>작성자 : ${review.USER_NICK }</span>
+<span><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
+<span class="pull-right">조회수 : ${review.REVIEW_HIT }</span>
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -43,9 +43,9 @@
 
 <div class="text-center">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
-	<c:if test="${user.userNo eq review.userNo }">
-		<a href="/review/update?reviewkNo=${review.reviewkNo }"><button class="btn btn-primary">수정</button></a>
-		<a href="/review/delete?reviewkNo=${review.reviewkNo }"><button class="btn btn-danger">삭제</button></a>
+	<c:if test="${user.userNo eq review.USER_NO }">
+		<a href="/review/update?reviewNo=${review.REVIEW_NO }"><button class="btn btn-primary">수정</button></a>
+		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"><button class="btn btn-danger">삭제</button></a>
 	</c:if>
 </div>
 

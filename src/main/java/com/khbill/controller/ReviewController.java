@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -61,7 +62,7 @@ public class ReviewController {
 		logger.info("file : {}", file);
 		
 		//모델값 전달
-		model.addAttribute("detailReview", review);
+		model.addAttribute("review", review);
 //		model.addAttribute("ask", ask);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);

@@ -43,7 +43,7 @@
 		WHERE review_no = #{reviewNo }
 	</update>
 	
-	<select id="selectReviewByReviewNo" resultType="com.khbill.dto.Review" parameterType="com.khbill.dto.Review">
+	<select id="selectReviewByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review">
 		SELECT * FROM (
 		        SELECT 
 		        	review_no, item_no, U.user_no, user_nick, file_no

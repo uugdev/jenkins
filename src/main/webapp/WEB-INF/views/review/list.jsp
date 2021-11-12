@@ -65,7 +65,7 @@ td:nth-child(2) {
 <c:forEach items="${review }" var="review">
 	<tr>
 		<td>${review.REVIEW_NO }</td>
-		<td><a href="/review/detail?review_no=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
+		<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
 		<td>${review.USER_NICK }</td>
 		<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
 		<td>${review.REVIEW_HIT }</td>
