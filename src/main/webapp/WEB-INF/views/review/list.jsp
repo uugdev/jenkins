@@ -57,13 +57,13 @@ td:nth-child(2) {
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${list }" var="review">
+<c:forEach items="${review }" var="review">
 	<tr>
-		<td>${review.reviewNo }</td>
-		<td><a href="/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
-		<td>${review.user.userNick }</td>
-		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
-		<td>${review.reviewHit }</td>
+		<td>${review.REVIEW_NO }</td>
+		<td><a href="/review/detail?review_no=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
+		<td>${review.USER_NICK }</td>
+		<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
+		<td>${review.REVIEW_HIT }</td>
 	</tr>
 </c:forEach>
 </tbody>

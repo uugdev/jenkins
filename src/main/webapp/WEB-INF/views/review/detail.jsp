@@ -1,61 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
 
-<!doctype html>
-<html lang="ko">
-<head>
-    <%--page title--%>
-    <title>이건못참조</title>
-	<c:import url="/WEB-INF/views/layout/head.jsp" />
-</head>
-<body>
-<%--header--%>
+<c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
-
+<!-- header end -->
 
 <div class="container">
 
-<h1>게시글 상세</h1>
+
+<h1 style="text-align: center;">${review.reviewTitle }</h1>
 <hr>
 
-<table class="table table-bordered">
-<tr>
-	<td class="info">글번호</td><td colspan="3">${detailReview.reviewNo }</td>
-</tr>
-<tr>
-	<td class="info">닉네임</td><td>${detailReview.user.userNick  }</td>
-</tr>
-<tr>
-	<td class="info">조회수</td><td>${detailReview.reviewHit }</td>
-	<td class="info">작성일</td><td><fmt:formatDate value="${detailReview.reviewDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
-</tr>
-<tr>
-	<td class="info">제목</td><td colspan="3">${detailReview.reviewTitle }</td>
-</tr>
-<tr>
-	<td class="info" colspan="4">본문</td>
-</tr>
-<tr>
-	<td colspan="4">${detailReview.reviewContent }</td>
-</tr>
+<span>작성자 : ${user.userNick }</span>
+<span><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm"/></span>
+<span class="pull-right">조회수 : ${review.reviewHit }</span>
+
+<table class="table table-striped table-hover">
+	<thead>
+		<tr>
+			<th style="width: 33%;">브랜드</th>
+			<th style="width: 33%;">상품명</th>
+			<th style="width: 33%;">가격</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>${item.itemBrand }</td>		
+			<td>${item.itemName }</td>		
+			<td>${item.itemPrice }원</td>		
+		</tr>
+	</tbody>
 </table>
 
-<a href="/board/download?fileNo=${file.fileNo }">${file.fileOrigin }</a>
+<div id="item">
+	<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
+</div>
+
+
+<div style="text-align: center;">${review.reviewContent }</div>
 
 <div class="text-center">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
-	<c:if test="${id eq detailReview.user.userId }">
-		<a href="/reivew/update?reviewNo=${detailReview.reviewNo }"><button class="btn btn-primary">수정</button></a>
-		<a href="/review/delete?reviewNo=${detailReview.reviewNo }"><button class="btn btn-danger">삭제</button></a>
+	<c:if test="${user.userNo eq review.userNo }">
+		<a href="/review/update?reviewkNo=${review.reviewkNo }"><button class="btn btn-primary">수정</button></a>
+		<a href="/review/delete?reviewkNo=${review.reviewkNo }"><button class="btn btn-danger">삭제</button></a>
 	</c:if>
 </div>
 
-</div><!-- .container -->
 
 
 
-<%--footer--%>
+<%-- --%>
+	
+</div><!-- .container end -->
+</div><!-- .wrap end -->
+
+<!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>

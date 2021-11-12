@@ -14,7 +14,6 @@ public class Review {
 	private int reviewHit;
 	
 	
-	
 	private User user;
 	public User getUser() {
 		return user;

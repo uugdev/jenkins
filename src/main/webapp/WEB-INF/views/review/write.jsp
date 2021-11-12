@@ -43,7 +43,7 @@ $(document).ready(function() {
 <h1>글쓰기 페이지</h1>
 <hr>
 
-<form action="/reivew/write" method="post" enctype="multipart/form-data">
+<form action="/review/write" method="post" enctype="multipart/form-data">
 <div class="form-group">
 	<label for="userNick">작성자</label>
 	<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>
@@ -58,8 +58,8 @@ $(document).ready(function() {
 </div>
 
 <div class="form-group">
-	<label for="fileNo">첨부파일</label>
-	<input type="file" id="fileNo" name="fileNo" />
+	<label for="file">첨부파일</label>
+	<input type="file" id="file" name="file" />
 </div>
 
 <div class="text-center">
