@@ -42,14 +42,6 @@ public interface ReviewService {
 	public Review getReviewDetail(Review detailReview);
 
 	/**
-	 * 게시글번호를 이용하여 업로드된 파일의 정보를 조회한다
-	 * 
-	 * @param detailReview - 조회할 게시글 번호를 가진 객체
-	 * @return 첨부파일 정보
-	 */
-	public File getAttachFile(Review detailReview);
-
-	/**
 	 * 후기 게시판 글쓰기
 	 * 
 	 * @param review - 전달 받은 게시글 객체
@@ -58,6 +50,15 @@ public interface ReviewService {
 	 * @param file - 전달 받은 파일 객체
 	 */
 	public void setReviewWrite(Review review, User user, Item item, MultipartFile file);
+
+	/**
+	 * 게시글번호를 이용하여 업로드된 파일의 정보를 조회한다
+	 * 
+	 * @param detailReview - 조회할 게시글 번호를 가진 객체
+	 * @return 첨부파일 정보
+	 */
+	public File getAttachFile(Review detailReview);
+
 
 
 }

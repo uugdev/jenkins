@@ -50,39 +50,39 @@ public class ReviewController {
 	public String detail(Review detailReview, Model model) {
 		logger.info("/review/detail {}", detailReview);
 		
-		//
 		if( detailReview.getReviewNo() < 1 ) {
 			return "redirect:/review/list";
 		}
 		
 		detailReview = reviewService.getReviewDetail(detailReview);
 		logger.info("/review/detail 상세보기 {}", detailReview);
+		//모델값 전달
+		model.addAttribute("detailReview", detailReview);
 		
 		
 		//첨부파일 정보 전달
-		File file = reviewService.getAttachFile(detailReview);
-		model.addAttribute("file", file);
+		File reviewfile = reviewService.getAttachFile(detailReview);
+		model.addAttribute("file", reviewfile);
 		
-		
-		//모델값 전달
-		model.addAttribute("detailReview", detailReview);
 		
 		return "review/detail";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public void write() {}
-	
+	public void write() {
+	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String wrtieProc(Review review, User user, Item item,  MultipartFile file, HttpSession session ) {
 		logger.info("{}", review);
 		logger.info("{}", item);
 		logger.info("{}", file);
+		logger.info("테스트");
+		
 		
 		user.setUserId((String) session.getAttribute("userId"));
 		user.setUserNick((String) session.getAttribute("userNick"));
-		
+				
 		reviewService.setReviewWrite(review, user, item, file);
 		
 		return "redirect:/review/list";

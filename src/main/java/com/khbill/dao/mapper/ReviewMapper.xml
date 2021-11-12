@@ -6,32 +6,32 @@
  
 <mapper namespace="com.khbill.dao.face.ReviewDao">
 
-	<resultMap type="com.khbill.dto.Review" id="Review">
-		<id column="review_no" property="reviewNo"/>
-		<result column="item_no" property="itemNo"/>
-		<result column="user_no" property="userNo"/>
-		<result column="file_no" property="fileNo"/>
-		<result column="review_title" property="reviewTitle"/>
-		<result column="review_content" property="reviewContent"/>
-		<result column="review_date" property="reviewDate"/>
-		<result column="review_hit" property="reviewHit"/>
-		<collection property="user" resultMap="User"/>
-	</resultMap>
+<!-- 	<resultMap type="com.khbill.dto.Review" id="Review"> -->
+<!-- 		<id column="review_no" property="reviewNo"/> -->
+<!-- 		<result column="item_no" property="itemNo"/> -->
+<!-- 		<result column="user_no" property="userNo"/> -->
+<!-- 		<result column="file_no" property="fileNo"/> -->
+<!-- 		<result column="review_title" property="reviewTitle"/> -->
+<!-- 		<result column="review_content" property="reviewContent"/> -->
+<!-- 		<result column="review_date" property="reviewDate"/> -->
+<!-- 		<result column="review_hit" property="reviewHit"/> -->
+<!-- 		<collection property="user" resultMap="User"/> -->
+<!-- 	</resultMap> -->
 	
-	<resultMap type="com.khbill.dto.User" id="User">
-	    <id column="user_no" property="userNo" />
-	    <result column="user_id" property="userId" />
-	    <result column="user_pw" property="userPw" />
-	    <result column="user_nick" property="userNick" />
-	    <result column="user_mail" property="userMail" />
-	    <result column="join_date" property="joinDate" />
-	    <result column="extra_money" property="extraMoney" />
-	    <result column="user_bday" property="userBday" />
-	    <result column="user_gender" property="userGender" />
-	    <result column="user_point" property="userPoint" />
-	</resultMap>
+<!-- 	<resultMap type="com.khbill.dto.User" id="User"> -->
+<!-- 	    <id column="user_no" property="userNo" /> -->
+<!-- 	    <result column="user_id" property="userId" /> -->
+<!-- 	    <result column="user_pw" property="userPw" /> -->
+<!-- 	    <result column="user_nick" property="userNick" /> -->
+<!-- 	    <result column="user_mail" property="userMail" /> -->
+<!-- 	    <result column="join_date" property="joinDate" /> -->
+<!-- 	    <result column="extra_money" property="extraMoney" /> -->
+<!-- 	    <result column="user_bday" property="userBday" /> -->
+<!-- 	    <result column="user_gender" property="userGender" /> -->
+<!-- 	    <result column="user_point" property="userPoint" /> -->
+<!-- 	</resultMap> -->
 	
-	<select id="selectReviewList" resultMap="Review" parameterType="com.khbill.util.Paging">
+	<select id="selectReviewList" resultType="com.khbill.dto.Review" parameterType="com.khbill.util.Paging">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
 		        SELECT 
@@ -56,15 +56,52 @@
 		WHERE review_no = #{reviewNo }
 	</update>
 	
-	<select id="selectReviewByReviewNo" resultMap="Review" parameterType="com.khbill.dto.Review">
+	<select id="selectReviewByReviewNo" resultType="com.khbill.dto.Review" parameterType="com.khbill.dto.Review">
 		SELECT * FROM (
-		        SELECT review_no, item_no, U.user_no, user_nick, file_no, review_title, review_content, review_date, review_hit
+		        SELECT 
+		        	review_no, item_no, U.user_no, user_nick, file_no
+		        	, review_title, review_content, review_date, review_hit
 		        FROM zuser U
 		        INNER JOIN zreview R
 		            ON U.user_no = R.user_no
 		        ORDER BY user_no
 		) ZREVIEW
-		WHERE review_no = #{reviewNo }
+		WHERE review_no = #{reviewNo } 
 	</select>
 	
+	 <insert id="insertReview" parameterType="com.khbill.dto.Review">
+	 	<selectKey order="BEFORE" resultType="int" keyProperty="reviewNo">
+	 		SELECT zreview_seq.nextval FROM dual
+	 	</selectKey>
+	 	
+	 	INSERT INTO ZRVIEW (
+	 		item_no, user_no, file_no
+	 		, review_title,	review_content, review_date, review_hit
+	 	)
+	 	VALUES( #{item_no}, #{user_no}, #{file_no}, #{review_title}, #{review_content}, #{review_date}, #{review_hit} )
+	 </insert>
+	 
+	<select id="getNextFileNo" resultType="int">
+		SELECT zfile_seq.nextval FROM dual
+	</select>
+	
+	<select id="getNextItemNo" resultType="int">
+		SELECT zitem_seq.nextval FROM dual
+	</select>
+	
+	<select id="getNextreviewNo" resultType="int">
+		SELECT zreview_seq.nextval FROM dual
+	</select>
+	 
+	 <insert id="insertFile" parameterType="com.khbill.dto.File">
+		INSERT INTO ZFILE (file_no, file_origin, file_stored, file_size, file_date)
+		VALUES (#{fileNo}, #{fileOrigin}, #{fileStored}, #{fileSize}, sysdate)
+	</insert>
+	
+	<insert id="insertItem" parameterType="com.khbill.dto.Item">
+		INSERT INTO ZITEM (item_no, user_no, file_no,item_brand item_name, item_price)
+		VALUES (#{itemNo}, #{userNo}, #{fileNo}, #{itemBrand}, #{itemName}, #{itemPrice})
+	</insert>
+		
+	 
 </mapper>

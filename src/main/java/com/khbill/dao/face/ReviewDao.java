@@ -2,6 +2,8 @@ package com.khbill.dao.face;
 
 import java.util.List;
 
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.util.Paging;
 
@@ -38,5 +40,55 @@ public interface ReviewDao {
 	 * @return 조회된 게시글 정보
 	 */
 	public Review selectReviewByReviewNo(Review detailReview);
+
+	/**
+	 * 후기 게시글 삽입
+	 * 
+	 * @param review
+	 */
+	public void insertReview(Review review);
+
+	/**
+	 * 다음 파일번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextFileNo();
+
+	/**
+	 * 다음 상품번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextItemNo();
+
+	/**
+	 * 다음 후기 글번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextreviewNo();
+
+	/**
+	 * 첨부파일 삽입
+	 * 
+	 * @param askFile
+	 */
+	public void insertFile(File reviewfile);
+
+	/**
+	 * 상품 삽입
+	 * 
+	 * @param item
+	 */
+	public void insertItem(Item item);
+	
+	/**
+	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
+	 * 
+	 * @param detailReview - 조회할 게시글 번호
+	 * @return 조회된 첨부파일 정보
+	 */
+	public File selectFileByReviewFileNo(Review detailReview);
 
 }
