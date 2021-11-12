@@ -58,4 +58,14 @@ public interface MemberDao {
 	 */
 	public int countUserNickDupl(User user);
 
+	/**
+	 * 유저 번호로 유저 닉네임을 찾는다
+	 * 
+	 * @param - 유저 번호
+	 * @return 유저 닉네임
+	 */
+	public String selectUserNickByUserNo(int msgUserNo);
+	
+	
+
 }

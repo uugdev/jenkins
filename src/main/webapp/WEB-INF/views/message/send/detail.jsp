@@ -14,7 +14,7 @@
 <div class="wrap">
 <div class="container">
 
-<h1>쪽지 상세보기 페이지</h1>
+<h1>보낸 쪽지 상세보기 페이지</h1>
 
 <table>
 	<tr>
@@ -24,6 +24,10 @@
 	<tr>
 		<td>내용</td>
 		<td>${msg.msgContent }</td>
+	</tr>
+	<tr>
+		<td>받는 사람</td>
+		<td>${userNick } </td>
 	</tr>
 </table>
 

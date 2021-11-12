@@ -68,5 +68,9 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
-
+	
+	@Override
+	public String getUserNickByUserNo(int msgUserNo) {
+		return memberDao.selectUserNickByUserNo(msgUserNo);
+	}
 }
