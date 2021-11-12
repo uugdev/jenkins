@@ -5,24 +5,7 @@
  
 <mapper namespace="com.khbill.dao.face.QnaDao">
 	
-	<resultMap type="com.khbill.dto.Qna" id="Qna">
-		<result column="qna_no" property="qnaNo" />
-		<result column="qna_title" property="qnaTitle" />
-		<result column="qna_content" property="qnaContent" />
-		<result column="qna_category" property="qnaCategory" />
-		<result column="qna_status" property="qnaStatus" />
-		<result column="qna_date" property="qnaDate" />
-		<result column="user_no" property="userNo" />
-	</resultMap>
-	<resultMap type="com.khbill.dto.QnaComment" id="QnaComment">
-		<result column="qna_com_no" property="qnaComNo" />
-		<result column="qna_no" property="qnaNo" />
-		<result column="admin_no" property="adminNo" />
-		<result column="qna_com_content" property="qnaComContent" />
-		<result column="qna_com_date" property="qnaComDate" />
-	</resultMap>
-	
-	<select id="selectQnaListByUserNo" parameterType="hashmap" resultMap="Qna">
+	<select id="selectQnaListByUserNo" parameterType="hashmap" resultType="com.khbill.dto.Qna">
 		SELECT * FROM (
 			SELECT rownum rnum, Q.* FROM (
 				SELECT * FROM zqna
@@ -38,12 +21,12 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
-	<select id="selectQnaDetailByQnaNo" parameterType="int" resultMap="Qna">
+	<select id="selectQnaDetailByQnaNo" parameterType="int" resultType="com.khbill.dto.Qna">
 		SELECT * FROM zqna
 		WHERE qna_no = #{qnaNo}
 	</select>
 	
-	<select id="selectQnaCommentByQnaNo" parameterType="int" resultMap="QnaComment">
+	<select id="selectQnaCommentByQnaNo" parameterType="int" resultType="com.khbill.dto.QnaComment">
 		SELECT * FROM zqna_comment
 		WHERE qna_no = #{qnaNo}
 		ORDER BY qna_no DESC

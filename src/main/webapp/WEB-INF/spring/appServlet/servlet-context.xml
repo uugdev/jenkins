@@ -9,6 +9,16 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
+	<!-- 인터셉터 설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/qna/*"/>
+			<mapping path="/mypage/*"/>
+			<beans:bean class="com.khbill.interceptor.Interceptor" />
+		</interceptor>
+	</interceptors>
+
+
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	

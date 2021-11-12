@@ -35,17 +35,6 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkInfo(User user) {
-		
-		int i = memberDao.checkInfo(user);
-		if(i <= 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	@Override
 	public void join(User user) {
 		memberDao.insertMember(user);
 	}
@@ -53,6 +42,30 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getUserNo(String userNick) {
 		return memberDao.selectUserNoByUserNick(userNick);
+		
+	}
+
+	@Override
+	public boolean checkUserId(User user) {
+		int check = memberDao.countUserIdDupl(user);
+		
+		if( check <= 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean checkUserNick(User user) {
+		int check = memberDao.countUserNickDupl(user);
+		
+		if( check <= 0 ) {
+			return true;
+		} else {
+			return false;
+		}
 		
 	}
 
