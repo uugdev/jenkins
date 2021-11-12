@@ -76,6 +76,33 @@ public class MessageController {
 		return "redirect:/main";
 	}
 	
+	@RequestMapping(value="/message/reply", method=RequestMethod.GET)
+	public void replyMessage(@RequestParam(value="userNo") int userNo, Model model) {
+		logger.info("/message/reply [GET]");
+		
+		String userNick = memberService.getUserNickByUserNo(userNo);
+		
+		model.addAttribute("userNick", userNick);
+		
+	}
+	
+	@RequestMapping(value="/message/reply", method=RequestMethod.POST)
+	public String replyMessageProc(Message msg, HttpSession session, @RequestParam(value="userNick") String userNick) {
+		logger.info("/message/write [POST]");
+		
+		logger.info("쪽지 정보 : {}", msg);
+		
+		int ReceiverNo = memberService.getUserNo(userNick);
+
+		msg.setSenderNo((int)session.getAttribute("userNo"));
+		msg.setReceiverNo(ReceiverNo);
+		logger.info("발신자, 수신자 정보 저장한 쪽지 정보 : {}", msg);
+	
+		messageService.setMessageWrite(msg);
+		
+		return "redirect:/main";
+	}
+	
 	@RequestMapping(value="/message/receive/list")
 	public void msgReceiveList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/message/receive/list [GET]");

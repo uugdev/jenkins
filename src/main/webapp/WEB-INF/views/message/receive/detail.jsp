@@ -35,7 +35,7 @@
 	</tr>
 </table>
 
-
+<a href="/message/reply?userNo=${msg.senderNo }"><button>답장</button></a>
 <a href="/message/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
 
 </div><!-- .container end -->
