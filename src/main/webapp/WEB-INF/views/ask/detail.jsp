@@ -8,6 +8,7 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -104,7 +105,7 @@ table, th {
 <!-- <div class="clearfix"></div> -->
 <hr>
 
-<span>작성자 : ${user.userNick }</span> |
+<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }" onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 : ${user.userNick }</span></a> |
 <span><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm"/></span>
 <span class="pull-right">조회수 : ${ask.askHit }</span>
 
