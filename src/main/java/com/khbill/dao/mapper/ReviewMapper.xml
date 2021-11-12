@@ -6,23 +6,35 @@
  
 <mapper namespace="com.khbill.dao.face.ReviewDao">
 	
+	<sql id="selectReview">
+        SELECT 
+        	review_no, U.user_no, user_nick
+        	, review_title, review_date, review_hit
+        FROM zreview R
+        INNER JOIN zuser U
+            ON U.user_no = R.user_no
+	</sql>
+
+	<sql id="whereReviewTitleSearch">
+		WHERE review_title LIKE '%' || #{search} || '%'
+	</sql>
+	
 	<select id="selectReviewList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
-		        SELECT 
-		        	review_no, U.user_no, user_nick
-		        	, review_title, review_date, review_hit
-		        FROM zreview R
-		        INNER JOIN zuser U
-		            ON U.user_no = R.user_no
+		    	<include refid="selectReview"/>
+				<include refid="whereReviewTitleSearch"/>
 		        ORDER BY review_no DESC
 		    ) R
 		) ZREVIEW
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM ZREVIEW
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectReview"/>
+			<include refid="whereReviewTitleSearch"/>
+		)
 	</select>
 	
 	<update id="updatehit" parameterType="com.khbill.dto.Review">

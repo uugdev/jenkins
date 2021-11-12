@@ -18,8 +18,13 @@
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "/review/write");
-// 		location.href = "/board/write";
+// 		location.href = "/review/write";
 	})
+	
+	//검색 버튼 클릭
+	$("#btnSearch").click(function() {
+		location.href="/review/list?search="+$("#search").val();
+	});
 })
 </script>
 
@@ -70,6 +75,11 @@ td:nth-child(2) {
 </table>
 
 <button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+
+<div class="form-inline text-center">
+	<input class="form-control" type="text" id="search" value="${param.search }" />
+	<button id="btnSearch" class="btn">검색</button>
+</div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 

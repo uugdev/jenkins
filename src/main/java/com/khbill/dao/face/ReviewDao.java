@@ -24,7 +24,7 @@ public interface ReviewDao {
 	 * 
 	 * @return  int totalCount
 	 */
-	public int selectCntAll();
+	public int selectCntAll(Paging paging);
 
 	/**
 	 * 조회하려는 게시글의 조회수를 1 증가시킨다

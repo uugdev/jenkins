@@ -25,11 +25,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public Paging getPaging(Paging paramData) {
 		
 		//총 게시글 수 조회
-		int totalCount = reviewDao.selectCntAll();
+		int totalCount = reviewDao.selectCntAll(paramData);
 		
 		//페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
-
+		paging.setSearch(paramData.getSearch());
+		
 		return paging;
 	}
 
