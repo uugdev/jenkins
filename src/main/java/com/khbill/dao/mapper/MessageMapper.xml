@@ -56,25 +56,13 @@
 		ORDER BY msg_date DESC
 	</select>
 	
-	<select id="selectReceiverNoByMsgNo" resultType="int">
-		SELECT receiver_no
-		FROM zmessage
-		WHERE msg_no = #{msgNo }
-	</select>
-	
-	<select id="selectSenderNoByMsgNo" resultType="int">
-		SELECT sender_no
-		FROM zmessage
-		WHERE msg_no = #{msgNo }
-	</select>
-	
 	<update id="updateMsgCheckToY" parameterType="com.khbill.dto.Message">
 		UPDATE zmessage
 		SET msg_check = 'y'
 		WHERE msg_no = #{msgNo }
 	</update>
 
-	<select id="selectMsgByMsgNo" resultMap="Message" parameterType="com.khbill.dto.Message">
+	<select id="selectMsgByMsgNo" resultType="com.khbill.dto.Message" parameterType="com.khbill.dto.Message">
 		SELECT msg_no, receiver_no, sender_no, msg_title, msg_content, msg_date, msg_check
 		FROM zmessage
 		WHERE msg_no = #{msgNo }

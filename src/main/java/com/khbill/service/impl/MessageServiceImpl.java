@@ -34,21 +34,11 @@ public class MessageServiceImpl implements MessageService {
 	public List<HashMap<String, Object>> getSendMsgList(int userNo) {
 		return messageDao.selectSendMsgList(userNo);
 	}
-	
+		
 	@Override
-	public int getReceiverNo(Message msg) {
-		return messageDao.selectReceiverNoByMsgNo(msg);
-	}
-	
-	@Override
-	public int getSenderNo(Message msg) {
-		return messageDao.selectSenderNoByMsgNo(msg);
-	}
-	
-	@Override
-	public Message getMsgDetail(Message msg, int userNo, int receiverNo) {
+	public Message getMsgDetail(Message msg, int userNo) {
 
-		if(userNo == receiverNo) { //세션에 저장된 유저번호와 메시지의 receiver_no가 일치할 때 msg_check 를 y로 변경한다
+		if(userNo == msg.getReceiverNo()) { //세션에 저장된 유저번호와 메시지의 receiver_no가 일치할 때 msg_check 를 y로 변경한다
 			messageDao.updateMsgCheckToY(msg);
 			return messageDao.selectMsgByMsgNo(msg);
 		}
@@ -57,13 +47,21 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public void setMsgDelete(Message msg, int userNo, int receiverNo, int senderNo) {
+	public void setMsgDelete(Message msg, int userNo) {
 		
-		if(userNo == receiverNo) { 
+		if(userNo == msg.getReceiverNo()) { 
+			//세션에 저장된 유저 번호가 쪽지의 receiver_no와 같을 때 => 받은 쪽지함에서 삭제
+			//받은 쪽지함에서 안보이도록 상태 변경
 			messageDao.updateReceiverShowToN(msg);
-		}
+		} 
 		
+		//세션에 저장된 유저 번호가 쪽지의 sender_no와 같을 때 => 받은 쪽지함에서 삭제
+		//보낸 쪽지함에서 안보이도록 상태 변경
 		messageDao.updateSenderShowToN(msg);
 	}
-		
+	
+	@Override
+	public Message getMsgByMsgNo(Message msg) {
+		return messageDao.selectMsgByMsgNo(msg);
+	}
 }

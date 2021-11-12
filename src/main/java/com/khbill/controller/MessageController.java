@@ -82,19 +82,19 @@ public class MessageController {
 		logger.info("/message/detail [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
-		int receiverNo = messageService.getReceiverNo(msg);
-		int senderNo = messageService.getSenderNo(msg);
 		
-		logger.info("쪽지 receiver 정보 : {}", receiverNo);
-		logger.info("쪽지 sender 정보 : {}", senderNo);
+		Message viewMsg = messageService.getMsgByMsgNo(msg);
 		
-		if(userNo != receiverNo && userNo != senderNo) {
+		logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
+		logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
+		
+		if(userNo != viewMsg.getReceiverNo() && userNo != viewMsg.getSenderNo()) {
 			return "message/error";
 		}
+
+		viewMsg = messageService.getMsgDetail(viewMsg, userNo);
 		
-		msg = messageService.getMsgDetail(msg, userNo, receiverNo);
-		
-		model.addAttribute("msg", msg);
+		model.addAttribute("msg", viewMsg);
 						
 		return "message/detail";
 
@@ -105,14 +105,17 @@ public class MessageController {
 		logger.info("/message/delete [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
-		int receiverNo = messageService.getReceiverNo(msg);
-		int senderNo = messageService.getSenderNo(msg);
 		
-		if(userNo != receiverNo && userNo != senderNo) {
+		Message viewMsg = messageService.getMsgByMsgNo(msg);
+		
+		logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
+		logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
+
+		if(userNo != viewMsg.getReceiverNo() && userNo != viewMsg.getSenderNo()) {
 			return "message/error";
 		}
 		
-		messageService.setMsgDelete(msg, userNo, receiverNo, senderNo);
+		messageService.setMsgDelete(viewMsg, userNo);
 		
 		return "message/send"; //referer 값 받아서 수정해야함
 	}

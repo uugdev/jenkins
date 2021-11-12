@@ -31,28 +31,11 @@ public interface MessageDao {
 	public List<HashMap<String, Object>> selectSendMsgList(int userNo);
 
 	/**
-	 * 쪽지를 통해 쪽지 받는 사람의 번호를 알아낸다
-	 * 
-	 * @param msg
-	 * @return
-	 */
-	public int selectReceiverNoByMsgNo(Message msg);
-	
-	/**
-	 * 쪽지를 통해 쪽지 받는 사람의 번호를 알아낸다
-	 * 
-	 * @param msg
-	 * @return
-	 */
-	public int selectSenderNoByMsgNo(Message msg);
-	
-	/**
 	 * 쪽지의 상태를 y로 변경한다
 	 * 
 	 * @param msg - 쪽지 객체
 	 */
 	public void updateMsgCheckToY(Message msg);
-
 
 	/**
 	 * 쪽지 번호를 이용하여 쪽지를 조회한다
