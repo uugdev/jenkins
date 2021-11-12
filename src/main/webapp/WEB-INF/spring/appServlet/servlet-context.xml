@@ -14,7 +14,12 @@
 		<interceptor>
 			<mapping path="/qna/*"/>
 			<mapping path="/mypage/*"/>
-			<beans:bean class="com.khbill.interceptor.Interceptor" />
+			<beans:bean class="com.khbill.interceptor.UserInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/admin/*"/>
+			<exclude-mapping path="/admin/login"/>
+			<beans:bean class="com.khbill.interceptor.AdminInterceptor" />
 		</interceptor>
 	</interceptors>
 

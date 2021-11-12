@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class InterceptorController {
 
-	@RequestMapping(value="/layout/error")
-	public void errorPage() {	}
+	@RequestMapping(value="/layout/userError")
+	public void userErrorPage() {	}
+	
+	@RequestMapping(value="/layout/adminError")
+	public void adminErrorPage() {	}
 }
