@@ -10,13 +10,13 @@ public class ReviewComment {
 	private int userNo;
 	private String reviewComContent;
 	private Date reviewComDate;
-	private int tradeComLike;
-	private int tradeComHate;
+	private int reviewComLike;
+	private int reviewComHate;
 	@Override
 	public String toString() {
 		return "ReviewComment [reviewComNo=" + reviewComNo + ", reviewNo=" + reviewNo + ", userNo=" + userNo
-				+ ", reviewComContent=" + reviewComContent + ", reviewComDate=" + reviewComDate + ", tradeComLike="
-				+ tradeComLike + ", tradeComHate=" + tradeComHate + "]";
+				+ ", reviewComContent=" + reviewComContent + ", reviewComDate=" + reviewComDate + ", reviewComLike="
+				+ reviewComLike + ", reviewComHate=" + reviewComHate + "]";
 	}
 	public int getReviewComNo() {
 		return reviewComNo;
@@ -48,17 +48,17 @@ public class ReviewComment {
 	public void setReviewComDate(Date reviewComDate) {
 		this.reviewComDate = reviewComDate;
 	}
-	public int getTradeComLike() {
-		return tradeComLike;
+	public int getReviewComLike() {
+		return reviewComLike;
 	}
-	public void setTradeComLike(int tradeComLike) {
-		this.tradeComLike = tradeComLike;
+	public void setReviewComLike(int reviewComLike) {
+		this.reviewComLike = reviewComLike;
 	}
-	public int getTradeComHate() {
-		return tradeComHate;
+	public int getReviewComHate() {
+		return reviewComHate;
 	}
-	public void setTradeComHate(int tradeComHate) {
-		this.tradeComHate = tradeComHate;
+	public void setReviewComHate(int reviewComHate) {
+		this.reviewComHate = reviewComHate;
 	}
 	
 	
