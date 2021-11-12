@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -118,4 +119,42 @@ public interface AskService {
 	 */
 	public void setAskDelete(int askNo);
 	
+	/**
+	 * 
+	 * 댓글쓰기
+	 * @param askComment
+	 */
+	public void setAskCommentWrite(AskComment askComment);
+
+	/**
+	 * 게시글 번호로 댓글 조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public List<AskComment> getAskComList(int askNo);
+
+
+	/**
+	 * 댓글번호로 댓글 삭제
+	 * 
+	 * @param askComNo
+	 * @return 삭제 성공 여부
+	 */
+	public boolean deleteAskCom(int askComNo);
+	
+	
+	/**
+	 * 게시글번호로 댓글 삭제
+	 * 
+	 * @param askComNo
+	 */
+	public void setAskComDelete(int askNo);
+
+
+
+
+
+
+
 }

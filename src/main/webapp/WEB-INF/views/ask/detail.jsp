@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$("#btnCommInsert").click(function() {
 		
 		$form = $("<form>").attr({
-			action: "ask/comment/write",
+			action: "/ask/comment/write",
 			method: "post"
 		}).append(
 			$("<input>").attr({
@@ -26,18 +26,30 @@ $(document).ready(function() {
 			})
 		).append(
 			$("<textarea>")
-				.attr("name", "content")
+				.attr("name", "askComContent")
 				.css("display", "none")
-				.text($("#commentContent").val())
+				.text($("#askComContent").val())
 		);
 		$(document.body).append($form);
 		$form.submit();
 		
 	}); //$("#btnCommInsert").click() end
 
+	
+	$("#btnDelete").click(function() {
+
+		var result = confirm("정말 삭제하시겠습니까?");
+
+		if (result == true) {
+			$(location).attr("href", "/ask/delete?askNo=${ask.askNo }");
+		}
+
+	});
+	
+	
 });
 
-function deleteComment(commentNo) {
+function deleteComment(askComNo) {
 	$.ajax({
 		type: "post"
 		, url: "/ask/comment/delete"
@@ -169,8 +181,8 @@ table, th {
 	<c:if test="${login }">
 	<!-- 댓글 입력 -->
 	<div class="form-inline text-center">
-		<input type="text" size="10" class="form-control" id="commentWriter" value="${userNick }" readonly="readonly"/>
-		<textarea rows="2" cols="60" class="form-control" id="commentContent"></textarea>
+		<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
+		<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
 		<button id="btnCommInsert" class="btn">입력</button>
 	</div>	<!-- 댓글 입력 end -->
 	</c:if>
@@ -179,27 +191,28 @@ table, th {
 	<table class="table table-striped table-hover table-condensed">
 	<thead>
 	<tr>
-		<th style="width: 5%;">번호</th>
+<!-- 		<th style="width: 10%;">번호</th> -->
 		<th style="width: 10%;">작성자</th>
-		<th style="width: 50%;">댓글</th>
+		<th style="width: 65%;">댓글</th>
 		<th style="width: 20%;">작성일</th>
 		<th style="width: 5%;"></th>
 	</tr>
 	</thead>
 	<tbody id="commentBody">
-	<c:forEach items="${commentList }" var="comment">
-	<tr data-commentno="${comment.commentNo }">
-		<td style="width: 5%;">${comment.rnum }</td>
-		<td style="width: 10%;">${comment.id }</td><!-- 닉네임으로 해도 좋음 -->
-		<td style="width: 50%;">${comment.content }</td>
-		<td style="width: 20%;"><fmt:formatDate value="${comment.writeDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
-		<td style="width: 15%;">
-			<c:if test="${sessionScope.id eq comment.id }">
-			<button class="btn btn-default btn-xs"
-				onclick="deleteComment(${comment.commentNo });">삭제</button>
+	<c:forEach items="${askComment}" var="askComment">
+	<tr data-askComNo="${askComment.askComNo }">
+<%-- 		<td style="width: 5%;">${comment.rnum }</td> --%>
+		<c:forEach items="${userList }" var="userList">
+			<c:if test="${askComment.userNo eq userList.userNo}">
+				<td style="width: 10%;">${userList.userNick }</td>
 			</c:if>
-		</td>
-		
+		</c:forEach>
+		<td style="width: 56%;">${askComment.askComContent }</td>
+		<td style="width: 20%;"><fmt:formatDate value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
+			<c:if test="${userNo eq askComment.userNo }">
+			<td style="width: 5%;"><button class="btn btn-default btn-xs"
+				onclick="deleteComment(${askComment.askComNo });">삭제</button></td>
+			</c:if>
 	</tr>
 	</c:forEach>
 	</table>	<!-- 댓글 리스트 end -->
@@ -208,9 +221,9 @@ table, th {
 
 <div class="text-center">
 	<a href="/ask/list"><button class="btn btn-default">목록</button></a>
-	<c:if test="${user.userNo eq ask.userNo }">
+	<c:if test="${userNo eq ask.userNo }">
 		<a href="/ask/update?askNo=${ask.askNo }"><button class="btn btn-primary">수정</button></a>
-		<a href="/ask/delete?askNo=${ask.askNo }"><button class="btn btn-danger">삭제</button></a>
+		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
 	</c:if>
 </div>
 

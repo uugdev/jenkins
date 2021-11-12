@@ -146,6 +146,32 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo}
 </delete>
 
+<insert id="insertAskCom" parameterType="com.khbill.dto.AskComment">
+	INSERT INTO zask_comment (ask_com_no,ask_no,user_no,ask_com_content,ask_com_date,ask_com_like,ask_com_hate)
+	VALUES (zask_comment_seq.nextval,#{askNo},#{userNo},#{askComContent},sysdate,0,0) 
+</insert>
+
+<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
+	SELECT * FROM zask_comment
+	WHERE ask_no = #{askNo}
+</select>
+
+
+<delete id="deleteAskCom" parameterType="int">
+	DELETE zask_comment
+	WHERE ask_com_no = #{askComNo}
+</delete>
+
+<select id="selectCntCom" resultType="int" parameterType="int">
+	SELECT COUNT(*) FROM zask_comment WHERE ask_com_no = #{askComNo}
+</select>
+
+<delete id="deleteAskComByAskNo" parameterType="int">
+	DELETE zask_comment
+	WHERE ask_no = #{askNo}
+</delete>
+
+
 
 
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.AskDao;
 import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
@@ -226,6 +227,52 @@ public class AskServiceImpl implements AskService {
 		askDao.deleteFile(fileNo);
 	
 	}
+	
+	
+	@Override
+	public void setAskCommentWrite(AskComment askComment) {
+
+		askDao.insertAskCom(askComment);
+		
+	}
+	
+	@Override
+	public List<AskComment> getAskComList(int askNo) {
+		
+		List<AskComment> askComment = askDao.selectAskComByAskNo(askNo);
+		
+		return askComment;
+	}
+	
+	
+	@Override
+	public boolean deleteAskCom(int askComNo) {
+
+		askDao.deleteAskCom(askComNo);
+		
+		if(askDao.selectCntCom(askComNo) > 0 ) {
+			
+			return false;
+			
+		} else {
+			
+			return true;
+
+		}
+		
+	}
+	
+	
+	@Override
+	public void setAskComDelete(int askNo) {
+
+		askDao.deleteAskComByAskNo(askNo);
+		
+	}
+	
+	
+	
+	
 	
 	
 }// class

@@ -1,5 +1,7 @@
 package com.khbill.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
 import com.khbill.util.Paging;
-
-
 
 
 @Controller
@@ -101,6 +102,9 @@ public class AskController {
 		
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 		
+		List<User> userList = askService.getUserList();
+		
+		model.addAttribute("userList",userList);
 		model.addAttribute("user",user);
 		
 		model.addAttribute("ask",ask);
@@ -111,6 +115,9 @@ public class AskController {
 		String check = askService.voteCheck(vote);
 		
 		model.addAttribute("check",check);
+		
+		List<AskComment> askComment = askService.getAskComList(askNo);
+		model.addAttribute("askComment",askComment);
 		
 		
 	}
@@ -158,9 +165,38 @@ public class AskController {
 	public String delete(int askNo) {
 		logger.info("/ask/delete []");
 		
+		askService.setAskComDelete(askNo);
 		askService.setAskDelete(askNo);
 		
 		return "redirect:/ask/list?askNo="+askNo;
+	}
+	
+	
+	
+	@RequestMapping(value ="/comment/write",method = RequestMethod.POST)
+	public String AskComWrite(int askNo, AskComment askComment, Model model, HttpSession session) {
+		logger.info("/ask/comment/write [POST]");
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		askComment.setUserNo(userNo);
+		askComment.setAskNo(askNo);
+		askService.setAskCommentWrite(askComment);
+		
+		return "redirect:/ask/detail?askNo="+askComment.getAskNo();
+	}
+	
+	
+	@RequestMapping(value="/comment/delete")
+	public void delete(int askComNo, Writer writer, Model model) {
+		
+		boolean success = askService.deleteAskCom(askComNo);
+		
+		try {
+			writer.append("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

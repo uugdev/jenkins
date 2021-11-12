@@ -3,6 +3,7 @@ package com.khbill.dao.face;
 import java.util.List;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -194,8 +195,49 @@ public interface AskDao {
 	 * @param askNo
 	 */
 	public void deleteItem(int itemNo);
-	
 
+
+	/**
+	 * askComment 삽입
+	 * 
+	 * @param askComment
+	 */
+	public void insertAskCom(AskComment askComment);
+
+
+	/**
+	 * askNo로 댓글 조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public List<AskComment> selectAskComByAskNo(int askNo);
+
+
+	/**
+	 * askComNo로 댓글 삭제
+	 * 
+	 * @param askComNo
+	 */
+	public void deleteAskCom(int askComNo);
+
+
+	/**
+	 * askComNo로 일치하는 댓글 조회
+	 * 
+	 * @param askComNo
+	 * @return
+	 */
+	public int selectCntCom(int askComNo);
+
+
+	/**
+	 * 게시글번호로 댓글 삭제
+	 * 
+	 * @param askNo
+	 */
+	public void deleteAskComByAskNo(int askNo);
+	
 	
 	
 	
