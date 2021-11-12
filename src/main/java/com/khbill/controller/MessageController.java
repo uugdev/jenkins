@@ -47,7 +47,7 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:/main";
+		return "redirect:send/list";
 		
 	}
 	
@@ -73,7 +73,7 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:/main";
+		return "redirect:send/list";
 	}
 	
 	@RequestMapping(value="/message/reply", method=RequestMethod.GET)
@@ -100,7 +100,8 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:/main";
+		return "redirect:send/list";
+
 	}
 	
 	@RequestMapping(value="/message/receive/list")
@@ -217,7 +218,7 @@ public class MessageController {
 		
 		messageService.setMsgDelete(viewMsg, userNo);
 		
-		return "redirect: send/list"; //referer 값 받아서 수정해야함
+		return "redirect:send/list";
 	}
 	
 	
