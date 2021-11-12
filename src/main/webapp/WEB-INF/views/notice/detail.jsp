@@ -1,14 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:import url="/WEB-INF/views/layout/head.jsp" />
+<c:import url="/WEB-INF/views/layout/header.jsp" />
+<!-- header end -->
+
+<!-- 개별 스타일 및 스크립트 영역 -->
+
+<!-- 개별 영역 끝 -->
+
+<div class="wrap">
+<div class="container">
 
 <h1>공지사항 상세 조회</h1>
 
-</body>
-</html>
+</div><!-- .container end -->
+</div><!-- .wrap end -->
+
+<!-- footer start -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+
