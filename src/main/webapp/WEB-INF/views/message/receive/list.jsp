@@ -8,7 +8,11 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
-
+<style type="text/css">
+th {
+	text-align: center;
+}
+</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -32,7 +36,10 @@
 	<tr>
 		<td>${map.USER_NICK }</td>
 		<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
-		<td>${map.MSG_CHECK }</td>
+		<td>
+			<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
+			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
+		</td>
 		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd" /></td>
 		<td>추후 수정</td>
 	</tr>

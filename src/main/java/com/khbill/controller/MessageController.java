@@ -47,7 +47,7 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:send/list";
+		return "redirect:/send/list";
 		
 	}
 	
@@ -73,7 +73,7 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:send/list";
+		return "redirect:/send/list";
 	}
 	
 	@RequestMapping(value="/message/reply", method=RequestMethod.GET)
@@ -100,7 +100,7 @@ public class MessageController {
 	
 		messageService.setMessageWrite(msg);
 		
-		return "redirect:send/list";
+		return "redirect:/send/list";
 
 	}
 	
@@ -218,7 +218,7 @@ public class MessageController {
 		
 		messageService.setMsgDelete(viewMsg, userNo);
 		
-		return "redirect:send/list";
+		return "redirect:/send/list";
 	}
 	
 	
