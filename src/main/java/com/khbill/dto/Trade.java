@@ -12,6 +12,15 @@ public class Trade {
 	private String tradeContent;
 	private Date tradeDate;
 	private int tradeHit;
+	
+	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Override
 	public String toString() {
 		return "Trade [tradeNo=" + tradeNo + ", userNo=" + userNo + ", fileNo=" + fileNo + ", tradeCategory="
