@@ -21,7 +21,7 @@ $(document).ready(function() {
 			$("<input>").attr({
 				type:"hidden",
 				name:"askNo",
-				value:"${viewBoard.askNo }"
+				value:"${ask.askNo }"
 			})
 		).append(
 			$("<textarea>")
@@ -69,8 +69,11 @@ table, th {
 }
 
 #item {
- width : 200px;
- height: 200px
+ width : 300px;
+ height: 300px;
+ margin: 0 auto;
+ margin-top: 100px;
+ margin-bottom: 100px;
 }
 
 #votedate {
@@ -80,6 +83,11 @@ table, th {
 #choice {
 	text-align: center;
 	height: 100px;
+}
+
+#itemImg {
+	width: 100%;
+	height: 100%;
 }
 
 </style>
@@ -117,8 +125,8 @@ table, th {
 	</tbody>
 </table>
 
-<div id="item"  style="text-align: center;">
-	<img src="/upload/${file.fileStored}" alt="상품사진" />
+<div id="item">
+	<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
 </div>
 
 

@@ -39,10 +39,6 @@ public class AskController {
 
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskList(paging);
-		for(Ask a : list) {
-			logger.info("{}", a);
-		}
-		
 		List<User> user = askService.getUserList();
 		
 		model.addAttribute("user", user);
