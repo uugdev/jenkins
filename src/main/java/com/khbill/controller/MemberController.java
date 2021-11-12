@@ -39,12 +39,12 @@ public class MemberController {
 			session.setAttribute("userNick", userInfo.getUserNick());
 			session.setAttribute("userNo", userInfo.getUserNo());
 			
-			return "redirect:main";
+			return "redirect:/main";
 		} else {
 			//
 			logger.info("Login Failed");
 			session.invalidate();
-			return "redirect:main";
+			return "redirect:/main";
 		}
 		
 	}
@@ -54,7 +54,7 @@ public class MemberController {
 	public String logout(HttpSession session ) {
 		logger.info("/member/logout");
 		session.invalidate();
-		return "redirect:main";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping(value="/member/join", method=RequestMethod.GET)
@@ -70,10 +70,10 @@ public class MemberController {
 		
 		if( checkId == true && checkNick == true ) {
 			memberService.join(user);
-			return "redirect:member/login";
+			return "redirect:/member/login";
 		} else {
 			logger.info("JOIN failed");
-			return "redirect:main";
+			return "redirect:/main";
 		}
 
 	}
