@@ -36,5 +36,13 @@ public interface MainDao {
 	 * @return 결제 여부가 y인 상품 가격의 총합
 	 */
 	public int selectItemListCheckStatusByUserNo(int userNo);
+	
+	/**
+	 * 퍼센트로에 해당하는 메인 멘트 리스트 조회
+	 * 
+	 * @param persent - 퍼센트
+	 * @return 메인 멘트 리스트
+	 */
+	public List<String> selectMainment(Integer persent);
 
 }

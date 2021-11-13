@@ -27,9 +27,17 @@ public interface MainService {
 	/**
 	 * 사용 가능한 금액과 퍼센트 조회
 	 * 
-	 * @param session
+	 * @param session - session 유저 번호
 	 * @return 사용 가능한 금액과 퍼센트
 	 */
 	public Map<String, Integer> getAvailableAmountAndPercent(HttpSession session);
+	
+	/**
+	 * 퍼센트에 해당하는 메인 멘트 리스트 조회
+	 * 
+	 * @param persent - 퍼센트
+	 * @return 메인 멘트 리스트
+	 */
+	public List<String> getMainment(Integer persent);
 
 }
