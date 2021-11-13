@@ -33,4 +33,9 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<delete id="deleteQna" parameterType="int">
+		DELETE zqna
+		WHERE qna_no = #{qnaNo}
+	</delete>
+	
 </mapper>

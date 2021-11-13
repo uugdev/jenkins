@@ -16,10 +16,28 @@ $(document).ready(function(){
 		location.href="/admin/qna/list"
 	})
 	$("#btnDelete").click(function(){
-		var answer = confirm("문의글을 삭제하시겠습니까?");
+		var answer = confirm("문의 답변을 삭제하시겠습니까?");
 		
 		if(answer == true){
-			location.href="/admin/qna/delete?qnaNo="+${qna.qnaNo};
+			location.href="/admin/qna/comment/delete?qnaNo="+${qna.qnaNo};
+		} else {
+			return false;
+		}
+	})
+	$("#btnUpdate").click(function(){
+		var answer = confirm("문의 답변을 수정하시겠습니까?");
+		
+		if(answer == true){
+			location.href="/admin/qna/comment/update?qnaNo="+${qna.qnaNo};
+		} else {
+			return false;
+		}
+	})
+	$("#btnWrite").click(function(){
+		var answer = confirm("문의 답변을 삭제하시겠습니까?");
+		
+		if(answer == true){
+			location.href="/admin/qna/comment/write?qnaNo="+${qna.qnaNo};
 		} else {
 			return false;
 		}
@@ -94,10 +112,20 @@ th{
 	</td>
 </tr>
 </table>
+<c:if test="${not empty qnaComment }">
 <div class="text-center">
-	<button id="btnDelete">삭제</button>
+	<button id="btnUpdate">답변 수정</button>
+	<button id="btnDelete">답변 삭제</button>
 	<button id="btnList">목록으로</button>
 </div><!-- .text-center end -->
+</c:if>
+
+<c:if test="${empty qnaComment }">
+<div class="text-center">
+	<button id="btnWrite">답변 작성</button>
+	<button id="btnList">목록으로</button>
+</div><!-- .text-center end -->
+</c:if>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

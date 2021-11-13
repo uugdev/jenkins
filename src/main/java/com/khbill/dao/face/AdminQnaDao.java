@@ -46,4 +46,10 @@ public interface AdminQnaDao {
 	 */
 	public String selectNickByUserNo(int userNo);
 
+	/**
+	 * 문의글 삭제
+	 * @param i - 문의글 번호
+	 */
+	public void deleteQna(int i);
+
 }

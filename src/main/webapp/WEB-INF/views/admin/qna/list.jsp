@@ -11,7 +11,19 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	$("#btnDelete").click(function(){
+		var answer = confirm("선택한 문의글을 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
+		var delchk = [];
+   
+	    $('.chk:checked').each(function(){
+	        delchk.push($(this).val());
+	    });
+		if( answer == true ){
+			location.href="/admin/qna/delete?qnaNo="+delchk;
+		} else {
+			return false;
+		}
+	})
 
 })
 </script>
@@ -27,6 +39,9 @@ th, td {
 	text-align: center;
 }
 
+label {
+	font-weight: normal !important;
+}
 
 </style>
 
@@ -39,6 +54,7 @@ th, td {
 <hr>
 <table class="table table-hover table-condensed">
 <tr>
+	<th>	</th>
 	<th>문의 번호</th>
 	<th width="45%">제목</th>
 	<th>답변 여부</th>
@@ -46,8 +62,9 @@ th, td {
 </tr>
 <c:forEach items="${list }" var="i">
 <tr>
-	<td>${i.qnaNo }</td>
-	<td><a href="/admin/qna/detail?qnaNo=${i.qnaNo }">${i.qnaTitle }</a></td>
+	<td><input type="checkbox" id="${i.qnaNo }" value="${i.qnaNo }" class="chk" /></td>
+	<td><label for="${i.qnaNo}">${i.qnaNo }</label></td>
+	<td><label for="${i.qnaNo }"><a href="/admin/qna/detail?qnaNo=${i.qnaNo }">${i.qnaTitle }</a></label></td>
 	<td>
 		<c:if test="${i.qnaStatus == 'y' }">답변 완료</c:if>
 		<c:if test="${i.qnaStatus == 'n' }">답변 대기중</c:if>
@@ -56,9 +73,9 @@ th, td {
 </tr>
 </c:forEach>
 </table>
+<button id="btnDelete" class="pull-left">삭제</button>
 <span class="pull-right">총 ${paging.totalCount }개</span>
 <div class="clearfix"></div>
-
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 

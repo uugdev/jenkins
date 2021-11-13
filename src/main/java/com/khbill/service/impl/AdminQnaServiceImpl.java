@@ -48,4 +48,9 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		return adminQnaDao.selectNickByUserNo(userNo);
 	}
 
+	@Override
+	public void setQnaDelete(int i) {
+		adminQnaDao.deleteQna(i);
+	}
+
 }

@@ -48,4 +48,11 @@ public interface AdminQnaService {
 	 */
 	public String getNickByUserNo(int userNo);
 
+	/**
+	 * 문의 삭제
+	 * 
+	 * @param i - 문의글 번호
+	 */
+	public void setQnaDelete(int i);
+
 }

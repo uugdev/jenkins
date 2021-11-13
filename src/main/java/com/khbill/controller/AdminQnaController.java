@@ -40,4 +40,14 @@ public class AdminQnaController {
 		model.addAttribute("nick", nick);
 		model.addAttribute("qnaComment", qnaComment);
 	}
+	
+	@RequestMapping(value="/admin/qna/delete")
+	public String qnaDelete(int[] qnaNo) {
+//		logger.info("qnaNo[] : {}", qnaNo);
+		int size = qnaNo.length;
+		for(int i=0 ; i<size ; i++) {
+			adminQnaService.setQnaDelete(qnaNo[i]);
+		}
+		return "redirect:/admin/qna/list";
+	}
 }
