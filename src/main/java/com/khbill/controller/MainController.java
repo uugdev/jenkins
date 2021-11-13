@@ -23,6 +23,11 @@ public class MainController {
 	
 	@Autowired MainService mainService;
 	
+	@RequestMapping(value = "/")
+	public String defaultMain() {
+		return "redirect:/main";
+	}
+	
 	@RequestMapping(value="/main")
 	public void main(
 				Model model

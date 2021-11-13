@@ -18,12 +18,5 @@
 
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/header.css" />
 
-<style type="text/css">
-
-.container {
-	text-align: center;
-}
-
-</style>
 </head>
 <body>
