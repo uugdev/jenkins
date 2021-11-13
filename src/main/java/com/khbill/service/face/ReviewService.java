@@ -1,5 +1,6 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.File;
@@ -38,7 +39,7 @@ public interface ReviewService {
 	 * @param detailReview - 상세 조회할 게시글 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	public Review getReviewDetail(Review review);
+	public HashMap<String, Object> getReviewDetail(Review review);
 	
 	/**
 	 *  후기 글번호롤 상품조회

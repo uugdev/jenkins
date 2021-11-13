@@ -1,5 +1,6 @@
 package com.khbill.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
-import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -42,7 +42,6 @@ public class ReviewController {
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String detail(
 			Review review
-//			, Ask ask
 			, Item item
 			, File file
 			, Model model) {
@@ -52,18 +51,23 @@ public class ReviewController {
 			return "redirect:/review/list";
 		}
 		
+		HashMap<String, Object> reviewMap = reviewService.getReviewDetail(review);
+		logger.info("reviewMap 테스트: {}", reviewMap);
 		
-		review = reviewService.getReviewDetail(review);
-		item = reviewService.getReviewItem(review.getItemNo());
-		file = reviewService.getReviewFile(review.getFileNo());
+		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
+		item = reviewService.getReviewItem(itemNo);
+		logger.info("아이템 번호: {}", itemNo);
 		
-		logger.info("review: {}", review);
+		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
+		file = reviewService.getReviewFile(fileNo);
+		logger.info("파일 번호: {}", fileNo);
+		
+		logger.info("review: {}", reviewMap);
 		logger.info("item : {}", item);
 		logger.info("file : {}", file);
 		
 		//모델값 전달
-		model.addAttribute("review", review);
-//		model.addAttribute("ask", ask);
+		model.addAttribute("review", reviewMap);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
 		

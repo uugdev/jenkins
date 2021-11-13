@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -40,11 +41,11 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Review getReviewDetail(Review detailReview) {
+	public HashMap<String, Object> getReviewDetail(Review review) {
 		
-		reviewDao.updatehit(detailReview); //조회수 증가
+		reviewDao.updatehit(review); //조회수 증가
 		
-		return reviewDao.selectReviewByReviewNo(detailReview);
+		return reviewDao.selectReviewByReviewNo(review);
 	}
 
 	@Override
