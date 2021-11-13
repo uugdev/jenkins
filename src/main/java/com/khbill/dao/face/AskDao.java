@@ -133,12 +133,12 @@ public interface AskDao {
 
 
 	/**
-	 * 투표번호로 투표객체조회
+	 * 게시글번호,유저번호가담긴 보트객체로 투표객체조회
 	 * 
-	 * @param askNo
+	 * @param Vote
 	 * @return
 	 */
-	public Vote selectVoteByAskNo(int askNo);
+	public Vote selectVoteByAskNoUserNo(Vote voteSet);
 
 
 	
@@ -244,11 +244,19 @@ public interface AskDao {
 	 * @param voteStatus
 	 * @return
 	 */
-	public void insertVoteStatus(Vote voteStatus);
+	public void updateVoteStatus(Vote voteStatus);
+
+
+	/**
+	 * askNo로 총 투표수 조회
+	 * 
+	 * @param askNo
+	 */
+	public int selectVoteByAskNo(int askNo);
 	
 	
 	
-	
+
 	
 	
 	

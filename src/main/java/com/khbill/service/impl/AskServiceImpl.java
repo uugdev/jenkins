@@ -164,9 +164,9 @@ public class AskServiceImpl implements AskService {
 	
 	
 	@Override
-	public Vote getVote(int askNo) {
+	public Vote getVote(Vote voteSet) {
 		
-		Vote vote = askDao.selectVoteByAskNo(askNo);
+		Vote vote = askDao.selectVoteByAskNoUserNo(voteSet);
 		
 		return vote;
 	}
@@ -272,19 +272,25 @@ public class AskServiceImpl implements AskService {
 	
 	
 	@Override
-	public void getVoteStatus(int askNo, int userNo) {
+	public void setVoteStatus(int askNo, int userNo, String voteState) {
 		
-		Vote voteCheck = askDao.selectVoteByAskNo(askNo);
 		
 		Vote voteStatus = new Vote();
 		
 		voteStatus.setAskNo(askNo);
 		voteStatus.setUserNo(userNo);
-		voteStatus.setVoteStart(voteCheck.getVoteStart());
-		voteStatus.setVoteEnd(voteCheck.getVoteEnd());
+		voteStatus.setVoteState(voteState);
 
-		askDao.insertVoteStatus(voteStatus);
+		askDao.updateVoteStatus(voteStatus);
 		
+	}
+	
+	@Override
+	public int getVoteTotalCnt(int askNo) {
+
+		int cnt = askDao.selectVoteByAskNo(askNo);
+		
+		return cnt;
 	}
 	
 	

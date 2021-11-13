@@ -88,7 +88,12 @@ public class AskController {
 		
 		Ask ask = askService.getAskDetail(askNo);
 		
-		Vote vote = askService.getVote(askNo);
+		
+		Vote voteSet = new Vote();
+		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setAskNo(askNo);
+				
+		Vote vote = askService.getVote(voteSet);
 		Item item = askService.getItem(ask.getProductNo());
 		File file = askService.getFile(item.getFileNo());
 		
@@ -121,7 +126,11 @@ public class AskController {
 		logger.info("/ask/update [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
-		Vote vote = askService.getVote(askNo);
+		Vote voteSet = new Vote();
+		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setAskNo(askNo);
+				
+		Vote vote = askService.getVote(voteSet);
 		Item item = askService.getItem(ask.getProductNo());
 		File file = askService.getFile(item.getFileNo());
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
@@ -178,6 +187,7 @@ public class AskController {
 	
 	@RequestMapping(value="/comment/delete")
 	public void delete(int askComNo, Writer writer, Model model) {
+		logger.info("/ask/comment/delete");
 		
 		boolean success = askService.deleteAskCom(askComNo);
 		
@@ -191,14 +201,22 @@ public class AskController {
 	
 	
 	@RequestMapping(value="/votelike")
-	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
+	public ModelAndView voteLike( Ask ask, ModelAndView mav,HttpSession session ) {
+		logger.info("/ask/votelike");
 		
+		int askNo = ask.getAskNo();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
-		askService.getVoteStatus(askNo,userNo);
+		String voteState = "y";
 		
+		askService.setVoteStatus(askNo,userNo,voteState);
+
+		int cnt = askService.getVoteTotalCnt(askNo);
 		
+		boolean result = true;
 		
+		mav.addObject("result",result); //추천성공
+		mav.addObject("cnt",cnt); //총추천수
 		mav.setViewName("jsonView");
 
 		return mav;

@@ -102,15 +102,15 @@ SELECT zask_seq.nextval FROM dual
 	WHERE item_no = #{productNo}
 </select>
 
-<select id="selectVoteByAskNo" resultType="com.khbill.dto.Vote" parameterType="int">
+<select id="selectVoteByAskNoUserNo" resultType="com.khbill.dto.Vote" parameterType="com.khbill.dto.Vote">
 	SELECT * FROM zvote
-	WHERE ask_no = #{askNo}
+	WHERE ask_no = #{askNo } AND user_no = #{userNo}
 </select>
 
 <select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
 	SELECT COUNT(*) FROM zvote
 	WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
-	and ask_no = #{askNo}
+	AND ask_no = #{askNo} AND user_no = #{userNo}
 </select>
 
 <update id="hit" parameterType="int">
@@ -171,13 +171,16 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo}
 </delete>
 
-<insert id="insertVoteStatus" parameterType="com.khbill.dto.Vote">
-	INSERT INTO zvote
-	VALUES (zvote_seq.nextval,#{userNo},#{askNo},'y',#{voteStart},#{voteEnd})
-</insert>
+<update id="updateVoteStatus" parameterType="com.khbill.dto.Vote">
+	UPDATE zvote
+	SET vote_state = #{voteState }
+	WHERE ask_no = #{askNo } AND user_no = #{userNo }
+</update>
 
-
-
+<select id="selectVoteByAskNo" resultType="int" parameterType="int">
+	SELECT COUNT(*) FROM zask
+	WHERE ask_no = #{askNo}
+</select>
 
 
 </mapper>

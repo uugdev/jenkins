@@ -77,7 +77,7 @@ public interface AskService {
 	 * @param askNo
 	 * @return
 	 */
-	public Vote getVote(int askNo);
+	public Vote getVote(Vote voteSet);
 
 	/**
 	 * 질문글번호롤 상품조회
@@ -158,10 +158,16 @@ public interface AskService {
 	 * @param userNo
 	 * @return
 	 */
-	public void getVoteStatus(int askNo, int userNo);
+	public void setVoteStatus(int askNo, int userNo, String voteState);
 
-
-
+	
+	/**
+	 * 총투표수 가져오기
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public int getVoteTotalCnt(int askNo);
 
 
 
