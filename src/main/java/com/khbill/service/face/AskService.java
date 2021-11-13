@@ -151,14 +151,14 @@ public interface AskService {
 	 */
 	public void setAskComDelete(int askNo);
 
+
 	/**
-	 * 투표결과 체크
+	 * 게시글번호로 조회한 투표객체와 투표상태 삽입
 	 * 
-	 * @param askNo
-	 * @param userNo
-	 * @return
+	 * @param vote
+	 * @param voteState
 	 */
-	public void setVoteStatus(int askNo, int userNo, String voteState);
+	public void setVoteInsert(int userNo, Vote vote, String voteState);
 
 	
 	/**
@@ -168,6 +168,28 @@ public interface AskService {
 	 * @return
 	 */
 	public int getVoteTotalCnt(int askNo);
+
+	
+	/**
+	 * 
+	 * 로그인유저의 투표상태 체크
+	 * 
+	 * @param askNo
+	 * @param userNo
+	 * @return
+	 */
+	public boolean getVoteState(int askNo, int userNo);
+
+	
+	/**
+	 * 
+	 * 로그인유저의 투표 y,n체크
+	 * 
+	 * @param userNo
+	 * @param askNo
+	 * @return
+	 */
+	public Vote getLoginUserVoteState(int userNo, int askNo);
 
 
 

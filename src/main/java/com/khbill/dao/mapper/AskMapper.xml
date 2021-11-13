@@ -171,16 +171,22 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo}
 </delete>
 
-<update id="updateVoteStatus" parameterType="com.khbill.dto.Vote">
-	UPDATE zvote
-	SET vote_state = #{voteState }
-	WHERE ask_no = #{askNo } AND user_no = #{userNo }
-</update>
+<insert id="insertVoteStatus" parameterType="com.khbill.dto.Vote">
+	INSERT INTO zvote
+	VALUES (zvote_seq.nextval,#{userNo},#{askNo},#{voteState},#{voteStart},#{voteEnd})
+</insert>
 
 <select id="selectVoteByAskNo" resultType="int" parameterType="int">
 	SELECT COUNT(*) FROM zask
 	WHERE ask_no = #{askNo}
 </select>
+
+<select id="selectVoteByLoginUser" parameterType="com.khbill.dto.Vote" resultType="int">
+	SELECT COUNT(*) FROM zvote
+	WHERE ask_no = #{askNo } AND user_no = #{userNo}
+</select>
+
+
 
 
 </mapper>

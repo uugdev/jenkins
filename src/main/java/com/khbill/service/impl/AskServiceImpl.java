@@ -164,9 +164,9 @@ public class AskServiceImpl implements AskService {
 	
 	
 	@Override
-	public Vote getVote(Vote voteSet) {
+	public Vote getVote(Vote voteResult) {
 		
-		Vote vote = askDao.selectVoteByAskNoUserNo(voteSet);
+		Vote vote = askDao.selectVoteByAskNoUserNo(voteResult);
 		
 		return vote;
 	}
@@ -272,17 +272,18 @@ public class AskServiceImpl implements AskService {
 	
 	
 	@Override
-	public void setVoteStatus(int askNo, int userNo, String voteState) {
-		
+	public void setVoteInsert(int userNo, Vote vote,String voteState) {
 		
 		Vote voteStatus = new Vote();
 		
-		voteStatus.setAskNo(askNo);
 		voteStatus.setUserNo(userNo);
+		voteStatus.setAskNo(vote.getAskNo());
 		voteStatus.setVoteState(voteState);
-
-		askDao.updateVoteStatus(voteStatus);
+		voteStatus.setVoteStart(vote.getVoteStart());
+		voteStatus.setVoteEnd(vote.getVoteEnd());
 		
+		askDao.insertVoteStatus(voteStatus);
+
 	}
 	
 	@Override
@@ -291,6 +292,43 @@ public class AskServiceImpl implements AskService {
 		int cnt = askDao.selectVoteByAskNo(askNo);
 		
 		return cnt;
+	}
+	
+	
+	@Override
+	public boolean getVoteState(int askNo, int userNo) {
+
+		Vote voteSet = new Vote();
+		voteSet.setAskNo(askNo);
+		voteSet.setUserNo(userNo);
+		
+		Vote vote = askDao.selectVoteByAskNoUserNo(voteSet);
+		
+		if(askDao.selectVoteByLoginUser(vote) > 0 ) {
+			
+			return false;
+			
+		} else {
+			
+			return true;
+
+		}
+		
+	}
+	
+	
+	
+	@Override
+	public Vote getLoginUserVoteState(int userNo, int askNo) {
+
+		Vote voteSet = new Vote(); 
+		voteSet.setAskNo(askNo);
+		voteSet.setUserNo(userNo);
+		
+		Vote vote = askDao.selectVoteByAskNoUserNo(voteSet);
+		
+		
+		return vote;
 	}
 	
 	

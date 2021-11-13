@@ -244,7 +244,7 @@ public interface AskDao {
 	 * @param voteStatus
 	 * @return
 	 */
-	public void updateVoteStatus(Vote voteStatus);
+	public void insertVoteStatus(Vote voteStatus);
 
 
 	/**
@@ -253,6 +253,17 @@ public interface AskDao {
 	 * @param askNo
 	 */
 	public int selectVoteByAskNo(int askNo);
+
+
+	/**
+	 * 
+	 * 로그인유저의 투표 상태 조회
+	 * 
+	 * @param askNo
+	 * @param userNo
+	 * @return
+	 */
+	public int selectVoteByLoginUser(Vote vote);
 	
 	
 	

@@ -83,11 +83,14 @@ public class AskController {
 	
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void detail(int askNo,Model model) {
+	public void detail(int askNo,Model model, HttpSession session) {
 		logger.info("/ask/detail [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
+		int userNo = (Integer) session.getAttribute("userNo");
 		
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);
+		boolean result = askService.getVoteState(askNo,userNo);
 		
 		Vote voteSet = new Vote();
 		voteSet.setUserNo(ask.getUserNo());
@@ -103,6 +106,8 @@ public class AskController {
 		
 		model.addAttribute("userList",userList);
 		model.addAttribute("user",user);
+		model.addAttribute("status",status);
+		model.addAttribute("result",result);
 		
 		model.addAttribute("ask",ask);
 		model.addAttribute("vote",vote);
@@ -201,26 +206,33 @@ public class AskController {
 	
 	
 	@RequestMapping(value="/votelike")
-	public ModelAndView voteLike( Ask ask, ModelAndView mav,HttpSession session ) {
+	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
 		logger.info("/ask/votelike");
 		
-		int askNo = ask.getAskNo();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
-		String voteState = "y";
+		Ask ask = askService.getAskDetail(askNo);
 		
-		askService.setVoteStatus(askNo,userNo,voteState);
+		Vote voteSet = new Vote();
+		
+		voteSet.setAskNo(askNo);
+		voteSet.setUserNo(ask.getUserNo());
+		
+		Vote vote = askService.getVote(voteSet); //글쓴이 vote객체
+		
+		String voteState = "y"; //투표체크
 
+		askService.setVoteInsert(userNo, vote, voteState);
 		int cnt = askService.getVoteTotalCnt(askNo);
 		
-		boolean result = true;
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);
 		
-		mav.addObject("result",result); //추천성공
-		mav.addObject("cnt",cnt); //총추천수
+		mav.addObject("status", status);
+		mav.addObject("cnt",cnt); //총투표수
 		mav.setViewName("jsonView");
-
-		return mav;
+			
 		
+		return mav;
 	}
 	
 	
