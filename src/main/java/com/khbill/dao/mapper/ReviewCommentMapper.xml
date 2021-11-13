@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.khbill.dao.face.ReviewCommentDao">
+	
+	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="com.khbill.dto.ReviewComment">
+		SELECT * FROM (
+				SELECT
+					review_com_no, user_no, review_no
+					, review_com_content, review_com_date, review_com_like, review_com_hate
+				FROM ZREVIEW_COMMENT
+				WHERE review_no = #{reviewNo }
+				ORDER BY review_com_hate
+		) ORDER BY review_com_no
+	</select>
+
+	<insert id="insertReviewComment" parameterType="com.khbill.dto.ReviewComment">
+		INSERT INTO ZREVIEW_COMMENT 
+			(review_com_no, user_no, review_no
+			, review_com_content, review_com_date, review_com_like, review_com_hate )
+		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{reviewNo}, #{userNo}, #{reviewComContent}, sysdate, 0, 0 )
+	</insert>
+
+	<delete id="deleteReviewComment" parameterType="com.khbill.dto.ReviewComment">
+		DELETE ZREVIEW_COMMENT
+		WHERE review_com_no = #{reviewComNo }
+	</delete>
+	
+	<select id="selectCountComment" parameterType="com.khbill.dto.ReviewComment" resultType="int">
+		SELECT COUNT(*) FROM ZREVIEW_COMMENT
+		WHERE review_com_no = #{reviewComNo }
+	</select>
+	
+</mapper>
+
+

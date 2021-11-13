@@ -44,7 +44,7 @@ td:nth-child(2) {
 
 <div class="container">
 
-<h1 style="text-align: center;">구매 후기</h1>
+<h1 style="text-align: center;">후기</h1>
 <hr>
 <!-- 구분선 삭제 예정 -->
 <span class="pull-left">총게시글수  ${paging.totalCount }</span>

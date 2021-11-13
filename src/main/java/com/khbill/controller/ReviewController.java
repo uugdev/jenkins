@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.ReviewComment;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -57,7 +58,7 @@ public class ReviewController {
 		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
 		item = reviewService.getReviewItem(itemNo);
 		logger.info("아이템 번호: {}", itemNo);
-		
+	
 		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
 		file = reviewService.getReviewFile(fileNo);
 		logger.info("파일 번호: {}", fileNo);
@@ -70,6 +71,11 @@ public class ReviewController {
 		model.addAttribute("review", reviewMap);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
+		
+		//댓글 리스트 전달
+		ReviewComment reviewComment = new ReviewComment();
+		List<ReviewComment> commemtList = reviewService.getReviewComList(review);
+		model.addAttribute("commentList", commemtList);
 		
 		return "review/detail";
 	}
