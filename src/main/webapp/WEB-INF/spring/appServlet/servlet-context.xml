@@ -13,7 +13,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/qna/*"/>
-			<mapping path="/mypage/*"/>
+			<mapping path="/mypage/**"/>
 			<mapping path="/message/**" />
 			<beans:bean class="com.khbill.interceptor.UserInterceptor" />
 		</interceptor>
