@@ -237,6 +237,14 @@ public interface AskDao {
 	 * @param askNo
 	 */
 	public void deleteAskComByAskNo(int askNo);
+
+	/**
+	 * 
+	 * 투표한 사람의 투표상태체크
+	 * @param voteStatus
+	 * @return
+	 */
+	public void insertVoteStatus(Vote voteStatus);
 	
 	
 	

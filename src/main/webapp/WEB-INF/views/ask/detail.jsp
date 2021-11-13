@@ -12,6 +12,35 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	$("#like").click(function() {
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/votelike"
+			, data: { "askNo": '${ask.askNo }' }
+			, dataType: "json"
+			, success: function( data ) {
+					console.log("성공");
+	
+				if( data.result ) { //추천 성공
+					$("#like")
+					.removeClass("success");
+				}
+			}
+				
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		}); //ajax end
+		
+	}); //$("#btnRecommend").click() end
+	
+	
+	
+	
+	
+	
 	// 댓글 입력
 	$("#btnCommInsert").click(function() {
 		
@@ -81,6 +110,12 @@ table, th {
 	text-align: center;
 }
 
+.success {
+	width: 50px;
+	height: 50px;
+
+}
+
 #item {
  width : 300px;
  height: 300px;
@@ -95,12 +130,19 @@ table, th {
 
 .check{
 	text-align: center;
-	height: 100px;
+	width: 300px;
+	margin: 0 auto;
 }
 
 #itemImg {
 	width: 100%;
 	height: 100%;
+}
+
+.vote {
+
+	width: 30px;
+	height: 30px;
 }
 
 </style>
@@ -159,16 +201,20 @@ table, th {
 </div>
 
 <c:if test="${check eq 'y'}">
-<div class="check">----투표 영역----</div>
+<div class="check">
+	<img class="vote pull-left" id="like" src="/resources/img/like.png" alt="찬성" />
+	<img class="vote pull-right" id="hate" src="/resources/img/hate.png" alt="반대" />
+</div>
 </c:if>
+
+
 
 <c:if test="${check eq 'n'}">
 <div class="check">투표가 종료되었습니다</div>
 </c:if>
+<br><hr>
 
 <!-- 댓글 처리 -->
-<hr>
-<div>
 
 	<!-- 비로그인상태 -->
 	<c:if test="${not login }">
@@ -207,7 +253,7 @@ table, th {
 				<td style="width: 10%;">${userList.userNick }</td>
 			</c:if>
 		</c:forEach>
-		<td style="width: 56%;">${askComment.askComContent }</td>
+		<td style="width: 65%;">${askComment.askComContent }</td>
 		<td style="width: 20%;"><fmt:formatDate value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
 			<c:if test="${userNo eq askComment.userNo }">
 			<td style="width: 5%;"><button class="btn btn-default btn-xs"

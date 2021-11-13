@@ -151,6 +151,15 @@ public interface AskService {
 	 */
 	public void setAskComDelete(int askNo);
 
+	/**
+	 * 투표결과 체크
+	 * 
+	 * @param askNo
+	 * @param userNo
+	 * @return
+	 */
+	public void getVoteStatus(int askNo, int userNo);
+
 
 
 

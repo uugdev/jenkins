@@ -271,7 +271,21 @@ public class AskServiceImpl implements AskService {
 	}
 	
 	
-	
+	@Override
+	public void getVoteStatus(int askNo, int userNo) {
+		
+		Vote voteCheck = askDao.selectVoteByAskNo(askNo);
+		
+		Vote voteStatus = new Vote();
+		
+		voteStatus.setAskNo(askNo);
+		voteStatus.setUserNo(userNo);
+		voteStatus.setVoteStart(voteCheck.getVoteStart());
+		voteStatus.setVoteEnd(voteCheck.getVoteEnd());
+
+		askDao.insertVoteStatus(voteStatus);
+		
+	}
 	
 	
 	

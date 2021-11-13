@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
@@ -67,11 +68,6 @@ public class AskController {
 	public String setAskWriteProcess(Ask ask, Item item, MultipartFile file, String voteEnd, HttpServletRequest req) {
 		logger.info("/ask/write [POST]");
 		
-		logger.info("ask : {}", ask);
-		logger.info("item : {}", item);
-		logger.info("file : {}", file);
-		logger.info("vote : {}", voteEnd);
-		
 		HttpSession session = req.getSession();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
@@ -91,14 +87,10 @@ public class AskController {
 		logger.info("/ask/detail [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
-		logger.info("ask : {}", ask);
 		
 		Vote vote = askService.getVote(askNo);
-		logger.info("vote : {}", vote);
 		Item item = askService.getItem(ask.getProductNo());
-		logger.info("item : {}", item);
 		File file = askService.getFile(item.getFileNo());
-		logger.info("file : {}", file);
 		
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 		
@@ -147,8 +139,6 @@ public class AskController {
 	public String setAskUpdateProcess(Ask ask, HttpServletRequest req) {
 		logger.info("/ask/update [POST]");
 	
-		logger.info("ask : {}", ask);
-		
 		HttpSession session = req.getSession();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
@@ -198,6 +188,26 @@ public class AskController {
 		}
 		
 	}
+	
+	
+	@RequestMapping(value="/votelike")
+	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		askService.getVoteStatus(askNo,userNo);
+		
+		
+		
+		mav.setViewName("jsonView");
+
+		return mav;
+		
+	}
+	
+	
+	
+	
 	
 	
 	
