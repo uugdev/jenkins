@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.MainDao;
+import com.khbill.dto.Ask;
 import com.khbill.dto.Notice;
 import com.khbill.dto.User;
 import com.khbill.service.face.MainService;
@@ -84,6 +85,13 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<String> getMainment(Integer persent) {
 		return mainDao.selectMainment(persent);
+	}
+
+	@Override
+	public List<Ask> getPopularBoard() {
+		
+		
+		return null;
 	}
 
 }

@@ -17,6 +17,7 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
+import com.khbill.service.face.ItemService;
 import com.khbill.util.Paging;
 
 @Controller
@@ -25,7 +26,8 @@ public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
 	@Autowired AskService askService;
-
+	@Autowired ItemService itemService;
+	
 	@RequestMapping(value="/mypage/item/list")
 	public void itemList(HttpSession session, Model model, Paging paramData) {
 		logger.info("/mypage/item/list [GET]");
@@ -42,21 +44,27 @@ public class MypageController {
 		List<Ask> askList = askService.getAskItemList(map);
 		List<Item> itemList = askService.getItemList(userNo);
 		List<Vote> voteList = askService.getVoteList(userNo);
-//		List<Review> reviewList = askService.getReviewList(userNo);
+		List<Review> reviewList = askService.getReviewList(userNo);
 		
 		model.addAttribute("ask", askList);
 		model.addAttribute("item", itemList);
 		model.addAttribute("vote", voteList);
-//		model.addAttribute("review", reviewList);
+		model.addAttribute("review", reviewList);
 		
 		logger.info("askList 정보 : {}", askList);
 		logger.info("itemList 정보 : {}", itemList);
 		logger.info("voteList 정보 : {}", voteList);
-//		logger.info("reviewList 정보 : {}", reviewList);
-
+		logger.info("reviewList 정보 : {}", reviewList);
 		
+	}
+	
+	@RequestMapping(value="/mypage/item/status")
+	public void itemStatus(Item item) {
+		logger.info("/mypage/item/status [GET]");
 		
-		
+		//아이템 결제 상태를 변경하기
+		itemService.setItemStatus(item);
+	
 		
 	}
 	
