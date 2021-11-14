@@ -33,4 +33,29 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return list;
 	}
 
+	@Override
+	public Notice getNoticeDetail(int noticeNo) {
+		return adminNoticeDao.selectNoticeDetail(noticeNo);
+	}
+
+	@Override
+	public String getAdminNick(int adminNo) {
+		return adminNoticeDao.selectAdminNickByAdminNo(adminNo);
+	}
+
+	@Override
+	public void setNoticeWrite(Notice notice) {
+		adminNoticeDao.insertNotice(notice);
+	}
+
+	@Override
+	public void setNoticeUpdate(Notice notice) {
+		adminNoticeDao.updateNotice(notice);
+	}
+
+	@Override
+	public void setNoticeDelete(int noticeNo) {
+		adminNoticeDao.deleteNotice(noticeNo);
+	}
+
 }
