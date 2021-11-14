@@ -42,11 +42,12 @@
 					<td>${ask.askHit}</td>
 				</c:if>
 		</c:forEach>
+		
 		<c:if test="${item.itemStatus == 'n' }">
 			<td><button>결제로 변경하기</button></td>
 		</c:if>
 		<c:if test="${item.itemStatus == 'y' }">
-			<td><button>후기 작성하기</button></td>
+			<td>결제 완료</td>
 		</c:if>
 	</tr>
 	</c:forEach>

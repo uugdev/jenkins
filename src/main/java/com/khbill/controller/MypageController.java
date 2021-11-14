@@ -42,15 +42,17 @@ public class MypageController {
 		List<Ask> askList = askService.getAskItemList(map);
 		List<Item> itemList = askService.getItemList(userNo);
 		List<Vote> voteList = askService.getVoteList(userNo);
-		List<Review> reviewList = askService.getReviewList(userNo);
+//		List<Review> reviewList = askService.getReviewList(userNo);
 		
 		model.addAttribute("ask", askList);
 		model.addAttribute("item", itemList);
 		model.addAttribute("vote", voteList);
+//		model.addAttribute("review", reviewList);
 		
 		logger.info("askList 정보 : {}", askList);
 		logger.info("itemList 정보 : {}", itemList);
 		logger.info("voteList 정보 : {}", voteList);
+//		logger.info("reviewList 정보 : {}", reviewList);
 
 		
 		
