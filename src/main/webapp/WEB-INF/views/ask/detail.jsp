@@ -99,70 +99,24 @@ $(document).ready(function() {
 		
 		    data: [
 		
-		      {  value: 16744 },
+		      {  value: ${cntY} },
 		
-		      {  value: 6500 },
-		
-		      {  value: 32750 },
-		
-		      {  value: 3200 }
-		
-		    ]
-		
-		  },
-		
-		 
-		
-		  // or
-		
-		 
-		
-		  {
-		
-		    data: [
-		
-		      { title:'Test 1', value: 6.87, color:'#8E44AD' },
-		
-		      { title:'Test 2', value: 14.56, color:'#81CFE0' },
-		
-		      { title:'Test 3', value: 7.82, color:'#EB974E' }
-		
-		    ]
-		
-		  },
-		
-		 
-		
-		  // or
-		
-		 
-		
-		  {
-		
-		    data: [
-		
-		      { title:'Test 1', value: 10 },
-		
-		      { title:'Test 2', value: 10 },
-		
-		      { title:'Test 3', value: 20 },
-		
-		      { title:'Test 4', value: 5 },
-		
-		      { title:'Test 5', value: 30 },
-		
-		      { title:'Test 6', value: 5 },
-		
-		      { title:'Test 7', value: 20 }
+		      {  value: ${cntN} }
 		
 		    ]
 		
 		  }
 		
-		])
+		
+		]);
+	
+	$('.chart').segbar({
+		
+		  width:"100%",
+		  height:"10px"
+		
+		})
 
-	
-	
 	
 	
 	
@@ -275,6 +229,13 @@ table, th {
 
 }
 
+#chartBox {
+	width: 300px;
+	height: 10px;
+
+}
+
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -330,6 +291,10 @@ table, th {
 			<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
 		</div>
 
+		<div id="chartBox">
+			<div class="chart"></div>
+		</div>
+
 		<c:if test="${check eq 'y'}">
 			<div class="check">
 				<div class="pull-left cnt" id="cntY">${cntY }</div>
@@ -342,7 +307,6 @@ table, th {
 						src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 				</c:if>
 				
-				<div class="chart"></div>
 				
 				
 				<div class="pull-right cnt" id="cntN">${cntN }</div>
@@ -357,7 +321,6 @@ table, th {
 			</div>
 		</c:if>
 
-
 		<c:if test="${check eq 'n'}">
 			<div class="check">투표가 종료되었습니다
 				<div class="pull-left cnt" id="cntY">${cntY }</div>
@@ -369,6 +332,7 @@ table, th {
 						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
 			</div>
 		</c:if>
+		
 		<br>
 		<br>
 		<hr>
