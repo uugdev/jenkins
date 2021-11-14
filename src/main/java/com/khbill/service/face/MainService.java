@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.Notice;
 import com.khbill.dto.User;
 
@@ -39,5 +40,12 @@ public interface MainService {
 	 * @return 메인 멘트 리스트
 	 */
 	public List<String> getMainment(Integer persent);
+	
+	/**
+	 * 질문 게시판에서 인기 게시글 조회
+	 * 
+	 * @return 인기 게시글 리스트
+	 */
+	public List<Ask> getPopularBoard();
 
 }

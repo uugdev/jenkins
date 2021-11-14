@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.Notice;
 import com.khbill.dto.User;
 import com.khbill.service.face.MainService;
@@ -38,6 +39,7 @@ public class MainController {
 		List<Notice> noticeSix = mainService.getNoticeListSix(); //공지사항
 		Map<String, Integer> moneyAndPercent = null; //아낀 돈, 퍼센트
 		List<String> mainment = null; //메인 멘트
+		List<Ask> popularBoard = mainService.getPopularBoard();
 		
 		//로그인을 했을 경우
 		if( session.getAttribute("userNo") != null ) {
