@@ -118,11 +118,11 @@ public class AskController {
 		
 		model.addAttribute("check",check);
 		
-		String voteStateY = "n"; //투표체크
+		String voteStateY = "n"; //투표체크 Y
 		int cntN = askService.getVoteStatusTotalCnt(askNo,voteStateY);
 		model.addAttribute("cntN",cntN);
 		
-		String voteStateN = "y"; //투표체크
+		String voteStateN = "y"; //투표체크 N
 		int cntY = askService.getVoteStatusTotalCnt(askNo,voteStateN);
 		model.addAttribute("cntY",cntY);
 
@@ -229,7 +229,7 @@ public class AskController {
 		
 		Vote vote = askService.getVote(voteSet); //글쓴이 vote객체
 		
-		String voteState = "y"; //투표체크
+		String voteState = "y"; //투표체크 Y
 
 		askService.setVoteInsert(userNo, vote, voteState);
 		int cntY = askService.getVoteStatusTotalCnt(askNo,voteState);
@@ -263,7 +263,7 @@ public class AskController {
 		
 		Vote vote = askService.getVote(voteSet); //글쓴이 vote객체
 		
-		String voteState = "n"; //투표체크
+		String voteState = "n"; //투표체크 N
 
 		askService.setVoteInsert(userNo, vote, voteState);
 		int cntN = askService.getVoteStatusTotalCnt(askNo,voteState);

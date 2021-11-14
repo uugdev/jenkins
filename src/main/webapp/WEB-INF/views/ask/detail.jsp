@@ -9,6 +9,10 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 
+<!-- jQuery 2.2.4 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="/resources/js/segbar.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -73,10 +77,10 @@ $(document).ready(function() {
 							$("#hate")
 							.attr("src", "https://i.imgur.com/C4qO9bG.png").removeClass('vote')
 							.addClass('success');
-
+						
 							//투표수 적용
 							$("#cntN").html(data.cntN);
-	
+						
 						} //success
 						, error: function() {
 							console.log("실패");
@@ -89,8 +93,74 @@ $(document).ready(function() {
 	};//userNo != askUserno 본인게시글	if문 end
 	
 	
-	
-	
+	$('.chart').segbar([
+		
+		  {
+		
+		    data: [
+		
+		      {  value: 16744 },
+		
+		      {  value: 6500 },
+		
+		      {  value: 32750 },
+		
+		      {  value: 3200 }
+		
+		    ]
+		
+		  },
+		
+		 
+		
+		  // or
+		
+		 
+		
+		  {
+		
+		    data: [
+		
+		      { title:'Test 1', value: 6.87, color:'#8E44AD' },
+		
+		      { title:'Test 2', value: 14.56, color:'#81CFE0' },
+		
+		      { title:'Test 3', value: 7.82, color:'#EB974E' }
+		
+		    ]
+		
+		  },
+		
+		 
+		
+		  // or
+		
+		 
+		
+		  {
+		
+		    data: [
+		
+		      { title:'Test 1', value: 10 },
+		
+		      { title:'Test 2', value: 10 },
+		
+		      { title:'Test 3', value: 20 },
+		
+		      { title:'Test 4', value: 5 },
+		
+		      { title:'Test 5', value: 30 },
+		
+		      { title:'Test 6', value: 5 },
+		
+		      { title:'Test 7', value: 20 }
+		
+		    ]
+		
+		  }
+		
+		])
+
 	
 	
 	
@@ -254,9 +324,6 @@ table, th {
 
 
 
-
-
-
 		<div id="votedate">
 			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
 			~
@@ -274,6 +341,9 @@ table, th {
 					<img class="vote pull-left" id="like"
 						src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 				</c:if>
+				
+				<div class="chart"></div>
+				
 				
 				<div class="pull-right cnt" id="cntN">${cntN }</div>
 				<c:if test="${status.voteState eq 'n'}">
