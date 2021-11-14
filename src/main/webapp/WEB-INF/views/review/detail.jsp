@@ -69,9 +69,9 @@ $(document).ready(function() {
 			})
 		).append(
 			$("<textarea>")
-				.attr("name", "content")
+				.attr("name", "reviewComContent")
 				.css("display", "none")
-				.text($("#reviewComment").val())
+				.text($("#reviewComContent").val())
 		);
 		$(document.body).append($form);
 		$form.submit();
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 });
 
-function deleteComment(commentNo) {
+function deleteComment(reviewComNo) {
 	$.ajax({
 		type: "post"
 		, url: "/review/comment/delete"
@@ -91,7 +91,7 @@ function deleteComment(commentNo) {
 		, success: function(data){
 			if(data.success) {
 				
-				$("[data-commentno='"+reviewComNo+"']").remove();
+				$("[data-reviewComNo='"+reviewComNo+"']").remove();
 				
 			} else {
 				alert("댓글 삭제 실패");
@@ -136,7 +136,7 @@ function deleteComment(commentNo) {
 </div>
 
 
-<div style="text-align: center;">${review.reviewContent }</div>
+<div style="text-align: center;">${review.reviewComContent }</div>
 
 <div class="text-center">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
@@ -180,7 +180,7 @@ function deleteComment(commentNo) {
 	</thead>
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
-	<tr data-commentno="${reviewComment.reviewComNo }">
+	<tr data-reviewComNo="${reviewComment.reviewComNo }">
 <%-- 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
 		<td style="width: 10%;">${review.USER_NICK }</td>
 		<td style="width: 50%;">${reviewComment.reviewComContent }</td>
