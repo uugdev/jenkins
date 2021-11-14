@@ -118,6 +118,15 @@ public class AskController {
 		
 		model.addAttribute("check",check);
 		
+		String voteStateY = "n"; //투표체크
+		int cntN = askService.getVoteStatusTotalCnt(askNo,voteStateY);
+		model.addAttribute("cntN",cntN);
+		
+		String voteStateN = "y"; //투표체크
+		int cntY = askService.getVoteStatusTotalCnt(askNo,voteStateN);
+		model.addAttribute("cntY",cntY);
+
+		
 		List<AskComment> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment",askComment);
 		
@@ -223,12 +232,14 @@ public class AskController {
 		String voteState = "y"; //투표체크
 
 		askService.setVoteInsert(userNo, vote, voteState);
-		int cnt = askService.getVoteTotalCnt(askNo);
+		int cntY = askService.getVoteStatusTotalCnt(askNo,voteState);
 		
-		Vote status = askService.getLoginUserVoteState(userNo,askNo);
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);//로그인유저의 투표상태체크
+		boolean result = askService.getVoteState(askNo,userNo);
 		
+		mav.addObject("result",result);
 		mav.addObject("status", status);
-		mav.addObject("cnt",cnt); //총투표수
+		mav.addObject("cntY",cntY); //총투표수
 		mav.setViewName("jsonView");
 			
 		
@@ -236,6 +247,38 @@ public class AskController {
 	}
 	
 	
+
+	@RequestMapping(value="/votehate")
+	public ModelAndView voteHate( int askNo, ModelAndView mav,HttpSession session ) {
+		logger.info("/ask/votehate");
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		Ask ask = askService.getAskDetail(askNo);
+		
+		Vote voteSet = new Vote();
+		
+		voteSet.setAskNo(askNo);
+		voteSet.setUserNo(ask.getUserNo());
+		
+		Vote vote = askService.getVote(voteSet); //글쓴이 vote객체
+		
+		String voteState = "n"; //투표체크
+
+		askService.setVoteInsert(userNo, vote, voteState);
+		int cntN = askService.getVoteStatusTotalCnt(askNo,voteState);
+		
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);//로그인유저의 투표상태체크
+		boolean result = askService.getVoteState(askNo,userNo);
+		
+		mav.addObject("result",result);
+		mav.addObject("status", status);
+		mav.addObject("cntN",cntN); //총투표수
+		mav.setViewName("jsonView");
+			
+		
+		return mav;
+	}
 	
 	
 	

@@ -217,7 +217,11 @@ SELECT zask_seq.nextval FROM dual
 		WHERE user_no = #{userNo }
 	</select>
 
-
+	
+	<select id="selectVoteByAskNoVoteState" parameterType="com.khbill.dto.Vote" resultType="int">
+		SELECT COUNT(*) FROM zvote
+		WHERE ask_no = #{askNo} AND vote_state = #{voteState}
+	</select>
 
 
 </mapper>

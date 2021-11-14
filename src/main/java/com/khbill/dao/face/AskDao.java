@@ -306,6 +306,15 @@ public interface AskDao {
 	 * @return 리뷰 리스트
 	 */
 	public List<Review> selectReviewByUserNo(int userNo);
+
+
+	/**
+	 * y,n에 투표한 사람의 수 조회
+	 * 
+	 * @param vote
+	 * @return
+	 */
+	public int selectVoteByAskNoVoteState(Vote vote);
 	
 	
 	

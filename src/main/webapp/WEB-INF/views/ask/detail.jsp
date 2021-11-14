@@ -15,11 +15,11 @@ $(document).ready(function() {
 	var userno = "<c:out value='${userNo}' />";
 	var askUserno = "<c:out value='${ask.userNo}' />";
 	var result = "<c:out value='${result}' />";
-	var stateY = "<c:out value='${status}' />";
+	var loginUserVoteState = "<c:out value='${status.voteState}' />";
 	
 	if(userno != askUserno) {
 		if(result) {
-			if(stateY.voteState == null)  {
+			if(loginUserVoteState == null || loginUserVoteState == "")  {
 			$("#like").click(function() {
 				
 				var check = confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?");
@@ -34,17 +34,66 @@ $(document).ready(function() {
 						, success: function( data ) {
 							console.log("성공");
 							$("#like")
-							.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote').addClass('success');
+							.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote')
+							.addClass('success');
+							
+							//투표수 적용
+							$("#cntY").html(data.cntY);
+	
 						} //success
 						, error: function() {
 							console.log("실패");
 						} //error
 					}); //ajax end
-				} //check 중복투표확인 if문 end
+				} //check like중복투표확인 if문 end
 	 		}); //$("#like").click() end
-			}
+			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
+	
+	
+	
+	
+	if(userno != askUserno) {
+		if(result) {
+			if(loginUserVoteState == null || loginUserVoteState == "")  {
+			$("#hate").click(function() {
+				
+				var check = confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?");
+				
+				if(check) {
+				
+					$.ajax({
+						type: "get"
+						, url: "/ask/votehate"
+						, data: { "askNo": '${ask.askNo }' }
+						, dataType: "json"
+						, success: function( data ) {
+							console.log("성공");
+							$("#hate")
+							.attr("src", "https://i.imgur.com/C4qO9bG.png").removeClass('vote')
+							.addClass('success');
+
+							//투표수 적용
+							$("#cntN").html(data.cntN);
+	
+						} //success
+						, error: function() {
+							console.log("실패");
+						} //error
+					}); //ajax end
+				} //check like중복투표확인 if문 end
+	 		}); //$("#hate").click() end
+			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
+		}//result 투표확인 if문 end
+	};//userNo != askUserno 본인게시글	if문 end
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -118,8 +167,8 @@ table, th {
 }
 
 .success {
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 }
 
 #item {
@@ -136,7 +185,7 @@ table, th {
 
 .check {
 	text-align: center;
-	width: 300px;
+	width: 500px;
 	margin: 0 auto;
 }
 
@@ -146,9 +195,16 @@ table, th {
 }
 
 .vote {
-	width: 35px;
-	height: 35px;
+	width: 45px;
+	height: 45px;
 }
+
+.cnt {
+	font-size: 20px;
+	margin: 0 10px;
+
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -209,22 +265,39 @@ table, th {
 
 		<c:if test="${check eq 'y'}">
 			<div class="check">
+				<div class="pull-left cnt" id="cntY">${cntY }</div>
 				<c:if test="${status.voteState eq 'y'}">
-					<img class="voteAfter pull-left success" id="likeAfter"
-						src="https://i.imgur.com/aH44JbJ.png" alt="찬성" />
+					<img class="pull-left success"
+						src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
 				</c:if>
-				<c:if test="${status.voteState eq null}">
-				<img class="vote pull-left" id="like"
-					src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
+				<c:if test="${status.voteState ne 'y'}">
+					<img class="vote pull-left" id="like"
+						src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 				</c:if>
-				<img class="vote pull-right" id="hate"
-					src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+				
+				<div class="pull-right cnt" id="cntN">${cntN }</div>
+				<c:if test="${status.voteState eq 'n'}">
+					<img class="pull-right success"
+						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+				</c:if>
+				<c:if test="${status.voteState ne 'n'}">
+					<img class="vote pull-right" id="hate"
+						src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+				</c:if>
 			</div>
 		</c:if>
 
 
 		<c:if test="${check eq 'n'}">
-			<div class="check">투표가 종료되었습니다</div>
+			<div class="check">투표가 종료되었습니다
+				<div class="pull-left cnt" id="cntY">${cntY }</div>
+					<img class="pull-left success"
+						src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
+				
+				<div class="pull-right cnt" id="cntN">${cntN }</div>
+					<img class="pull-right success"
+						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+			</div>
 		</c:if>
 		<br>
 		<br>

@@ -296,6 +296,19 @@ public class AskServiceImpl implements AskService {
 		return cnt;
 	}
 	
+	@Override
+	public int getVoteStatusTotalCnt(int askNo,String voteState) {
+		
+		Vote vote = new Vote();
+		vote.setAskNo(askNo);
+		vote.setVoteState(voteState);
+		
+		
+		int cnt = askDao.selectVoteByAskNoVoteState(vote);
+		
+		return cnt;
+	}
+	
 	
 	@Override
 	public boolean getVoteState(int askNo, int userNo) {

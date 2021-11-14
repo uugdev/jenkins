@@ -164,13 +164,22 @@ public interface AskService {
 
 	
 	/**
+	 * y,n 총 투표수 가져오기
+	 * 
+	 * @param askNo
+	 * @param voteState
+	 * @return
+	 */
+	public int getVoteStatusTotalCnt(int askNo,String voteState);
+
+	/**
 	 * 총투표수 가져오기
 	 * 
 	 * @param askNo
 	 * @return
 	 */
 	public int getVoteTotalCnt(int askNo);
-
+	
 	
 	/**
 	 * 
