@@ -52,6 +52,8 @@ label {
 
 <h3>회원 목록</h3>
 <hr>
+<span class="pull-left">총 ${paging.totalCount }명</span>
+<div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
 	<th>	</th>
@@ -81,7 +83,6 @@ label {
 </c:forEach>
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-<span class="pull-right">총 ${paging.totalCount }명</span>
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
