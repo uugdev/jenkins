@@ -1,5 +1,6 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.File;
@@ -36,10 +37,10 @@ public interface ReviewDao {
 	/**
 	 * 게시글 번호를 이용하여 게시글을 조회한다
 	 * 
-	 * @param detailReview - 조회하려는 게시글의 글 번호 객체
+	 * @param review - 조회하려는 게시글의 글 번호 객체
 	 * @return 조회된 게시글 정보
 	 */
-	public Review selectReviewByReviewNo(Review detailReview);
+	public HashMap<String, Object> selectReviewByReviewNo(Review review);
 
 	/**
 	 * 상품번호로 상품조회

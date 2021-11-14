@@ -23,28 +23,37 @@ public class MainController {
 	
 	@Autowired MainService mainService;
 	
+	@RequestMapping(value = "/")
+	public String defaultMain() {
+		return "redirect:/main";
+	}
+	
 	@RequestMapping(value="/main")
 	public void main(
 				Model model
 				, HttpSession session
 			) {
 		
-		List<User> userTen = mainService.getUserPointListTen();
-		List<Notice> noticeSix = mainService.getNoticeListSix();
-		Map<String, Integer> moneyAndPercent = null;
+		List<User> userTen = mainService.getUserPointListTen(); //유저 랭킹
+		List<Notice> noticeSix = mainService.getNoticeListSix(); //공지사항
+		Map<String, Integer> moneyAndPercent = null; //아낀 돈, 퍼센트
+		List<String> mainment = null; //메인 멘트
 		
 		//로그인을 했을 경우
 		if( session.getAttribute("userNo") != null ) {
-//			moneyAndPercent = mainService.getAvailableAmountAndPercent(session);
+			moneyAndPercent = mainService.getAvailableAmountAndPercent(session);
+			mainment = mainService.getMainment(moneyAndPercent.get("percent"));
 		}
 		
 		logger.info("userTen {}", userTen);
 		logger.info("noticeSix {}", userTen);
 		logger.info("moenyAndPercent {}", moneyAndPercent);
+		logger.info("mainment {}", mainment);
 		
 		model.addAttribute("userTen", userTen);
 		model.addAttribute("noticeSix", noticeSix);
 		model.addAttribute("moneyAndPercent", moneyAndPercent);
+		model.addAttribute("mainment", mainment);
 	}
 	
 }

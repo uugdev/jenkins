@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -7,10 +8,12 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.ReviewComment;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -18,6 +21,8 @@ import com.khbill.util.Paging;
 public class ReviewServiceImpl implements ReviewService {
 	
 	@Autowired ReviewDao reviewDao;
+	@Autowired ReviewCommentDao reviewCommentDao;
+	
 	@Autowired private ServletContext context;
 	
 
@@ -40,11 +45,11 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public Review getReviewDetail(Review detailReview) {
+	public HashMap<String, Object> getReviewDetail(Review review) {
 		
-		reviewDao.updatehit(detailReview); //조회수 증가
+		reviewDao.updatehit(review); //조회수 증가
 		
-		return reviewDao.selectReviewByReviewNo(detailReview);
+		return reviewDao.selectReviewByReviewNo(review);
 	}
 
 	@Override
@@ -57,6 +62,29 @@ public class ReviewServiceImpl implements ReviewService {
 	public File getReviewFile(int fileNo) {
 		
 		return reviewDao.selectFileByFileNo(fileNo);
+	}
+
+	@Override
+	public void setReviewCommentWrite(ReviewComment reviewComment) {	
+		reviewCommentDao.insertReviewComment(reviewComment);
+	}
+
+	@Override
+	public List<ReviewComment> getReviewComList(Review review) {
+
+		return reviewCommentDao.selectReviewCommentByReview(review);
+	}
+
+	@Override
+	public boolean deleteReviewComment(ReviewComment reviewComment) {
+		
+		reviewCommentDao.deleteReviewComment(reviewComment);
+		
+		if( reviewCommentDao.selectCountComment(reviewComment) > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	

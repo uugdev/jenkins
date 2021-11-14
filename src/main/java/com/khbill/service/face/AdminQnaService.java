@@ -55,4 +55,26 @@ public interface AdminQnaService {
 	 */
 	public void setQnaDelete(int i);
 
+	/**
+	 * 답변 작성
+	 * 
+	 * @param qnaComment - 답변 정보
+	 */
+	public void setQnaCommentWrite(QnaComment qnaComment);
+
+	/**
+	 * 답변 수정
+	 * 
+	 * @param qnaComment - 수정할 답변 정보
+	 */
+	public void setQnaCommentUpdate(QnaComment qnaComment);
+
+	/**
+	 * 답변 삭제
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void setQnaCommentDelete(int qnaNo);
+	
+
 }

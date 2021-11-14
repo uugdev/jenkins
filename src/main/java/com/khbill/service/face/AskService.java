@@ -77,7 +77,7 @@ public interface AskService {
 	 * @param askNo
 	 * @return
 	 */
-	public Vote getVote(int askNo);
+	public Vote getVote(Vote voteSet);
 
 	/**
 	 * 질문글번호롤 상품조회
@@ -152,7 +152,44 @@ public interface AskService {
 	public void setAskComDelete(int askNo);
 
 
+	/**
+	 * 게시글번호로 조회한 투표객체와 투표상태 삽입
+	 * 
+	 * @param vote
+	 * @param voteState
+	 */
+	public void setVoteInsert(int userNo, Vote vote, String voteState);
 
+	
+	/**
+	 * 총투표수 가져오기
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public int getVoteTotalCnt(int askNo);
+
+	
+	/**
+	 * 
+	 * 로그인유저의 투표상태 체크
+	 * 
+	 * @param askNo
+	 * @param userNo
+	 * @return
+	 */
+	public boolean getVoteState(int askNo, int userNo);
+
+	
+	/**
+	 * 
+	 * 로그인유저의 투표 y,n체크
+	 * 
+	 * @param userNo
+	 * @param askNo
+	 * @return
+	 */
+	public Vote getLoginUserVoteState(int userNo, int askNo);
 
 
 

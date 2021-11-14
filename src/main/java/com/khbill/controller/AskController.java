@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
@@ -67,11 +68,6 @@ public class AskController {
 	public String setAskWriteProcess(Ask ask, Item item, MultipartFile file, String voteEnd, HttpServletRequest req) {
 		logger.info("/ask/write [POST]");
 		
-		logger.info("ask : {}", ask);
-		logger.info("item : {}", item);
-		logger.info("file : {}", file);
-		logger.info("vote : {}", voteEnd);
-		
 		HttpSession session = req.getSession();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
@@ -87,18 +83,22 @@ public class AskController {
 	
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void detail(int askNo,Model model) {
+	public void detail(int askNo,Model model, HttpSession session) {
 		logger.info("/ask/detail [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
-		logger.info("ask : {}", ask);
+		int userNo = (Integer) session.getAttribute("userNo");
 		
-		Vote vote = askService.getVote(askNo);
-		logger.info("vote : {}", vote);
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);
+		boolean result = askService.getVoteState(askNo,userNo);
+		
+		Vote voteSet = new Vote();
+		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setAskNo(askNo);
+				
+		Vote vote = askService.getVote(voteSet);
 		Item item = askService.getItem(ask.getProductNo());
-		logger.info("item : {}", item);
 		File file = askService.getFile(item.getFileNo());
-		logger.info("file : {}", file);
 		
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 		
@@ -106,6 +106,8 @@ public class AskController {
 		
 		model.addAttribute("userList",userList);
 		model.addAttribute("user",user);
+		model.addAttribute("status",status);
+		model.addAttribute("result",result);
 		
 		model.addAttribute("ask",ask);
 		model.addAttribute("vote",vote);
@@ -129,7 +131,11 @@ public class AskController {
 		logger.info("/ask/update [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
-		Vote vote = askService.getVote(askNo);
+		Vote voteSet = new Vote();
+		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setAskNo(askNo);
+				
+		Vote vote = askService.getVote(voteSet);
 		Item item = askService.getItem(ask.getProductNo());
 		File file = askService.getFile(item.getFileNo());
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
@@ -147,8 +153,6 @@ public class AskController {
 	public String setAskUpdateProcess(Ask ask, HttpServletRequest req) {
 		logger.info("/ask/update [POST]");
 	
-		logger.info("ask : {}", ask);
-		
 		HttpSession session = req.getSession();
 		int userNo = (Integer) session.getAttribute("userNo");
 		
@@ -188,6 +192,7 @@ public class AskController {
 	
 	@RequestMapping(value="/comment/delete")
 	public void delete(int askComNo, Writer writer, Model model) {
+		logger.info("/ask/comment/delete");
 		
 		boolean success = askService.deleteAskCom(askComNo);
 		
@@ -198,6 +203,41 @@ public class AskController {
 		}
 		
 	}
+	
+	
+	@RequestMapping(value="/votelike")
+	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
+		logger.info("/ask/votelike");
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		Ask ask = askService.getAskDetail(askNo);
+		
+		Vote voteSet = new Vote();
+		
+		voteSet.setAskNo(askNo);
+		voteSet.setUserNo(ask.getUserNo());
+		
+		Vote vote = askService.getVote(voteSet); //글쓴이 vote객체
+		
+		String voteState = "y"; //투표체크
+
+		askService.setVoteInsert(userNo, vote, voteState);
+		int cnt = askService.getVoteTotalCnt(askNo);
+		
+		Vote status = askService.getLoginUserVoteState(userNo,askNo);
+		
+		mav.addObject("status", status);
+		mav.addObject("cnt",cnt); //총투표수
+		mav.setViewName("jsonView");
+			
+		
+		return mav;
+	}
+	
+	
+	
+	
 	
 	
 	

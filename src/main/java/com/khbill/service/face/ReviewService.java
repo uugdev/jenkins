@@ -1,10 +1,12 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.ReviewComment;
 import com.khbill.util.Paging;
 
 public interface ReviewService {
@@ -38,7 +40,7 @@ public interface ReviewService {
 	 * @param detailReview - 상세 조회할 게시글 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	public Review getReviewDetail(Review review);
+	public HashMap<String, Object> getReviewDetail(Review review);
 	
 	/**
 	 *  후기 글번호롤 상품조회
@@ -55,6 +57,29 @@ public interface ReviewService {
 	 * @return 조회된 상세 게시글 정보
 	 */
 	public File getReviewFile(int fileNo);
+
+	/**
+	 * 새로운 댓글을 삽입한다 
+	 * 
+	 * @param reviewComment - 입력된 댓글 정보
+	 */
+	public void setReviewCommentWrite(ReviewComment reviewComment);
+	
+	/**
+	 * 댓글 목록을 조회한다
+	 * 
+	 * @param review - 댓글을 조회할 게시글 정보
+	 * @return 조회된 댓글 목록
+	 */
+	public List<ReviewComment> getReviewComList(Review review);
+
+	/**
+	 * 댓글을 삭제한다
+	 * 
+	 * @param reviewComment - 삭제하려는 댓글의 정보
+	 * @return 삭제 성공 여부
+	 */
+	public boolean deleteReviewComment(ReviewComment reviewComment);
 
 
 }

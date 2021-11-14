@@ -38,4 +38,32 @@
 		WHERE qna_no = #{qnaNo}
 	</delete>
 	
+	<insert id="insertQnaComment" parameterType="com.khbill.dto.QnaComment">
+		INSERT INTO zqna_comment (qna_com_no, qna_no, admin_no, qna_com_content)
+		VALUES (zqna_com_seq.nextval, #{qnaNo}, #{adminNo}, #{qnaComContent})		
+	</insert>
+	
+	<update id="updateQnaStatusToY" parameterType="int">
+		UPDATE zqna
+		SET qna_status = 'y'
+		WHERE qna_no = #{qnaNo}
+	</update>
+	
+	<update id="updateQnaComment" parameterType="com.khbill.dto.QnaComment">
+		UPDATE zqna_comment
+		SET admin_no = #{adminNo}, qna_com_date = sysdate, qna_com_content = #{qnaComContent}
+		WHERE qna_com_no = #{qnaComNo}
+	</update>
+	
+	<delete id="deleteQnaComment" parameterType="int">
+		DELETE zqna_comment
+		WHERE qna_no = #{qnaNo}
+	</delete>
+	
+	<update id="updateQnaStatusToN" parameterType="int">
+		UPDATE zqna
+		SET qna_status = 'n'
+		WHERE qna_no = #{qnaNo}
+	</update>
+
 </mapper>

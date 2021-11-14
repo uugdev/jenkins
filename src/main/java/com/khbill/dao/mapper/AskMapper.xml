@@ -11,7 +11,7 @@
 </sql>
 
 <sql id="whereTitleSearch">
-		WHERE ask_title LIKE '%' || #{search, jdbcType=VARCHAR} || '%'
+		WHERE ask_title LIKE '%' || #{search} || '%'
 </sql>
 
 <select id="selectAskList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging">
@@ -102,15 +102,15 @@ SELECT zask_seq.nextval FROM dual
 	WHERE item_no = #{productNo}
 </select>
 
-<select id="selectVoteByAskNo" resultType="com.khbill.dto.Vote" parameterType="int">
+<select id="selectVoteByAskNoUserNo" resultType="com.khbill.dto.Vote" parameterType="com.khbill.dto.Vote">
 	SELECT * FROM zvote
-	WHERE ask_no = #{askNo}
+	WHERE ask_no = #{askNo } AND user_no = #{userNo}
 </select>
 
 <select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
 	SELECT COUNT(*) FROM zvote
 	WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
-	and ask_no = #{askNo}
+	AND ask_no = #{askNo} AND user_no = #{userNo}
 </select>
 
 <update id="hit" parameterType="int">
@@ -170,6 +170,21 @@ SELECT zask_seq.nextval FROM dual
 	DELETE zask_comment
 	WHERE ask_no = #{askNo}
 </delete>
+
+<insert id="insertVoteStatus" parameterType="com.khbill.dto.Vote">
+	INSERT INTO zvote
+	VALUES (zvote_seq.nextval,#{userNo},#{askNo},#{voteState},#{voteStart},#{voteEnd})
+</insert>
+
+<select id="selectVoteByAskNo" resultType="int" parameterType="int">
+	SELECT COUNT(*) FROM zask
+	WHERE ask_no = #{askNo}
+</select>
+
+<select id="selectVoteByLoginUser" parameterType="com.khbill.dto.Vote" resultType="int">
+	SELECT COUNT(*) FROM zvote
+	WHERE ask_no = #{askNo } AND user_no = #{userNo}
+</select>
 
 
 

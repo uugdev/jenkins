@@ -47,7 +47,15 @@
 					<br>
 					<!-- 메인 멘트 -->
 	                <div class="table-responsive" style="background-color:#eee; height: 153px;">
-	                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 - 원입니다.</p>
+                		<c:if test="${mainment eq null }">
+		                	<p style="font-size: 35px; margin-top: 3%;">회원가입을 통해 서로 의견을 나누고</p>
+		                	<p style="font-size: 35px;">원하는 물건의 구매의사를 확인하세요!</p>
+                		</c:if>
+                		<c:if test="${mainment ne null }">
+		                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 ${moneyAndPercent.saveMoney } 원입니다.</p>
+		                	<p style="font-size: 25px;">아낀 돈으로 무엇을 할 수 있나요?</p>
+		                	<p style="font-size: 35px;">${mainment }</p>
+                		</c:if>
 	                </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.khbill.dto.Qna;
 import com.khbill.dto.QnaComment;
@@ -49,5 +50,39 @@ public class AdminQnaController {
 			adminQnaService.setQnaDelete(qnaNo[i]);
 		}
 		return "redirect:/admin/qna/list";
+	}
+	
+	@RequestMapping(value="/admin/qna/com/write", method=RequestMethod.GET)
+	public void qnaComWrite(int qnaNo, Model model) {
+		Qna qna = adminQnaService.getQnaDetail(qnaNo);
+		model.addAttribute("qna", qna);
+	}
+	
+	@RequestMapping(value="/admin/qna/com/write", method=RequestMethod.POST)
+	public String qnaComWriteProc(QnaComment qnaComment) {
+//		logger.info("qnaComment : {}", qnaComment);
+		adminQnaService.setQnaCommentWrite(qnaComment);
+		return "redirect:/admin/qna/detail?qnaNo="+qnaComment.getQnaNo();
+	}
+	
+	@RequestMapping(value="/admin/qna/com/update", method=RequestMethod.GET)
+	public void qnaComUpdate(int qnaNo, Model model) {
+		Qna qna = adminQnaService.getQnaDetail(qnaNo);
+		QnaComment qnaComment = adminQnaService.getQnaComment(qnaNo);
+		
+		model.addAttribute("qna", qna);
+		model.addAttribute("qnaComment", qnaComment);
+	}
+	
+	@RequestMapping(value="/admin/qna/com/update", method=RequestMethod.POST)
+	public String qnaComUpdateProc(QnaComment qnaComment) {
+		adminQnaService.setQnaCommentUpdate(qnaComment);
+		return "redirect:/admin/qna/detail?qnaNo="+qnaComment.getQnaNo();
+	}
+	
+	@RequestMapping(value="/admin/qna/com/delete")
+	public String qnaComDelete(int qnaNo) {
+		adminQnaService.setQnaCommentDelete(qnaNo);
+		return "redirect:/admin/qna/detail?qnaNo="+qnaNo;
 	}
 }
