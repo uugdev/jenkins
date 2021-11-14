@@ -21,39 +21,29 @@
 		<th>번호</th>
 		<th>상품명</th>
 		<th>가격</th>
+		<th>작성일</th>
 		<th>마감일</th>
 		<th>조회수</th>
 		<th>상태</th>
 	</tr>
-	<c:forEach items="${item }" var="item" varStatus="status">
+	
+	<c:forEach items="${list }" var="list" varStatus="status">
 	<tr>
 		<td>${status.count }</td>
-		<td>${item.itemName }</td>
-		<td>${item.itemPrice }</td>
-		<c:forEach items="${vote }" var="vote">
-			<c:if test="${item.userNo eq vote.userNo}">
-				<td><fmt:formatDate value="${vote.voteEnd }" pattern="yy-MM-dd" /></td>
-			</c:if>
-		</c:forEach>
-		<c:forEach items="${ask }" var="ask">
-			<c:if test="${item.userNo eq ask.userNo}">
-				<td>${ask.askHit}</td>
-			</c:if>
-		</c:forEach>
-		
-		<c:if test="${item.itemStatus == 'n' }">
-			<td><button>결제로 변경하기</button></td>
+		<td>${list.ITEM_NAME }</td>
+		<td>${list.ITEM_PRICE }</td>
+		<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
+		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
+		<td>${list.ASK_HIT }</td>
+		<c:if test="${list.ITEM_STATUS == 'n'}">
+			<td><a href="<%=request.getContextPath() %>/mypage/item/status?itemNo=${list.ITEM_NO }"><button>결제로 변경하기</button></a></td>
 		</c:if>
-        <c:if test="${item.itemStatus == 'y' }">
-            <c:forEach items="${ok }" var="ok">
-         		<c:if test="${ok == 'empty'}">
-         		<td><button>후기 작성하기</button></td>
-         		</c:if>
-         		<c:if test="${ok == 'not empty'}">
-         		<td><button>작성한 후기 확인</button></td>
-         		</c:if>
-            </c:forEach>
-        </c:if>
+		<c:if test="${list.ITEM_STATUS == 'y' && empty list.REVIEW_NO }">
+			<td><a href="<%=request.getContextPath() %>/review/write?itemNo=${list.ITEM_NO }"><button>리뷰 작성하기</button></a></td>
+		</c:if>
+		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.REVIEW_NO }">
+			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button>후기 확인하기</button></a></td>
+		</c:if>
 	</tr>
 	</c:forEach>
 </table>

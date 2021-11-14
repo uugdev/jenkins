@@ -33,6 +33,30 @@
 		SET item_status = 'y'
 		WHERE item_no = #{itemNo }
 	</update>
+	
+	<select id="selectItemCntAll" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM zitem
+		where user_no = #{userNo}
+	</select>
+	
+	<select id="selectItemListByUserNo" parameterType="HashMap" resultType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, J.* FROM (
+				SELECT
+				    a.ask_hit, i.item_name, i.item_price, v.vote_end, i.item_status, r.review_no, i.item_no, a.ask_date
+				FROM zvote v, zask a, zitem i, zuser u, zreview r
+				WHERE v.user_no = a.user_no
+				AND a.user_no = i.user_no
+				AND i.user_no = u.user_no
+				AND u.user_no = r.user_no (+)
+				AND a.ask_no = v.ask_no
+				AND i.item_no = a.product_no
+				AND a.user_no = #{userNo }
+				ORDER BY a.ask_date DESC
+			) J
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	
+	</select>
 
 
 </mapper>
