@@ -52,4 +52,39 @@ public interface AdminQnaDao {
 	 */
 	public void deleteQna(int i);
 
+	/**
+	 * 문의글 답변 작성
+	 * 
+	 * @param qnaComment - 답변 정보
+	 */
+	public void insertQnaComment(QnaComment qnaComment);
+
+	/**
+	 * 답변 작성 후 문의글 답변 여부 y로 변경
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void updateQnaStatusToY(int qnaNo);
+
+	/**
+	 * 문의글 답변 수정
+	 * 
+	 * @param qnaComment - 답변 정보
+	 */
+	public void updateQnaComment(QnaComment qnaComment);
+
+	/**
+	 * 문의글 답변 삭제
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void deleteQnaComment(int qnaNo);
+
+	/**
+	 * 답변 삭제 후 문의글 답변 여부 n으로 변경
+	 * 
+	 * @param qnaNo - 문의글 번호
+	 */
+	public void updateQnaStatusToN(int qnaNo);
+
 }

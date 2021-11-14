@@ -53,4 +53,21 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		adminQnaDao.deleteQna(i);
 	}
 
+	@Override
+	public void setQnaCommentWrite(QnaComment qnaComment) {
+		adminQnaDao.insertQnaComment(qnaComment);
+		adminQnaDao.updateQnaStatusToY(qnaComment.getQnaNo());
+	}
+
+	@Override
+	public void setQnaCommentUpdate(QnaComment qnaComment) {
+		adminQnaDao.updateQnaComment(qnaComment);
+	}
+
+	@Override
+	public void setQnaCommentDelete(int qnaNo) {
+		adminQnaDao.deleteQnaComment(qnaNo);
+		adminQnaDao.updateQnaStatusToN(qnaNo);
+	}
+
 }

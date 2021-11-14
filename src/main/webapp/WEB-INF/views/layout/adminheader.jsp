@@ -28,7 +28,7 @@
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>후기게시판 관리</h4></a></li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>거래게시판 관리</h4></a></li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>신고 관리</h4></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>문의 관리</h4></a></li>
+					<li><a href="/admin/qna/list" style="margin: 7px 0 0 30px;"><h4>문의 관리</h4></a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
