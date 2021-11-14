@@ -10,7 +10,8 @@
 <!-- 개별 스타일 및 스크립트 영역 -->
 
 <!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="/resources/js/segbar.js"></script>
 
 <script type="text/javascript">
@@ -80,7 +81,7 @@ $(document).ready(function() {
 						
 							//투표수 적용
 							$("#cntN").html(data.cntN);
-						
+							
 						} //success
 						, error: function() {
 							console.log("실패");
@@ -91,34 +92,6 @@ $(document).ready(function() {
 			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
-	
-	
-	$('.chart').segbar([
-		
-		  {
-		
-		    data: [
-		
-		      {  value: ${cntY} },
-		
-		      {  value: ${cntN} }
-		
-		    ]
-		
-		  }
-		
-		
-		]);
-	
-	$('.chart').segbar({
-		
-		  width:"100%",
-		  height:"10px"
-		
-		})
-
-	
-	
 	
 	
 	// 댓글 입력
@@ -156,6 +129,32 @@ $(document).ready(function() {
 	});
 	
 	
+	$('.chart').segbar([
+
+		{
+
+		  data: [ 
+
+		    {  value: ${cntY}, color:'#3A539B'  },
+
+		    {  value: ${cntN}, color: '#F22613' }
+
+		  ]
+
+		}
+				
+
+		]);
+
+		$('.chart').segbar({
+		width:"100%",
+		height:"80px"
+		});
+
+
+
+	
+	
 });
 
 function deleteComment(askComNo) {
@@ -180,6 +179,7 @@ function deleteComment(askComNo) {
 		}
 	});
 }
+
 </script>
 <style type="text/css">
 table {
@@ -208,9 +208,11 @@ table, th {
 }
 
 .check {
-	text-align: center;
-	width: 500px;
+	display: flex;
+	justify-content: space-between; text-align : center; width : 500px;
 	margin: 0 auto;
+	width: 500px;
+	text-align: center;
 }
 
 #itemImg {
@@ -226,16 +228,19 @@ table, th {
 .cnt {
 	font-size: 20px;
 	margin: 0 10px;
-
 }
 
 #chartBox {
 	width: 300px;
-	height: 10px;
-
 }
 
+.item-wrapper {
+	height: 30px !important;
+}
 
+.item-percentage {
+	line-height: 30px;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -291,50 +296,84 @@ table, th {
 			<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
 		</div>
 
-		<div id="chartBox">
-			<div class="chart"></div>
-		</div>
 
 		<c:if test="${check eq 'y'}">
 			<div class="check">
-				<div class="pull-left cnt" id="cntY">${cntY }</div>
-				<c:if test="${status.voteState eq 'y'}">
-					<img class="pull-left success"
-						src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
-				</c:if>
-				<c:if test="${status.voteState ne 'y'}">
-					<img class="vote pull-left" id="like"
-						src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
-				</c:if>
-				
-				
-				
-				<div class="pull-right cnt" id="cntN">${cntN }</div>
-				<c:if test="${status.voteState eq 'n'}">
-					<img class="pull-right success"
-						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
-				</c:if>
-				<c:if test="${status.voteState ne 'n'}">
-					<img class="vote pull-right" id="hate"
-						src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
-				</c:if>
-			</div>
-		</c:if>
+				<div>
+					<div class="pull-left cnt" id="cntY">${cntY }</div>
+					<c:if test="${status.voteState eq 'y'}">
+						<img class="pull-left success"
+							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
+					</c:if>
+					<c:if test="${status.voteState ne 'y'}">
+						<img class="vote pull-left" id="like"
+							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
+					</c:if>
+				</div>
+				<div id="chartBox">
+					<div class="chart"></div>
+				</div>
 
-		<c:if test="${check eq 'n'}">
-			<div class="check">투표가 종료되었습니다
-				<div class="pull-left cnt" id="cntY">${cntY }</div>
-					<img class="pull-left success"
-						src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
-				
-				<div class="pull-right cnt" id="cntN">${cntN }</div>
-					<img class="pull-right success"
-						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+				<div>
+					<div class="pull-right cnt" id="cntN">${cntN }</div>
+					<c:if test="${status.voteState eq 'n'}">
+						<img class="pull-right success"
+							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+					</c:if>
+					<c:if test="${status.voteState ne 'n'}">
+						<img class="vote pull-right" id="hate"
+							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+					</c:if>
+				</div>
 			</div>
 		</c:if>
 		
-		<br>
-		<br>
+		
+		<c:if test="${check eq 'n'}">
+			<div class="check">
+				<div>
+					<div class="pull-left cnt" id="cntY">${cntY }</div>
+					<c:if test="${status.voteState eq 'y'}">
+						<img class="pull-left success"
+							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
+					</c:if>
+					<c:if test="${status.voteState ne 'y'}">
+						<img class="vote pull-left"
+							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
+					</c:if>
+				</div>
+				<div id="chartBox"> 투표가 종료되었습니다
+					<div class="chart"></div>
+				</div>
+
+				<div>
+					<div class="pull-right cnt" id="cntN">${cntN }</div>
+					<c:if test="${status.voteState eq 'n'}">
+						<img class="pull-right success"
+							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+					</c:if>
+					<c:if test="${status.voteState ne 'n'}">
+						<img class="vote pull-right"
+							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+					</c:if>
+				</div>
+			</div>
+		</c:if>
+
+<%-- 		<c:if test="${check eq 'n'}">
+			<div class="check">
+				투표가 종료되었습니다
+				<div class="pull-left cnt" id="cntY">${cntY }</div>
+				<img class="pull-left success" src="https://i.imgur.com/aH44JbJ.png"
+					alt="찬성투표후" />
+
+				<div class="pull-right cnt" id="cntN">${cntN }</div>
+				<img class="pull-right success"
+					src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+			</div>
+		</c:if> --%>
+
+		<br> <br>
 		<hr>
 
 		<!-- 댓글 처리 -->
