@@ -33,7 +33,7 @@
 	</delete>
 	
 	<select id="selectCountComment" parameterType="com.khbill.dto.ReviewComment" resultType="int">
-		SELECT FROM count(*) ZREVIEW_COMMENT
+		SELECT count(*) FROM ZREVIEW_COMMENT
 		WHERE review_no = #{reviewNo }
 	</select>
 	

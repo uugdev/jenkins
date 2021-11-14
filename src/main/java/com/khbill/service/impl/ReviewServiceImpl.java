@@ -68,17 +68,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public void setReviewCommentWrite(ReviewComment reviewComment) {	
 		reviewCommentDao.insertReviewComment(reviewComment);
 	}
-
-//	@Override
-//	public List<ReviewComment> getReviewComList(Review review) {
-//
-//		return reviewCommentDao.selectReviewCommentByReview(review);
-//	}
-
-//	@Override
-//	public HashMap<String, Object> getReviewComList(ReviewComment reviewComment) {
-//		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
-//	}
 	
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {

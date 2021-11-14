@@ -71,8 +71,6 @@ public interface ReviewService {
 	 * @param review - 댓글을 조회할 게시글 정보
 	 * @return 조회된 댓글 목록
 	 */
-//	public List<ReviewComment> getReviewComList(Review review);
-//	public HashMap<String, Object> getReviewComList(ReviewComment reviewComment);
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
 
 	/**

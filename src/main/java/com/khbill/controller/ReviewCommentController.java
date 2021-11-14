@@ -41,7 +41,6 @@ public class ReviewCommentController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/comment/delete")
 	public void delete(ReviewComment reviewComment, Writer writer, Model model) {
 		
