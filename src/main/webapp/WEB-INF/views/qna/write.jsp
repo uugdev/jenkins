@@ -22,9 +22,15 @@ function submitContents(elClickedObj) {
 
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		submitContents($("#btnWrite"));
 		
-		$("form").submit();
+		var answer = confirm("문의글을 작성하시겠습니까?");
+		if(answer == true){
+			submitContents($("#btnWrite"));
+			
+			$("form").submit();			
+		} else {
+			return false;
+		}
 	})
 	
 	$("#btnCancel").click(function() {

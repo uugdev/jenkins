@@ -43,7 +43,7 @@ public class NoticeController {
 		logger.info("/notice/detail [GET]");
 		
 		if(notice.getNoticeNo() < 1 ) {
-			return "redirect:/noptice/list";
+			return "redirect:/notice/list";
 		}
 		
 		notice = noticeService.getNoticeDetail(notice);
