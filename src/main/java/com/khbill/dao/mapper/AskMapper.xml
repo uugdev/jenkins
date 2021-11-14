@@ -186,6 +186,37 @@ SELECT zask_seq.nextval FROM dual
 	WHERE ask_no = #{askNo } AND user_no = #{userNo}
 </select>
 
+	<select id="selectItemCntAll" parameterType="com.khbill.dto.Item" resultType="int">
+		SELECT COUNT(*) FROM zitem
+		where user_no = #{userNo}
+	</select>
+	
+	<select id="selectAskListByUserNo" parameterType="HashMap" resultType="com.khbill.dto.Ask">
+		SELECT * FROM (
+			SELECT rownum rnum, A.* FROM (
+				SELECT * FROM zask
+				WHERE user_no = #{userNo }
+				ORDER BY ask_no DESC
+			) A
+		) R
+		WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
+	<select id="selectItemByUserNo" parameterType="int" resultType="com.khbill.dto.Item">
+		SELECT * FROM zitem
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectVoteByUserNo" parameterType="int" resultType="com.khbill.dto.Vote">
+		SELECT * FROM zvote
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectReviewByUserNo" parameterType="int" resultType="com.khbill.dto.Review">
+		SELECT * FROM zreview
+		WHERE user_no = #{userNo }
+	</select>
+
 
 
 

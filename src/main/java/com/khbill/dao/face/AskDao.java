@@ -1,11 +1,13 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
+import com.khbill.dto.Review;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
@@ -264,6 +266,46 @@ public interface AskDao {
 	 * @return
 	 */
 	public int selectVoteByLoginUser(Vote vote);
+	
+	/**
+	 * 유저 번호로 질문글 갯수 가져오기
+	 * 
+	 * @param userNo - 조회할 유저 번호
+	 * @return 총 게시글 수
+	 */
+	public int selectItemCntAll(int userNo);
+
+	/**
+	 * 유저 번호로 질문 리스트를 받아온다
+	 * 
+	 * @param map - 페이징, 유저 번호가 담겨있음
+	 * @return 질문 리스트
+	 */
+	public List<Ask> selectAskListByUserNo(HashMap<String, Object> map);
+
+	/**
+	 * 유저 번호로 아이템 리스트를 받아온다
+	 * 
+	 * @param userNo
+	 * @return 아이템 리스트
+	 */
+	public List<Item> selectItemByUserNo(int userNo);
+
+	/**
+	 * 유저 번호로 투표 리스트를 받아온다
+	 * 
+	 * @param userNo
+	 * @return 투표 리스트
+	 */
+	public List<Vote> selectVoteByUserNo(int userNo);
+
+	/**
+	 * 유저 번호로 리뷰 리스트를 받아온다
+	 * 
+	 * @param userNo
+	 * @return 리뷰 리스트
+	 */
+	public List<Review> selectReviewByUserNo(int userNo);
 	
 	
 	

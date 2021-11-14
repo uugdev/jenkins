@@ -19,17 +19,15 @@
 <table class="table table-hover">
 	<tr>
 		<th>번호</th>
-		<th>상태</th>
 		<th>상품명</th>
 		<th>가격</th>
 		<th>마감일</th>
 		<th>조회수</th>
-		<th>변경하기</th>
+		<th>상태</th>
 	</tr>
 	<c:forEach items="${item }" var="item" varStatus="status">
 	<tr>
 		<td>${status.count }</td>
-		<td>${item.itemStatus }</td>
 		<td>${item.itemName }</td>
 		<td>${item.itemPrice }</td>
 		<c:forEach items="${vote }" var="vote">
