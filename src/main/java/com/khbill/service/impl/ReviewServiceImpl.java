@@ -69,10 +69,20 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewCommentDao.insertReviewComment(reviewComment);
 	}
 
-	@Override
-	public List<ReviewComment> getReviewComList(Review review) {
+//	@Override
+//	public List<ReviewComment> getReviewComList(Review review) {
+//
+//		return reviewCommentDao.selectReviewCommentByReview(review);
+//	}
 
-		return reviewCommentDao.selectReviewCommentByReview(review);
+//	@Override
+//	public HashMap<String, Object> getReviewComList(ReviewComment reviewComment) {
+//		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
+//	}
+	
+	@Override
+	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
+		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 
 	@Override
@@ -86,6 +96,7 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
+
 
 	
 }

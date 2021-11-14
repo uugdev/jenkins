@@ -43,6 +43,7 @@ public class ReviewController {
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String detail(
 			Review review
+			, ReviewComment reviewComment
 			, Item item
 			, File file
 			, Model model) {
@@ -73,9 +74,10 @@ public class ReviewController {
 		model.addAttribute("file", file);
 		
 		//댓글 리스트 전달
-		ReviewComment reviewComment = new ReviewComment();
-		List<ReviewComment> commemtList = reviewService.getReviewComList(review);
-		model.addAttribute("commentList", commemtList);
+		List<HashMap<String, Object>> commentList = reviewService.getReviewComList(reviewComment);
+		model.addAttribute("commentList", commentList);
+		
+		logger.info("commentList: {}", commentList);
 		
 		return "review/detail";
 	}

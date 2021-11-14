@@ -6,19 +6,23 @@
  
 <mapper namespace="com.khbill.dao.face.ReviewCommentDao">
 	
-	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="com.khbill.dto.ReviewComment">
+	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="HashMap">
 		SELECT * FROM (
-				SELECT
-					review_com_no, user_no, review_no
-					, review_com_content, review_com_date, review_com_like, review_com_hate
-				FROM ZREVIEW_COMMENT
-				WHERE review_no = #{reviewNo }
-				ORDER BY review_com_hate
-		) ORDER BY review_com_no
+		    SELECT rownum rnum, C.* FROM (
+		        SELECT
+		             review_com_no,  U.user_no, user_nick, review_no
+		            , review_com_content, review_com_date, review_com_like, review_com_hate
+		        FROM ZREVIEW_COMMENT C
+		        INNER JOIN zuser U
+		            ON U.user_no = C.user_no
+	            WHERE review_no = #{reviewNo }
+		        ORDER BY review_com_no DESC
+		    ) C
+		) ZREVIEW_COMMENT
 	</select>
 
 	<insert id="insertReviewComment" parameterType="com.khbill.dto.ReviewComment">
-		INSERT INTO ZREVIEW_COMMENT 
+		INSERT INTO ZREVIEW_COMMENT
 			(review_com_no, user_no, review_no, review_com_content, review_com_date, review_com_like, review_com_hate )
 		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{userNo}, #{reviewNo}, #{reviewComContent}, sysdate, 0, 0 )
 	</insert>
@@ -29,8 +33,8 @@
 	</delete>
 	
 	<select id="selectCountComment" parameterType="com.khbill.dto.ReviewComment" resultType="int">
-		SELECT COUNT(*) FROM ZREVIEW_COMMENT
-		WHERE review_com_no = #{reviewComNo }
+		SELECT FROM count(*) ZREVIEW_COMMENT
+		WHERE review_no = #{reviewNo }
 	</select>
 	
 </mapper>

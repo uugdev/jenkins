@@ -136,7 +136,7 @@ function deleteComment(reviewComNo) {
 </div>
 
 
-<div style="text-align: center;">${review.reviewComContent }</div>
+<div style="text-align: center;">${review.reviewContent }</div>
 
 <div class="text-center">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
@@ -203,16 +203,16 @@ function deleteComment(reviewComNo) {
 
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
-	<tr data-reviewComNo="${reviewComment.reviewComNo }">
+	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
 <%-- 		 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
-		<td style="width: 10%;">${review.USER_NICK }</td>
-		<td style="width: 50%;">${reviewComment.reviewComContent }</td>
+		<td style="width: 10%;">${reviewComment.USER_NICK }</td>
+		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td>
 		<td style="width: 20%;">
-			<fmt:formatDate value="${reviewComment.reviewComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
+			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
 		<td style="width: 5%;">
-			<c:if test="${review.USER_NO eq reviewComment.userNo }">
+			<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
 			<button class="btn btn-default btn-xs"
-				onclick="deleteComment(${reviewComment.reviewComNo });">삭제</button>
+				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
 			</c:if>
 		</td>		
 	</tr>

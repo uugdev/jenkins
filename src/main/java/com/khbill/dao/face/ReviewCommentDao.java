@@ -1,5 +1,6 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Review;
@@ -13,7 +14,9 @@ public interface ReviewCommentDao {
 	 * @param review - 댓글조회 대상 게시글 정보
 	 * @return 조회된 댓글 목록
 	 */
-	public List<ReviewComment> selectReviewCommentByReview(Review review);
+//	public List<ReviewComment> selectReviewCommentByReview(Review review);
+//	public HashMap<String, Object> selectReviewCommentByReview(ReviewComment reviewComment);
+	public List<HashMap<String, Object>> selectReviewCommentByReview(ReviewComment reviewComment);
 
 	/**
 	 * 신규 댓글 삽입
@@ -37,5 +40,7 @@ public interface ReviewCommentDao {
 	 * @return 댓글 개수
 	 */
 	public int selectCountComment(ReviewComment reviewComment);
+
+
 
 }

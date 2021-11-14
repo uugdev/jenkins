@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class ReviewComment {
 
-	
 	private int reviewComNo;
 	private int reviewNo;
 	private int userNo;
@@ -12,12 +11,14 @@ public class ReviewComment {
 	private Date reviewComDate;
 	private int reviewComLike;
 	private int reviewComHate;
+	
 	@Override
 	public String toString() {
 		return "ReviewComment [reviewComNo=" + reviewComNo + ", reviewNo=" + reviewNo + ", userNo=" + userNo
 				+ ", reviewComContent=" + reviewComContent + ", reviewComDate=" + reviewComDate + ", reviewComLike="
 				+ reviewComLike + ", reviewComHate=" + reviewComHate + "]";
 	}
+	
 	public int getReviewComNo() {
 		return reviewComNo;
 	}
