@@ -44,18 +44,16 @@
 		<c:if test="${item.itemStatus == 'n' }">
 			<td><button>결제로 변경하기</button></td>
 		</c:if>
-		<c:if test="${item.itemStatus == 'y' }">
-			<c:forEach items="${review }" var="review">
-				<c:choose>
-					<c:when test="${item.itemNo eq review.itemNo }">
-      			 		 <td>리뷰 작성완료</td>
-   					 </c:when>
-   					<c:otherwise>
-      			  		<td>리뷰 작성하기</td>
-    				</c:otherwise>
-    			</c:choose>
-			</c:forEach>
-		</c:if>
+        <c:if test="${item.itemStatus == 'y' }">
+            <c:forEach items="${ok }" var="ok">
+         		<c:if test="${ok == 'empty'}">
+         		<td><button>후기 작성하기</button></td>
+         		</c:if>
+         		<c:if test="${ok == 'not empty'}">
+         		<td><button>작성한 후기 확인</button></td>
+         		</c:if>
+            </c:forEach>
+        </c:if>
 	</tr>
 	</c:forEach>
 </table>

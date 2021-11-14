@@ -1,15 +1,29 @@
 package com.khbill.service.face;
 
+import java.util.List;
+
 import com.khbill.dto.Item;
+import com.khbill.dto.Review;
 
 public interface ItemService {
 
 	/**
-	 * item의 결제 상태를 변경한다
+	 * itemNo로 askNo를 가져온다
 	 * 
-	 * @param item - 변경할 아이템
+	 * @param item - itemNo를 담고 있는 객체
+	 * @return askNo
 	 */
-	public void setItemStatus(Item item);
+	public int getAskNoByItemNo(Item item);
+
+	/**
+	 * 아이템의 결제 상태를 변경한다
+	 * 
+	 * 
+	 * @param askNo - 문의번호
+	 */
+	public void setItemStatus(int askNo);
+
+	public List<String> getOkList(List<Item> itemList, List<Review> reviewList);
 	
 
 }

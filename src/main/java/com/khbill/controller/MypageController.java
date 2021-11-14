@@ -45,11 +45,13 @@ public class MypageController {
 		List<Item> itemList = askService.getItemList(userNo);
 		List<Vote> voteList = askService.getVoteList(userNo);
 		List<Review> reviewList = askService.getReviewList(userNo);
-		
+		List<String> okList = itemService.getOkList(itemList, reviewList);
+				
 		model.addAttribute("ask", askList);
 		model.addAttribute("item", itemList);
 		model.addAttribute("vote", voteList);
 		model.addAttribute("review", reviewList);
+		model.addAttribute("ok", okList);
 		
 		logger.info("askList 정보 : {}", askList);
 		logger.info("itemList 정보 : {}", itemList);
@@ -62,8 +64,10 @@ public class MypageController {
 	public void itemStatus(Item item) {
 		logger.info("/mypage/item/status [GET]");
 		
+		int askNo = itemService.getAskNoByItemNo(item);
+		
 		//아이템 결제 상태를 변경하기
-		itemService.setItemStatus(item);
+		itemService.setItemStatus(askNo);
 	
 		
 	}

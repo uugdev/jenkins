@@ -5,7 +5,34 @@
 
 <mapper namespace="com.khbill.dao.face.ItemDao">
 
+	<select id="selectAskNoByItemNo" parameterType="com.khbill.dto.Item" resultType="int">
+		SELECT ask_no FROM zask
+		WHERE product_no = #{itemNo }
+	</select>
 	
+	<select id="selectCntVoteInProgress" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM zvote
+		<![CDATA[WHERE TO_CHAR(SYSDATE, 'yy/MM/dd') < TO_CHAR(vote_end, 'yy/MM/dd')]]>
+		AND ask_no = #{askNo }
+	</select>
+	
+	<update id="updateVoteEndToSysdate" parameterType="int">
+		UPDATE zvote
+		SET vote_end = sysdate
+		WHERE ask_no = #{askNo }
+	</update>
+	
+	<select id="selectItemNoByAskNo" parameterType="int" resultType="int">
+		SELECT product_no
+		FROM zask
+		WHERE ask_no = #{askNo }
+	</select>
+	
+	<update id="updateItemStatusToY" parameterType="int">
+		UPDATE zitem
+		SET item_status = 'y'
+		WHERE item_no = #{itemNo }
+	</update>
 
 
 </mapper>
