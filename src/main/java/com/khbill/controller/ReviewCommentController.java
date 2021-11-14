@@ -25,8 +25,7 @@ public class ReviewCommentController {
 	@Autowired private ReviewService reviewService;	
 	
 	@RequestMapping(value = "/comment/write", method = RequestMethod.POST)
-	public String write(int reviewNo, ReviewComment reviewComment, Model model, HttpSession session) {
-		
+	public String write(int reviewNo, ReviewComment reviewComment, Model model, HttpSession session) {	
 		logger.info("/comment/write [POST]");
 		
 		int userNo = (Integer) session.getAttribute("userNo");

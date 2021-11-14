@@ -171,38 +171,62 @@ function deleteComment(reviewComNo) {
 	<table class="table table-striped table-hover table-condensed">
 	<thead>
 	<tr>
-<!-- 		<th style="width: 5%;">번호</th> -->
+		<!-- 		<th style="width: 5%;">번호</th> -->
 		<th style="width: 10%;">작성자</th>
-		<th style="width: 50%;">댓글</th>
+		<th style="width: 65%;">댓글</th>
 		<th style="width: 20%;">작성일</th>
 		<th style="width: 5%;"></th>
 	</tr>
 	</thead>
+
+<!-- 	<tbody id="commentBody"> -->
+<%-- 	<c:forEach items="${commentList }" var="reviewComment"> --%>
+<%-- 	<tr data-reviewComNo="${reviewComment.reviewComNo }"> --%>
+<%-- 		<c:forEach items="${userList }" var="userList"> --%>
+<%-- 			<c:if test="${reviewComment.userNo eq userList.userNo }"> --%>
+<%-- 				<td style="width: 10%;">${userList.USER_NICK }</td> --%>
+<%-- 			</c:if> --%>
+<%-- 		</c:forEach> --%>
+<%-- 		<td style="width: 65%;">${reviewComment.reviewComContent }</td> --%>
+<!-- 		<td style="width: 20%;"> -->
+<%-- 			<fmt:formatDate value="${reviewComment.reviewComDate }" pattern="yy-MM-dd hh:mm:ss" /></td> --%>
+<%-- 			<c:if test="${review.USER_NO eq reviewComment.userNo }"> --%>
+<!-- 			<td style="width: 5%;"> -->
+<!-- 			<button class="btn btn-default btn-xs" -->
+<%-- 				onclick="deleteComment(${reviewComment.reviewComNo });">삭제</button> --%>
+<%-- 			</c:if> --%>
+<!-- 		</td>		 -->
+<!-- 	</tr> -->
+<%-- 	</c:forEach> --%>
+<!-- 	</table> -->
+<!-- 	댓글 리스트 end -->
+
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
 	<tr data-reviewComNo="${reviewComment.reviewComNo }">
-<%-- 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
+<%-- 		 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
 		<td style="width: 10%;">${review.USER_NICK }</td>
 		<td style="width: 50%;">${reviewComment.reviewComContent }</td>
-		<td style="width: 20%;"><fmt:formatDate value="${reviewComment.reviewComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
+		<td style="width: 20%;">
+			<fmt:formatDate value="${reviewComment.reviewComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
 		<td style="width: 5%;">
 			<c:if test="${review.USER_NO eq reviewComment.userNo }">
 			<button class="btn btn-default btn-xs"
 				onclick="deleteComment(${reviewComment.reviewComNo });">삭제</button>
 			</c:if>
-		</td>
-		
+		</td>		
 	</tr>
 	</c:forEach>
-	</table>	<!-- 댓글 리스트 end -->
+	</table>
+	<!-- 	댓글 리스트 end -->
 
-</div>	<!-- 댓글 처리 end -->
+</div><!-- 댓글 처리 end -->
 
 
 <%-- --%>
 	
 </div><!-- .container end -->
-</div><!-- .wrap end -->
+<!-- </div>.wrap end -->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

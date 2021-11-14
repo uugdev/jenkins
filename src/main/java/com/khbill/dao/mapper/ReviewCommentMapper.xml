@@ -20,7 +20,7 @@
 	<insert id="insertReviewComment" parameterType="com.khbill.dto.ReviewComment">
 		INSERT INTO ZREVIEW_COMMENT 
 			(review_com_no, user_no, review_no, review_com_content, review_com_date, review_com_like, review_com_hate )
-		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{reviewNo}, #{userNo}, #{reviewComContent}, sysdate, 0, 0 )
+		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{userNo}, #{reviewNo}, #{reviewComContent}, sysdate, 0, 0 )
 	</insert>
 
 	<delete id="deleteReviewComment" parameterType="com.khbill.dto.ReviewComment">
