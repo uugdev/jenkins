@@ -1,11 +1,20 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Item;
-import com.khbill.dto.Review;
+import com.khbill.util.Paging;
 
 public interface ItemService {
+	
+	/**
+	 * 
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getItemList(HashMap<String, Object> map);
 
 	/**
 	 * itemNo로 askNo를 가져온다
@@ -23,7 +32,6 @@ public interface ItemService {
 	 */
 	public void setItemStatus(int askNo);
 
-	public List<String> getOkList(List<Item> itemList, List<Review> reviewList);
-	
+	public Paging getPaging(Paging paramData, int userNo);
 
 }

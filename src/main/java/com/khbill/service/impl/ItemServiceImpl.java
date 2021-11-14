@@ -1,6 +1,6 @@
 package com.khbill.service.impl;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.ItemDao;
 import com.khbill.dto.Item;
-import com.khbill.dto.Review;
 import com.khbill.service.face.ItemService;
+import com.khbill.util.Paging;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -39,7 +39,7 @@ public class ItemServiceImpl implements ItemService {
 			
 			itemDao.updateItemStatusToY(itemNo);
 			
-		} else {
+		} else { //투표가 끝났음
 			
 			int itemNo = itemDao.selectItemNoByAskNo(askNo);
 			
@@ -47,32 +47,24 @@ public class ItemServiceImpl implements ItemService {
 			
 		}
 		
-		
-		
 	}
 	
+
+	
 	@Override
-	public List<String> getOkList(List<Item> itemList, List<Review> reviewList) {
+	public List<HashMap<String, Object>> getItemList(HashMap<String, Object> map) {
+		return itemDao.selectItemListByUserNo(map);
+	}
+
+	@Override
+	public Paging getPaging(Paging paramData, int userNo) {
+		//총 게시글 수 조회
+		int totalCount = itemDao.selectItemCntAll(userNo);
 		
-		List<String> okList =  new ArrayList<String>();
+		//페이징 계산
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		
-		for(int i=0; i<itemList.size(); i++) {
-
-			int count = 0;
-
-			for(int j=0; j<reviewList.size(); j++) {
-
-				if(itemList.get(i).getItemNo() == reviewList.get(j).getItemNo()) {
-					okList.add("not empty");
-					count = 1;
-				}
-			}
-
-			if(count == 0) {
-				okList.add("empty");
-			}
-		}
-		return okList;
+		return paging;
 	}
 
 		
