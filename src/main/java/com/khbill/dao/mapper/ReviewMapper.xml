@@ -92,7 +92,6 @@
 	 	INSERT INTO ZREVIEW ( review_no, item_no, user_no, file_no, review_title, review_content, review_date, review_hit )
 	 	VALUES ( #{reviewNo}, #{itemNo}, #{userNo}, #{fileNo}, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
 	 </insert>
-
 </mapper>
 
 
