@@ -18,7 +18,7 @@
 
 		//검색 버튼 클릭
 		$("#btnSearch").click(function() {
-			location.href = "/ask/list?search=" + $("#search").val();
+			location.href = "/ask/hitlist?search=" + $("#search").val();
 		});
 	})
 </script>
@@ -48,7 +48,7 @@ td:nth-child(2) {
 			<a href="/ask/list">최신순</a>
 			<a href="/ask/hitlist">조회순</a>
 		</div>
-		
+
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -94,7 +94,7 @@ td:nth-child(2) {
 <!-- .wrap end -->
 
 
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
+<c:import url="/WEB-INF/views/ask/paging.jsp" />
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

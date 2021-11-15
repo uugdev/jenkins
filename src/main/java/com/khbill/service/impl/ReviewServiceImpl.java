@@ -1,16 +1,22 @@
 package com.khbill.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.khbill.controller.ReviewController;
 import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
-import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
@@ -19,6 +25,8 @@ import com.khbill.util.Paging;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ReviewServiceImpl.class);
 	
 	@Autowired ReviewDao reviewDao;
 	@Autowired ReviewCommentDao reviewCommentDao;
@@ -59,7 +67,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public File getReviewFile(int fileNo) {
+	public com.khbill.dto.File getReviewFile(int fileNo) {
 		
 		return reviewDao.selectFileByFileNo(fileNo);
 	}
@@ -86,6 +94,85 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
+//	@Override
+//	public HashMap<String, Object> getAskDetail(Item item, File file) {
+//		return reviewDao.selectReviewByItemNo(item, file);
+//	}
 
-	
+	@Override
+	public void setReviewWrite(Review review, Item item, MultipartFile file) {
+		
+		//빈 파일
+		if( file.getSize() <= 0 ) {
+			return;
+		}
+		
+		int userNo = review.getUserNo();
+		int fileNo = reviewDao.getNextFileNo();
+		int itemNo = reviewDao.getNextItemNo();
+		int reviewNo = reviewDao.getNextReviewNo();
+		
+		
+		//파일이 저장될 경로
+		String storedPath = context.getRealPath("upload");
+		
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+				
+		//저장될 파일의 이름 생성하기
+		String fileOrigin = file.getOriginalFilename();
+		String fileStored = UUID.randomUUID().toString().split("-")[4] + fileOrigin;
+				
+		//저장할 파일 객체
+		File dest = new File( storedPath, fileStored );
+		
+		try {
+			file.transferTo(dest); //업로드 파일 저장
+		} catch (IllegalStateException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		//--------------------------------------------------------
+		com.khbill.dto.File reviewFile = new com.khbill.dto.File();
+		
+		reviewFile.setFileOrigin(fileOrigin);
+		reviewFile.setFileStored(fileStored);
+		reviewFile.setFileSize((int)file.getSize());
+		reviewFile.setFileNo(fileNo);
+		
+		item.setUserNo(userNo);
+		item.setFileNo(fileNo);
+		item.setItemNo(itemNo);
+
+		review.setItemNo(itemNo);
+		review.setFileNo(fileNo);
+		review.setReviewNo(reviewNo);
+		
+		reviewDao.insertFile(reviewFile);
+		reviewDao.insertItem(item);
+		reviewDao.insertReview(review);
+		
+		logger.info("review{}", review);
+		logger.info("item{}", item);
+		logger.info("reviewFile{}", reviewFile);
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

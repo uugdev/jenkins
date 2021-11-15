@@ -59,6 +59,36 @@ public interface MemberService {
 	 */
 	public String getUserNickByUserNo(int msgUserNo);
 
+	/**
+	 * 세션에 있는 유저번호로 유저 가져오기
+	 * 
+	 * @param userNo
+	 * @return 유저 객체
+	 */
+	public User getUserByUserNo(int userNo);
+
+	/**
+	 * 회원정보를 수정한다
+	 * 
+	 * @param user
+	 */
+	public void setUserUpdate(User user);
+	
+	/**
+	 * 회원정보를 삭제한다
+	 * 
+	 * @param userNo
+	 */
+	public void setUserDelete(int userNo);
+	
+	/**
+	 * 닉네임에 맞는 사용자가 있는지 조회한다
+	 * 
+	 * @param userNick
+	 * @return 존재하면 1 없으면 0
+	 */
+	public int checkUserExists(String userNick);
+
 
 
 }

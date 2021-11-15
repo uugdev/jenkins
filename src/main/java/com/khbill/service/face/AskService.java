@@ -6,6 +6,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -209,6 +211,71 @@ public interface AskService {
 	 */
 	public AskComment getAskComDetail(int askComNo);
 
+	/**
+	 * 스크랩한 게시글 삽입하기
+	 * 
+	 * @param askNo
+	 * @param userNo
+	 */
+	public void setAskScrap(int askNo, int userNo);
+
+	/**
+	 * 
+	 * 추천상태 확인하기
+	 * 
+	 * @param askScrap
+	 * @return
+	 */
+	public boolean scrap(AskScrap askScrap);
+
+	
+	
+	
+	/**
+	 * 사용자 추천상태
+	 * 
+	 * @param askScrap
+	 * @return
+	 */
+	public boolean isScrap(AskScrap askScrap);
+
+	/**
+	 * 
+	 * 신고게시물 삽입하기
+	 * 
+	 * @param userNo
+	 * @param askNo
+	 * @param askReport
+	 */
+	public void setAskReport(AskReport askReport);
+
+	
+	/**
+	 * 
+	 * ask게시글번호와 로그인userNo로 신고한게시물인지 판단한다
+	 * 
+	 * @param askReport
+	 * @return 
+	 */
+	public boolean askReportByAskNoLoginUserNo(AskReport askReport);
+
+//	
+//	/**
+//	 * 
+//	 * 투표수로 ask리스트 정렬
+//	 * 
+//	 * @param paging
+//	 * @return
+//	 */
+//	public List<Ask> getAskNumOfVoteList(Paging paging);
+
+	/**
+	 * ask리스트 조회수 정렬
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> getAskHitList(Paging paging);
 
 
 }

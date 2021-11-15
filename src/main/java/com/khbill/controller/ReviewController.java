@@ -3,6 +3,8 @@ package com.khbill.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
+import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -27,7 +32,7 @@ public class ReviewController {
 	@Autowired private ReviewService reviewService;
 	
 	@RequestMapping(value = "/list")
-	public void list(Model model, Paging paramData) {
+	public void reviewList(Model model, Paging paramData) {
 	
 		//페이징 처리
 		Paging paging = reviewService.getPaging(paramData);
@@ -41,7 +46,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
-	public String detail(
+	public String reviewDetail(
 			Review review
 			, ReviewComment reviewComment
 			, Item item
@@ -82,6 +87,44 @@ public class ReviewController {
 		return "review/detail";
 	}
 	
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
+	public void reviewWrite(
+			Ask ask
+			, Item item
+			, File file
+			, Model model
+			) {
+		logger.info("/review/write [GET]");
+		
+//		HashMap<String, Object> writeMap = reviewService.getAskDetail(item, file);
+		
+	}
+	
+	@RequestMapping(value = "/write", method = RequestMethod.POST)
+	public String reviewWriteProc(
+			Review review
+			, User user
+			, Ask ask
+			, Item item
+			, MultipartFile file
+			, HttpSession session) {
+		
+		logger.info("{}", review);
+		logger.info("{}", item);
+		logger.info("{}", file);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		user.setUserNick((String) session.getAttribute("userNick"));
+		
+		review.setUserNo(userNo);
+		
+		reviewService.setReviewWrite(review, item, file);
+		logger.info("후기게시판 {}", review);
+		logger.info("파일 {}", item);
+		logger.info("상품 {}", file);
+		
+		return "redirect:/review/list";
+	}
 }
 
 

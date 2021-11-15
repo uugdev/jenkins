@@ -40,4 +40,28 @@
 		WHERE user_no = #{userNo }
 	</select>
 	
+	<select id="selectUserByUserNo" parameterType="int" resultType="com.khbill.dto.User">
+		SELECT * FROM zuser
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<update id="updateUserInfo" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+		SET user_pw = #{userPw } 
+		, user_nick = #{userNick }
+		, user_bday = #{userBday }
+		, user_gender = #{userGender }
+	</update>
+	
+	<delete id="deleteUser" parameterType="com.khbill.dto.User">
+		DELETE zuser
+		where user_no = #{userNo }
+	</delete>
+	
+	<select id="selectUserCntByUserNick" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM zuser
+		WHERE user_nick = #{userNick }
+	</select>
+	
 </mapper>

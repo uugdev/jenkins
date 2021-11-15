@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -324,6 +326,71 @@ public interface AskDao {
 	 * @return
 	 */
 	public AskComment selectAskComByAskComNo(int askComNo);
+
+
+	/**
+	 * 
+	 * 스크랩 정보 삽입
+	 * 
+	 * @param askScrap
+	 */
+	public void insertAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * 
+	 * 스크랩 정보 삭제
+	 * 
+	 * @param askScrap
+	 */
+	public void deleteAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * 
+	 * 유저가 해당 게시글을 스크랩 한 적이 있는지 조회
+	 * 
+	 * 
+	 * @param askScrap
+	 * @return 1 - 추천했음 0 - 추천한적 없음
+	 */
+	public int selectCntAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * ask 신고 객체 삽입
+	 * 
+	 * @param askReport
+	 */
+	public void insertAskReport(AskReport askReport);
+
+
+	/**
+	 * 
+	 * 신고한 게시물인지 체크
+	 * 
+	 * @param askReport
+	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
+	 */
+	public int selectCntAskReportCheck(AskReport askReport);
+
+
+	/**
+	 * 투표수로 정렬
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> selectAskListNumOfVote(Paging paging);
+
+
+	/**
+	 * 조회수 역순으로 조회 
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> selectAskHitList(Paging paging);
 	
 	
 	

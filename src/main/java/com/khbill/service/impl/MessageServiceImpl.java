@@ -72,15 +72,22 @@ public class MessageServiceImpl implements MessageService {
 			//세션에 저장된 유저 번호가 쪽지의 receiver_no와 같을 때 => 받은 쪽지함에서 삭제
 			//받은 쪽지함에서 안보이도록 상태 변경
 			messageDao.updateReceiverShowToN(msg);
-		} 
+		} else if(userNo == msg.getSenderNo()) {
 		
-		//세션에 저장된 유저 번호가 쪽지의 sender_no와 같을 때 => 받은 쪽지함에서 삭제
-		//보낸 쪽지함에서 안보이도록 상태 변경
-		messageDao.updateSenderShowToN(msg);
+			//세션에 저장된 유저 번호가 쪽지의 sender_no와 같을 때 => 받은 쪽지함에서 삭제
+			//보낸 쪽지함에서 안보이도록 상태 변경
+			messageDao.updateSenderShowToN(msg);
+		}
+	}
+	
+	@Override
+	public Message getMsgByMsgNo(int msgNo) {
+		return messageDao.selectMsgByMsgNo(msgNo);
 	}
 	
 	@Override
 	public Message getMsgByMsgNo(Message msg) {
 		return messageDao.selectMsgByMsgNo(msg);
+
 	}
 }

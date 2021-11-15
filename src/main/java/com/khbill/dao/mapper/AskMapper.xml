@@ -197,6 +197,46 @@
 		WHERE ask_com_no = #{askComNo}	
 	</select>
 
+	<insert id="insertAskScrap" parameterType="com.khbill.dto.AskScrap">
+		INSERT INTO zask_scrap
+		VALUES (zask_scrap_seq.nextval,#{userNo},#{askNo})
+	</insert>
+
+
+	<delete id="deleteAskScrap" parameterType="com.khbill.dto.AskScrap">
+		DELETE zask_scrap
+		WHERE user_no = #{userNo} AND ask_no = #{askNo}
+	</delete>
+	
+	<select id="selectCntAskScrap" resultType="int" parameterType="com.khbill.dto.AskScrap">
+		SELECT count(*) FROM zask_scrap
+		WHERE ask_no = #{askNo}
+		AND user_no = #{userNo}
+	</select>
+
+
+	<insert id="insertAskReport" parameterType="com.khbill.dto.AskReport">
+		INSERT INTO zask_report
+		VALUES (zask_report_seq.nextval,#{askNo},#{reporterNo},#{respondentNo},#{reportCategory},
+		#{reportContent},sysdate,'n')
+	</insert>
+
+	<select id="selectCntAskReportCheck" resultType="int" parameterType="com.khbill.dto.AskReport">
+		SELECT count(*) FROM zask_report
+		WHERE ask_no = #{askNo} AND reporter_no = #{reporterNo}
+	</select>
+
+
+	<select id="selectAskHitList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging" >
+		SELECT * FROM (
+				SELECT rownum rnum, A.* FROM (
+					<include refid="selectAsk"/>
+					<include refid="whereTitleSearch"/>
+					ORDER BY ask_hit DESC
+				) A
+			) R
+			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
 
 
 </mapper>

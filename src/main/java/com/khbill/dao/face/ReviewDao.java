@@ -58,4 +58,58 @@ public interface ReviewDao {
 	 */
 	public File selectFileByFileNo(int fileNo);
 
+	/**
+	 * 상품 번호를 이용하여 질문게시글에 작성한 내용 불러오기
+	 * 
+	 * @param item
+	 * @param file
+	 * @return
+	 */
+	public HashMap<String, Object> selectReviewByItemNo(Item item, File file);
+
+
+	//-----writeProc 처리 -----------------------
+	
+	/**
+	 * 다음 파일번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextFileNo();
+
+	/**
+	 * 다음 상품번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextItemNo();
+
+	/**
+	 * 다음 질문글번호 조회
+	 * 
+	 * @return
+	 */
+	public int getNextReviewNo();
+
+	/**
+	 * 첨부파일 삽입
+	 * 
+	 * @param reviewFile
+	 */
+	public void insertFile(File reviewFile);
+
+	/**
+	 * 상품 삽입
+	 * 
+	 * @param item
+	 */
+	public void insertItem(Item item);
+
+	/**
+	 * 후기글 삽입
+	 * 
+	 * @param review
+	 */
+	public void insertReview(Review review);
+
 }

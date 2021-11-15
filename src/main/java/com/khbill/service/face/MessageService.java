@@ -62,6 +62,8 @@ public interface MessageService {
 	 * @param msg - 파라미터로 전달받은 msgNo를 가진 msg객체
 	 * @return db에서 조회한 메세지 객체
 	 */
+	public Message getMsgByMsgNo(int msgNo);
+
 	public Message getMsgByMsgNo(Message msg);
 
 

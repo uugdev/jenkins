@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -49,6 +51,41 @@ public class AskController {
 	
 	
 	}//list
+	
+	
+//	@RequestMapping(value = "/voteList")
+//	public void getAskListVote(Paging paramData, Model model, HttpServletRequest req) {
+//		logger.info("/ask/votenum/list [GET]");
+//
+//		Paging paging = askService.getPaging(paramData);
+//		List<ha>
+//		
+//		List<User> user = askService.getUserList();
+//		
+//		model.addAttribute("user", user);
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//	
+//	
+//	}//list
+
+	@RequestMapping(value = "/hitlist")
+	public void getAskHitList(Paging paramData, Model model, HttpServletRequest req) {
+		logger.info("/ask/votenum/list [GET]");
+
+		Paging paging = askService.getPaging(paramData);
+		List<Ask> list = askService.getAskHitList(paging);
+		List<User> user = askService.getUserList();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+	
+	
+	}//list
+	
+	
+	
 	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public void setAskWrite(HttpServletRequest req, Model model) {
@@ -130,6 +167,14 @@ public class AskController {
 		List<AskComment> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment",askComment);
 		
+		//스크랩 상태 조회
+		AskScrap askScrap = new AskScrap(); 
+		askScrap.setAskNo(askNo);
+		askScrap.setUserNo(userNo);
+		
+		//스크랩 상태 전달
+		boolean isScrap = askService.isScrap(askScrap);
+		model.addAttribute("isScrap",isScrap);		
 		
 	}
 	
@@ -215,21 +260,23 @@ public class AskController {
 	
 	
 	
-	@RequestMapping(value="/comment/update", method=RequestMethod.GET)
-	public ModelAndView update(int askComNo, ModelAndView mav) {
-		logger.info("/ask/comment/update");
-		
-		
-		AskComment askComment = askService.getAskComDetail(askComNo);
-		String askComContent = askComment.getAskComContent();
-		
-		mav.addObject(askComContent);
-		mav.setViewName("jsonView");
-		System.out.println(mav);
-		
-		return mav;
-		
-	}
+//	@RequestMapping(value="/comment/update", method=RequestMethod.GET)
+//	public ModelAndView update(int askComNo, ModelAndView mav) {
+//		logger.info("/ask/comment/update");
+//		
+//		
+//		AskComment askComment = askService.getAskComDetail(askComNo);
+//		String askComContent = askComment.getAskComContent();
+//		boolean result = true;
+//		
+//		mav.addObject("result", result);
+//		mav.addObject(askComContent);
+//		mav.setViewName("jsonView");
+//		System.out.println(mav);
+//		
+//		return mav;
+//		
+//	}
 	
 	
 	
@@ -307,8 +354,47 @@ public class AskController {
 	
 	
 	
+	@RequestMapping(value="/scrap", method = RequestMethod.GET)
+	public ModelAndView scrap(int askNo, ModelAndView mav ,HttpSession session) {
+		logger.info("/ask/scrap [GET]");
+		
+		//스크랩 정보 토글
+		AskScrap askScrap = new AskScrap();
+		askScrap.setAskNo(askNo);
+		askScrap.setUserNo((Integer) session.getAttribute("userNo"));
+		
+		boolean resultScrap = askService.scrap(askScrap);
+		
+		mav.addObject("resultScrap",resultScrap);
+		mav.setViewName("jsonView");
+		
+		
+		return mav;
+	}
 	
 	
+	@RequestMapping(value ="/report",method = RequestMethod.POST)
+	public String askReport(int askNo,AskReport askReport,HttpSession session) {
+		logger.info("/ask/report [POST]");
+		
+		logger.info("askReport: {}",askReport);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		askReport.setAskNo(askNo);
+		askReport.setReporterNo(userNo);
+		
+		boolean reportCheck =  askService.askReportByAskNoLoginUserNo(askReport);
+		
+		if(reportCheck) {
+			
+			askService.setAskReport(askReport);
+			
+		}
+			
+		
+		return "redirect:/ask/detail?askNo="+askNo;
+	}
 	
 	
 	

@@ -66,6 +66,36 @@ public interface MemberDao {
 	 */
 	public String selectUserNickByUserNo(int msgUserNo);
 	
+	/**
+	 * 유저 번호로 유저 객체 찾기
+	 * 
+	 * @param userNo
+	 * @return 유저
+	 */
+	public User selectUserByUserNo(int userNo);
+
+	/**
+	 * 회원 정보 수정하기
+	 * 
+	 * @param user
+	 */
+	public void updateUserInfo(User user);
+
+	/**
+	 * 회원 정보 삭제하기
+	 * 
+	 * @param userNo
+	 */
+	public void deleteUser(int userNo);
+
+	/**
+	 * 닉네임으로 조회한 회원 명수 반환
+	 * 
+	 * @param userNick
+	 * @return 1 - 존재하는 회원, 0 - 존재하지 않는 회원
+	 */
+	public int selectUserCntByUserNick(String userNick);
+	
 	
 
 }

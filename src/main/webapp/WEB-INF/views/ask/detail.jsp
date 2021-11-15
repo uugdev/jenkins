@@ -5,6 +5,8 @@
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/reportPopup.css">
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
@@ -16,6 +18,44 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	if( ${isScrap } ) {
+		$("#scrap")
+			.html('스크랩 취소');
+	} else {
+		$("#scrap")
+			.html('스크랩');
+	}
+	
+	$("#scrap").click(function() {
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/scrap"
+			, data: { "askNo": '${ask.askNo }' }
+			, dataType: "json"
+			, success: function( data ) {
+					console.log("성공");
+	
+				if( data.resultScrap ) { //스크랩 성공
+					$("#scrap")
+					.html('스크랩 취소');
+				
+				} else { //스크랩 취소 성공
+					$("#scrap")
+					.html('스크랩');
+				
+				}
+				
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		}); //ajax end
+		
+	}); //$("#btnRecommend").click() end
+	
+	
+	
 	
 	var userno = "<c:out value='${userNo}' />";
 	var askUserno = "<c:out value='${ask.userNo}' />";
@@ -127,6 +167,19 @@ $(document).ready(function() {
 		}
 
 	});
+
+// 	$("#scrap").click(function() {
+
+// 		var result = confirm("확인버튼을 누르시면 스크랩이 완료됩니다.");
+
+// 		if (result == true) {
+// 			$(location).attr("href", "/ask/scrap?askNo=${ask.askNo }");
+			
+// 		}
+
+// 	});
+
+	
 	
 	
 	$('.chart').segbar([
@@ -191,10 +244,10 @@ function deleteComment(askComNo) {
 // 		}
 // 		, success: function(data){
 // 			if(true) {
-// 			console.log(data.askComContent);
-			
-// 			$("#askComContent")
-// 			.innerHTML(data.askComContent);
+// 			console.log("성공");
+				
+// 				$("#askComContent")
+// 				.test("value", "data.askComContent");
 				
 // 			}
 // 		}
@@ -283,8 +336,12 @@ table, th {
 			href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
 			onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
 				${user.userNick }</span></a> | <span><fmt:formatDate
-				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span> <span
-			class="pull-right">조회수 : ${ask.askHit }</span>
+				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
+				<c:if test="${ask.userNo ne userNo }">
+					<button id="scrap">스크랩</button>
+					<button id="report" class="popupOpen1">신고</button>
+				</c:if>
+				<span class="pull-right">조회수 : ${ask.askHit }</span>
 
 		<table class="table table-striped table-hover">
 			<thead>
@@ -357,11 +414,11 @@ table, th {
 			<div class="check">
 				<div>
 					<div class="pull-left cnt" id="cntY">${cntY }</div>
-					<c:if test="${status.voteState eq 'y'}">
+					<c:if test="${cntY > cntN}">
 						<img class="pull-left success"
 							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
 					</c:if>
-					<c:if test="${status.voteState ne 'y'}">
+					<c:if test="${cntY <= cntN}">
 						<img class="vote pull-left"
 							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 					</c:if>
@@ -372,30 +429,17 @@ table, th {
 
 				<div>
 					<div class="pull-right cnt" id="cntN">${cntN }</div>
-					<c:if test="${status.voteState eq 'n'}">
+					<c:if test="${cntY < cntN}">
 						<img class="pull-right success"
 							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
 					</c:if>
-					<c:if test="${status.voteState ne 'n'}">
+					<c:if test="${cntY >= cntN}">
 						<img class="vote pull-right"
 							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
 					</c:if>
 				</div>
 			</div>
 		</c:if>
-
-<%-- 		<c:if test="${check eq 'n'}">
-			<div class="check">
-				투표가 종료되었습니다
-				<div class="pull-left cnt" id="cntY">${cntY }</div>
-				<img class="pull-left success" src="https://i.imgur.com/aH44JbJ.png"
-					alt="찬성투표후" />
-
-				<div class="pull-right cnt" id="cntN">${cntN }</div>
-				<img class="pull-right success"
-					src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
-			</div>
-		</c:if> --%>
 
 		<br> <br>
 		<hr>
@@ -406,10 +450,10 @@ table, th {
 				<tr>
 					<!-- 		<th style="width: 10%;">번호</th> -->
 					<th style="width: 10%;">작성자</th>
-					<th style="width: 60%;">댓글</th>
+					<th style="width: 65%;">댓글</th>
 					<th style="width: 20%;">작성일</th>
 					<th style="width: 5%;"></th>
-					<th style="width: 5%;"></th>
+<!-- 					<th style="width: 5%;"></th> -->
 				</tr>
 			</thead>
 			<tbody id="commentBody">
@@ -421,13 +465,13 @@ table, th {
 								<td style="width: 10%;">${userList.userNick }</td>
 							</c:if>
 						</c:forEach>
-						<td style="width: 60%;" id="askComCon">${askComment.askComContent }</td>
+						<td style="width: 65%;" id="askComCon">${askComment.askComContent }</td>
 						<td style="width: 20%;"><fmt:formatDate
 								value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
 						<c:if test="${userNo eq askComment.userNo }">
-							<td style="width: 5%;"><button
-									class="btn btn-default btn-xs"
-									onclick="updateComment(${askComment.askComNo });">수정</button></td>
+<!-- 							<td style="width: 5%;"><button -->
+<!-- 									class="btn btn-default btn-xs" -->
+<%-- 									onclick="updateComment(${askComment.askComNo });">수정</button></td> --%>
 							<td style="width: 5%;"><button
 									class="btn btn-default btn-xs"
 									onclick="deleteComment(${askComment.askComNo });">삭제</button></td>
@@ -482,6 +526,48 @@ table, th {
 </div>
 <!-- .wrap end -->
 
+
+
+
+
+		
+			<div class="popupWrap1 hide1">
+				<form action="/ask/report" method="post">
+					<input type="hidden" name="askNo"
+						value="${ask.askNo }" />
+					<div class="popup1">
+						<div class="title">
+							<p>신고 하기</p>
+							<span class="close1">❌</span>
+						</div>
+						<select name="reportCategory" class="select">
+							<option value="A">부적절한 홍보 게시글</option>
+							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+							<option value="D">기타</option>
+						</select>	
+						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+						<div class="btnWrap1">
+							<button>보내기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+	
+	<script>
+	$('.popupOpen1').on('click', function() {
+		$('.popupWrap1').removeClass('hide1');
+	});
+	$('.close1').on('click', function() {
+		$(this).parents('.popupWrap1').addClass('hide1');
+		$(this).parents('.popup1').children('textarea').val('');
+	});
+
+	$(".btnWrap1").click(function() {
+		$(this).parents("form").submit();
+// 		history.go(-1);
+	});
+</script>
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 
