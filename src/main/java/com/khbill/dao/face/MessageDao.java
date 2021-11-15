@@ -43,7 +43,7 @@ public interface MessageDao {
 	 * @param msg - 조회하려는 쪽지 객체
 	 * @return 조회된 쪽지 정보
 	 */
-	public Message selectMsgByMsgNo(Message msg);
+	public Message selectMsgByMsgNo(int msgNo);
 
 	/**
 	 * 세션에서 받아온 userNo와 receiverNo가 일치하면, 받은 쪽지함에서 안보이게 한다
@@ -74,6 +74,8 @@ public interface MessageDao {
 	 * @return totalCount
 	 */
 	public int selectSendCntAll(int userNo);
+
+	public Message selectMsgByMsgNo(Message msg);
 
 	
 	
