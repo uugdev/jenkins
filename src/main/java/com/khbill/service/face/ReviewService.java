@@ -3,6 +3,9 @@ package com.khbill.service.face;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -81,6 +84,24 @@ public interface ReviewService {
 	 */
 	public boolean deleteReviewComment(ReviewComment reviewComment);
 
+	/**
+	 * 질문 게시글 정보 불러오기
+	 * 
+	 * @param item - 전달받은 상품 객체
+	 * @param file - 전달받은 파일 객체
+	 * @return 조회된 정보 
+	 */
+//	public HashMap<String, Object> getAskDetail(Item item, File file);
+
+	/**
+	 * 후기 게시판 글쓰기
+	 * 
+	 * @param review - 전달받은 질문 게시글 객체
+	 * @param item - 전달 받은 상품 객체
+	 * @param file - 전달 받은 파일 객체
+	 * @return
+	 */
+	public void setReviewWrite(Review review, Item item, MultipartFile file);
 
 
 
