@@ -52,6 +52,41 @@ public class AskController {
 	
 	}//list
 	
+	
+//	@RequestMapping(value = "/voteList")
+//	public void getAskListVote(Paging paramData, Model model, HttpServletRequest req) {
+//		logger.info("/ask/votenum/list [GET]");
+//
+//		Paging paging = askService.getPaging(paramData);
+//		List<ha>
+//		
+//		List<User> user = askService.getUserList();
+//		
+//		model.addAttribute("user", user);
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//	
+//	
+//	}//list
+
+	@RequestMapping(value = "/hitlist")
+	public void getAskHitList(Paging paramData, Model model, HttpServletRequest req) {
+		logger.info("/ask/votenum/list [GET]");
+
+		Paging paging = askService.getPaging(paramData);
+		List<Ask> list = askService.getAskHitList(paging);
+		List<User> user = askService.getUserList();
+		
+		model.addAttribute("user", user);
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+	
+	
+	}//list
+	
+	
+	
+	
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public void setAskWrite(HttpServletRequest req, Model model) {
 		logger.info("/ask/write [GET]");

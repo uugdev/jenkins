@@ -399,7 +399,18 @@ public class AskServiceImpl implements AskService {
 	
 	}
 	
-	
-	
+	/*
+	 * @Override public List<Ask> getAskNumOfVoteList(Paging paging) { return
+	 * askDao.selectAskListNumOfVote(paging); }
+	 */
 
+	@Override
+	public List<Ask> getAskHitList(Paging paging) {
+
+		return askDao.selectAskHitList(paging);
+	}
+	
+	
+	
+	
 }// class
