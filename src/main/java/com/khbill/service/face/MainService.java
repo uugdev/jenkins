@@ -46,13 +46,6 @@ public interface MainService {
 	 * 
 	 * @return 인기 게시글 리스트
 	 */
-	public List<Object> getPopularBoard();
-	
-	/**
-	 * 결제 여부가 y인 상품정보 및 날짜를 회원번호로 조회
-	 * 
-	 * @return
-	 */
-	public List<Object> getBuyItemList(HttpSession session);
+	public List<Ask> getPopularBoard();
 
 }

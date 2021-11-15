@@ -1,7 +1,5 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -11,12 +9,6 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/main.css" />
-
-<%
-	Date date = new Date();
-	SimpleDateFormat simpleDate = new SimpleDateFormat("MMdd");
-	String fmtDate = simpleDate.format(date);
-%>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -30,128 +22,24 @@
 							<p style="font-size: 25px; text-align: left;">
 								<img alt="fire" src="https://i.imgur.com/9LX0LXQ.png" width="30px;" height="30px;"> 현재 뜨거운 게시글
 							</p>
-							<c:set var="setDate" value="<%= date %>" />
-							<c:set var="fmtDate" value="<%= fmtDate %>" />
 							<table class="table" id="popular_table">
 								<tr>
-									<td><img alt="#" src="/upload/${popularBoard[0].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[0].ASK_NO }">
-											<c:if test="${popularBoard[0].VOTE_END gt setDate }">
-												[진행] ${popularBoard[0].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[0].VOTE_END lt setDate }">
-												[종료] ${popularBoard[0].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[0].USER_NICK } / 
-												<c:if test="${popularBoard[0].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[0].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
-									<td><img alt="#" src="${popularBoard[1].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[1].ASK_NO }">
-											<c:if test="${popularBoard[1].VOTE_END gt setDate }">
-												[진행] ${popularBoard[1].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[1].VOTE_END lt setDate }">
-												[종료] ${popularBoard[1].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[1].USER_NICK } / 
-												<c:if test="${popularBoard[1].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[1].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글1</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글2</td>
 								</tr>
 								<tr>
-									<td><img alt="#" src="${popularBoard[2].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[2].ASK_NO }">
-											<c:if test="${popularBoard[2].VOTE_END gt setDate }">
-												[진행] ${popularBoard[2].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[2].VOTE_END lt setDate }">
-												[종료] ${popularBoard[2].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[2].USER_NICK } / 
-												<c:if test="${popularBoard[2].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[2].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
-									<td><img alt="#" src="${popularBoard[3].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[3].ASK_NO }">
-											<c:if test="${popularBoard[3].VOTE_END gt setDate }">
-												[진행] ${popularBoard[3].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[3].VOTE_END lt setDate }">
-												[종료] ${popularBoard[3].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[3].USER_NICK } / 
-												<c:if test="${popularBoard[3].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[3].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글3</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글4</td>
 								</tr>
 								<tr>
-									<td><img alt="#" src="${popularBoard[4].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[4].ASK_NO }">
-											<c:if test="${popularBoard[4].VOTE_END gt setDate }">
-												[진행] ${popularBoard[4].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[4].VOTE_END lt setDate }">
-												[종료] ${popularBoard[4].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[4].USER_NICK } / 
-												<c:if test="${popularBoard[4].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[4].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
-									<td><img alt="#" src="${popularBoard[5].FILE_STORED }"></td>
-									<td>
-										<a href="/ask/detail?askNo=${popularBoard[5].ASK_NO }">
-											<c:if test="${popularBoard[5].VOTE_END gt setDate }">
-												[진행] ${popularBoard[5].ASK_TITLE }
-											</c:if>
-											<c:if test="${popularBoard[5].VOTE_END lt setDate }">
-												[종료] ${popularBoard[5].ASK_TITLE }
-											</c:if>
-											<p>${popularBoard[5].USER_NICK } / 
-												<c:if test="${popularBoard[5].MMDDASK_DATE eq fmtDate }">
-													<fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:ss"/>
-												</c:if>
-												<c:if test="${popularBoard[5].MMDDASK_DATE ne fmtDate }">
-													<fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="MM-dd"/>
-												</c:if>
-											</p>
-										</a>
-									</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글5</td>
+									<td><img alt="#" src="#"></td>
+									<td>게시글6</td>
 								</tr>
 							</table>
 						</div>
@@ -177,7 +65,7 @@
             <!-- 영수증 -->
             <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 25px;">
                 <p>[주문(대기)번호]</p>
-                <div>
+                <div style="margin: auto; text-align: center;">
 	                <c:choose>
 	                	<c:when test="${!empty userNo }">
 			                <span style="font-size: 30px; background-color: gray;">${userNo }</span>
@@ -187,31 +75,16 @@
 	                	</c:when>
 	                </c:choose>
                 </div>
-	            <div style="text-align: left;">
+	            <div style="margin: auto; text-align: left;">
 		            <span>주문내역</span>
 	            </div>
                 <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
                 
-                <div style="width: auto; height: 300px; overflow: auto;">
-                	<c:set var = "sum" value = "0" />
-					<c:forEach items="${mainBill }" var="mainBill">
-						<p>
-							<span style="float: left;">
-								[${mainBill.VOTE_END }] ${mainBill.ITEM_NAME }
-							</span>
-							<span style="float: right;">
-								<fmt:formatNumber type="number" maxFractionDigits="3" value="${mainBill.ITEM_PRICE }" /> 원
-							</span>
-						</p>
-						<c:set var="sum" value="${sum + mainBill.ITEM_PRICE}"/>
-					</c:forEach>
-                </div>
+                <div style="width: auto; height: 300px; overflow: auto;"></div>
                 
                 <hr style="border: 2px dashed black; margin: 0 10px 10px 0;">
                 <span style="float: left;">총 주문금액</span>
-                <span style="float: right;">
-                	<fmt:formatNumber type="number" maxFractionDigits="3" value="${sum }" /> 원
-                </span>
+                <span style="float: right;">0 원</span>
                 <img alt="barcode" src="https://i.imgur.com/hGHStFZ.png" style="margin-top: 10px; width: 100%;">
                 <span id="time" style="float: right;"></span>
                 

@@ -29,9 +29,3 @@
 #popular_table {
 	margin-bottom: 0;
 }
-
-#popular_table img{
-	width: 100px;
-	height: 100px;
-	object-fit:cover;
-}
