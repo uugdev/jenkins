@@ -8,10 +8,13 @@ import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.khbill.controller.ReviewController;
 import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
 import com.khbill.dto.Item;
@@ -22,6 +25,8 @@ import com.khbill.util.Paging;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ReviewServiceImpl.class);
 	
 	@Autowired ReviewDao reviewDao;
 	@Autowired ReviewCommentDao reviewCommentDao;
@@ -142,12 +147,17 @@ public class ReviewServiceImpl implements ReviewService {
 		item.setItemNo(itemNo);
 
 		review.setItemNo(itemNo);
+		review.setFileNo(fileNo);
 		review.setReviewNo(reviewNo);
 		
-		reviewDao.insertReview(review);
-		reviewDao.insertItem(item);
 		reviewDao.insertFile(reviewFile);
-
+		reviewDao.insertItem(item);
+		reviewDao.insertReview(review);
+		
+		logger.info("review{}", review);
+		logger.info("item{}", item);
+		logger.info("reviewFile{}", reviewFile);
+		
 	}
 
 }
