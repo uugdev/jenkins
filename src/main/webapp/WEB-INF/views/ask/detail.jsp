@@ -180,29 +180,29 @@ function deleteComment(askComNo) {
 	});
 }
 
-function updateComment(askComNo) {
-	$.ajax({
-		type: "get"
-		, url: "/ask/comment/update"
-		, dataType: "json"
-		, data: {
-			askComNo: askComNo
+// function updateComment(askComNo) {
+// 	$.ajax({
+// 		type: "post"
+// 		, url: "/ask/comment/update"
+// 		, dataType: "json"
+// 		, data: {
+// 			askComNo: askComNo
 
-		}
-		, success: function(data){
-			if(true) {
-			console.log(data.askComContent);
+// 		}
+// 		, success: function(data){
+// 			if(true) {
+// 			console.log(data.askComContent);
 			
-			$("#askComContent")
-			.innerHTML(data.askComContent);
+// 			$("#askComContent")
+// 			.innerHTML(data.askComContent);
 				
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
-}
+// 			}
+// 		}
+// 		, error: function() {
+// 			console.log("error");
+// 		}
+// 	});
+// }
 
 </script>
 <style type="text/css">
