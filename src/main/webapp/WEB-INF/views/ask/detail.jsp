@@ -16,6 +16,44 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	if( ${isScrap } ) {
+		$("#scrap")
+			.html('스크랩 취소');
+	} else {
+		$("#scrap")
+			.html('스크랩');
+	}
+	
+	$("#scrap").click(function() {
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/scrap"
+			, data: { "askNo": '${ask.askNo }' }
+			, dataType: "json"
+			, success: function( data ) {
+					console.log("성공");
+	
+				if( data.resultScrap ) { //스크랩 성공
+					$("#scrap")
+					.html('스크랩 취소');
+				
+				} else { //스크랩 취소 성공
+					$("#scrap")
+					.html('스크랩');
+				
+				}
+				
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		}); //ajax end
+		
+	}); //$("#btnRecommend").click() end
+	
+	
+	
 	
 	var userno = "<c:out value='${userNo}' />";
 	var askUserno = "<c:out value='${ask.userNo}' />";
@@ -127,6 +165,19 @@ $(document).ready(function() {
 		}
 
 	});
+
+// 	$("#scrap").click(function() {
+
+// 		var result = confirm("확인버튼을 누르시면 스크랩이 완료됩니다.");
+
+// 		if (result == true) {
+// 			$(location).attr("href", "/ask/scrap?askNo=${ask.askNo }");
+			
+// 		}
+
+// 	});
+
+	
 	
 	
 	$('.chart').segbar([
@@ -191,10 +242,10 @@ function deleteComment(askComNo) {
 // 		}
 // 		, success: function(data){
 // 			if(true) {
-// 			console.log(data.askComContent);
-			
-// 			$("#askComContent")
-// 			.innerHTML(data.askComContent);
+// 			console.log("성공");
+				
+// 				$("#askComContent")
+// 				.test("value", "data.askComContent");
 				
 // 			}
 // 		}
@@ -283,8 +334,9 @@ table, th {
 			href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
 			onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
 				${user.userNick }</span></a> | <span><fmt:formatDate
-				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span> <span
-			class="pull-right">조회수 : ${ask.askHit }</span>
+				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
+				<button id="scrap">스크랩</button>
+				<span class="pull-right">조회수 : ${ask.askHit }</span>
 
 		<table class="table table-striped table-hover">
 			<thead>
@@ -406,10 +458,10 @@ table, th {
 				<tr>
 					<!-- 		<th style="width: 10%;">번호</th> -->
 					<th style="width: 10%;">작성자</th>
-					<th style="width: 60%;">댓글</th>
+					<th style="width: 65%;">댓글</th>
 					<th style="width: 20%;">작성일</th>
 					<th style="width: 5%;"></th>
-					<th style="width: 5%;"></th>
+<!-- 					<th style="width: 5%;"></th> -->
 				</tr>
 			</thead>
 			<tbody id="commentBody">
@@ -421,13 +473,13 @@ table, th {
 								<td style="width: 10%;">${userList.userNick }</td>
 							</c:if>
 						</c:forEach>
-						<td style="width: 60%;" id="askComCon">${askComment.askComContent }</td>
+						<td style="width: 65%;" id="askComCon">${askComment.askComContent }</td>
 						<td style="width: 20%;"><fmt:formatDate
 								value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
 						<c:if test="${userNo eq askComment.userNo }">
-							<td style="width: 5%;"><button
-									class="btn btn-default btn-xs"
-									onclick="updateComment(${askComment.askComNo });">수정</button></td>
+<!-- 							<td style="width: 5%;"><button -->
+<!-- 									class="btn btn-default btn-xs" -->
+<%-- 									onclick="updateComment(${askComment.askComNo });">수정</button></td> --%>
 							<td style="width: 5%;"><button
 									class="btn btn-default btn-xs"
 									onclick="deleteComment(${askComment.askComNo });">삭제</button></td>

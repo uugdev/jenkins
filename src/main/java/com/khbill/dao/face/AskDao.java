@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -324,6 +325,35 @@ public interface AskDao {
 	 * @return
 	 */
 	public AskComment selectAskComByAskComNo(int askComNo);
+
+
+	/**
+	 * 
+	 * 스크랩 정보 삽입
+	 * 
+	 * @param askScrap
+	 */
+	public void insertAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * 
+	 * 스크랩 정보 삭제
+	 * 
+	 * @param askScrap
+	 */
+	public void deleteAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * 
+	 * 유저가 해당 게시글을 스크랩 한 적이 있는지 조회
+	 * 
+	 * 
+	 * @param askScrap
+	 * @return 1 - 추천했음 0 - 추천한적 없음
+	 */
+	public int selectCntAskScrap(AskScrap askScrap);
 	
 	
 	

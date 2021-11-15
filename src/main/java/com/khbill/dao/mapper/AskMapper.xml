@@ -197,6 +197,22 @@
 		WHERE ask_com_no = #{askComNo}	
 	</select>
 
+	<insert id="insertAskScrap" parameterType="com.khbill.dto.AskScrap">
+		INSERT INTO zask_scrap
+		VALUES (zask_scrap_seq.nextval,#{userNo},#{askNo})
+	</insert>
+
+
+	<delete id="deleteAskScrap" parameterType="com.khbill.dto.AskScrap">
+		DELETE zask_scrap
+		WHERE user_no = #{userNo} AND ask_no = #{askNo}
+	</delete>
+	
+	<select id="selectCntAskScrap" resultType="int" parameterType="com.khbill.dto.AskScrap">
+		SELECT count(*) FROM zask_scrap
+		WHERE ask_no = #{askNo}
+		AND user_no = #{userNo}
+	</select>
 
 
 </mapper>

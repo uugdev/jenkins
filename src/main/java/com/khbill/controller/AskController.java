@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -130,6 +131,14 @@ public class AskController {
 		List<AskComment> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment",askComment);
 		
+		//스크랩 상태 조회
+		AskScrap askScrap = new AskScrap(); 
+		askScrap.setAskNo(askNo);
+		askScrap.setUserNo(userNo);
+		
+		//스크랩 상태 전달
+		boolean isScrap = askService.isScrap(askScrap);
+		model.addAttribute("isScrap",isScrap);		
 		
 	}
 	
@@ -215,21 +224,23 @@ public class AskController {
 	
 	
 	
-	@RequestMapping(value="/comment/update", method=RequestMethod.GET)
-	public ModelAndView update(int askComNo, ModelAndView mav) {
-		logger.info("/ask/comment/update");
-		
-		
-		AskComment askComment = askService.getAskComDetail(askComNo);
-		String askComContent = askComment.getAskComContent();
-		
-		mav.addObject(askComContent);
-		mav.setViewName("jsonView");
-		System.out.println(mav);
-		
-		return mav;
-		
-	}
+//	@RequestMapping(value="/comment/update", method=RequestMethod.GET)
+//	public ModelAndView update(int askComNo, ModelAndView mav) {
+//		logger.info("/ask/comment/update");
+//		
+//		
+//		AskComment askComment = askService.getAskComDetail(askComNo);
+//		String askComContent = askComment.getAskComContent();
+//		boolean result = true;
+//		
+//		mav.addObject("result", result);
+//		mav.addObject(askComContent);
+//		mav.setViewName("jsonView");
+//		System.out.println(mav);
+//		
+//		return mav;
+//		
+//	}
 	
 	
 	
@@ -307,7 +318,32 @@ public class AskController {
 	
 	
 	
-	
+	@RequestMapping(value="/scrap", method = RequestMethod.GET)
+	public ModelAndView scrap(int askNo, ModelAndView mav ,HttpSession session) {
+		logger.info("/ask/scrap [GET]");
+		
+//		
+//		int userNo = (Integer) session.getAttribute("userNo");
+//		
+//		askService.setAskScrap(askNo,userNo);
+//		
+//		
+//		return "redirect:/ask/detail?askNo="+askNo;
+//		
+		
+		//스크랩 정보 토글
+		AskScrap askScrap = new AskScrap();
+		askScrap.setAskNo(askNo);
+		askScrap.setUserNo((Integer) session.getAttribute("userNo"));
+		
+		boolean resultScrap = askService.scrap(askScrap);
+		
+		mav.addObject("resultScrap",resultScrap);
+		mav.setViewName("jsonView");
+		
+		
+		return mav;
+	}
 	
 	
 	
