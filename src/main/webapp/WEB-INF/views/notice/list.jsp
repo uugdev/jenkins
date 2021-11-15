@@ -15,6 +15,13 @@ $(document).ready(function() {
 	$("#btnSearch").click(function() {
 		location.href="/notice/list?search="+$("#search").val();
 	});
+	//엔터치면 검색 버튼 클릭한 것 처럼
+	$("#search").keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $("#btnSearch").click();
+	         return false;
+	     }
+	});
 })
 </script>
 
@@ -27,7 +34,7 @@ $(document).ready(function() {
 <h3>공지사항 목록</h3>
 <hr>
 <div class="text-center" style="width: 700px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" value="${param.search }" style="width: 92%;" />
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 92%;" />
 	<button id="btnSearch" class="pull-right btn">검색</button>
 </div>
 <div class="clearfix" style="margin-bottom: 10px;"></div>

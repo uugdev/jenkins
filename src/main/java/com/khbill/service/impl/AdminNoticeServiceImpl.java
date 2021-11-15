@@ -20,9 +20,10 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
 	@Override
 	public Paging getPaging(Paging paramData) {
-		int totalCount = adminNoticeDao.selectCntAll();
+		int totalCount = adminNoticeDao.selectCntAll(paramData);
 		
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		paging.setSearch(paramData.getSearch());
 		
 		return paging;
 	}

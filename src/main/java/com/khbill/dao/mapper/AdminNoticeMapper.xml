@@ -5,14 +5,16 @@
   
 <mapper namespace="com.khbill.dao.face.AdminNoticeDao">
 	
-	<select id="selectCntAll" resultType="int">
-		SELECT COUNT(*) FROM znotice
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT COUNT(*) FROM znotice		
+		WHERE notice_title LIKE '%' || #{search } || '%'
 	</select>
 	
 	<select id="selectNoticeList" parameterType="com.khbill.util.Paging" resultType="com.khbill.dto.Notice">
 		SELECT * FROM (
 			SELECT rownum rnum, N.* FROM (
 				SELECT * FROM znotice
+				WHERE notice_title LIKE '%' || #{search } || '%'
 				ORDER BY notice_no DESC
 			) N
 		) znotice

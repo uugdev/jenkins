@@ -24,7 +24,15 @@ $(document).ready(function(){
 			return false;
 		}
 	})
-
+	$("#btnSearch").click(function() {
+		location.href="/admin/notice/list?search="+$("#search").val();
+	});
+	$("#search").keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $("#btnSearch").click();
+	         return false;
+	     }
+	});
 })
 </script>
 
@@ -33,6 +41,7 @@ $(document).ready(function(){
 table {
 	text-align: center;
 	margin: auto;
+	margin-top: 10px;
 }
 
 th, td {
@@ -53,6 +62,10 @@ label {
 <h3>회원 목록</h3>
 <hr>
 <span class="pull-left">총 ${paging.totalCount }명</span>
+<div class="pull-right" style="width: 300px; margin: 0 auto;">
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 60%;"/>
+	<button id="btnSearch" class="pull-right btn">검색</button>
+</div>
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>

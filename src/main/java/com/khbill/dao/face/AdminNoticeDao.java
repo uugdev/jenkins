@@ -10,9 +10,10 @@ public interface AdminNoticeDao {
 	/**
 	 * totalCount 구하기
 	 * 
+	 * @param paging - 검색어
 	 * @return int
 	 */
-	public int selectCntAll();
+	public int selectCntAll(Paging paramData);
 
 	/**
 	 * 공지사항 목록 조회

@@ -10,9 +10,10 @@ public interface AdminUserDao {
 	/**
 	 * 페이징 처리를 위한 user 전체 갯수 조회
 	 * 
+	 * @param paramData - 검색어
 	 * @return int
 	 */
-	public int selectCntAll();
+	public int selectCntAll(Paging paramData);
 
 	/**
 	 * 전체 회원 정보 조회
