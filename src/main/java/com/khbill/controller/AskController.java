@@ -35,7 +35,8 @@ public class AskController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AskController.class);
 	
-	@Autowired private AskService askService;
+	@Autowired
+	AskService askService;
 
 	@RequestMapping(value = "/list")
 	public void getAskList(Paging paramData, Model model, HttpServletRequest req) {
@@ -226,7 +227,7 @@ public class AskController {
 		askService.setAskComDelete(askNo);
 		askService.setAskDelete(askNo);
 		
-		return "redirect:/ask/list?askNo="+askNo;
+		return "redirect:/ask/list";
 	}
 	
 	

@@ -20,6 +20,14 @@
 		$("#btnSearch").click(function() {
 			location.href = "/ask/list?search=" + $("#search").val();
 		});
+		
+		$("#search").keypress(function(event){
+		     if ( event.which == 13 ) {
+		         $("#btnSearch").click();
+		         return false;
+		     }
+		});
+		
 	})
 </script>
 

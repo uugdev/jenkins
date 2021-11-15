@@ -391,6 +391,23 @@ public interface AskDao {
 	 * @return
 	 */
 	public List<Ask> selectAskHitList(Paging paging);
+
+
+	/**
+	 * 
+	 * 스크랩삭제
+	 * 
+	 * @param askNo
+	 */
+	public void deleteScrap(int askNo);
+
+
+	/**
+	 * 신고글삭제
+	 * 
+	 * @param askNo
+	 */
+	public void deleteReport(int askNo);
 	
 	
 	

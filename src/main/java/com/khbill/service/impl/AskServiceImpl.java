@@ -215,6 +215,8 @@ public class AskServiceImpl implements AskService {
 		int fileNo = file.getFileNo();
 
 		askDao.deleteVote(askNo);
+		askDao.deleteReport(askNo);
+		askDao.deleteScrap(askNo);
 		askDao.deleteAsk(askNo);
 		askDao.deleteItem(itemNo);
 		askDao.deleteFile(fileNo);

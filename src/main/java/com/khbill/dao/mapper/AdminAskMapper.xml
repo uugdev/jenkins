@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.khbill.dao.face.AdminAskDao">
+
+	<sql id="selectAsk">
+		SELECT ask_no,user_no,product_no,ask_title,ask_content,ask_date,ask_hit
+		FROM zask
+	</sql>
+	
+	<sql id="whereTitleSearch">
+		WHERE ask_title LIKE '%' || #{search} || '%'
+	</sql>
+
+	<select id="selectAskList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging">
+		SELECT * FROM (
+				SELECT rownum rnum, A.* FROM (
+					<include refid="selectAsk"/>
+					<include refid="whereTitleSearch"/>
+					ORDER BY ask_no DESC
+				) A
+			) R
+			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT COUNT(*) FROM (
+			<include refid="selectAsk"/>
+			<include refid="whereTitleSearch"/>
+		)
+	</select>
+
+	<select id="selectAskByAskNo" resultType="com.khbill.dto.Ask" parameterType="int">
+		<include refid="selectAsk"/>
+		WHERE ask_no = #{askNo }
+	</select>
+	
+	<delete id="deleteAsk" parameterType="int">
+		DELETE zask
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE zfile
+		WHERE file_no = #{fileNo}
+	</delete>
+	
+	<delete id="deleteItem" parameterType="int">
+		DELETE zitem
+		WHERE item_no = #{itemNo}
+	</delete>
+	
+	<delete id="deleteVote" parameterType="int">
+		DELETE zvote
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
+		SELECT * FROM zask_comment
+		WHERE ask_no = #{askNo}
+	</select>
+	
+	<delete id="deleteAskCom" parameterType="int">
+		DELETE zask_comment
+		WHERE ask_com_no = #{askComNo}
+	</delete>
+	
+	<select id="selectCntCom" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask_comment WHERE ask_com_no = #{askComNo}
+	</select>
+	
+	<delete id="deleteAskComByAskNo" parameterType="int">
+		DELETE zask_comment
+		WHERE ask_no = #{askNo}
+	</delete>
+
+	<delete id="deleteScrap" parameterType="int">
+		DELETE zask_scrap
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<delete id="deleteReport" parameterType="int">
+		DELETE zask_report
+		WHERE ask_no = #{askNo}
+	</delete>
+
+</mapper>

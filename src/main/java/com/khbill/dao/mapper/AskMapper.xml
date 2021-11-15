@@ -239,4 +239,15 @@
 	</select>
 
 
+	<delete id="deleteScrap" parameterType="int">
+		DELETE zask_scrap
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<delete id="deleteReport" parameterType="int">
+		DELETE zask_report
+		WHERE ask_no = #{askNo}
+	</delete>
+
+
 </mapper>
