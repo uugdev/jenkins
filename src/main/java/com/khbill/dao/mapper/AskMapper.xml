@@ -5,216 +5,185 @@
 
 <mapper namespace="com.khbill.dao.face.AskDao">
 
-<sql id="selectAsk">
-	SELECT ask_no,user_no,product_no,ask_title,ask_content,ask_date,ask_hit
-	FROM zask
-</sql>
-
-<sql id="whereTitleSearch">
-		WHERE ask_title LIKE '%' || #{search} || '%'
-</sql>
-
-<select id="selectAskList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging">
-	SELECT * FROM (
-			SELECT rownum rnum, A.* FROM (
+	<sql id="selectAsk">
+		SELECT ask_no,user_no,product_no,ask_title,ask_content,ask_date,ask_hit
+		FROM zask
+	</sql>
+	
+	<sql id="whereTitleSearch">
+			WHERE ask_title LIKE '%' || #{search} || '%'
+	</sql>
+	
+	<select id="selectAskList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging">
+		SELECT * FROM (
+				SELECT rownum rnum, A.* FROM (
+					<include refid="selectAsk"/>
+					<include refid="whereTitleSearch"/>
+					ORDER BY ask_no DESC
+				) A
+			) R
+			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT COUNT(*) FROM (
 				<include refid="selectAsk"/>
 				<include refid="whereTitleSearch"/>
-				ORDER BY ask_no DESC
-			) A
-		) R
-		WHERE rnum BETWEEN #{startNo} AND #{endNo}
-</select>
-
-<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
-	SELECT COUNT(*) FROM (
-			<include refid="selectAsk"/>
-			<include refid="whereTitleSearch"/>
-		)
-</select>
-
-
-<select id="selectUserInfo" resultType="com.khbill.dto.User" parameterType="int">
-	SELECT * from zuser
-	WHERE user_no = #{userNo}
-</select>
-
-
-<select id="selectUserList" resultType="com.khbill.dto.User">
-	SELECT * from zuser
-</select>
-
-
-<select id="getNextFileNo" resultType="int">
-SELECT zfile_seq.nextval FROM dual
-</select>
-
-<select id="getNextItemNo" resultType="int">
-SELECT zitem_seq.nextval FROM dual
-</select>
-
-<select id="getNextAskNo" resultType="int">
-SELECT zask_seq.nextval FROM dual
-</select>
-
-
-<insert id="insertFile" parameterType="com.khbill.dto.File">
-	INSERT INTO ZFILE (file_no, file_origin, file_stored, file_size, file_date)
-	VALUES (#{fileNo},#{fileOrigin},#{fileStored},#{fileSize},sysdate)
-</insert>
-
-<insert id="insertItem" parameterType="com.khbill.dto.Item">
-	INSERT INTO zitem(item_no,user_no,file_no,item_brand,item_name,item_price)
-	VALUES (#{itemNo},#{userNo},#{fileNo},#{itemBrand},#{itemName},#{itemPrice})
-</insert>
-
-<insert id="insertAsk" parameterType="com.khbill.dto.Ask">
-	INSERT INTO ZASK
-	VALUES (#{askNo},#{userNo},#{productNo},#{askTitle},#{askContent},sysdate,0) 
-</insert>
-
-<insert id="insertVote1" parameterType="com.khbill.dto.Vote">
-	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
-	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+1)
-</insert>
-
-<insert id="insertVote2" parameterType="com.khbill.dto.Vote">
-	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
-	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+2)
-</insert>
-
-<insert id="insertVote3" parameterType="com.khbill.dto.Vote">
-	INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
-	VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+3)
-</insert>
-
-<select id="selectAskByAskNo" resultType="com.khbill.dto.Ask" parameterType="int">
-	<include refid="selectAsk"/>
-	WHERE ask_no = #{askNo }
-</select>
-
-<select id="selectFileByFileNo" resultType="com.khbill.dto.File" parameterType="int">
-	SELECT * FROM zfile
-	WHERE file_no = #{fileNo}
-</select>
-
-<select id="selectItemByProductNo" resultType="com.khbill.dto.Item" parameterType="int">
-	SELECT * FROM zitem
-	WHERE item_no = #{productNo}
-</select>
-
-<select id="selectVoteByAskNoUserNo" resultType="com.khbill.dto.Vote" parameterType="com.khbill.dto.Vote">
-	SELECT * FROM zvote
-	WHERE ask_no = #{askNo } AND user_no = #{userNo}
-</select>
-
-<select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
-	SELECT COUNT(*) FROM zvote
-	WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
-	AND ask_no = #{askNo} AND user_no = #{userNo}
-</select>
-
-<update id="hit" parameterType="int">
-	UPDATE zask 
-	SET ask_hit = ask_hit+1
-	WHERE ask_no = #{askNo}
-</update>
-
-<update id="updateAsk" parameterType="com.khbill.dto.Ask">
-	UPDATE zask
-	SET ask_title = #{askTitle }
-		, ask_content = #{askContent }
-	WHERE ask_no = #{askNo }
-</update>
-
-<delete id="deleteAsk" parameterType="int">
-	DELETE zask
-	WHERE ask_no = #{askNo}
-</delete>
-
-<delete id="deleteFile" parameterType="int">
-	DELETE zfile
-	WHERE file_no = #{fileNo}
-</delete>
-
-<delete id="deleteItem" parameterType="int">
-	DELETE zitem
-	WHERE item_no = #{itemNo}
-</delete>
-
-<delete id="deleteVote" parameterType="int">
-	DELETE zvote
-	WHERE ask_no = #{askNo}
-</delete>
-
-<insert id="insertAskCom" parameterType="com.khbill.dto.AskComment">
-	INSERT INTO zask_comment (ask_com_no,ask_no,user_no,ask_com_content,ask_com_date,ask_com_like,ask_com_hate)
-	VALUES (zask_comment_seq.nextval,#{askNo},#{userNo},#{askComContent},sysdate,0,0) 
-</insert>
-
-<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
-	SELECT * FROM zask_comment
-	WHERE ask_no = #{askNo}
-</select>
-
-
-<delete id="deleteAskCom" parameterType="int">
-	DELETE zask_comment
-	WHERE ask_com_no = #{askComNo}
-</delete>
-
-<select id="selectCntCom" resultType="int" parameterType="int">
-	SELECT COUNT(*) FROM zask_comment WHERE ask_com_no = #{askComNo}
-</select>
-
-<delete id="deleteAskComByAskNo" parameterType="int">
-	DELETE zask_comment
-	WHERE ask_no = #{askNo}
-</delete>
-
-<insert id="insertVoteStatus" parameterType="com.khbill.dto.Vote">
-	INSERT INTO zvote
-	VALUES (zvote_seq.nextval,#{userNo},#{askNo},#{voteState},#{voteStart},#{voteEnd})
-</insert>
-
-<select id="selectVoteByAskNo" resultType="int" parameterType="int">
-	SELECT COUNT(*) FROM zask
-	WHERE ask_no = #{askNo}
-</select>
-
-<select id="selectVoteByLoginUser" parameterType="com.khbill.dto.Vote" resultType="int">
-	SELECT COUNT(*) FROM zvote
-	WHERE ask_no = #{askNo } AND user_no = #{userNo}
-</select>
-
-	<select id="selectItemCntAll" parameterType="com.khbill.dto.Item" resultType="int">
-		SELECT COUNT(*) FROM zitem
-		where user_no = #{userNo}
+			)
 	</select>
 	
-	<select id="selectAskListByUserNo" parameterType="HashMap" resultType="com.khbill.dto.Ask">
-		SELECT * FROM (
-			SELECT rownum rnum, A.* FROM (
-				SELECT * FROM zask
-				WHERE user_no = #{userNo }
-				ORDER BY ask_no DESC
-			) A
-		) R
-		WHERE rnum BETWEEN #{paging.startNo } AND #{paging.endNo }
+	
+	<select id="selectUserInfo" resultType="com.khbill.dto.User" parameterType="int">
+		SELECT * from zuser
+		WHERE user_no = #{userNo}
 	</select>
 	
-	<select id="selectItemByUserNo" parameterType="int" resultType="com.khbill.dto.Item">
+	
+	<select id="selectUserList" resultType="com.khbill.dto.User">
+		SELECT * from zuser
+	</select>
+	
+	
+	<select id="getNextFileNo" resultType="int">
+	SELECT zfile_seq.nextval FROM dual
+	</select>
+	
+	<select id="getNextItemNo" resultType="int">
+	SELECT zitem_seq.nextval FROM dual
+	</select>
+	
+	<select id="getNextAskNo" resultType="int">
+	SELECT zask_seq.nextval FROM dual
+	</select>
+	
+	
+	<insert id="insertFile" parameterType="com.khbill.dto.File">
+		INSERT INTO ZFILE (file_no, file_origin, file_stored, file_size, file_date)
+		VALUES (#{fileNo},#{fileOrigin},#{fileStored},#{fileSize},sysdate)
+	</insert>
+	
+	<insert id="insertItem" parameterType="com.khbill.dto.Item">
+		INSERT INTO zitem(item_no,user_no,file_no,item_brand,item_name,item_price)
+		VALUES (#{itemNo},#{userNo},#{fileNo},#{itemBrand},#{itemName},#{itemPrice})
+	</insert>
+	
+	<insert id="insertAsk" parameterType="com.khbill.dto.Ask">
+		INSERT INTO ZASK
+		VALUES (#{askNo},#{userNo},#{productNo},#{askTitle},#{askContent},sysdate,0) 
+	</insert>
+	
+	<insert id="insertVote1" parameterType="com.khbill.dto.Vote">
+		INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+		VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+1)
+	</insert>
+	
+	<insert id="insertVote2" parameterType="com.khbill.dto.Vote">
+		INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+		VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+2)
+	</insert>
+	
+	<insert id="insertVote3" parameterType="com.khbill.dto.Vote">
+		INSERT INTO ZVOTE (vote_no,user_no,ask_no,vote_start,vote_end)
+		VALUES (zvote_seq.nextval,#{userNo},#{askNo},sysdate,sysdate+3)
+	</insert>
+	
+	<select id="selectAskByAskNo" resultType="com.khbill.dto.Ask" parameterType="int">
+		<include refid="selectAsk"/>
+		WHERE ask_no = #{askNo }
+	</select>
+	
+	<select id="selectFileByFileNo" resultType="com.khbill.dto.File" parameterType="int">
+		SELECT * FROM zfile
+		WHERE file_no = #{fileNo}
+	</select>
+	
+	<select id="selectItemByProductNo" resultType="com.khbill.dto.Item" parameterType="int">
 		SELECT * FROM zitem
-		WHERE user_no = #{userNo }
+		WHERE item_no = #{productNo}
 	</select>
 	
-	<select id="selectVoteByUserNo" parameterType="int" resultType="com.khbill.dto.Vote">
+	<select id="selectVoteByAskNoUserNo" resultType="com.khbill.dto.Vote" parameterType="com.khbill.dto.Vote">
 		SELECT * FROM zvote
-		WHERE user_no = #{userNo }
+		WHERE ask_no = #{askNo } AND user_no = #{userNo}
 	</select>
 	
-	<select id="selectReviewByUserNo" parameterType="int" resultType="com.khbill.dto.Review">
-		SELECT * FROM zreview
-		WHERE user_no = #{userNo }
+	<select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
+		SELECT COUNT(*) FROM zvote
+		WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
+		AND ask_no = #{askNo} AND user_no = #{userNo}
+	</select>
+	
+	<update id="hit" parameterType="int">
+		UPDATE zask 
+		SET ask_hit = ask_hit+1
+		WHERE ask_no = #{askNo}
+	</update>
+	
+	<update id="updateAsk" parameterType="com.khbill.dto.Ask">
+		UPDATE zask
+		SET ask_title = #{askTitle }
+			, ask_content = #{askContent }
+		WHERE ask_no = #{askNo }
+	</update>
+	
+	<delete id="deleteAsk" parameterType="int">
+		DELETE zask
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE zfile
+		WHERE file_no = #{fileNo}
+	</delete>
+	
+	<delete id="deleteItem" parameterType="int">
+		DELETE zitem
+		WHERE item_no = #{itemNo}
+	</delete>
+	
+	<delete id="deleteVote" parameterType="int">
+		DELETE zvote
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<insert id="insertAskCom" parameterType="com.khbill.dto.AskComment">
+		INSERT INTO zask_comment (ask_com_no,ask_no,user_no,ask_com_content,ask_com_date,ask_com_like,ask_com_hate)
+		VALUES (zask_comment_seq.nextval,#{askNo},#{userNo},#{askComContent},sysdate,0,0) 
+	</insert>
+	
+	<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
+		SELECT * FROM zask_comment
+		WHERE ask_no = #{askNo}
+	</select>
+	
+	
+	<delete id="deleteAskCom" parameterType="int">
+		DELETE zask_comment
+		WHERE ask_com_no = #{askComNo}
+	</delete>
+	
+	<select id="selectCntCom" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask_comment WHERE ask_com_no = #{askComNo}
+	</select>
+	
+	<delete id="deleteAskComByAskNo" parameterType="int">
+		DELETE zask_comment
+		WHERE ask_no = #{askNo}
+	</delete>
+	
+	<insert id="insertVoteStatus" parameterType="com.khbill.dto.Vote">
+		INSERT INTO zvote
+		VALUES (zvote_seq.nextval,#{userNo},#{askNo},#{voteState},#{voteStart},#{voteEnd})
+	</insert>
+	
+	<select id="selectVoteByAskNo" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask
+		WHERE ask_no = #{askNo}
+	</select>
+	
+	<select id="selectVoteByLoginUser" parameterType="com.khbill.dto.Vote" resultType="int">
+		SELECT COUNT(*) FROM zvote
+		WHERE ask_no = #{askNo } AND user_no = #{userNo}
 	</select>
 
 	
