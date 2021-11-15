@@ -38,9 +38,10 @@ $(document).ready(function() {
 })
 </script>
 
+<div class="wrap">
 <div class="container">
 
-<h1>글쓰기 페이지</h1>
+<h1>후기 글쓰기 페이지</h1>
 <hr>
 
 <form action="/review/write" method="post" enctype="multipart/form-data">
@@ -52,15 +53,31 @@ $(document).ready(function() {
 	<label for="reviewTitle">제목</label>
 	<input type="text" id="reviewTitle" name="reviewTitle" class="form-control"/>
 </div>
+
+
 <div class="form-group">
-	<label for="reviewContent">본문</label>
-	<textarea rows="10" style="width: 100%;" id="reviewContent" name="reviewContent"></textarea>
+	<label for="itemBrand">브랜드</label>
+	<input type="text" id="itemBrand" name="itemBrand" class="form-control"/>
+</div>
+<div class="form-group">
+	<label for="itemName">상품명</label>
+	<input type="text" id="itemName" name="itemName" class="form-control"/>
+</div>
+<div class="form-group">
+	<label for="itemPrice">가격</label>
+	<input type="text" id="itemPrice" name="itemPrice" class="form-control"/>
 </div>
 
 <div class="form-group">
 	<label for="file">첨부파일</label>
 	<input type="file" id="file" name="file" />
 </div>
+
+<div class="form-group">
+	<label for="reviewContent">본문</label>
+	<textarea rows="10" style="width: 100%;" id="reviewContent" name="reviewContent"></textarea>
+</div>
+
 
 <div class="text-center">
 	<button class="btn btn-primary" id="btnWrite">작성</button>
@@ -79,14 +96,7 @@ nhn.husky.EZCreator.createInIFrame({
 </script>
 
 </div><!-- .container -->
+</div><!-- .wrap end -->
 
 <%--footer--%>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</body>
-</html>
-
-
-
-
-
-
