@@ -90,4 +90,9 @@ public class MemberServiceImpl implements MemberService {
 		memberDao.deleteUser(userNo);
 	}
 	
+	@Override
+	public int checkUserExists(String userNick) {
+		return memberDao.selectUserCntByUserNick(userNick);
+	}
+	
 }

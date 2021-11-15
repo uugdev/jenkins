@@ -87,6 +87,14 @@ public interface MemberDao {
 	 * @param userNo
 	 */
 	public void deleteUser(int userNo);
+
+	/**
+	 * 닉네임으로 조회한 회원 명수 반환
+	 * 
+	 * @param userNick
+	 * @return 1 - 존재하는 회원, 0 - 존재하지 않는 회원
+	 */
+	public int selectUserCntByUserNick(String userNick);
 	
 	
 

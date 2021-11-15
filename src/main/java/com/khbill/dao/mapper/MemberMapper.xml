@@ -49,7 +49,6 @@
 		UPDATE zuser
 		SET user_pw = #{userPw } 
 		, user_nick = #{userNick }
-		, user_mail = #{userMail }
 		, user_bday = #{userBday }
 		, user_gender = #{userGender }
 	</update>
@@ -58,5 +57,11 @@
 		DELETE zuser
 		where user_no = #{userNo }
 	</delete>
+	
+	<select id="selectUserCntByUserNick" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM zuser
+		WHERE user_nick = #{userNick }
+	</select>
 	
 </mapper>

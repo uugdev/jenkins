@@ -19,7 +19,7 @@ $(document).ready(function(){
 	        delchk.push($(this).val());
 	    });
 		if( answer == true ){
-			location.href="/message/delete?msgNo="+delchk;
+			location.href="/message/send/delete?msgNo="+delchk;
 		} else {
 			return false;
 		}

@@ -80,6 +80,14 @@ public interface MemberService {
 	 * @param userNo
 	 */
 	public void setUserDelete(int userNo);
+	
+	/**
+	 * 닉네임에 맞는 사용자가 있는지 조회한다
+	 * 
+	 * @param userNick
+	 * @return 존재하면 1 없으면 0
+	 */
+	public int checkUserExists(String userNick);
 
 
 
