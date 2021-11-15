@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.khbill.dao.face.MypageDao">
+	
+	<select id="selectCntMyAskAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectAskListByUserNo" resultType="com.khbill.dto.Ask" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, A.* FROM (
+				SELECT * FROM zask
+				WHERE user_no = #{userNo }
+				ORDER BY ask_date DESC
+			) A
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
+	<select id="selectCntMyReviewAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zreview
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectReviewListByUserNo" resultType="com.khbill.dto.Review" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, V.* FROM (
+				SELECT * FROM zreview
+				WHERE user_no = #{userNo }
+				ORDER BY review_date DESC
+			) V
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
+	<select id="selectCntMyTradeAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM ztrade
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectTradeListByUserNo" resultType="com.khbill.dto.Trade" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, T.* FROM (
+				SELECT * FROM ztrade
+				WHERE user_no = #{userNo }
+				ORDER BY trade_date DESC
+			) T
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+
+</mapper>

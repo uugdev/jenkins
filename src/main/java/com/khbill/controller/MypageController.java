@@ -12,13 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.Item;
+import com.khbill.dto.Review;
+import com.khbill.dto.Trade;
 import com.khbill.dto.User;
 import com.khbill.service.face.AskService;
 import com.khbill.service.face.ItemService;
 import com.khbill.service.face.MemberService;
+import com.khbill.service.face.MypageService;
 import com.khbill.util.Paging;
 
 @Controller
@@ -29,6 +32,7 @@ public class MypageController {
 	@Autowired AskService askService;
 	@Autowired ItemService itemService;
 	@Autowired MemberService memberService;
+	@Autowired MypageService mypageService;
 	
 	@RequestMapping(value="/mypage/item/list")
 	public void itemList(HttpSession session, Model model, Paging paramData) {
@@ -127,8 +131,69 @@ public class MypageController {
 		
 		return "redirect:/main";
 
+	}
+
+	@RequestMapping(value="/mypage/ask/list", method=RequestMethod.GET)
+	public void myAskList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/ask/list [GET])");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyAskPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<Ask> askList = mypageService.getMyAskList(map);
+		
+		logger.info("작성한 질문글 목록 : {} ", askList);
+
+		model.addAttribute("ask", askList);
+		model.addAttribute("paging", paging);
 		
 	}
+	
+	@RequestMapping(value="/mypage/review/list", method=RequestMethod.GET)
+	public void myReviewList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/review/list [GET])");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyReviewPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<Review> reviewList = mypageService.getMyReviewList(map);
+		
+		logger.info("작성한 후기글 목록 : {} ", reviewList);
+		
+		model.addAttribute("review", reviewList);
+		model.addAttribute("paging", paging);
+		
+	}
+	
+	@RequestMapping(value="/mypage/trade/list", method=RequestMethod.GET)
+	public void myTradeList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/trade/list [GET])");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyTradePaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<Trade> tradeList = mypageService.getMyTradeList(map);
+		
+		logger.info("작성한 거래글 목록 : {} ", tradeList);
+
+		model.addAttribute("trade", tradeList);
+		model.addAttribute("paging", paging);
+		
+	}
+	
+	
 	
 	
 }

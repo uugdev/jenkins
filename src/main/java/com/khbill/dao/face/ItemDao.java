@@ -22,15 +22,35 @@ public interface ItemDao {
 	 * @return 진행중이면 1, 이미 끝난상태면 0 반환
 	 */
 	public int selectCntVoteInProgress(int askNo);
-
+	
+	/**
+	 * 진행중인 투표의 종료날짜를 현재 날짜로 만든다(투표 종료)
+	 * 
+	 * @param askNo
+	 */
 	public void updateVoteEndToSysdate(int askNo);
 
+	/**
+	 * 아이템의 결제 상태를 y로 바꾼다 -> 결제 체크
+	 * 
+	 * @param askNo
+	 */
 	public void updateItemStatusToY(int askNo);
 
-	public int selectItemNoByAskNo(int itemNo);
-
+	/**
+	 * 질문글 번호로 아이템 번호를 받아온다
+	 * 
+	 * @param itemNo
+	 * @return 아이템 번호
+	 */
+	public int selectItemNoByAskNo(int askNo);
 	
-	
+	/**
+	 * 유저번호로 조회한 아이템 리스트를 가져온다
+	 * 
+	 * @param map
+	 * @return 아이템 리스트
+	 */
 	public List<HashMap<String, Object>> selectItemListByUserNo(HashMap<String, Object> map);
 	
 	/**
