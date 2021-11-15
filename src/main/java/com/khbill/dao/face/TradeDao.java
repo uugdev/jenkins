@@ -11,4 +11,8 @@ public interface TradeDao {
 
 	public int selectCntAll(Paging paramData);
 
+	public Object selectTradeByTradeNo(int tradeNo);
+
+	public List<Object> selectTradeCommentByTradeNo(int tradeNo);
+
 }

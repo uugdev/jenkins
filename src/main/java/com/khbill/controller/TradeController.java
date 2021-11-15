@@ -36,5 +36,22 @@ public class TradeController {
 		model.addAttribute("paging", paging);
 		
 	}
+	
+	@RequestMapping(value = "/trade/detail")
+	public void tradeDetail(
+				Model model
+				, int tradeNo
+			) {
+		
+		Object tradeDetail = tradeService.getTradeDetail(tradeNo);
+		List<Object> tradeComment = tradeService.getTradeCommentDetail(tradeNo);
+		
+		logger.info("tradeDetail - {}", tradeDetail);
+		logger.info("tradeComment - {}", tradeComment);
+		
+		model.addAttribute("tradeDetail", tradeDetail);
+		model.addAttribute("tradeComment", tradeComment);
+		
+	}
 
 }

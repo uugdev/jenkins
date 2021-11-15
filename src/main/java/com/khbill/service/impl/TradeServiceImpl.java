@@ -44,4 +44,14 @@ public class TradeServiceImpl implements TradeService {
 		return tradeDao.selectTradeList(paging);
 	}
 
+	@Override
+	public Object getTradeDetail(int tradeNo) {
+		return tradeDao.selectTradeByTradeNo(tradeNo);
+	}
+
+	@Override
+	public List<Object> getTradeCommentDetail(int tradeNo) {
+		return tradeDao.selectTradeCommentByTradeNo(tradeNo);
+	}
+
 }

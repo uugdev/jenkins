@@ -7,7 +7,7 @@
 
 	<sql id="selectTrade">
         SELECT 
-        	trade_no, U.user_no, user_nick
+        	trade_no, U.user_no, user_nick, trade_category
         	, trade_title, trade_date, trade_hit
         FROM ztrade T
         INNER JOIN zuser U
@@ -34,6 +34,24 @@
 			<include refid="selectTrade"/>
 			<include refid="whereTitleSearch"/>
 		)
+	</select>
+	
+	<select id="selectTradeByTradeNo" resultType="HashMap" parameterType="int">
+	    SELECT t.user_no, t.trade_no, t.trade_title, t.trade_content, t.trade_date, t.trade_hit, f.file_stored, u.user_nick
+	    FROM ztrade t, zuser u, zfile f
+	    WHERE 1=1
+	    AND t.user_no = u.user_no
+	    AND t.file_no = f.file_no
+	
+	    AND t.trade_no = #{tradeNo }
+	</select>
+	
+	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
+	    SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
+	    FROM ztrade_comment c, zuser u
+	    WHERE 1=1
+	    AND c.user_no = u.user_no
+	    AND trade_no = #{tradeNo }
 	</select>
 	
 </mapper>

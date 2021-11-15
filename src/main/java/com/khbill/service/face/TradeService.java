@@ -27,5 +27,21 @@ public interface TradeService {
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<Trade> getTradeList(Paging paging);
+	
+	/**
+	 * tradeNo에 해당하는 거래 게시글 상세조회
+	 * 
+	 * @param tradeNo - 조회한 게시글 번호
+	 * @return tradeNo에 해당하는 거래 게시글 Object
+	 */
+	public Object getTradeDetail(int tradeNo);
+	
+	/**
+	 * tradeNo에 해당하는 거래 게시글 댓글 리스트 조회
+	 * 
+	 * @param tradeNo - 조회한 게시글 번호
+	 * @return tradeNo에 해당하는 거래 게시글 댓글 리스트
+	 */
+	public List<Object> getTradeCommentDetail(int tradeNo);
 
 }

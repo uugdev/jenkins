@@ -60,7 +60,17 @@ td:nth-child(2) {
 				<c:forEach items="${tradeList }" var="board">
 					<tr>
 						<td>${board.TRADE_NO }</td>
-						<td><a href="/trade/detail?tradeNo=${board.TRADE_NO }">${board.TRADE_TITLE }</a></td>
+						<td>
+							<a href="/trade/detail?tradeNo=${board.TRADE_NO }">
+								<c:if test="${board.TRADE_CATEGORY eq 1 }">
+									[삽니다] 
+								</c:if>
+								<c:if test="${board.TRADE_CATEGORY eq 0 }">
+									[팝니다] 
+								</c:if>
+								${board.TRADE_TITLE }
+							</a>
+						</td>
 						<td>${board.USER_NICK }</td>
 						<td>${board.TRADE_HIT }</td>
 						<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>

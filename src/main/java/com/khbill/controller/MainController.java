@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.khbill.dto.Ask;
 import com.khbill.dto.Notice;
 import com.khbill.dto.User;
 import com.khbill.service.face.MainService;
