@@ -373,6 +373,24 @@ public interface AskDao {
 	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
 	 */
 	public int selectCntAskReportCheck(AskReport askReport);
+
+
+	/**
+	 * 투표수로 정렬
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> selectAskListNumOfVote(Paging paging);
+
+
+	/**
+	 * 조회수 역순으로 조회 
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> selectAskHitList(Paging paging);
 	
 	
 	

@@ -227,4 +227,16 @@
 	</select>
 
 
+	<select id="selectAskHitList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging" >
+		SELECT * FROM (
+				SELECT rownum rnum, A.* FROM (
+					<include refid="selectAsk"/>
+					<include refid="whereTitleSearch"/>
+					ORDER BY ask_hit DESC
+				) A
+			) R
+			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+
 </mapper>

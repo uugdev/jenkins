@@ -249,7 +249,33 @@ public interface AskService {
 	 */
 	public void setAskReport(AskReport askReport);
 
+	
+	/**
+	 * 
+	 * ask게시글번호와 로그인userNo로 신고한게시물인지 판단한다
+	 * 
+	 * @param askReport
+	 * @return 
+	 */
 	public boolean askReportByAskNoLoginUserNo(AskReport askReport);
+
+//	
+//	/**
+//	 * 
+//	 * 투표수로 ask리스트 정렬
+//	 * 
+//	 * @param paging
+//	 * @return
+//	 */
+//	public List<Ask> getAskNumOfVoteList(Paging paging);
+
+	/**
+	 * ask리스트 조회수 정렬
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<Ask> getAskHitList(Paging paging);
 
 
 }
