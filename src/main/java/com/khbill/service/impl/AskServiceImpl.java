@@ -2,7 +2,6 @@ package com.khbill.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +15,6 @@ import com.khbill.dao.face.AskDao;
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
 import com.khbill.dto.Item;
-import com.khbill.dto.Review;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
@@ -344,37 +342,6 @@ public class AskServiceImpl implements AskService {
 		
 		
 		return vote;
-	}
-	
-	@Override
-	public Paging getPaging(Paging paramData, int userNo) {
-		//총 게시글 수 조회
-		int totalCount = askDao.selectItemCntAll(userNo);
-		
-		//페이징 계산
-		Paging paging = new Paging(totalCount, paramData.getCurPage());
-		
-		return paging;
-	}
-	
-	@Override
-	public List<Ask> getAskItemList(HashMap<String, Object> map) {
-		return askDao.selectAskListByUserNo(map);
-	}
-	
-	@Override
-	public List<Item> getItemList(int userNo) {
-		return askDao.selectItemByUserNo(userNo);
-	}
-	
-	@Override
-	public List<Vote> getVoteList(int userNo) {
-		return askDao.selectVoteByUserNo(userNo);
-	}
-	
-	@Override
-	public List<Review> getReviewList(int userNo) {
-		return askDao.selectReviewByUserNo(userNo);
 	}
 	
 	@Override

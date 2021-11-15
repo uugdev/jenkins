@@ -1,6 +1,5 @@
 package com.khbill.service.face;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +8,6 @@ import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
-import com.khbill.dto.Review;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
@@ -201,48 +199,6 @@ public interface AskService {
 	 * @return
 	 */
 	public Vote getLoginUserVoteState(int userNo, int askNo);
-
-
-	/**
-	 * userNo를 포함한 페이징을 구한다
-	 * 
-	 * @param paramData
-	 * @param userNo
-	 * @return 
-	 */
-	public Paging getPaging(Paging paramData, int userNo);
-
-	/**
-	 * 마이페이지의 결제 체크 list를 받아온다 - 문의 부분
-	 * 
-	 * @param map - 페이징, 유저 번호가 담겨있음
-	 * @return 문의글 리스트
-	 */
-	public List<Ask> getAskItemList(HashMap<String, Object> map);
-	
-	/**
-	 * 유저 번호로 Item list를 받아온다
-	 * 
-	 * @param userNo - 세션에 저장된 유저 번호
-	 * @return 아이템 리스트
-	 */
-	public List<Item> getItemList(int userNo);
-
-	/**
-	 * 유저 번호로 Vote list를 받아온다
-	 * 
-	 * @param userNo - 세션에 저장된 유저 번호
-	 * @return 투표 리스트
-	 */
-	public List<Vote> getVoteList(int userNo);
-
-	/**
-	 * 유저 번호로 Review list를 받아온다
-	 * 
-	 * @param userNo - 세션에 저장된 유저 번호
-	 * @return 리뷰 리스트
-	 */
-	public List<Review> getReviewList(int userNo);
 
 	
 	/**
