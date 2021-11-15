@@ -51,9 +51,10 @@
 		, user_nick = #{userNick }
 		, user_bday = #{userBday }
 		, user_gender = #{userGender }
+		WHERE user_no = #{userNo }
 	</update>
 	
-	<delete id="deleteUser" parameterType="com.khbill.dto.User">
+	<delete id="deleteUser" parameterType="int">
 		DELETE zuser
 		where user_no = #{userNo }
 	</delete>
