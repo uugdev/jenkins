@@ -20,6 +20,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	
 	@Override
 	public Paging getPaging(Paging paramData) {
+		
 		int totalCount = adminUserDao.selectCntAll(paramData);
 		
 		Paging paging = new Paging(totalCount, paramData.getCurPage());

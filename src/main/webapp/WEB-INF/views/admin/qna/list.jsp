@@ -9,6 +9,7 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#btnDelete").click(function(){
@@ -23,6 +24,40 @@ $(document).ready(function(){
 		} else {
 			return false;
 		}
+	})
+	
+	$("#orderByNo").click(function(){
+		$.ajax({
+			type: "get",
+			url: "/admin/qna/list/orderByNo",
+			data: {},
+			dataType: "html",
+			success: function(res){
+				console.log("AJAX 성공")
+				
+				$("#ajax").html(res);
+			},
+			error: function(){
+				console.log("AJAX 실패")
+			}
+		})
+	})
+
+	$("#orderByStatus").click(function(){
+		$.ajax({
+			type: "get",
+			url: "/admin/qna/list/orderByStatus",
+			data: {},
+			dataType: "html",
+			success: function(res){
+				console.log("AJAX 성공")
+				
+				$("#ajax").html(res);
+			},
+			error: function(){
+				console.log("AJAX 실패")
+			}
+		})
 	})
 
 })
@@ -43,6 +78,10 @@ label {
 	font-weight: normal !important;
 }
 
+#orderByNo:hover, #orderByStatus:hover {
+	color: blue;
+	text-decoration: underline;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -53,7 +92,11 @@ label {
 <h3>문의 목록</h3>
 <hr>
 <span class="pull-left">총 ${paging.totalCount }개</span>
+<div class="pull-right">
+	<span id="orderByNo" style="cursor: pointer;">최신순</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="orderByStatus" style="cursor: pointer;">미답변순</span>
+</div>
 <div class="clearfix"></div>
+<div id="ajax">
 <table class="table table-hover table-condensed">
 <tr>
 	<th>	</th>
@@ -79,7 +122,7 @@ label {
 <div class="clearfix"></div>
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-
+</div>
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 

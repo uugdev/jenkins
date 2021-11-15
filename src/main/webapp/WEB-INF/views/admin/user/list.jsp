@@ -63,7 +63,7 @@ label {
 <hr>
 <span class="pull-left">총 ${paging.totalCount }명</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 60%;"/>
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" placeholder="닉네임을 검색하세요" style="width: 80%;"/>
 	<button id="btnSearch" class="pull-right btn">검색</button>
 </div>
 <div class="clearfix"></div>

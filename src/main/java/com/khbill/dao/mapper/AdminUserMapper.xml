@@ -6,7 +6,7 @@
 	
 	<select id="selectCntAll" resultType="int">
 		SELECT COUNT(*) FROM zuser
-		WHERE user_id LIKE '%' || #{search} || '%'
+		WHERE user_nick LIKE '%' || #{search} || '%'
 	</select>
 	
 	<select id="selectUserList" parameterType="com.khbill.util.Paging" resultType="com.khbill.dto.User">

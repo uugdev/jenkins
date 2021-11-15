@@ -18,6 +18,16 @@
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<select id="selectQnaListStatus" parameterType="com.khbill.util.Paging" resultType="com.khbill.dto.Qna">
+		SELECT * FROM (
+			SELECT rownum rnum, Q.* FROM (
+				SELECT * FROM zqna
+				ORDER BY qna_status, qna_no DESC
+			) Q
+		) zqna
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}		
+	</select>
+	
 	<select id="selectQnaDetail" parameterType="int" resultType="com.khbill.dto.Qna">
 		SELECT * FROM zqna
 		WHERE qna_no = #{qnaNo}

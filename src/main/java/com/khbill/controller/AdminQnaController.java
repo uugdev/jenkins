@@ -1,6 +1,8 @@
 package com.khbill.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khbill.dto.Qna;
 import com.khbill.dto.QnaComment;
@@ -84,5 +87,27 @@ public class AdminQnaController {
 	public String qnaComDelete(int qnaNo) {
 		adminQnaService.setQnaCommentDelete(qnaNo);
 		return "redirect:/admin/qna/detail?qnaNo="+qnaNo;
+	}
+	
+	@RequestMapping(value="/admin/qna/list/orderByNo")
+	public String orderByNo(Paging paramData, Model model){
+		Paging paging = adminQnaService.getPaging(paramData);
+		List<Qna> list = adminQnaService.getQnaList(paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		
+		return "admin/qna/orderByNo";
+	}
+
+	@RequestMapping(value="/admin/qna/list/orderByStatus")
+	public String orderByStatus(Paging paramData, Model model){
+		Paging paging = adminQnaService.getPaging(paramData);
+		List<Qna> list = adminQnaService.getQnaStatusList(paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		
+		return "admin/qna/orderByStatus";
 	}
 }

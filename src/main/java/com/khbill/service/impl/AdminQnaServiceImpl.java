@@ -70,4 +70,10 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		adminQnaDao.updateQnaStatusToN(qnaNo);
 	}
 
+	@Override
+	public List<Qna> getQnaStatusList(Paging paging) {
+		return adminQnaDao.selectQnaListStatus(paging);
+	}
+
+
 }

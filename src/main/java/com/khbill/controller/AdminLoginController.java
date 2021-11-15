@@ -20,7 +20,17 @@ public class AdminLoginController {
 	@Autowired AdminLoginService adminLoginService;
 
 	@RequestMapping(value="/admin/login", method=RequestMethod.GET)
-	public void login() {	}
+	public String login(HttpSession session) {
+		if(session.getAttribute("adminLogin") != null && !"".equals(session.getAttribute("adminLogin"))) {
+			if( (boolean) session.getAttribute("adminLogin") == true) {
+				return "redirect:/admin/user/list";				
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
 	
 	@RequestMapping(value="/admin/login", method=RequestMethod.POST)
 	public String loginProc(Admin admin, HttpSession session ) {

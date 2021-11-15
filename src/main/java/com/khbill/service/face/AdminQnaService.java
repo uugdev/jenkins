@@ -75,6 +75,7 @@ public interface AdminQnaService {
 	 * @param qnaNo - 문의글 번호
 	 */
 	public void setQnaCommentDelete(int qnaNo);
-	
+
+	public List<Qna> getQnaStatusList(Paging paging);
 
 }
