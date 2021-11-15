@@ -11,8 +11,25 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#btnDelete").click(function(){
-		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
+	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.chk').prop('checked', true);
+	    } else {
+	       $('.chk').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.chk', function() {
+	    if($('input[class=chk]:checked').length==$('.chk').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+	
+	$("#btnDelete").click(function() {
+		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
@@ -39,7 +56,7 @@ $(document).ready(function(){
 <table class="table table-hover">
 	<thead>
 	<tr>
-		<th></th>
+		<th><input type="checkbox" name="select" id="selectAll" /></th>
 		<th>보낸 사람</th>
 		<th>제목</th>
 		<th>상태</th>
@@ -49,7 +66,7 @@ $(document).ready(function(){
 	<tbody>
 	<c:forEach items="${resultMapList }" var="map">
 	<tr>
-		<td><input type="checkbox" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
+		<td><input type="checkbox" name="select" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
 		<td>${map.USER_NICK }</td>
 		<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
 		<td>

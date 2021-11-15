@@ -11,8 +11,25 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#btnDelete").click(function(){
-		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
+	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.chk').prop('checked', true);
+	    } else {
+	       $('.chk').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.chk', function() {
+	    if($('input[class=chk]:checked').length==$('.chk').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+	
+	$("#btnDelete").click(function() {
+		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
@@ -28,11 +45,6 @@ $(document).ready(function(){
 })
 </script>
 
-<style type="text/css">
-th {
-	text-align: center;
-}
-</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -44,7 +56,7 @@ th {
 <table class="table table-hover">
 	<thead>
 	<tr>
-		<th></th>
+		<th><input type="checkbox" name="select" id="selectAll" /></th>
 		<th>받는 이</th>
 		<th>제목</th>
 		<th>상태</th>
