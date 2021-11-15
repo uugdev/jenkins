@@ -33,7 +33,7 @@
 						</ul>
 					</li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h3>가계부</h3></a></li>
-					<li><a href="/mypage" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
+					<li><a href="/mypage/info" style="margin: 7px 0 0 30px;"><h3>마이페이지</h3></a></li>
 					<li><a href="/qna/list" style="margin: 7px 0 0 30px;"><h3>문의</h3></a></li>
 				</ul>
 
