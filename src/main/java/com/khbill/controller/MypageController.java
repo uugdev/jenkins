@@ -49,13 +49,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mypage/item/status")
-	public void itemStatus(Item item) {
+	public String itemStatus(Item item) {
 		logger.info("/mypage/item/status [GET]");
 		
 		int askNo = itemService.getAskNoByItemNo(item);
 		
 		//아이템 결제 상태를 변경하기
 		itemService.setItemStatus(askNo);
+		
+		return "redirect:/mypage/item/list";
 	
 		
 	}

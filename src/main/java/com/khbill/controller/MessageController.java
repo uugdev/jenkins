@@ -202,23 +202,25 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/message/delete")
-	public String msgDelete(Message msg, HttpSession session) {
+	public String msgDelete(int[] msgNo, HttpSession session) {
 		logger.info("/message/delete [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
 		
-		Message viewMsg = messageService.getMsgByMsgNo(msg);
-		
-		logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
-		logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
-
-		if(userNo != viewMsg.getReceiverNo() && userNo != viewMsg.getSenderNo()) {
-			return "message/error";
+		for(int i=0; i<msgNo.length; i++) {
+			Message viewMsg = messageService.getMsgByMsgNo(msgNo[i]);
+			
+			logger.info("쪽지 receiver 정보 : {}", viewMsg.getReceiverNo());
+			logger.info("쪽지 sender 정보 : {}", viewMsg.getSenderNo());
+			
+			if(userNo != viewMsg.getReceiverNo() && userNo != viewMsg.getSenderNo()) {
+				return "message/error";
+			}
+			
+			messageService.setMsgDelete(viewMsg, userNo);
 		}
 		
-		messageService.setMsgDelete(viewMsg, userNo);
-		
-		return "redirect:/send/list";
+		return "redirect:/message/send/list";
 	}
 	
 	
