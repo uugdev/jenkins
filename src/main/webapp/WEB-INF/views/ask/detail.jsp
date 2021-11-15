@@ -180,6 +180,30 @@ function deleteComment(askComNo) {
 	});
 }
 
+function updateComment(askComNo) {
+	$.ajax({
+		type: "get"
+		, url: "/ask/comment/update"
+		, dataType: "json"
+		, data: {
+			askComNo: askComNo
+
+		}
+		, success: function(data){
+			if(true) {
+			console.log(data.askComContent);
+			
+			$("#askComContent")
+			.innerHTML(data.askComContent);
+				
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
 </script>
 <style type="text/css">
 table {
@@ -376,36 +400,15 @@ table, th {
 		<br> <br>
 		<hr>
 
-		<!-- 댓글 처리 -->
-
-		<!-- 비로그인상태 -->
-		<c:if test="${not login }">
-			<strong>로그인이 필요합니다</strong>
-			<br>
-			<button onclick='location.href="/member/login";'>로그인</button>
-			<button onclick='location.href="/member/join";'>회원가입</button>
-		</c:if>
-
-		<!-- 로그인상태 -->
-		<c:if test="${login }">
-			<!-- 댓글 입력 -->
-			<div class="form-inline text-center">
-				<input type="text" size="10" class="form-control" id="userNick"
-					value="${userNick }" readonly="readonly" />
-				<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
-				<button id="btnCommInsert" class="btn">입력</button>
-			</div>
-			<!-- 댓글 입력 end -->
-		</c:if>
-
 		<!-- 댓글 리스트 -->
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
 					<!-- 		<th style="width: 10%;">번호</th> -->
 					<th style="width: 10%;">작성자</th>
-					<th style="width: 65%;">댓글</th>
+					<th style="width: 60%;">댓글</th>
 					<th style="width: 20%;">작성일</th>
+					<th style="width: 5%;"></th>
 					<th style="width: 5%;"></th>
 				</tr>
 			</thead>
@@ -418,10 +421,13 @@ table, th {
 								<td style="width: 10%;">${userList.userNick }</td>
 							</c:if>
 						</c:forEach>
-						<td style="width: 65%;">${askComment.askComContent }</td>
+						<td style="width: 60%;" id="askComCon">${askComment.askComContent }</td>
 						<td style="width: 20%;"><fmt:formatDate
 								value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
 						<c:if test="${userNo eq askComment.userNo }">
+							<td style="width: 5%;"><button
+									class="btn btn-default btn-xs"
+									onclick="updateComment(${askComment.askComNo });">수정</button></td>
 							<td style="width: 5%;"><button
 									class="btn btn-default btn-xs"
 									onclick="deleteComment(${askComment.askComNo });">삭제</button></td>
@@ -432,6 +438,31 @@ table, th {
 		<!-- 댓글 리스트 end -->
 
 	</div>
+	
+	<!-- 댓글 처리 -->
+
+		<!-- 비로그인상태 -->
+		<c:if test="${not login }">
+			<strong>로그인이 필요합니다</strong>
+			<br>
+			<button onclick='location.href="/member/login";'>로그인</button>
+			<button onclick='location.href="/member/join";'>회원가입</button>
+		</c:if>
+
+		<!-- 로그인상태 -->
+		<c:if test="${login }">
+			<!-- 댓글 입력 -->
+			<div class="form-inline text-center" id="textarea">
+				<input type="text" size="10" class="form-control" id="userNick"
+					value="${userNick }" readonly="readonly" />
+				<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
+				<button id="btnCommInsert" class="btn">입력</button>
+			</div>
+			<!-- 댓글 입력 end -->
+		</c:if>
+	
+	
+	
 	<!-- 댓글 처리 end -->
 
 	<div class="text-center">

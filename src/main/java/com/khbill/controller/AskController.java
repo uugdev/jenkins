@@ -214,6 +214,31 @@ public class AskController {
 	}
 	
 	
+	
+	@RequestMapping(value="/comment/update", method=RequestMethod.GET)
+	public ModelAndView update(int askComNo, ModelAndView mav) {
+		logger.info("/ask/comment/update");
+		
+		
+		AskComment askComment = askService.getAskComDetail(askComNo);
+		String askComContent = askComment.getAskComContent();
+		
+		mav.addObject(askComContent);
+		mav.setViewName("jsonView");
+		System.out.println(mav);
+		
+		return mav;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/votelike")
 	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
 		logger.info("/ask/votelike");

@@ -244,6 +244,15 @@ public interface AskService {
 	 */
 	public List<Review> getReviewList(int userNo);
 
+	
+	/**
+	 * 댓글번호로 댓글객체 반환
+	 * 
+	 * @param askComNo
+	 * @return
+	 */
+	public AskComment getAskComDetail(int askComNo);
+
 
 
 }

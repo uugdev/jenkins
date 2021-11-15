@@ -315,6 +315,15 @@ public interface AskDao {
 	 * @return
 	 */
 	public int selectVoteByAskNoVoteState(Vote vote);
+
+
+	/**
+	 * 댓글번호로 댓글객체 조회
+	 * 
+	 * @param askComNo
+	 * @return
+	 */
+	public AskComment selectAskComByAskComNo(int askComNo);
 	
 	
 	

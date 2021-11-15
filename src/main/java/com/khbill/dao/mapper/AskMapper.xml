@@ -223,5 +223,11 @@ SELECT zask_seq.nextval FROM dual
 		WHERE ask_no = #{askNo} AND vote_state = #{voteState}
 	</select>
 
+	<select id="selectAskComByAskComNo" resultType="com.khbill.dto.AskComment" parameterType="int">
+		SELECT * FROM zask_comment
+		WHERE ask_com_no = #{askComNo}	
+	</select>
+
+
 
 </mapper>

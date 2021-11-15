@@ -377,7 +377,11 @@ public class AskServiceImpl implements AskService {
 		return askDao.selectReviewByUserNo(userNo);
 	}
 	
-	
+	@Override
+	public AskComment getAskComDetail(int askComNo) {
+		
+		return askDao.selectAskComByAskComNo(askComNo);
+	}
 	
 	
 }// class
