@@ -3,6 +3,7 @@ package com.khbill.dao.face;
 import java.util.HashMap;
 import java.util.List;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -57,16 +58,7 @@ public interface ReviewDao {
 	 * @return
 	 */
 	public File selectFileByFileNo(int fileNo);
-
-	/**
-	 * 상품 번호를 이용하여 질문게시글에 작성한 내용 불러오기
-	 * 
-	 * @param item
-	 * @param file
-	 * @return
-	 */
-	public HashMap<String, Object> selectReviewByItemNo(Item item, File file);
-
+	
 
 	//-----writeProc 처리 -----------------------
 	

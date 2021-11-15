@@ -20,6 +20,8 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
+import com.khbill.service.face.AskService;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -30,6 +32,7 @@ public class ReviewController {
 	private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 	
 	@Autowired private ReviewService reviewService;
+	@Autowired private AskService askService;
 	
 	@RequestMapping(value = "/list")
 	public void reviewList(Model model, Paging paramData) {
@@ -86,18 +89,18 @@ public class ReviewController {
 		
 		return "review/detail";
 	}
-	
+
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public void reviewWrite(
-			Ask ask
-			, Item item
-			, File file
-			, Model model
-			) {
+	public void reviewWrite(int askNo,Model model) {
 		logger.info("/review/write [GET]");
 		
-//		HashMap<String, Object> writeMap = reviewService.getAskDetail(item, file);
+		Ask ask = askService.getAskDetail(askNo);
+		Item item = askService.getItem(ask.getProductNo());
+		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 		
+		model.addAttribute("user",user);
+		model.addAttribute("ask",ask);
+		model.addAttribute("item",item);
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)

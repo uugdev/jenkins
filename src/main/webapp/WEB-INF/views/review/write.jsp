@@ -57,15 +57,15 @@ $(document).ready(function() {
 
 <div class="form-group">
 	<label for="itemBrand">브랜드</label>
-	<input type="text" id="itemBrand" name="itemBrand" class="form-control"/>
+	<input type="text" id="itemBrand" value="${item.itemBrand }"  name="itemBrand" class="form-control" readonly="readonly"/>
 </div>
 <div class="form-group">
 	<label for="itemName">상품명</label>
-	<input type="text" id="itemName" name="itemName" class="form-control"/>
+	<input type="text" id="itemName" value="${item.itemName }"  name="itemName" class="form-control" readonly="readonly"/>
 </div>
 <div class="form-group">
 	<label for="itemPrice">가격</label>
-	<input type="text" id="itemPrice" name="itemPrice" class="form-control"/>
+	<input type="text" id="itemPrice"value="${item.itemPrice }"   name="itemPrice" class="form-control" readonly="readonly"/>
 </div>
 
 <div class="form-group">

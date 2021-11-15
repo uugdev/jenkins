@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.khbill.controller.ReviewController;
 import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
+import com.khbill.dto.Ask;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
@@ -94,11 +94,6 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
-//	@Override
-//	public HashMap<String, Object> getAskDetail(Item item, File file) {
-//		return reviewDao.selectReviewByItemNo(item, file);
-//	}
-
 	@Override
 	public void setReviewWrite(Review review, Item item, MultipartFile file) {
 		
@@ -159,6 +154,7 @@ public class ReviewServiceImpl implements ReviewService {
 		logger.info("reviewFile{}", reviewFile);
 		
 	}
+
 
 }
 
