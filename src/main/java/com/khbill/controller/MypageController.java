@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -72,6 +73,10 @@ public class MypageController {
 		
 		user = memberService.getUserByUserNo(userNo);
 		
+		User userInfo = memberService.getUserInfo(user);
+		
+		session.setAttribute("userNick", userInfo.getUserNick());
+		
 		model.addAttribute("user", user);
 		
 	}
@@ -80,36 +85,45 @@ public class MypageController {
 	public void userUpdate(User user, HttpSession session, Model model) {
 		logger.info("/mypage/update [GET])");
 		
+		//세션에 있는 유저번호 가져오기
 		int userNo = (int)session.getAttribute("userNo");
 		
+		//유저 번호로 유저 정보를 찾기
 		user = memberService.getUserByUserNo(userNo);
 		
-		model.addAttribute("user", user);
+		//조회한 유저 정보 전달
+		
+		if(session.getAttribute("login") != null) {
+			model.addAttribute("user", user);			
+		}
 		
 	}
 
 	@RequestMapping(value="/mypage/update", method=RequestMethod.POST)
-	public String userUpdateProc(User user, HttpSession session, Model model) {
+	public String userUpdateProc(User user, HttpSession session) {
 		logger.info("/mypage/update [GET])");
 
-		int userNo = (int)session.getAttribute("userNo");
-		
-		user = memberService.getUserByUserNo(userNo);
-		
 		memberService.setUserUpdate(user);
 		
-		model.addAttribute("user", user);
+		User userInfo = memberService.getUserInfo(user);
+		
+		session.setAttribute("login", true);
+		session.setAttribute("userNick", userInfo.getUserNick());
+		session.setAttribute("userNo", userInfo.getUserNo());
 		
 		return "redirect:/mypage/info";
 	}
 	
-	@RequestMapping(value="/mypage/delete")
+	@RequestMapping(value="/mypage/delete", method=RequestMethod.POST)
 	public String userDelete(User user, HttpSession session) {
-		logger.info("/mypage/delete [GET])");
-
+		logger.info("/mypage/delete [POST])");
+		
 		int userNo = (int)session.getAttribute("userNo");
+		logger.info("userNo 정보 : {}", userNo);
 		
 		memberService.setUserDelete(userNo);
+		
+		session.invalidate();
 		
 		return "redirect:/main";
 
