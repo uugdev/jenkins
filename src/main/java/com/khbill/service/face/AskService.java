@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
@@ -237,6 +238,18 @@ public interface AskService {
 	 * @return
 	 */
 	public boolean isScrap(AskScrap askScrap);
+
+	/**
+	 * 
+	 * 신고게시물 삽입하기
+	 * 
+	 * @param userNo
+	 * @param askNo
+	 * @param askReport
+	 */
+	public void setAskReport(AskReport askReport);
+
+	public boolean askReportByAskNoLoginUserNo(AskReport askReport);
 
 
 }

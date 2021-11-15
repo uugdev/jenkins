@@ -215,4 +215,16 @@
 	</select>
 
 
+	<insert id="insertAskReport" parameterType="com.khbill.dto.AskReport">
+		INSERT INTO zask_report
+		VALUES (zask_report_seq.nextval,#{askNo},#{reporterNo},#{respondentNo},#{reportCategory},
+		#{reportContent},sysdate,'n')
+	</insert>
+
+	<select id="selectCntAskReportCheck" resultType="int" parameterType="com.khbill.dto.AskReport">
+		SELECT count(*) FROM zask_report
+		WHERE ask_no = #{askNo} AND reporter_no = #{reporterNo}
+	</select>
+
+
 </mapper>

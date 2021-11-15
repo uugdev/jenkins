@@ -5,6 +5,8 @@
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
+<link rel="stylesheet" type="text/css"
+	href="/resources/css/reportPopup.css">
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
@@ -335,7 +337,10 @@ table, th {
 			onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
 				${user.userNick }</span></a> | <span><fmt:formatDate
 				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
-				<button id="scrap">스크랩</button>
+				<c:if test="${ask.userNo ne userNo }">
+					<button id="scrap">스크랩</button>
+					<button id="report" class="popupOpen1">신고</button>
+				</c:if>
 				<span class="pull-right">조회수 : ${ask.askHit }</span>
 
 		<table class="table table-striped table-hover">
@@ -409,11 +414,11 @@ table, th {
 			<div class="check">
 				<div>
 					<div class="pull-left cnt" id="cntY">${cntY }</div>
-					<c:if test="${status.voteState eq 'y'}">
+					<c:if test="${cntY > cntN}">
 						<img class="pull-left success"
 							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
 					</c:if>
-					<c:if test="${status.voteState ne 'y'}">
+					<c:if test="${cntY < cntN}">
 						<img class="vote pull-left"
 							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 					</c:if>
@@ -424,11 +429,11 @@ table, th {
 
 				<div>
 					<div class="pull-right cnt" id="cntN">${cntN }</div>
-					<c:if test="${status.voteState eq 'n'}">
+					<c:if test="${cntY < cntN}">
 						<img class="pull-right success"
 							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
 					</c:if>
-					<c:if test="${status.voteState ne 'n'}">
+					<c:if test="${cntY > cntN}">
 						<img class="vote pull-right"
 							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
 					</c:if>
@@ -534,6 +539,48 @@ table, th {
 </div>
 <!-- .wrap end -->
 
+
+
+
+
+		
+			<div class="popupWrap1 hide1">
+				<form action="/ask/report" method="post">
+					<input type="hidden" name="askNo"
+						value="${ask.askNo }" />
+					<div class="popup1">
+						<div class="title">
+							<p>신고 하기</p>
+							<span class="close1">❌</span>
+						</div>
+						<select name="reportCategory" class="select">
+							<option value="A">부적절한 홍보 게시글</option>
+							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+							<option value="D">기타</option>
+						</select>	
+						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+						<div class="btnWrap1">
+							<button>보내기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+	
+	<script>
+	$('.popupOpen1').on('click', function() {
+		$('.popupWrap1').removeClass('hide1');
+	});
+	$('.close1').on('click', function() {
+		$(this).parents('.popupWrap1').addClass('hide1');
+		$(this).parents('.popup1').children('textarea').val('');
+	});
+
+	$(".btnWrap1").click(function() {
+		$(this).parents("form").submit();
+// 		history.go(-1);
+	});
+</script>
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 

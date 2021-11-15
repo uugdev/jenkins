@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.khbill.dao.face.AskDao;
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -374,5 +375,31 @@ public class AskServiceImpl implements AskService {
 		}
 		
 	}
+	
+	@Override
+	public void setAskReport(AskReport askReport) {
+
+		Ask ask = askDao.selectAskByAskNo(askReport.getAskNo());
+		askReport.setRespondentNo(ask.getUserNo());
+		
+		askDao.insertAskReport(askReport);
+		
+	}
+	
+	@Override
+	public boolean askReportByAskNoLoginUserNo(AskReport askReport) {
+
+		int cnt = askDao.selectCntAskReportCheck(askReport);
+
+		if(cnt > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	
+	}
+	
+	
+	
 
 }// class

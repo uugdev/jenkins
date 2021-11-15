@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
@@ -322,15 +323,6 @@ public class AskController {
 	public ModelAndView scrap(int askNo, ModelAndView mav ,HttpSession session) {
 		logger.info("/ask/scrap [GET]");
 		
-//		
-//		int userNo = (Integer) session.getAttribute("userNo");
-//		
-//		askService.setAskScrap(askNo,userNo);
-//		
-//		
-//		return "redirect:/ask/detail?askNo="+askNo;
-//		
-		
 		//스크랩 정보 토글
 		AskScrap askScrap = new AskScrap();
 		askScrap.setAskNo(askNo);
@@ -345,6 +337,29 @@ public class AskController {
 		return mav;
 	}
 	
+	
+	@RequestMapping(value ="/report",method = RequestMethod.POST)
+	public String askReport(int askNo,AskReport askReport,HttpSession session) {
+		logger.info("/ask/report [POST]");
+		
+		logger.info("askReport: {}",askReport);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		askReport.setAskNo(askNo);
+		askReport.setReporterNo(userNo);
+		
+		boolean reportCheck =  askService.askReportByAskNoLoginUserNo(askReport);
+		
+		if(reportCheck) {
+			
+			askService.setAskReport(askReport);
+			
+		}
+			
+		
+		return "redirect:/ask/detail?askNo="+askNo;
+	}
 	
 	
 	

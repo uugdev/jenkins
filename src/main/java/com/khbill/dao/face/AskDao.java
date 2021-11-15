@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
@@ -354,6 +355,24 @@ public interface AskDao {
 	 * @return 1 - 추천했음 0 - 추천한적 없음
 	 */
 	public int selectCntAskScrap(AskScrap askScrap);
+
+
+	/**
+	 * ask 신고 객체 삽입
+	 * 
+	 * @param askReport
+	 */
+	public void insertAskReport(AskReport askReport);
+
+
+	/**
+	 * 
+	 * 신고한 게시물인지 체크
+	 * 
+	 * @param askReport
+	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
+	 */
+	public int selectCntAskReportCheck(AskReport askReport);
 	
 	
 	
