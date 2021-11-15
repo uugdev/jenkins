@@ -418,7 +418,7 @@ table, th {
 						<img class="pull-left success"
 							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
 					</c:if>
-					<c:if test="${cntY < cntN}">
+					<c:if test="${cntY <= cntN}">
 						<img class="vote pull-left"
 							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
 					</c:if>
@@ -433,26 +433,13 @@ table, th {
 						<img class="pull-right success"
 							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
 					</c:if>
-					<c:if test="${cntY > cntN}">
+					<c:if test="${cntY >= cntN}">
 						<img class="vote pull-right"
 							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
 					</c:if>
 				</div>
 			</div>
 		</c:if>
-
-<%-- 		<c:if test="${check eq 'n'}">
-			<div class="check">
-				투표가 종료되었습니다
-				<div class="pull-left cnt" id="cntY">${cntY }</div>
-				<img class="pull-left success" src="https://i.imgur.com/aH44JbJ.png"
-					alt="찬성투표후" />
-
-				<div class="pull-right cnt" id="cntN">${cntN }</div>
-				<img class="pull-right success"
-					src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
-			</div>
-		</c:if> --%>
 
 		<br> <br>
 		<hr>
