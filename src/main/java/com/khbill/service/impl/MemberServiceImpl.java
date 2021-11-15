@@ -73,4 +73,21 @@ public class MemberServiceImpl implements MemberService {
 	public String getUserNickByUserNo(int msgUserNo) {
 		return memberDao.selectUserNickByUserNo(msgUserNo);
 	}
+	
+	
+	@Override
+	public User getUserByUserNo(int userNo) {
+		return memberDao.selectUserByUserNo(userNo);
+	}
+	
+	@Override
+	public void setUserUpdate(User user) {
+		memberDao.updateUserInfo(user);
+	}
+	
+	@Override
+	public void setUserDelete(int userNo) {
+		memberDao.deleteUser(userNo);
+	}
+	
 }

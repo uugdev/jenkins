@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
 import com.khbill.service.face.AskService;
 import com.khbill.service.face.ItemService;
+import com.khbill.service.face.MemberService;
 import com.khbill.util.Paging;
 
 @Controller
@@ -24,6 +27,7 @@ public class MypageController {
 	
 	@Autowired AskService askService;
 	@Autowired ItemService itemService;
+	@Autowired MemberService memberService;
 	
 	@RequestMapping(value="/mypage/item/list")
 	public void itemList(HttpSession session, Model model, Paging paramData) {
@@ -45,7 +49,6 @@ public class MypageController {
 		model.addAttribute("list", resultMapList);
 		model.addAttribute("paging", paging);		
 
-		
 	}
 	
 	@RequestMapping(value="/mypage/item/status")
@@ -58,7 +61,58 @@ public class MypageController {
 		itemService.setItemStatus(askNo);
 		
 		return "redirect:/mypage/item/list";
+		
+	}
 	
+	@RequestMapping(value="/mypage/info")
+	public void userInfo(User user, HttpSession session, Model model) {
+		logger.info("/mypage/info [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		
+		user = memberService.getUserByUserNo(userNo);
+		
+		model.addAttribute("user", user);
+		
+	}
+	
+	@RequestMapping(value="/mypage/update", method=RequestMethod.GET)
+	public void userUpdate(User user, HttpSession session, Model model) {
+		logger.info("/mypage/update [GET])");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		
+		user = memberService.getUserByUserNo(userNo);
+		
+		model.addAttribute("user", user);
+		
+	}
+
+	@RequestMapping(value="/mypage/update", method=RequestMethod.POST)
+	public String userUpdateProc(User user, HttpSession session, Model model) {
+		logger.info("/mypage/update [GET])");
+
+		int userNo = (int)session.getAttribute("userNo");
+		
+		user = memberService.getUserByUserNo(userNo);
+		
+		memberService.setUserUpdate(user);
+		
+		model.addAttribute("user", user);
+		
+		return "redirect:/mypage/info";
+	}
+	
+	@RequestMapping(value="/mypage/delete")
+	public String userDelete(User user, HttpSession session) {
+		logger.info("/mypage/delete [GET])");
+
+		int userNo = (int)session.getAttribute("userNo");
+		
+		memberService.setUserDelete(userNo);
+		
+		return "redirect:/main";
+
 		
 	}
 	
