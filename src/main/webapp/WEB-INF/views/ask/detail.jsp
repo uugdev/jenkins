@@ -528,11 +528,6 @@ table, th {
 </div>
 <!-- .wrap end -->
 
-
-
-
-
-		
 			<div class="popupWrap1 hide1">
 				<form action="/ask/report" method="post">
 					<input type="hidden" name="askNo"

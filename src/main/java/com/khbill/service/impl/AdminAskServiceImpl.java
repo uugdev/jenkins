@@ -37,9 +37,9 @@ public class AdminAskServiceImpl implements AdminAskService {
 	
 	
 	@Override
-	public void setAskDelete(int askNo) {
+	public void setAskDelete(int i) {
 
-		Ask ask = adminAskDao.selectAskByAskNo(askNo);
+		Ask ask = adminAskDao.selectAskByAskNo(i);
 		Item item = new Item();
 		com.khbill.dto.File file = new com.khbill.dto.File();
 
@@ -49,10 +49,10 @@ public class AdminAskServiceImpl implements AdminAskService {
 		int itemNo = item.getItemNo();
 		int fileNo = file.getFileNo();
 
-		adminAskDao.deleteVote(askNo);
-		adminAskDao.deleteReport(askNo);
-		adminAskDao.deleteScrap(askNo);
-		adminAskDao.deleteAsk(askNo);
+		adminAskDao.deleteVote(i);
+		adminAskDao.deleteReport(i);
+		adminAskDao.deleteScrap(i);
+		adminAskDao.deleteAsk(i);
 		adminAskDao.deleteItem(itemNo);
 		adminAskDao.deleteFile(fileNo);
 		
@@ -61,9 +61,9 @@ public class AdminAskServiceImpl implements AdminAskService {
 	
 	
 	@Override
-	public void setAskComDelete(int askNo) {
+	public void setAskComDelete(int i) {
 		
-		adminAskDao.deleteAskComByAskNo(askNo);
+		adminAskDao.deleteAskComByAskNo(i);
 
 	}
 

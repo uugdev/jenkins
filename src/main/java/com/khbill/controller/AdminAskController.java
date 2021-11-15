@@ -44,11 +44,17 @@ public class AdminAskController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String adminAskDelete(int askNo) {
+	public String adminAskDelete(int[] askNo) {
 		logger.info("/admin/ask/delete");
 		
-		adminAskService.setAskComDelete(askNo);
-		adminAskService.setAskDelete(askNo);
+		int size = askNo.length;
+		for(int i=0; i<size; i++) {
+			
+			adminAskService.setAskComDelete(askNo[i]);
+			adminAskService.setAskDelete(askNo[i]);
+			
+		}
+		
 		
 		return "redirect:/admin/ask/list";
 		
