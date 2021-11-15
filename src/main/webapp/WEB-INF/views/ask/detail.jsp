@@ -331,11 +331,13 @@ table, th {
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
 		<!-- <div class="clearfix"></div> -->
 		<hr>
-
-		<a
-			href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
+		<c:if test="${userNo eq ask.userNo }" >
+		<span>작성자 : ${user.userNick }</span>
+		</c:if>
+		<c:if test="${userNo ne ask.userNo }">
+		<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
 			onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
-				${user.userNick }</span></a> | <span><fmt:formatDate
+				${user.userNick }</span></a></c:if> | <span><fmt:formatDate
 				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
 				<c:if test="${ask.userNo ne userNo }">
 					<button id="scrap">스크랩</button>
