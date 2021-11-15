@@ -88,10 +88,16 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<Ask> getPopularBoard() {
-		
-		
-		return null;
-	}
+    public List<Object> getPopularBoard() {
+        return mainDao.selectAskListOrderByHit();
+    }
 
+    @Override
+    public List<Object> getBuyItemList(HttpSession session) {
+        
+        //유저 번호
+        int userNo = (int) session.getAttribute("userNo");
+        
+        return mainDao.selectBuyItemList(userNo);
+    }
 }
