@@ -78,6 +78,16 @@ $(document).ready(function() {
 		
 	}); //$("#btnCommInsert").click() end
 
+	$("#btnDelete").click(function() {
+
+		var result = confirm("정말 삭제하시겠습니까?");
+
+		if (result == true) {
+			$(location).attr("href", "/review/delete?reviewNo=${review.REVIEW_NO }");
+		}
+
+	});	//$("#btnDelete").click() end
+
 });
 
 function deleteComment(reviewComNo) {
@@ -126,7 +136,7 @@ function deleteComment(reviewComNo) {
 		<tr>
 			<td>${item.itemBrand }</td>		
 			<td>${item.itemName }</td>		
-			<td>${item.itemPrice }원</td>		
+			<td>${item.itemPrice }원</td>	
 		</tr>
 	</tbody>
 </table>
@@ -134,9 +144,11 @@ function deleteComment(reviewComNo) {
 <div id="item">
 	<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
 </div>
+<a href="/board/download?fileNo=${file.fileNo }">${file.fileStored }</a>
 
+<div style="text-align: center;">${review.REVIEW_CONTENT }</div><!-- 본문 -->
 
-<div style="text-align: center;">${review.reviewContent }</div>
+<hr>
 
 <div class="text-center">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
@@ -222,8 +234,14 @@ function deleteComment(reviewComNo) {
 
 </div><!-- 댓글 처리 end -->
 
-
-<%-- --%>
+	<div class="text-center">
+		<a href="/ask/list"><button class="btn btn-default">목록</button></a>
+		<c:if test="${userNo eq review.USER_NO }">
+			<a href="/review/update?reviewNo=${review.REVIEW_NO }"><button
+					class="btn btn-primary">수정</button></a>
+			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+		</c:if>
+	</div>
 	
 </div><!-- .container end -->
 <!-- </div>.wrap end -->

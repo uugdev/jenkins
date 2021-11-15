@@ -3,7 +3,6 @@ package com.khbill.dao.face;
 import java.util.HashMap;
 import java.util.List;
 
-import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -104,4 +103,51 @@ public interface ReviewDao {
 	 */
 	public void insertReview(Review review);
 
+	/**
+	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
+	 * 
+	 * @param review - 조회할 게시글 번호
+	 * @return 조회된 첨부파일 정보
+	 */
+	public File selectReviewFileByReviewNo(Review review);
+	
+	/**
+	 * 파일 번호를 이용하여 첨부파일 정보를 조회한다
+	 * 
+	 * @param fileNo - 조회할 파일 번호
+	 * @return 조회된 첨부파일 정보
+	 */
+	public File selectFileByFile(int fileNo);
+
+	/**
+	 * 게시글정보를 수정
+	 * 
+	 * @param review - 수정할 게시글의 글객체
+	 */
+	public void update(Review review);
+
+//	/**
+//	 * 
+//	 * @param review
+//	 */
+//	public void deleteReview(int reviewNo);
+
+//	/**
+//	 * 
+//	 * @param itemNo
+//	 */
+//	public void deleteItem(int itemNo);
+//	
+//	/**
+//	 * 
+//	 * @param fileNo
+//	 */
+//	public void deleteFile(int fileNo);
+//
+//	/**
+//	 * 게시글번호로 댓글 삭제
+//	 * 
+//	 * @param review - 삭제할 내용을 가진 게시글 객체
+//	 */
+//	public void deleteReviewCommentByReviewNo(int reviewNo);
 }

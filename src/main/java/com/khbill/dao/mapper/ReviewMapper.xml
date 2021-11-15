@@ -56,17 +56,22 @@
 		WHERE review_no = #{reviewNo } 
 	</select>
 	 
-	 
-	 
-	 <select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
+	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
 		SELECT * FROM zitem
 		WHERE item_no = #{itemNo }
-	 </select>
+	</select>
 
-	 <select id="selectFileByFileNo" resultType="com.khbill.dto.File" parameterType="int">
+	<select id="selectFileByFileNo" resultType="com.khbill.dto.File" parameterType="int">
 		SELECT * FROM zfile
 		WHERE file_no = #{fileNo }
-	 </select>
+	</select>
+
+	<select id="selectFileByFile" resultType="com.khbill.dto.File" parameterType="int">
+		SELECT
+			file_no, file_origin, file_stored, file_size, file_date
+		FROM zfile
+		WHERE file_no = #{fileNo }
+	</select>
 
 	<select id="getNextFileNo" resultType="int">
 		SELECT zfile_seq.nextval FROM dual
@@ -75,7 +80,7 @@
 	<select id="getNextItemNo" resultType="int">
 		SELECT zitem_seq.nextval FROM dual
 	</select>
-
+	
 	<select id="getNextReviewNo" resultType="int">
 		SELECT zask_seq.nextval FROM dual
 	</select>
@@ -87,13 +92,61 @@
 
 	 <insert id="insertItem" parameterType="com.khbill.dto.Item">
 	 	INSERT INTO ZITEM ( item_no, user_no, file_no, item_brand, item_name, item_price )
-		VALUES ( #{itemNo}, #{userNo}, #{fileNo}, #{itemBrand}, #{itemName}, #{itemPrice} )
+		VALUES ( #{itemNo }, #{userNo }, #{fileNo }, #{itemBrand }, #{itemName }, #{itemPrice } )
 	 </insert>
 
 	 <insert id="insertReview" parameterType="com.khbill.dto.Review">
 	 	INSERT INTO ZREVIEW ( review_no, item_no, user_no, file_no, review_title, review_content, review_date, review_hit )
-	 	VALUES ( #{reviewNo}, #{itemNo}, #{userNo}, #{fileNo}, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
+	 	VALUES ( #{reviewNo }, #{itemNo }, #{userNo }, #{fileNo }, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
 	 </insert>
+	 
+<!--  	<select id="selectReviewFileByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 		    SELECT  -->
+<!-- 		        review_no, r.file_no, file_origin, file_stored, file_size, file_date -->
+<!-- 		    FROM ZREVIEW R -->
+<!-- 		    INNER JOIN ZFILE F -->
+<!-- 		        ON r.file_no = f.file_no -->
+<!-- 		    ORDER BY file_no -->
+<!-- 		) ZFILE -->
+<!-- 		WHERE review_no = #{reviewNo } -->
+<!-- 	</select> -->
+
+ 	<select id="selectReviewFileByReviewNo" resultType="com.khbill.dto.Review" parameterType="com.khbill.dto.Review">
+	    SELECT 
+	        review_no, r.file_no, file_origin, file_stored, file_size, file_date
+	    FROM ZFILE
+		WHERE file_no = #{fileNo }
+	</select>
+
+	<update id="update" parameterType="com.khbill.dto.Review">
+		UPDATE ZREVIEW
+		SET review_title = #{reviewTitle }
+			, review_content = #{reviewContent }
+		WHERE review_no = #{reviewNo }
+	</update>
+	
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE ZREVIEW
+		WHERE review_no = #{reviewNo }
+	</delete>
+	
+	<delete id="deleteItem" parameterType="int">
+		DELETE zitem
+		WHERE item_no = #{itemNo }
+	</delete>
+		
+	<delete id="deleteFile" parameterType="int">
+		DELETE zfile
+		WHERE file_no = #{fileNo }
+	</delete>
+	
+	<delete id="deleteReviewCommentByReviewNo" parameterType="int">
+		DELETE ZREVIEW_COMMENT
+		WHERE review_no = #{reviewNo }
+	</delete>
+	
 </mapper>
 
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
@@ -54,10 +53,10 @@ public interface ReviewService {
 	public Item getReviewItem(int itemNo);
 
 	/**
-	 * 후기 글의 파일번호로 파일조회
+	 * 후기 글의 파일번호로 파일 정보 조회
 	 * 
 	 * @param fileNo - 상세 조회할 파일 번호 DTO
-	 * @return 조회된 상세 게시글 정보
+	 * @return 첨부파일 정보
 	 */
 	public File getReviewFile(int fileNo);
 
@@ -93,6 +92,37 @@ public interface ReviewService {
 	 * @return
 	 */
 	public void setReviewWrite(Review review, Item item, MultipartFile file);
+
+	/**
+	 * 게시글번호를 이용하여 업로드된 파일의 정보를 조회한다
+	 * 
+	 * @param review - 조회할 게시글 번호를 가진 객체
+	 * @return 첨부파일 정보
+	 */
+	public File getAttachFile(Review review);
+
+	/**
+	 *  게시글 + 첨부파일 수정 처리
+	 * 
+	 * @param review - 게시글 정보 객체 DTO
+	 * @param item - 상품 정보 객체 DTO
+	 * @param file - 파일업로드 객체
+	 */
+	public void setReviewUpdate(Review review, Item item, MultipartFile file);
+
+//	/**
+//	 * 후기 게시판 글 번호로 게시글 삭제
+//	 * 
+//	 * @param reviewNo - 삭제할 게시글의 게시글번호 객체
+//	 */
+//	public void setReviewDelete(Review review);
+//
+//	/**
+//	 * 게시글번호로 댓글 삭제
+//	 * 
+//	 * @param review - 삭제할 게시글의 게시글 댓글 객체
+//	 */
+//	public void setReviewCommentDelete(Review review);
 
 
 

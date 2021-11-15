@@ -20,7 +20,6 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.User;
-import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
@@ -48,13 +47,12 @@ public class ReviewController {
 		model.addAttribute("paging", paging);
 	}
 	
+	
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String reviewDetail(
-			Review review
-			, ReviewComment reviewComment
-			, Item item
-			, File file
-			, Model model) {
+			Review review, ReviewComment reviewComment
+			, Item item, File file, Model model
+		) {
 		logger.info("/review/detail [GET]");
 		
 		if( review.getReviewNo() < 1 ) {
@@ -90,10 +88,12 @@ public class ReviewController {
 		return "review/detail";
 	}
 
+	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public void reviewWrite(int askNo,Model model) {
+	public void reviewWrite(int askNo, Model model) {
 		logger.info("/review/write [GET]");
 		
+		//질문 게시판에 작성한 글 불러오기
 		Ask ask = askService.getAskDetail(askNo);
 		Item item = askService.getItem(ask.getProductNo());
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
@@ -103,18 +103,12 @@ public class ReviewController {
 		model.addAttribute("item",item);
 	}
 	
+	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String reviewWriteProc(
-			Review review
-			, User user
-			, Ask ask
-			, Item item
-			, MultipartFile file
-			, HttpSession session) {
-		
-		logger.info("{}", review);
-		logger.info("{}", item);
-		logger.info("{}", file);
+			Review review, User user, Ask ask, Item item
+			, MultipartFile file, HttpSession session
+		) {
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		user.setUserNick((String) session.getAttribute("userNick"));
@@ -122,12 +116,90 @@ public class ReviewController {
 		review.setUserNo(userNo);
 		
 		reviewService.setReviewWrite(review, item, file);
-		logger.info("후기게시판 {}", review);
-		logger.info("파일 {}", item);
-		logger.info("상품 {}", file);
-		
+
 		return "redirect:/review/list";
 	}
+	
+	
+	@RequestMapping(value="/download")
+	public String download(int fileNo, Model model) {
+		
+		File file = reviewService.getReviewFile(fileNo);
+		
+		model.addAttribute("downFile", file);
+		
+		return "down";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String reviewUpdate(Review review, Item item, File file,  Model model) {
+		logger.info("/review/update [GET]");
+		
+		// 게시글 번호가 1보다 작으면 목록으로 보내기
+		if(review.getReviewNo() < 1) {
+			return "redirect:/review/list";
+		}
+		
+		//게시글 상세 정보 전달
+		HashMap<String, Object> reviewMap = reviewService.getReviewDetail(review);
+		logger.info("review{}", review.getReviewNo());
+		
+		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
+		item = reviewService.getReviewItem(itemNo);
+		logger.info("아이템 번호: {}", itemNo);
+	
+		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
+		file = reviewService.getReviewFile(fileNo);
+		logger.info("파일 번호: {}", fileNo);
+		
+		logger.info("review: {}", reviewMap);
+		logger.info("item : {}", item);
+		logger.info("file : {}", file);
+		
+		//게시글 상세 모델값 전달
+		model.addAttribute("review", reviewMap);
+		model.addAttribute("item", item);
+		model.addAttribute("file", file);
+		
+//		//게시글 첨부파일 전달
+//		file = reviewService.getAttachFile(review);
+//		model.addAttribute("file", file);
+		
+		return "review/update";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String reviewUpdateProc(
+			Review review, User user, Item item
+			, MultipartFile file, HttpSession session
+		) {
+		logger.info("/review/update [POST]");
+		logger.info("review{}", review.getReviewNo());
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		user.setUserNick((String) session.getAttribute("userNick"));
+		
+		review.setUserNo(userNo);
+		
+		reviewService.setReviewUpdate(review, item, file);
+		
+		logger.info("file{}", review.getFileNo());
+		
+		return "redirect:/review/detail?reviewNo="+review.getReviewNo();
+		
+	}
+	
+//	@RequestMapping(value="/delete", method=RequestMethod.GET)
+//	public String deleteProc(Review review) {
+//		
+//		reviewService.setReviewCommentDelete(review);
+//		reviewService.setReviewDelete(review);
+//		
+//		return "redirect:/review/list";
+//	}
 }
 
 
