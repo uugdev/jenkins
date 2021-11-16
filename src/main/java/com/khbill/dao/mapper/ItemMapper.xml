@@ -42,17 +42,17 @@
 	<select id="selectItemListByUserNo" parameterType="HashMap" resultType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, J.* FROM (
-				SELECT
-				    a.ask_hit, i.item_name, i.item_price, v.vote_end, i.item_status, r.review_no, i.item_no, a.ask_date
-				FROM zvote v, zask a, zitem i, zuser u, zreview r
-				WHERE v.user_no = a.user_no
-				AND a.user_no = i.user_no
-				AND i.user_no = u.user_no
-				AND u.user_no = r.user_no (+)
-				AND a.ask_no = v.ask_no
-				AND i.item_no = a.product_no
-				AND a.user_no = #{userNo }
-				ORDER BY a.ask_date DESC
+				SELECT sub.ask_hit, sub.item_name, sub.item_price, sub.vote_end, sub.item_status, sub.item_no, sub.ask_date, r.review_no FROM (
+					SELECT a.ask_hit, i.item_name, i.item_price, v.vote_end, i.item_status, i.item_no, a.ask_date
+	       				  FROM zvote v, zask a, zitem i, zuser u
+					      WHERE v.user_no = a.user_no
+					      AND a.user_no = i.user_no
+					      AND i.user_no = u.user_no
+					      AND a.ask_no = v.ask_no
+					      AND i.item_no = a.product_no
+					      AND a.user_no = #{userNo }) sub LEFT OUTER JOIN zreview r
+					ON r.item_no = sub.item_no
+				ORDER BY sub.ask_date
 			) J
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	
