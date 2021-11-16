@@ -13,12 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
+import com.khbill.dto.ReviewReport;
+import com.khbill.dto.ReviewScrap;
 import com.khbill.dto.User;
 import com.khbill.service.face.AskService;
 import com.khbill.service.face.ReviewService;
@@ -38,7 +41,7 @@ public class ReviewController {
 	
 		//페이징 처리
 		Paging paging = reviewService.getPaging(paramData);
-		logger.info("페이징 처리 {}", paging);	
+		logger.info("페이징 처리 {}", paging);
 		
 		//게시글 목록 조회
 		List<Review> review = reviewService.getReviewList(paging);
@@ -51,7 +54,7 @@ public class ReviewController {
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String reviewDetail(
 			Review review, ReviewComment reviewComment
-			, Item item, File file, Model model
+			, Item item, File file, Model model, HttpSession session
 		) {
 		logger.info("/review/detail [GET]");
 		
@@ -62,17 +65,19 @@ public class ReviewController {
 		HashMap<String, Object> reviewMap = reviewService.getReviewDetail(review);
 		logger.info("reviewMap 테스트: {}", reviewMap);
 		
+		//상품 정보 전달
 		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
 		item = reviewService.getReviewItem(itemNo);
 		logger.info("아이템 번호: {}", itemNo);
 	
+		//첨부파일 정보 전달
 		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
 		file = reviewService.getReviewFile(fileNo);
 		logger.info("파일 번호: {}", fileNo);
 		
-		logger.info("review: {}", reviewMap);
-		logger.info("item : {}", item);
-		logger.info("file : {}", file);
+//		logger.info("review: {}", reviewMap);
+//		logger.info("item : {}", item);
+//		logger.info("file : {}", file);
 		
 		//모델값 전달
 		model.addAttribute("review", reviewMap);
@@ -84,6 +89,20 @@ public class ReviewController {
 		model.addAttribute("commentList", commentList);
 		
 		logger.info("commentList: {}", commentList);
+		
+		
+		//스크랩 상태 조회
+		ReviewScrap reviewScrap = new ReviewScrap();
+		reviewScrap.setReviewNo(review.getReviewNo());
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		reviewScrap.setUserNo(userNo);
+		
+		//스크랩 상태 전달
+		boolean isScrap = reviewService.isScrap(reviewScrap);
+		model.addAttribute("isScrap", isScrap);
+		
+		logger.info("reviewScrap{}", reviewScrap);		
 		
 		return "review/detail";
 	}
@@ -168,10 +187,6 @@ public class ReviewController {
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
 		
-//		//게시글 첨부파일 전달
-//		file = reviewService.getAttachFile(review);
-//		model.addAttribute("file", file);
-		
 		return "review/update";
 	}
 	
@@ -204,6 +219,47 @@ public class ReviewController {
 		
 		return "redirect:/review/list";
 	}
+	
+	
+	@RequestMapping(value = "/scrap", method = RequestMethod.GET)
+	public ModelAndView scrap(int reviewNo, ReviewScrap reviewScrap, ModelAndView mav, HttpSession session) {
+		logger.info("/review/scrap [GET]");
+		
+		//스크랩 정보 토글
+		reviewScrap.setReviewNo(reviewNo);
+		reviewScrap.setUserNo((Integer) session.getAttribute("userNo"));
+		
+		boolean resultScrap = reviewService.scrap(reviewScrap);
+		
+		mav.addObject("resultScrap",resultScrap);
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value ="/report",method = RequestMethod.POST)
+	public String reviewReport(int reviewNo, ReviewReport reviewReport, HttpSession session) {
+		logger.info("/reviewreport [POST]");
+		
+		logger.info("reviewReport: {}", reviewReport);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		reviewReport.setReviewNo(reviewNo);
+		reviewReport.setReporterNo(userNo);
+		
+		boolean reportCheck =  reviewService.reviewReportByReviewNoLoginUserNo(reviewReport);
+		
+		if(reportCheck) {
+			
+			reviewService.setReviewReport(reviewReport);
+			
+		}
+			
+		return "redirect:/review/detail?reivewNo="+reviewNo;
+	}
+	
+	
 }
 
 

@@ -9,6 +9,8 @@ import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
+import com.khbill.dto.ReviewReport;
+import com.khbill.dto.ReviewScrap;
 import com.khbill.util.Paging;
 
 public interface ReviewService {
@@ -124,6 +126,38 @@ public interface ReviewService {
 	 */
 	public void setReviewCommentDelete(Review review);
 
+	/**
+	 * 게시글 번호로 게시글을 스크랩한다
+	 * 
+	 * @param reviewScrap 
+	 * @return
+	 */
+	public boolean scrap(ReviewScrap reviewScrap);
+
+	/**
+	 * 사용자 스크랩 상태
+	 * 
+	 * @param reviewScrap - 스크랩 상태를 확인할 정보
+	 * @return true - 스크랩 상태?
+	 */
+	public boolean isScrap(ReviewScrap reviewScrap);
+
+	/**
+	 * review게시글 번호와 로그인 userNo로 신고한 게시물인지 판단한다
+	 * 
+	 * @param reviewReport
+	 * @return
+	 */
+	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
+	
+	/**
+	 * 신고게시물 삽입하기
+	 * 
+	 * @param userNo
+	 * @param reviewNo
+	 * @param reviewReport
+	 */
+	public void setReviewReport(ReviewReport reviewReport);
 
 
 

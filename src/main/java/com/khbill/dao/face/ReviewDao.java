@@ -6,6 +6,8 @@ import java.util.List;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.ReviewReport;
+import com.khbill.dto.ReviewScrap;
 import com.khbill.util.Paging;
 
 public interface ReviewDao {
@@ -152,8 +154,6 @@ public interface ReviewDao {
 	 * @param fileNo
 	 */
 	public void deleteFile(int fileNo);
-
-	
 	
 	/**
 	 * 게시글번호로 댓글 삭제
@@ -161,5 +161,54 @@ public interface ReviewDao {
 	 * @param review - 삭제할 내용을 가진 게시글 객체
 	 */
 	public void deleteReviewCommentByReviewNo(Review review);
+
+	
+	//------ scrap ----------------------------------------
+
+	/**
+	 * 스크랩 정보 삽입
+	 * 
+	 * @param reviewScrap
+	 */
+	public void insertScrap(ReviewScrap reviewScrap);
+	
+	/**
+	 * 스크랩 정보 삭제
+	 * 
+	 * @param reviewScrap
+	 */
+	public void deleteScrap(ReviewScrap reviewScrap);
+
+	/**
+	 * 게시글 스크랩 수 조회
+	 * 
+	 * @param reviewScrap - 스크랩을 조회할 
+	 * @return 전체 스크랩 수
+	 */
+	public int selectCountScrap(ReviewScrap reviewScrap);
+	
+	/**
+	 * 후기 글번호로 조회
+	 * 
+	 * @param reviewNo
+	 * @return 
+	 */
+	public Review selectReviewByReviewNo(int reviewNo);
+	
+	/**
+	 * review 신고 객체 삽입
+	 * 
+	 * @param reviewReport
+	 */
+	public void insertReviewReport(ReviewReport reviewReport);
+
+	/**
+	 * 신고한 게시물인지 체크
+	 * 
+	 * @param reviewReport
+	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
+	 */
+	public int selectCntReviewReportCheck(ReviewReport reviewReport);
+
 
 }

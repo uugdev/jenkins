@@ -16,9 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
+import com.khbill.dto.Ask;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
+import com.khbill.dto.ReviewReport;
+import com.khbill.dto.ReviewScrap;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -230,6 +233,57 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDao.deleteReviewCommentByReviewNo(review);
 	}
 
+
+	@Override
+	public boolean scrap(ReviewScrap reviewScrap) {
+		if( isScrap(reviewScrap) ) { //스크랩을 한 상태
+			reviewDao.deleteScrap(reviewScrap);
+			
+			return false;
+			
+		} else { //스크랩을 하지 않은 상태
+			reviewDao.insertScrap(reviewScrap);
+			
+			return true;
+		}
+
+	}
+
+	@Override
+	public boolean isScrap(ReviewScrap reviewScrap) {
+		int cnt = reviewDao.selectCountScrap(reviewScrap);
+		
+		if(cnt > 0) {	//스크랩한 상태
+			return true;
+		} else {		//스크랩 하지 않은 상태
+			return false;
+		}
+		
+	}
+
+	
+	@Override
+	public void setReviewReport(ReviewReport reviewReport) {
+
+		Review review = reviewDao.selectReviewByReviewNo(reviewReport.getReviewNo());
+		reviewReport.setRespondentNo(review.getUserNo());
+		
+		reviewDao.insertReviewReport(reviewReport);
+		
+		
+	}
+
+	@Override
+	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport) {
+		
+		int cnt = reviewDao.selectCntReviewReportCheck(reviewReport);
+		
+		if(cnt > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 }
 

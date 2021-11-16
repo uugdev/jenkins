@@ -5,54 +5,49 @@
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
-<!-- header end -->
 
+<link rel="stylesheet" type="text/css" href="/resources/css/reportPopup.css">
+<!-- header end -->
 
 <script type="text/javascript">
 $(document).ready(function() {
-// 	if(${isRecommend}) {
-// 		$("#btnRecommend")
-// 			.addClass("btn-warning")
-// 			.html('추천 취소');
-// 	} else {
-// 		$("#btnRecommend")
-// 			.addClass("btn-primary")
-// 			.html('추천');
-// 	}
+	if(${isScrap}) {
+		$("#scrap")
+			.html('스크랩 취소');
+	} else {
+		$("#scrap")
+			.html('스크랩');
+	}
 	
-// 	$("#btnRecommend").click(function() {
+	$("#scrap").click(function() {
 		
-// 		$.ajax({
-// 			type: "get"
-// 			, url: "/board/recommend"
-// 			, data: { "boardNo": '${viewBoard.boardNo }' }
-// 			, dataType: "json"
-// 			, success: function( data ) {
-// 					console.log("성공");
+		$.ajax({
+			type: "get"
+			, url: "/review/scrap"
+			, data: { "reviewNo": '${review.REVIEW_NO }' }
+			, dataType: "json"
+			, success: function( data ) {
+					console.log("성공");
 	
-// 				if( data.result ) { //추천 성공
-// 					$("#btnRecommend")
-// 					.removeClass("btn-primary")
-// 					.addClass("btn-warning")
-// 					.html('추천 취소');
+				if( data.resultScrap ) { //스크랩 성공
+					$("#scrap")
+					.html('스크랩 취소');
 				
-// 				} else { //추천 취소 성공
-// 					$("#btnRecommend")
-// 					.removeClass("btn-warning")
-// 					.addClass("btn-primary")
-// 					.html('추천');
+				} else { //스크랩 취소 성공
+					$("#scrap")
+					.html('스크랩');
 				
-// 				}
+				}
 				
 // 				//추천수 적용
 // 				$("#recommend").html(data.cnt);
-// 			}
-// 			, error: function() {
-// 				console.log("실패");
-// 			}
-// 		}); //ajax end
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		}); //ajax end
 		
-// 	}); //$("#btnRecommend").click() end
+	}); //$("#btnRecommend").click() end
 	
 	
 	// 댓글 입력
@@ -122,6 +117,12 @@ function deleteComment(reviewComNo) {
 
 <span class="pull-left">작성자 ${review.USER_NICK }</span>
 <span class="pull-left"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
+	<c:if test="${review.USER_NO ne userNo }">
+		<c:if test="${review.USER_NO ne 0 }">
+			<button id="scrap">스크랩</button>
+			<button id="report" class="popupOpen1">신고</button>
+		</c:if>
+	</c:if>
 <span class="pull-right">조회수 ${review.REVIEW_HIT }</span>
 
 <table class="table table-striped table-hover">
@@ -191,28 +192,6 @@ function deleteComment(reviewComNo) {
 	</tr>
 	</thead>
 
-<!-- 	<tbody id="commentBody"> -->
-<%-- 	<c:forEach items="${commentList }" var="reviewComment"> --%>
-<%-- 	<tr data-reviewComNo="${reviewComment.reviewComNo }"> --%>
-<%-- 		<c:forEach items="${userList }" var="userList"> --%>
-<%-- 			<c:if test="${reviewComment.userNo eq userList.userNo }"> --%>
-<%-- 				<td style="width: 10%;">${userList.USER_NICK }</td> --%>
-<%-- 			</c:if> --%>
-<%-- 		</c:forEach> --%>
-<%-- 		<td style="width: 65%;">${reviewComment.reviewComContent }</td> --%>
-<!-- 		<td style="width: 20%;"> -->
-<%-- 			<fmt:formatDate value="${reviewComment.reviewComDate }" pattern="yy-MM-dd hh:mm:ss" /></td> --%>
-<%-- 			<c:if test="${review.USER_NO eq reviewComment.userNo }"> --%>
-<!-- 			<td style="width: 5%;"> -->
-<!-- 			<button class="btn btn-default btn-xs" -->
-<%-- 				onclick="deleteComment(${reviewComment.reviewComNo });">삭제</button> --%>
-<%-- 			</c:if> --%>
-<!-- 		</td>		 -->
-<!-- 	</tr> -->
-<%-- 	</c:forEach> --%>
-<!-- 	</table> -->
-<!-- 	댓글 리스트 end -->
-
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
 	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
@@ -245,6 +224,45 @@ function deleteComment(reviewComNo) {
 	
 </div><!-- .container end -->
 <!-- </div>.wrap end -->
+
+<div class="popupWrap1 hide1">
+	<form action="/review/report" method="post">
+		<input type="hidden" name="askNo"
+			value="${review.reviewNo }" />
+		<div class="popup1">
+			<div class="title">
+				<p>신고 하기</p>
+				<span class="close1">❌</span>
+			</div>
+			<select name="reportCategory" class="select">
+				<option value="A">부적절한 홍보 게시글</option>
+				<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+				<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+				<option value="D">기타</option>
+			</select>	
+			<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+			<div class="btnWrap1">
+				<button>보내기</button>
+			</div>
+		</div>
+	</form>
+</div>
+	
+<script>
+$('.popupOpen1').on('click', function() {
+	$('.popupWrap1').removeClass('hide1');
+});
+$('.close1').on('click', function() {
+	$(this).parents('.popupWrap1').addClass('hide1');
+	$(this).parents('.popup1').children('textarea').val('');
+});
+
+$(".btnWrap1").click(function() {
+	$(this).parents("form").submit();
+		history.go(-1);
+});
+</script>
+
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

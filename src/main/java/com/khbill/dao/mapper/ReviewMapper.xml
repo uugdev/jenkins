@@ -131,11 +131,60 @@
 		WHERE file_no = #{fileNo }
 	</delete>
 	
+<!-- 	<delete id="deleteScrap" parameterType="int"> -->
+<!-- 		DELETE zreview_scrap -->
+<!-- 		WHERE review_no = #{reviewNo} -->
+<!-- 	</delete> -->
+	
+<!-- 	<delete id="deleteReport" parameterType="int"> -->
+<!-- 		DELETE zreview_report -->
+<!-- 		WHERE review_no = #{reviewNo} -->
+<!-- 	</delete> -->
+	
+	
 	<delete id="deleteReviewCommentByReviewNo" parameterType="com.khbill.dto.Review">
 		DELETE zreview_comment
 		WHERE review_no = #{reviewNo }
 	</delete>
 	
+	<insert id="insertScrap" parameterType="com.khbill.dto.ReviewScrap">
+		INSERT INTO zreview_scrap
+		VALUES ( zreview_scrap_seq.nextval, #{userNo }, #{reviewNo })
+	</insert>
+	
+	<delete id="deleteScrap" parameterType="com.khbill.dto.ReviewScrap">
+		DELETE zreview_scrap
+		WHERE user_no = #{userNo } 
+			AND review_no = #{reviewNo }
+	</delete>
+	
+	<select id="selectCountScrap" parameterType="com.khbill.dto.ReviewScrap" resultType="int">
+		SELECT count(*) FROM zreview_scrap
+		WHERE review_no = #{reviewNo } 
+			AND user_no = #{userNo }
+	</select>
+	
+	
+<!-- 	<select id="selectReviewByReviewNo" resultType="com.khbill.dto.Review" parameterType="int"> -->
+<!-- 		SELECT  -->
+<!-- 			review_no, item_no, user_no, file_no -->
+<!-- 			, review_title, review_content, review_date, review_hit -->
+<!-- 		FROM ZREVIEW -->
+<!-- 		WHERE review_no = #{reviewNo } -->
+<!-- 	</select> -->
+	
+	<insert id="insertReviewReport" parameterType="com.khbill.dto.ReviewReport">
+		INSERT INTO zreview_report
+		VALUES (zreview_report_seq.nextval, #{reviewNo}, #{reporterNo}
+			, #{respondentNo}, #{reportCategory}, #{reportContent}, sysdate, 'n')
+	</insert>
+	
+	<select id="selectCntReviewReportCheck" resultType="int" parameterType="com.khbill.dto.ReviewReport">
+	 	SELECT count(*) FROM zreview_report
+		WHERE review_no = #{reviewNo } AND reporter_no = #{reporterNo }
+	</select>
+	
+		
 </mapper>
 
 
