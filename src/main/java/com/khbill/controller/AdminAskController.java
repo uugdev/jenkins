@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.khbill.dto.Ask;
+import com.khbill.dto.User;
 import com.khbill.service.face.AdminAskService;
 import com.khbill.util.Paging;
 
@@ -30,7 +31,9 @@ public class AdminAskController {
 		
 		Paging paging = adminAskService.getPaging(paramData);
 		List<Ask> list = adminAskService.getAskList(paging);
+		List<User> user = adminAskService.getUserList();
 		
+		model.addAttribute("user", user);
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 	

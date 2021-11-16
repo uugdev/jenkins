@@ -86,4 +86,8 @@
 		WHERE ask_no = #{askNo}
 	</delete>
 
+	<select id="selectUserList" resultType="com.khbill.dto.User">
+		SELECT * from zuser
+	</select>
+
 </mapper>

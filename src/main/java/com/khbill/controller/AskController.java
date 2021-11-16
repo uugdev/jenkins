@@ -46,6 +46,9 @@ public class AskController {
 		List<Ask> list = askService.getAskList(paging);
 		List<User> user = askService.getUserList();
 		
+		System.out.println("ask" + user);
+		System.out.println("user" + user);
+		
 		model.addAttribute("user", user);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);

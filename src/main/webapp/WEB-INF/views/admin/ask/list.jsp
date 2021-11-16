@@ -83,6 +83,16 @@ label {
 	<td><label for="${askList.askNo}">${askList.askNo }</label></td>
 	<td><label for="${askList.askNo }"><a href="/admin/ask/detail?askNo=${askList.askNo }">${askList.askTitle }</a></label></td>
 	<td><label for="${askList.askNo }">${askList.askHit }</label></td>
+		<c:forEach items="${user }" var="user">
+			<c:if test="${not empty ask.userNo}">
+				<c:if test="${askList.userNo eq user.userNo}">
+					<td><label for="${askList.askNo }">${user.userNick }</label></td>
+				</c:if>
+			</c:if>
+			<c:if test="${empty askList.userNo}">
+				<td><label for="${askList.askNo }">탈퇴한 회원입니다</label></td>
+			</c:if>
+		</c:forEach>
 	<td><fmt:formatDate value="${askList.askDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>

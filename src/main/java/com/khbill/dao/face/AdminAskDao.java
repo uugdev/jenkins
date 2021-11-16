@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface AdminAskDao {
@@ -116,7 +117,13 @@ public interface AdminAskDao {
 	 */
 	public void deleteReport(int askNo);
 	
-	
+
+	/**
+	 * 
+	 * 유저 리스트 조회
+	 * @return
+	 */
+	public List<User> selectUserList();
 	
 	
 	

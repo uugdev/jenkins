@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface AdminAskService {
@@ -63,6 +64,14 @@ public interface AdminAskService {
 	 * @return 삭제 성공 여부
 	 */
 	public boolean deleteAskCom(int askComNo);
+
+
+	/**
+	 * 모든 유저 목록 조회
+	 * 
+	 * @return 유저리스트
+	 */
+	public List<User> getUserList();
 
 	
 	

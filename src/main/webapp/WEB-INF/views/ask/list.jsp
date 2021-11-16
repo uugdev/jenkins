@@ -50,7 +50,7 @@ td:nth-child(2) {
 <div class="wrap">
 	<div class="container">
 
-		<h1>게시판 리스트</h1>
+		<h1>게시판 최신순</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
 			<a href="/ask/list">최신순</a>
@@ -73,8 +73,13 @@ td:nth-child(2) {
 						<td>${ask.askNo }</td>
 						<td><a href="/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
 						<c:forEach items="${user }" var="user">
-							<c:if test="${ask.userNo eq user.userNo}">
-								<td>${user.userNick }</td>
+							<c:if test="${ask.userNo ne null}">
+								<c:if test="${ask.userNo eq user.userNo}">
+									<td>${user.userNick }</td>
+								</c:if>
+							</c:if>
+							<c:if test="${ask.userNo eq null }">
+								<td>탈퇴한 회원입니다</td>
 							</c:if>
 						</c:forEach>
 						<td>${ask.askHit }</td>
