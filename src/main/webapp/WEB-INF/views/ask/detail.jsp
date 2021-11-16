@@ -84,7 +84,9 @@ $(document).ready(function() {
 							
 							//투표수 적용
 							$("#cntY").html(data.cntY);
-	
+							
+							initChart(data.cntY, $("#cntN").html())
+							
 						} //success
 						, error: function() {
 							console.log("실패");
@@ -122,6 +124,8 @@ $(document).ready(function() {
 							//투표수 적용
 							$("#cntN").html(data.cntN);
 							
+							initChart($("#cntY").html(), data.cntN)
+
 						} //success
 						, error: function() {
 							console.log("실패");
@@ -168,47 +172,24 @@ $(document).ready(function() {
 
 	});
 
-// 	$("#scrap").click(function() {
-
-// 		var result = confirm("확인버튼을 누르시면 스크랩이 완료됩니다.");
-
-// 		if (result == true) {
-// 			$(location).attr("href", "/ask/scrap?askNo=${ask.askNo }");
-			
-// 		}
-
-// 	});
-
 	
 	
+	initChart(${cntY}, ${cntN})
+
+});
+
+function initChart(cntY, cntN) {
+	$('.chart').empty();
 	
 	$('.chart').segbar([
-
 		{
-
 		  data: [ 
-
-		    {  value: ${cntY}, color:'#3A539B'  },
-
-		    {  value: ${cntN}, color: '#F22613' }
-
+		    {  value: Number(cntY), color:'#3A539B'  },
+		    {  value: Number(cntN), color:'#F22613'  }
 		  ]
-
 		}
-				
-
-		]);
-
-		$('.chart').segbar({
-		width:"100%",
-		height:"80px"
-		});
-
-
-
-	
-	
-});
+	]);
+} 
 
 function deleteComment(askComNo) {
 	$.ajax({
@@ -340,8 +321,10 @@ table, th {
 				${user.userNick }</span></a></c:if> | <span><fmt:formatDate
 				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
 				<c:if test="${ask.userNo ne userNo }">
-					<button id="scrap">스크랩</button>
-					<button id="report" class="popupOpen1">신고</button>
+					<c:if test="${ask.userNo ne 0 }">
+						<button id="scrap">스크랩</button>
+						<button id="report" class="popupOpen1">신고</button>
+					</c:if>
 				</c:if>
 				<span class="pull-right">조회수 : ${ask.askHit }</span>
 

@@ -74,6 +74,7 @@ label {
 	<th>	</th>
 	<th>질문글 번호</th>
 	<th width="45%">제목</th>
+	<th>닉네임</th>
 	<th>조회수</th>
 	<th>작성일</th>
 </tr>
@@ -82,20 +83,21 @@ label {
 	<td><input type="checkbox" id="${askList.askNo }" value="${askList.askNo }" class="check" /></td>
 	<td><label for="${askList.askNo}">${askList.askNo }</label></td>
 	<td><label for="${askList.askNo }"><a href="/admin/ask/detail?askNo=${askList.askNo }">${askList.askTitle }</a></label></td>
-	<td><label for="${askList.askNo }">${askList.askHit }</label></td>
 		<c:forEach items="${user }" var="user">
-			<c:if test="${not empty ask.userNo}">
+			<c:if test="${ask.userNo ne 0}">
 				<c:if test="${askList.userNo eq user.userNo}">
 					<td><label for="${askList.askNo }">${user.userNick }</label></td>
 				</c:if>
 			</c:if>
-			<c:if test="${empty askList.userNo}">
-				<td><label for="${askList.askNo }">탈퇴한 회원입니다</label></td>
-			</c:if>
 		</c:forEach>
+			<c:if test="${askList.userNo eq 0}">
+				<td>탈퇴한 회원입니다</td>
+			</c:if>
+	<td><label for="${askList.askNo }">${askList.askHit }</label></td>
 	<td><fmt:formatDate value="${askList.askDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
+
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
 <button id="btnWrite" class="pull-right">작성</button>
