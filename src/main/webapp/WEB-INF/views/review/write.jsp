@@ -28,7 +28,6 @@ function submitContents(elClickedObj) {
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
-		
 		$("form").submit();
 	})
 	
@@ -44,7 +43,7 @@ $(document).ready(function() {
 <h1>후기 글쓰기 페이지</h1>
 <hr>
 
-<form action="/review/write" method="post" enctype="multipart/form-data">
+<form action="/review/write?askNo=${param.askNo }" method="post" enctype="multipart/form-data">
 <div class="form-group">
 	<label for="userNick">작성자</label>
 	<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>

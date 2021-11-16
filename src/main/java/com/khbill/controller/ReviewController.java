@@ -106,12 +106,16 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String reviewWriteProc(
-			Review review, User user, Ask ask, Item item
+			Review review, User user, int askNo, Item item
 			, MultipartFile file, HttpSession session
 		) {
 		
+		logger.info("askNo=123 - {}", askNo);
+		
 		int userNo = (Integer) session.getAttribute("userNo");
 		user.setUserNick((String) session.getAttribute("userNick"));
+		
+		item.setItemNo(askService.getItem(askNo).getItemNo());
 		
 		review.setUserNo(userNo);
 		

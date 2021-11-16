@@ -85,20 +85,20 @@
 		SELECT zask_seq.nextval FROM dual
 	</select>
 
-	 <insert id="insertFile" parameterType="com.khbill.dto.File">
-	 	INSERT INTO ZFILE ( file_no, file_origin, file_stored, file_size, file_date )
+	<insert id="insertFile" parameterType="com.khbill.dto.File">
+		INSERT INTO ZFILE ( file_no, file_origin, file_stored, file_size, file_date )
 		VALUES ( #{fileNo }, #{fileOrigin }, #{fileStored }, #{fileSize }, sysdate )
-	 </insert>
-
-	 <insert id="insertItem" parameterType="com.khbill.dto.Item">
-	 	INSERT INTO ZITEM ( item_no, user_no, file_no, item_brand, item_name, item_price )
+	</insert>
+	
+	<insert id="insertItem" parameterType="com.khbill.dto.Item">
+		INSERT INTO ZITEM ( item_no, user_no, file_no, item_brand, item_name, item_price )
 		VALUES ( #{itemNo }, #{userNo }, #{fileNo }, #{itemBrand }, #{itemName }, #{itemPrice } )
-	 </insert>
+	</insert>
 
-	 <insert id="insertReview" parameterType="com.khbill.dto.Review">
-	 	INSERT INTO ZREVIEW ( review_no, item_no, user_no, file_no, review_title, review_content, review_date, review_hit )
-	 	VALUES (zreview_seq.nextval, #{itemNo }, #{userNo }, #{fileNo }, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
-	 </insert>
+	<insert id="insertReview" parameterType="com.khbill.dto.Review">
+	   INSERT INTO ZREVIEW ( review_no, item_no, user_no, file_no, review_title, review_content, review_date, review_hit )
+	   VALUES ( zreview_seq.nextval, #{itemNo }, #{userNo }, #{fileNo }, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
+	</insert>
 	 
 <!--  	<select id="selectReviewFileByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review"> -->
 <!-- 		SELECT * FROM ( -->

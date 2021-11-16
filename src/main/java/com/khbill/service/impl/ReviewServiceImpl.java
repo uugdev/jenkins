@@ -93,66 +93,57 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
-	@Override
-	public void setReviewWrite(Review review, Item item, MultipartFile file) {
-		
-		//빈 파일
-		if( file.getSize() <= 0 ) {
-			return;
-		}
-		
-		int userNo = review.getUserNo();
-		int fileNo = reviewDao.getNextFileNo();
-//		int itemNo = reviewDao.getNextItemNo();
-		int reviewNo = reviewDao.getNextReviewNo();
-		
-		
-		//파일이 저장될 경로
-		String storedPath = context.getRealPath("upload");
-		
-		File storedFolder = new File(storedPath);
-		if( !storedFolder.exists() ) {
-			storedFolder.mkdir();
-		}
-				
-		//저장될 파일의 이름 생성하기
-		String fileOrigin = file.getOriginalFilename();
-		String fileStored = UUID.randomUUID().toString().split("-")[4] + fileOrigin;
-				
-		//저장할 파일 객체
-		File dest = new File( storedPath, fileStored );
-		
-		try {
-			file.transferTo(dest); //업로드 파일 저장
-		} catch (IllegalStateException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		//--------------------------------------------------------
-		com.khbill.dto.File reviewFile = new com.khbill.dto.File();
-		
-		reviewFile.setFileOrigin(fileOrigin);
-		reviewFile.setFileStored(fileStored);
-		reviewFile.setFileSize((int)file.getSize());
-		reviewFile.setFileNo(fileNo);
-		
-//		item.CsetItemNo(itemNo);
-		item.setUserNo(userNo);
-		item.setFileNo(fileNo);
-
-//		review.setItemNo(itemNo);
-		review.setFileNo(fileNo);
-		review.setReviewNo(reviewNo);
-		
-//		reviewDao.insertItem(item);
-		reviewDao.insertFile(reviewFile);
-		reviewDao.insertReview(review);
-		
-//		logger.info("item{}", item);
-		logger.info("review{}", review);
-		logger.info("reviewFile{}", reviewFile);
-		
-	}
+	   @Override
+	   public void setReviewWrite(Review review, Item item, MultipartFile file) {
+	      
+	      //빈 파일
+	      if( file.getSize() <= 0 ) {
+	         return;
+	      }
+	      
+	      int itemNo = item.getItemNo();
+	      int fileNo = reviewDao.getNextFileNo();
+	      
+	      
+	      //파일이 저장될 경로
+	      String storedPath = context.getRealPath("upload");
+	      
+	      File storedFolder = new File(storedPath);
+	      if( !storedFolder.exists() ) {
+	         storedFolder.mkdir();
+	      }
+	            
+	      //저장될 파일의 이름 생성하기
+	      String fileOrigin = file.getOriginalFilename();
+	      String fileStored = UUID.randomUUID().toString().split("-")[4] + fileOrigin;
+	            
+	      //저장할 파일 객체
+	      File dest = new File( storedPath, fileStored );
+	      
+	      try {
+	         file.transferTo(dest); //업로드 파일 저장
+	      } catch (IllegalStateException | IOException e) {
+	         e.printStackTrace();
+	      }
+	      
+	      //--------------------------------------------------------
+	      com.khbill.dto.File reviewFile = new com.khbill.dto.File();
+	      
+	      reviewFile.setFileNo(fileNo);
+	      reviewFile.setFileOrigin(fileOrigin);
+	      reviewFile.setFileStored(fileStored);
+	      reviewFile.setFileSize((int)file.getSize());
+	      
+	      review.setItemNo(itemNo);
+	      review.setFileNo(fileNo);
+	      
+	      reviewDao.insertFile(reviewFile);
+	      reviewDao.insertReview(review);
+	      
+	      logger.info("review{}", review);
+	      logger.info("reviewFile{}", reviewFile);
+	      
+	   }
 
 	@Override
 	public com.khbill.dto.File getAttachFile(Review review) {
