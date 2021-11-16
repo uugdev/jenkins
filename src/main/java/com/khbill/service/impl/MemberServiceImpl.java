@@ -46,27 +46,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean checkUserId(User user) {
-		int check = memberDao.countUserIdDupl(user);
-		
-		if( check <= 0 ) {
-			return true;
-		} else {
-			return false;
-		}
-		
+	public int checkUserId(String userId) {
+		int check = memberDao.countUserIdDupl(userId);
+		return check;
 	}
 
 	@Override
-	public boolean checkUserNick(User user) {
-		int check = memberDao.countUserNickDupl(user);
-		
-		if( check <= 0 ) {
-			return true;
-		} else {
-			return false;
-		}
-		
+	public int checkUserNick(String userNick) {
+		int check = memberDao.countUserNickDupl(userNick);
+		return check;
 	}
 	
 	@Override

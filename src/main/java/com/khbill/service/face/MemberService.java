@@ -38,18 +38,18 @@ public interface MemberService {
 	/**
 	 * 아이디 중복 확인
 	 * 
-	 * @param user - 회원가입 정보
-	 * @return boolean
+	 * @param userId - 회원가입 시 입력한 아이디
+	 * @return int
 	 */
-	public boolean checkUserId(User user);
+	public int checkUserId(String userId);
 
 	/**
 	 * 닉네임 중복 확인
 	 * 
-	 * @param user - 회원가입 정보
-	 * @return boolean
+	 * @param userNick - 회원가입 시 입력한 닉네임
+	 * @return int
 	 */
-	public boolean checkUserNick(User user);
+	public int checkUserNick(String userNick);
 
 	/**
 	 * 유저 번호로 닉네임을 구한다

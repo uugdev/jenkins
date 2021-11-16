@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Qna;
 import com.khbill.dto.QnaComment;
@@ -89,25 +90,36 @@ public class AdminQnaController {
 		return "redirect:/admin/qna/detail?qnaNo="+qnaNo;
 	}
 	
-	@RequestMapping(value="/admin/qna/list/orderByNo")
-	public String orderByNo(Paging paramData, Model model){
-		Paging paging = adminQnaService.getPaging(paramData);
-		List<Qna> list = adminQnaService.getQnaList(paging);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		
-		return "admin/qna/orderByNo";
-	}
-
+//	@RequestMapping(value="/admin/qna/list/orderByNo")
+//	public String orderByNo(Paging paramData, Model model){
+//		Paging paging = adminQnaService.getPaging(paramData);
+//		List<Qna> list = adminQnaService.getQnaList(paging);
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//		
+//		return "admin/qna/orderByNo";
+//	}
+//
+//	@RequestMapping(value="/admin/qna/list/orderByStatus")
+//	public String orderByStatus(Paging paramData, Model model){
+//		Paging paging = adminQnaService.getPaging(paramData);
+//		List<Qna> list = adminQnaService.getQnaStatusList(paging);
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//		
+//		return "admin/qna/orderByStatus";
+//	}
+	
 	@RequestMapping(value="/admin/qna/list/orderByStatus")
-	public String orderByStatus(Paging paramData, Model model){
+	public ModelAndView orderByStatus(ModelAndView mav, Paging paramData) {
 		Paging paging = adminQnaService.getPaging(paramData);
 		List<Qna> list = adminQnaService.getQnaStatusList(paging);
+		mav.addObject("list", list);
+		mav.addObject("paging", paging);
+		mav.setViewName("jsonView");
 		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		
-		return "admin/qna/orderByStatus";
+		return mav;
 	}
 }

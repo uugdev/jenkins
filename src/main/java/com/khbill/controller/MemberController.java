@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khbill.dto.User;
 import com.khbill.service.face.MemberService;
@@ -65,17 +67,29 @@ public class MemberController {
 //		logger.info("/member/join [POST]");
 //		logger.info("{}", user);
 		
-		boolean checkId = memberService.checkUserId(user);
-		boolean checkNick = memberService.checkUserNick(user);
-		
-		if( checkId == true && checkNick == true ) {
-			memberService.join(user);
-			return "redirect:/member/login";
-		} else {
-			logger.info("JOIN failed");
-			return "redirect:/main";
-		}
+		memberService.join(user);
+		return "redirect:/member/login";
+	
+	}
+	
+	@RequestMapping(value="/member/idCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public int idCheck( @RequestParam(value="userId") String userId ) {
+		logger.info("userIdCheck 진입");
+        logger.info("전달받은 id:"+userId);
+        int cnt = memberService.checkUserId(userId);
+        logger.info("확인 결과:"+cnt);
+        return cnt;
+	}
 
+	@RequestMapping(value="/member/nickCheck", method=RequestMethod.POST)
+	@ResponseBody
+	public int nickCheck( @RequestParam(value="userNick") String userNick ) {
+		logger.info("userNickCheck 진입");
+		logger.info("전달받은 Nick:"+userNick);
+		int cnt = memberService.checkUserNick(userNick);
+		logger.info("확인 결과:"+cnt);
+		return cnt;
 	}
 
 	

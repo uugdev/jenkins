@@ -45,18 +45,18 @@ public interface MemberDao {
 	/**
 	 * 중복되는 아이디 확인
 	 * 
-	 * @param user - 회원가입 정보
+	 * @param userId - 아이디 정보
 	 * @return 0이어야 정상
 	 */
-	public int countUserIdDupl(User user);
+	public int countUserIdDupl(String userId);
 
 	/**
 	 * 중복되는 닉네임 확인
 	 * 
-	 * @param user - 회원가입 정보
+	 * @param userNick - 닉네임 정보
 	 * @return 0이어야 정상
 	 */
-	public int countUserNickDupl(User user);
+	public int countUserNickDupl(String userNick);
 
 	/**
 	 * 유저 번호로 유저 닉네임을 찾는다

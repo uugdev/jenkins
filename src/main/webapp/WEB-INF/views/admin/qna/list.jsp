@@ -26,36 +26,48 @@ $(document).ready(function(){
 		}
 	})
 	
-	$("#orderByNo").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/admin/qna/list/orderByNo",
-			data: {},
-			dataType: "html",
-			success: function(res){
-				console.log("AJAX 성공")
+// 	$("#orderByNo").click(function(){
+// 		$.ajax({
+// 			type: "get",
+// 			url: "/admin/qna/list/orderByNo",
+// 			data: {},
+// 			dataType: "html",
+// 			success: function(res){
+// 				console.log("AJAX 성공")
 				
-				$("#ajax").html(res);
-			},
-			error: function(){
-				console.log("AJAX 실패")
-			}
-		})
-	})
+// 				$("#ajax").html(res);
+// 			},
+// 			error: function(){
+// 				console.log("AJAX 실패")
+// 			}
+// 		})
+// 	})
+
+// 	$("#orderByStatus").click(function(){
+// 		$.ajax({
+// 			type: "get",
+// 			url: "/admin/qna/list/orderByStatus",
+// 			data: {},
+// 			dataType: "html",
+// 			success: function(res){
+// 				console.log("AJAX 성공")
+				
+// 				$("#ajax").html(res);
+// 			},
+// 			error: function(){
+// 				console.log("AJAX 실패")
+// 			}
+// 		})
+// 	})
 
 	$("#orderByStatus").click(function(){
 		$.ajax({
 			type: "get",
 			url: "/admin/qna/list/orderByStatus",
 			data: {},
-			dataType: "html",
+			dataType: "json",
 			success: function(res){
-				console.log("AJAX 성공")
-				
-				$("#ajax").html(res);
-			},
-			error: function(){
-				console.log("AJAX 실패")
+				console.log("Ajax 성공")
 			}
 		})
 	})
