@@ -82,7 +82,7 @@ $(document).ready(function() {
 
 <div id="fileBox">	
 <div id="originFile">
-	<a href="/review/download?fileNo=${file.fileNo }">${file.fileOrigin }</a>
+	<a href="/review/download?fileNo=${file.fileNo }">${file.fileStored }</a>
 	<span id="delFile">X</span>
 </div>
 <br>

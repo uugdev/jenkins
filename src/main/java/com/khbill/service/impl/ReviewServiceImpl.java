@@ -103,7 +103,7 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		int userNo = review.getUserNo();
 		int fileNo = reviewDao.getNextFileNo();
-		int itemNo = reviewDao.getNextItemNo();
+//		int itemNo = reviewDao.getNextItemNo();
 		int reviewNo = reviewDao.getNextReviewNo();
 		
 		
@@ -136,20 +136,20 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewFile.setFileSize((int)file.getSize());
 		reviewFile.setFileNo(fileNo);
 		
+//		item.CsetItemNo(itemNo);
 		item.setUserNo(userNo);
 		item.setFileNo(fileNo);
-		item.setItemNo(itemNo);
 
-		review.setItemNo(itemNo);
+//		review.setItemNo(itemNo);
 		review.setFileNo(fileNo);
 		review.setReviewNo(reviewNo);
 		
+//		reviewDao.insertItem(item);
 		reviewDao.insertFile(reviewFile);
-		reviewDao.insertItem(item);
 		reviewDao.insertReview(review);
 		
+//		logger.info("item{}", item);
 		logger.info("review{}", review);
-		logger.info("item{}", item);
 		logger.info("reviewFile{}", reviewFile);
 		
 	}
@@ -190,7 +190,7 @@ public class ReviewServiceImpl implements ReviewService {
 		String fileStored = UUID.randomUUID().toString().split("-")[4] + fileOrigin;
 
 		// 저장할 파일 객체
-		File dest = new File(storedPath, fileStored);
+		File dest = new File( storedPath, fileStored );
 
 		try {
 			file.transferTo(dest); // 업로드 파일 저장
@@ -212,10 +212,6 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		reviewDao.insertFile(reviewFile);
 		reviewDao.update(review);
-		
-		logger.info("review{}", review);
-		logger.info("reviewFile{}", reviewFile);
-		
 	}
 //
 //	@Override

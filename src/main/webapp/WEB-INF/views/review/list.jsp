@@ -17,7 +17,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		$(location).attr("href", "/review/write");
+		$(location).attr("href", "/mypage/item/list");
 // 		location.href = "/review/write";
 	})
 	

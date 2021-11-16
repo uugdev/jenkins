@@ -144,7 +144,7 @@ function deleteComment(reviewComNo) {
 <div id="item">
 	<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
 </div>
-<a href="/board/download?fileNo=${file.fileNo }">${file.fileStored }</a>
+<%-- <a href="/board/download?fileNo=${file.fileNo }">${file.fileOrigin }</a> --%>
 
 <div style="text-align: center;">${review.REVIEW_CONTENT }</div><!-- 본문 -->
 
