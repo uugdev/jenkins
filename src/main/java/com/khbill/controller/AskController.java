@@ -49,9 +49,9 @@ public class AskController {
 		System.out.println("ask" + user);
 		System.out.println("user" + user);
 		
-		model.addAttribute("user", user);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
+		model.addAttribute("user", user);
 	
 	
 	}//list

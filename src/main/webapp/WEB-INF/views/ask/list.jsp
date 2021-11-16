@@ -73,15 +73,15 @@ td:nth-child(2) {
 						<td>${ask.askNo }</td>
 						<td><a href="/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
 						<c:forEach items="${user }" var="user">
-							<c:if test="${ask.userNo ne null}">
+							<c:if test="${ask.userNo ne 0}">
 								<c:if test="${ask.userNo eq user.userNo}">
 									<td>${user.userNick }</td>
 								</c:if>
 							</c:if>
-							<c:if test="${ask.userNo eq null }">
+						</c:forEach>
+							<c:if test="${ask.userNo eq 0}">
 								<td>탈퇴한 회원입니다</td>
 							</c:if>
-						</c:forEach>
 						<td>${ask.askHit }</td>
 						<td><fmt:formatDate value="${ask.askDate }"
 								pattern="yy-MM-dd HH:mm:ss" /></td>
