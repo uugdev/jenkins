@@ -2,6 +2,10 @@ package com.khbill.service.face;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.khbill.dto.Trade;
 import com.khbill.util.Paging;
 
@@ -43,5 +47,14 @@ public interface TradeService {
 	 * @return tradeNo에 해당하는 거래 게시글 댓글 리스트
 	 */
 	public List<Object> getTradeCommentDetail(int tradeNo);
+	
+	/**
+	 * 입력받은 데이터로 거래 게시글 작성
+	 * 
+	 * @param session - 유저 넘버가 저장되어 있는 세션
+	 * @param file - 전송된 file
+	 * @param trade - 전송받은 title, content
+	 */
+	public void setTradeWrite(HttpSession session, MultipartFile file, Trade trade);
 
 }

@@ -1,0 +1,14 @@
+#writeMain {
+	text-align: left;
+	margin-top: 40px;
+	margin-bottom: 80px;
+}
+
+#writeForm {
+	font-size: 18px;
+}
+
+button {
+	width: 75px;
+	margin-top: 30px;
+}

@@ -24,66 +24,37 @@
 	<hr style="margin-top: 40px;">
 	
 	<div id="detailMain" style="height: 500px;">
-		<img alt="#" src="/upload/9d81efffd473main.PNG">
+		<img alt="#" src="/upload/${tradeDetail.FILE_STORED }">
 		<div id="writeContent">
 			${tradeDetail.TRADE_CONTENT }
 		</div>
 	</div>
-	
-	<!-- 댓글 리스트 -->
-	<table class="table table-striped table-hover table-condensed">
-		<thead>
-			<tr>
-				<th style="width: 10%;">작성자</th>
-				<th style="width: 5%;"></th>
-				<th style="width: 70%;">댓글</th>
-				<th style="width: 10%;">작성일</th>
-				<th style="width: 5%;"></th>
-			</tr>
-		</thead>
-	
-		<tbody id="commentBody">
-			<c:forEach items="${tradeComment}" var="tradeComment">
-				<tr data-tradeComNo="${tradeComment.TRADE_COM_NO }">
-					<c:choose>
-	                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
-						<!-- 비밀글이 아닐 경우 -->
-						
-							<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-							<td style="width: 5%;"></td>
-							<td style="width: 70%;">${tradeComment.TRADE_COM_CONTENT }</td>
-							<td style="width: 10%;">
-								<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
-							</td>
-							<td style="width: 5%;">
-								<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
-									<button class="btn btn-default btn-xs"
-											onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
-											삭제
-									</button>
-								</c:if>
-							</td>
-						</c:when>
-						
-	                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'y' }">
-						<!-- 비밀글일 경우 -->
-						
-	                		<!-- 게시글 유저와 글쓴이가 아닐 경우 -->
-	                		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and sessionScope.userNo ne tradeComment.USER_NO }">
-								<td style="width: 10%;"></td>
-								<td style="width: 5%;">
-									<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
-								</td>
-								<td style="width: 70%;">비밀글입니다!</td>
-								<td style="width: 10%;"></td>
-								<td style="width: 50%;"></td>
-	                		</c:if>
 
-	                		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO or sessionScope.userNo eq tradeDetail.USER_NO }">
+	<!-- 댓글 처리 -->
+	<hr>
+	<div>
+	
+		<!-- 댓글 리스트 -->
+		<table class="table table-striped table-hover table-condensed">
+			<thead>
+				<tr>
+					<th style="width: 10%;">작성자</th>
+					<th style="width: 5%;"></th>
+					<th style="width: 70%;">댓글</th>
+					<th style="width: 10%;">작성일</th>
+					<th style="width: 5%;"></th>
+				</tr>
+			</thead>
+		
+			<tbody id="commentBody">
+				<c:forEach items="${tradeComment}" var="tradeComment">
+					<tr data-tradeComNo="${tradeComment.TRADE_COM_NO }">
+						<c:choose>
+		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
+							<!-- 비밀글이 아닐 경우 -->
+							
 								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-								<td style="width: 5%;">
-									<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
-								</td>
+								<td style="width: 5%;"></td>
 								<td style="width: 70%;">${tradeComment.TRADE_COM_CONTENT }</td>
 								<td style="width: 10%;">
 									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
@@ -96,14 +67,72 @@
 										</button>
 									</c:if>
 								</td>
-	                		</c:if>
-						</c:when>
-					</c:choose>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-		<!-- 댓글 리스트 end -->
+							</c:when>
+							
+		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'y' }">
+							<!-- 비밀글일 경우 -->
+							
+		                		<!-- 게시글 유저와 글쓴이가 아닐 경우 -->
+		                		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and sessionScope.userNo ne tradeComment.USER_NO }">
+									<td style="width: 10%;"></td>
+									<td style="width: 5%;">
+										<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
+									</td>
+									<td style="width: 70%;">비밀글입니다!</td>
+									<td style="width: 10%;"></td>
+									<td style="width: 50%;"></td>
+		                		</c:if>
+	
+		                		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO or sessionScope.userNo eq tradeDetail.USER_NO }">
+									<td style="width: 10%;">${tradeComment.USER_NICK }</td>
+									<td style="width: 5%;">
+										<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
+									</td>
+									<td style="width: 70%;">${tradeComment.TRADE_COM_CONTENT }</td>
+									<td style="width: 10%;">
+										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+									</td>
+									<td style="width: 5%;">
+										<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
+											<button class="btn btn-default btn-xs"
+													onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
+													삭제
+											</button>
+										</c:if>
+									</td>
+		                		</c:if>
+							</c:when>
+						</c:choose>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		
+		<!-- 비로그인상태 -->
+		<c:if test="${not login }">
+			<hr style="border: 1px solid #ddd;">
+			<strong>로그인이 필요합니다</strong><br>
+			<button onclick='location.href="/member/login";'>로그인</button>
+			<button onclick='location.href="/member/join";'>회원가입</button>
+		</c:if>
+		
+		<!-- 로그인상태 -->
+		<c:if test="${login }">
+		<!-- 댓글 입력 -->
+		<div class="form-inline text-center">
+			<hr style="border: 1px solid #ddd;">
+			<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
+			<textarea rows="2" cols="60" class="form-control" id="reviewComContent"></textarea>
+			<button id="btnCommInsert" class="btn">입력</button>
+		</div>
+		<!-- 댓글 입력 end -->
+		</c:if>
+		
+		<div class="text-right">
+			<button type="button" onclick="location.href='/trade/list';" >목록으로</button>
+		</div>
+		
+	</div>	<!-- 댓글 리스트 end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

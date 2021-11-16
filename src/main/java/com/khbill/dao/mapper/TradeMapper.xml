@@ -54,4 +54,25 @@
 	    AND trade_no = #{tradeNo }
 	</select>
 	
+	<insert id="insertFile" parameterType="com.khbill.dto.File">
+		INSERT INTO zfile (file_no, file_origin, file_stored, file_size, file_date)
+		VALUES (#{fileNo }, #{fileOrigin }, #{fileStored }, #{fileSize }, SYSDATE)
+	</insert>
+	
+	<select id="selectFileNo" resultType="int">
+		SELECT zfile_seq.nextval FROM dual
+	</select>
+	
+	<insert id="insertTrade" parameterType="com.khbill.dto.Trade">
+		INSERT INTO ZTRADE (trade_no, user_no, file_no, trade_category, trade_title, trade_content)
+		VALUES (ztrade_seq.nextval, #{userNo }, #{fileNo }, #{tradeCategory }, #{tradeTitle }, #{tradeContent })
+	</insert>
+	
+	<update id="updateHit" parameterType="int">
+		UPDATE ztrade
+		SET trade_hit = trade_hit + 1
+		WHERE trade_no = #{tradeNo }
+	</update>
+	
+	
 </mapper>

@@ -2,12 +2,16 @@ package com.khbill.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Trade;
 import com.khbill.service.face.TradeService;
@@ -53,5 +57,25 @@ public class TradeController {
 		model.addAttribute("tradeComment", tradeComment);
 		
 	}
+	
+	@RequestMapping(value = "/trade/write", method = RequestMethod.GET)
+	public void tradeGetWrite() {}
+
+	@RequestMapping(value = "/trade/write", method = RequestMethod.POST)
+	public String tradePostWrite(
+				HttpSession session
+				, MultipartFile file
+				, Trade trade
+			) {
+		logger.info("session - {}", session);
+		logger.info("file - {}", file);
+		logger.info("trade - {}", trade);
+		
+		tradeService.setTradeWrite(session, file, trade);
+		
+		return "redirect:/trade/list";
+	}
+	
+	
 
 }
