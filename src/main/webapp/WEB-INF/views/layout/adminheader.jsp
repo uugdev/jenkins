@@ -24,7 +24,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="/admin/user/list" style="margin: 7px 0 0 30px;"><h4>회원 관리</h4></a></li>
 					<li><a href="/admin/notice/list" style="margin: 7px 0 0 30px;"><h4>공지 관리</h4></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>질문게시판 관리</h4></a></li>
+					<li><a href="/admin/ask/list" style="margin: 7px 0 0 30px;"><h4>질문게시판 관리</h4></a></li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>후기게시판 관리</h4></a></li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>거래게시판 관리</h4></a></li>
 					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>신고 관리</h4></a></li>

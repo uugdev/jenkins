@@ -53,7 +53,7 @@
                                             </p>
                                         </a>
                                     </td>
-                                    <td><img alt="#" src="${popularBoard[1].FILE_STORED }"></td>
+                                    <td><img alt="#" src="/upload/${popularBoard[1].FILE_STORED }"></td>
                                     <td>
                                         <a href="/ask/detail?askNo=${popularBoard[1].ASK_NO }">
                                             <c:if test="${popularBoard[1].VOTE_END gt setDate }">
@@ -74,7 +74,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img alt="#" src="${popularBoard[2].FILE_STORED }"></td>
+                                    <td><img alt="#" src="/upload/${popularBoard[2].FILE_STORED }"></td>
                                     <td>
                                         <a href="/ask/detail?askNo=${popularBoard[2].ASK_NO }">
                                             <c:if test="${popularBoard[2].VOTE_END gt setDate }">
@@ -93,7 +93,7 @@
                                             </p>
                                         </a>
                                     </td>
-                                    <td><img alt="#" src="${popularBoard[3].FILE_STORED }"></td>
+                                    <td><img alt="#" src="/upload/${popularBoard[3].FILE_STORED }"></td>
                                     <td>
                                         <a href="/ask/detail?askNo=${popularBoard[3].ASK_NO }">
                                             <c:if test="${popularBoard[3].VOTE_END gt setDate }">
@@ -114,7 +114,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><img alt="#" src="${popularBoard[4].FILE_STORED }"></td>
+                                    <td><img alt="#" src="/upload/${popularBoard[4].FILE_STORED }"></td>
                                     <td>
                                         <a href="/ask/detail?askNo=${popularBoard[4].ASK_NO }">
                                             <c:if test="${popularBoard[4].VOTE_END gt setDate }">
@@ -133,7 +133,7 @@
                                             </p>
                                         </a>
                                     </td>
-                                    <td><img alt="#" src="${popularBoard[5].FILE_STORED }"></td>
+                                    <td><img alt="#" src="/upload/${popularBoard[5].FILE_STORED }"></td>
                                     <td>
                                         <a href="/ask/detail?askNo=${popularBoard[5].ASK_NO }">
                                             <c:if test="${popularBoard[5].VOTE_END gt setDate }">

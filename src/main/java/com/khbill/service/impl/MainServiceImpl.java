@@ -89,7 +89,7 @@ public class MainServiceImpl implements MainService {
 
 	@Override
     public List<Object> getPopularBoard() {
-        return mainDao.selectAskListOrderByHit();
+        return mainDao.selectAskListOrderByVotes();
     }
 
     @Override

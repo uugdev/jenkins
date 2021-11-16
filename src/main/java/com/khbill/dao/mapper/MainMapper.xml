@@ -45,22 +45,26 @@
 		AND percent_most <![CDATA[ >= ]]> #{percent }
 	</select>
 	
-	    <select id="selectAskListOrderByHit" resultType="HashMap">
-        SELECT * FROM (
-        SELECT
-            a.ask_no, u.user_nick, a.ask_title, a.ask_date, TO_CHAR(a.ask_date, 'MMDD') mmddask_date, v.vote_end , f.file_stored
-        FROM zvote v, zask a, zitem i, zfile f, zuser u
-        WHERE 1=1
-            AND v.user_no = a.user_no
-            AND v.user_no = u.user_no
-            AND v.ask_no = a.ask_no
-            AND a.product_no = i.item_no
-            AND a.user_no = u.user_no
-            AND i.user_no = u.user_no
-            AND i.file_no = f.file_no
-            AND TO_CHAR(sysdate, 'MM') = TO_CHAR(v.vote_end, 'MM')
-        ORDER BY a.ask_hit DESC
-    ) WHERE ROWNUM <![CDATA[ < ]]> 7
+	<select id="selectAskListOrderByVotes" resultType="HashMap">
+		SELECT sub.c, sub.ask_no, u.user_nick, a.ask_title, a.ask_date, v.vote_end, f.file_stored
+		FROM zvote v, zask a, zitem i, zfile f, zuser u, (
+		select ask_no, count(vote_state) c from zvote
+		    group by ask_no
+		    order by c desc
+		    ) sub
+		    WHERE 1=1
+		    AND v.user_no = a.user_no
+		    AND v.ask_no = a.ask_no
+		    AND a.user_no = u.user_no
+		    AND a.product_no = i.item_no
+		    AND a.user_no = i.user_no
+		    AND i.user_no = u.user_no
+		    AND i.file_no = f.file_no
+		    AND sub.ask_no = a.ask_no
+		    AND ROWNUM <![CDATA[ <= ]]> 6
+		    
+		    AND TO_CHAR(sysdate, 'MM') = TO_CHAR(v.vote_end, 'MM')
+		    ORDER BY sub.c DESC
     </select>
     
     <select id="selectBuyItemList" resultType="HashMap" parameterType="int">

@@ -46,11 +46,11 @@ public interface MainDao {
 	public List<String> selectMainment(Integer persent);
     
     /**
-     * 이번 달에 조회수가 많은 질문 게시글 6개 조회
+     * 이번 달에 투표 수가 많은 질문 게시글 6개 조회
      * 
      * @return 제목, 내용, 게시 날짜, 투표 종료 날짜 MMDD, 투표 종료 날짜 , 저장된 파일명
      */
-    public List<Object> selectAskListOrderByHit();
+    public List<Object> selectAskListOrderByVotes();
     
     /**
      * 투표 종료 날짜, 상품 브랜드, 상품 이름, 상품 가격을 모두 유저 번호로 조회
