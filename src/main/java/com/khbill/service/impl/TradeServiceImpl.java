@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.TradeDao;
 import com.khbill.dto.Trade;
+import com.khbill.dto.TradeComment;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -59,6 +60,9 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public List<Object> getTradeCommentDetail(int tradeNo) {
+		
+		logger.info("tradeNo - {}", tradeNo);
+		
 		return tradeDao.selectTradeCommentByTradeNo(tradeNo);
 	}
 
@@ -118,6 +122,11 @@ public class TradeServiceImpl implements TradeService {
 		
 		tradeDao.insertTrade(trade);
 		
+	}
+
+	@Override
+	public void setTradeCommentWrite(TradeComment tradeComment) {
+		tradeDao.insertTradeComment(tradeComment);
 	}
 
 }

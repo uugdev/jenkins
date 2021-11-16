@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Trade;
+import com.khbill.dto.TradeComment;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -74,6 +75,23 @@ public class TradeController {
 		tradeService.setTradeWrite(session, file, trade);
 		
 		return "redirect:/trade/list";
+	}
+	
+	@RequestMapping(value = "/trade/comment/write", method = RequestMethod.POST)
+	public String tradeCommentWrite(
+				HttpSession session
+				, Model model
+				, TradeComment tradeComment
+			) {
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		tradeComment.setUserNo(userNo);
+		tradeService.setTradeCommentWrite(tradeComment);
+		
+		logger.info("userNo {}", userNo);
+		logger.info("tradeComment {}", tradeComment);
+		
+		return "redirect:/trade/detail?tradeNo=" + tradeComment.getTradeNo();
 	}
 	
 	

@@ -46,7 +46,7 @@ public interface MainDao {
 	public List<String> selectMainment(Integer persent);
     
     /**
-     * 이번 달에 투표 수가 많은 질문 게시글 6개 조회
+     * 투표 종료일이 한달 전 ~ 3일 후에 있는 투표 수가 많은 질문 게시글 6개 조회
      * 
      * @return 제목, 내용, 게시 날짜, 투표 종료 날짜 MMDD, 투표 종료 날짜 , 저장된 파일명
      */

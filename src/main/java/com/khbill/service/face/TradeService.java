@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dto.Trade;
+import com.khbill.dto.TradeComment;
 import com.khbill.util.Paging;
 
 public interface TradeService {
@@ -56,5 +57,12 @@ public interface TradeService {
 	 * @param trade - 전송받은 title, content
 	 */
 	public void setTradeWrite(HttpSession session, MultipartFile file, Trade trade);
+	
+	/**
+	 * 입력받은 데이터로 거래 게시글 댓글 작성
+	 * 
+	 * @param tradeComment - 전송받은 댓글 정보
+	 */
+	public void setTradeCommentWrite(TradeComment tradeComment);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.khbill.dto.File;
 import com.khbill.dto.Trade;
+import com.khbill.dto.TradeComment;
 import com.khbill.util.Paging;
 
 public interface TradeDao {
@@ -23,6 +24,8 @@ public interface TradeDao {
 	public void insertTrade(Trade trade);
 
 	public void updateHit(int tradeNo);
+
+	public void insertTradeComment(TradeComment tradeComment);
 
 
 

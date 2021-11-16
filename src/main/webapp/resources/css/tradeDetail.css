@@ -13,3 +13,7 @@ hr {
 	margin-bottom: 15px;
 	margin-top: 15px;
 }
+
+#commentBody {
+	text-align: left;
+}

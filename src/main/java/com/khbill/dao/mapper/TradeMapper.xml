@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
-	    SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
+        SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
 	    FROM ztrade_comment c, zuser u
 	    WHERE 1=1
 	    AND c.user_no = u.user_no
@@ -73,6 +73,11 @@
 		SET trade_hit = trade_hit + 1
 		WHERE trade_no = #{tradeNo }
 	</update>
+	
+	<insert id="insertTradeComment" parameterType="com.khbill.dto.TradeComment">
+		INSERT INTO ZTRADE_COMMENT ( trade_com_no, user_no, trade_no, trade_com_content, trade_com_secret)
+		VALUES (ztrade_com_seq.nextval, #{userNo }, #{tradeNo }, #{tradeComContent }, #{tradeComSecret })
+	</insert>
 	
 	
 </mapper>
