@@ -39,7 +39,7 @@
 			<td><a href="<%=request.getContextPath() %>/mypage/item/status?itemNo=${list.ITEM_NO }"><button>결제로 변경하기</button></a></td>
 		</c:if>
 		<c:if test="${list.ITEM_STATUS == 'y' && empty list.REVIEW_NO }">
-			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ASK_NO }"><button>리뷰 작성하기</button></a></td>
+			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ITEM_NO }"><button>리뷰 작성하기</button></a></td>
 		</c:if>
 		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.REVIEW_NO }">
 			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button>후기 확인하기</button></a></td>
