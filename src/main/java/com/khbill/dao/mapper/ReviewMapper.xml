@@ -121,7 +121,8 @@
 
 	<update id="update" parameterType="com.khbill.dto.Review">
 		UPDATE ZREVIEW
-		SET review_title = #{reviewTitle }
+		SET file_no = #{fileNo}
+			,review_title = #{reviewTitle }
 			, review_content = #{reviewContent }
 		WHERE review_no = #{reviewNo }
 	</update>

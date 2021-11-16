@@ -152,7 +152,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void setReviewUpdate(Review review, Item item, MultipartFile file) {
+	public void setReviewUpdate(Review review, MultipartFile file) {
 		
 //		if( "".equals(review.getReviewTitle()) ) {
 //			review.setReviewTitle("(제목없음)");
@@ -165,7 +165,6 @@ public class ReviewServiceImpl implements ReviewService {
 			return;
 		}
 		
-		int userNo = review.getUserNo();
 		int fileNo = reviewDao.getNextFileNo();
 	
 		//파일이 저장될 경로(real path)
@@ -195,9 +194,6 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewFile.setFileStored(fileStored);
 		reviewFile.setFileSize((int)file.getSize());
 		reviewFile.setFileNo(fileNo);
-		
-		item.setUserNo(userNo);
-		item.setFileNo(fileNo);
 
 		review.setFileNo(fileNo);
 		

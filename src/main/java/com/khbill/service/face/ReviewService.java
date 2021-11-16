@@ -108,7 +108,7 @@ public interface ReviewService {
 	 * @param item - 상품 정보 객체 DTO
 	 * @param file - 파일업로드 객체
 	 */
-	public void setReviewUpdate(Review review, Item item, MultipartFile file);
+	public void setReviewUpdate(Review review, MultipartFile file);
 
 //	/**
 //	 * 후기 게시판 글 번호로 게시글 삭제

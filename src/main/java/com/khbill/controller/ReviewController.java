@@ -188,7 +188,7 @@ public class ReviewController {
 		
 		review.setUserNo(userNo);
 		
-		reviewService.setReviewUpdate(review, item, file);
+		reviewService.setReviewUpdate(review, file);
 		
 		logger.info("file{}", review.getFileNo());
 		
