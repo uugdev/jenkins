@@ -99,18 +99,6 @@
 	   INSERT INTO ZREVIEW ( review_no, item_no, user_no, file_no, review_title, review_content, review_date, review_hit )
 	   VALUES ( zreview_seq.nextval, #{itemNo }, #{userNo }, #{fileNo }, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
 	</insert>
-	 
-<!--  	<select id="selectReviewFileByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review"> -->
-<!-- 		SELECT * FROM ( -->
-<!-- 		    SELECT  -->
-<!-- 		        review_no, r.file_no, file_origin, file_stored, file_size, file_date -->
-<!-- 		    FROM ZREVIEW R -->
-<!-- 		    INNER JOIN ZFILE F -->
-<!-- 		        ON r.file_no = f.file_no -->
-<!-- 		    ORDER BY file_no -->
-<!-- 		) ZFILE -->
-<!-- 		WHERE review_no = #{reviewNo } -->
-<!-- 	</select> -->
 
  	<select id="selectReviewFileByReviewNo" resultType="com.khbill.dto.Review" parameterType="com.khbill.dto.Review">
 	    SELECT 
@@ -128,8 +116,8 @@
 	</update>
 	
 	
-	<delete id="deleteReview" parameterType="int">
-		DELETE ZREVIEW
+	<delete id="deleteReview" parameterType="com.khbill.dto.Review">
+		DELETE zreview
 		WHERE review_no = #{reviewNo }
 	</delete>
 	
@@ -143,8 +131,8 @@
 		WHERE file_no = #{fileNo }
 	</delete>
 	
-	<delete id="deleteReviewCommentByReviewNo" parameterType="int">
-		DELETE ZREVIEW_COMMENT
+	<delete id="deleteReviewCommentByReviewNo" parameterType="com.khbill.dto.Review">
+		DELETE zreview_comment
 		WHERE review_no = #{reviewNo }
 	</delete>
 	

@@ -110,19 +110,19 @@ public interface ReviewService {
 	 */
 	public void setReviewUpdate(Review review, MultipartFile file);
 
-//	/**
-//	 * 후기 게시판 글 번호로 게시글 삭제
-//	 * 
-//	 * @param reviewNo - 삭제할 게시글의 게시글번호 객체
-//	 */
-//	public void setReviewDelete(Review review);
-//
-//	/**
-//	 * 게시글번호로 댓글 삭제
-//	 * 
-//	 * @param review - 삭제할 게시글의 게시글 댓글 객체
-//	 */
-//	public void setReviewCommentDelete(Review review);
+	/**
+	 * 후기 게시판 글 번호로 게시글 삭제
+	 * 
+	 * @param reviewNo - 삭제할 게시글의 게시글번호 객체
+	 */
+	public void setReviewDelete(Review review);
+
+	/**
+	 * 게시글번호로 댓글 삭제
+	 * 
+	 * @param review - 삭제할 게시글의 게시글 댓글 객체
+	 */
+	public void setReviewCommentDelete(Review review);
 
 
 

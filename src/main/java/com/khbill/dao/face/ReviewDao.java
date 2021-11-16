@@ -126,28 +126,40 @@ public interface ReviewDao {
 	 */
 	public void update(Review review);
 
-//	/**
-//	 * 
-//	 * @param review
-//	 */
-//	public void deleteReview(int reviewNo);
+	
+	
+	
+	//---delete -----------------------------------
 
-//	/**
-//	 * 
-//	 * @param itemNo
-//	 */
-//	public void deleteItem(int itemNo);
-//	
-//	/**
-//	 * 
-//	 * @param fileNo
-//	 */
-//	public void deleteFile(int fileNo);
-//
-//	/**
-//	 * 게시글번호로 댓글 삭제
-//	 * 
-//	 * @param review - 삭제할 내용을 가진 게시글 객체
-//	 */
-//	public void deleteReviewCommentByReviewNo(int reviewNo);
+
+	/**
+	 * 후기게시글 삭제
+	 * 
+	 * @param review
+	 */
+	public void deleteReview(Review review);
+	
+	/**
+	 * 후기게시글 상품 삭제
+	 * 
+	 * @param itemNo
+	 */
+	public void deleteItem(int itemNo);
+	
+	/**
+	 * 후기게시글 파일 삭제
+	 * 
+	 * @param fileNo
+	 */
+	public void deleteFile(int fileNo);
+
+	
+	
+	/**
+	 * 게시글번호로 댓글 삭제
+	 * 
+	 * @param review - 삭제할 내용을 가진 게시글 객체
+	 */
+	public void deleteReviewCommentByReviewNo(Review review);
+
 }

@@ -30,7 +30,7 @@
 	<c:forEach items="${list }" var="list" varStatus="status">
 	<tr>
 		<td>${status.count }</td>
-		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${list.ASK_NO }">${list.ITEM_NAME }</a></td>
+		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${list.ITEM_NO }">${list.ITEM_NAME }</a></td>
 		<td>${list.ITEM_PRICE }</td>
 		<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
 		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>

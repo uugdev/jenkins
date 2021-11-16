@@ -196,14 +196,14 @@ public class ReviewController {
 		
 	}
 	
-//	@RequestMapping(value="/delete", method=RequestMethod.GET)
-//	public String deleteProc(Review review) {
-//		
-//		reviewService.setReviewCommentDelete(review);
-//		reviewService.setReviewDelete(review);
-//		
-//		return "redirect:/review/list";
-//	}
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String deleteProc(Review review) {
+		
+		reviewService.setReviewCommentDelete(review);
+		reviewService.setReviewDelete(review);
+		
+		return "redirect:/review/list";
+	}
 }
 
 

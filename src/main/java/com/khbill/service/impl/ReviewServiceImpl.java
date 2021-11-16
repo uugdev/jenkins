@@ -200,32 +200,35 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDao.insertFile(reviewFile);
 		reviewDao.update(review);
 	}
-//
-//	@Override
-//	public void setReviewDelete(int reviewNo) {
-//		
-//		HashMap<String, Object> review = reviewDao.selectReviewByReviewNo(review);
-//		Item item = new Item();
-//		com.khbill.dto.File file = new com.khbill.dto.File();
-//		
-//		item.setItemNo(review.getItemNo());
-//		System.out.println(item.getItemNo());
-//		file.setFileNo(item.getFileNo());
-//		System.out.println(item.getFileNo());
-//		
-//		int itemNo = item.getItemNo();
-//		int fileNo = file.getFileNo();
-//		
-//		reviewDao.deleteReview(reviewNo);
-//		reviewDao.deleteItem(itemNo);
-//		reviewDao.deleteFile(fileNo);
-//	}
-//
-//	@Override
-//	public void setReviewCommentDelete(int reviewNo) {
-//		
-//		reviewDao.deleteReviewCommentByReviewNo(reviewNo);
-//	}
+
+	@Override
+	public void setReviewDelete(Review review) {
+		
+		HashMap<String, Object> reviewMap = reviewDao.selectReviewByReviewNo(review);
+		Item item = new Item();
+		com.khbill.dto.File file = new com.khbill.dto.File();
+		
+		item.setItemNo(review.getItemNo());
+		System.out.println(item.getItemNo());
+		
+		file.setFileNo(item.getFileNo());
+		System.out.println(item.getFileNo());
+		
+		int itemNo = item.getItemNo();
+		int fileNo = file.getFileNo();
+		
+//		reviewDao.deleteReport(review);
+//		reviewDao.deleteScrap(review);
+		reviewDao.deleteReview(review);
+		reviewDao.deleteItem(itemNo);
+		reviewDao.deleteFile(fileNo);
+	}
+
+	@Override
+	public void setReviewCommentDelete(Review review) {
+		
+		reviewDao.deleteReviewCommentByReviewNo(review);
+	}
 
 
 }
