@@ -11,6 +11,27 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.check').prop('checked', true);
+	    } else {
+	       $('.check').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.check', function() {
+	    if($('input[class=check]:checked').length==$('.check').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+	
+	
+	
+	
+	
 	$("#btnDelete").click(function(){
 		var result = confirm("선택한 게시글을 삭제하시겠습니까?")
 		var deleteAsk = [];
@@ -71,7 +92,7 @@ label {
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
-	<th>	</th>
+	<th><input type="checkbox" name="select" id="selectAll" /></th>
 	<th>질문글 번호</th>
 	<th width="45%">제목</th>
 	<th>닉네임</th>
@@ -80,7 +101,7 @@ label {
 </tr>
 <c:forEach items="${list }" var="askList">
 <tr>
-	<td><input type="checkbox" id="${askList.askNo }" value="${askList.askNo }" class="check" /></td>
+	<td><input type="checkbox" name="select" id="${askList.askNo }" value="${askList.askNo }" class="check" /></td>
 	<td><label for="${askList.askNo}">${askList.askNo }</label></td>
 	<td><label for="${askList.askNo }"><a href="/admin/ask/detail?askNo=${askList.askNo }">${askList.askTitle }</a></label></td>
 		<c:forEach items="${user }" var="user">
@@ -100,7 +121,7 @@ label {
 
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-<button id="btnWrite" class="pull-right">작성</button>
+
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />

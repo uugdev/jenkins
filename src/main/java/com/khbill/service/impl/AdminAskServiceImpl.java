@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.khbill.dao.face.AdminAskDao;
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.service.face.AdminAskService;
 import com.khbill.util.Paging;
 
@@ -47,14 +49,14 @@ public class AdminAskServiceImpl implements AdminAskService {
 		item.setItemNo(ask.getProductNo());
 		file.setFileNo(item.getFileNo());
 
-		int itemNo = item.getItemNo();
+//		int itemNo = item.getItemNo();
 		int fileNo = file.getFileNo();
 
 		adminAskDao.deleteVote(i);
 		adminAskDao.deleteReport(i);
 		adminAskDao.deleteScrap(i);
 		adminAskDao.deleteAsk(i);
-		adminAskDao.deleteItem(itemNo);
+//		adminAskDao.deleteItem(itemNo);
 		adminAskDao.deleteFile(fileNo);
 		
 	}
@@ -102,5 +104,58 @@ public class AdminAskServiceImpl implements AdminAskService {
 
 		return user;
 	}
+	
+	
+	@Override
+	public User getUserInfoByUserNo(int userNo) {
+
+		User user = adminAskDao.selectUserInfo(userNo);
+
+		return user;
+	}
+	
+	@Override
+	public Ask getAskDetail(int askNo) {
+
+		Ask ask = adminAskDao.selectAskByAskNo(askNo);
+
+		return ask;
+	}
+
+	@Override
+	public com.khbill.dto.File getFile(int fileNo) {
+		com.khbill.dto.File file = adminAskDao.selectFileByFileNo(fileNo);
+
+		return file;
+	}
+
+	@Override
+	public Item getItem(int productNo) {
+
+		Item item = adminAskDao.selectItemByProductNo(productNo);
+
+		return item;
+	}
+
+	@Override
+	public Vote getVote(Vote voteResult) {
+
+		Vote vote = adminAskDao.selectVoteByAskNoUserNo(voteResult);
+
+		return vote;
+	}
+
+	@Override
+	public int getVoteStatusTotalCnt(int askNo, String voteState) {
+
+		Vote vote = new Vote();
+		vote.setAskNo(askNo);
+		vote.setVoteState(voteState);
+
+		int cnt = adminAskDao.selectVoteByAskNoVoteState(vote);
+
+		return cnt;
+	}
+	
 	
 }// class

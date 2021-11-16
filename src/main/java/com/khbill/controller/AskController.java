@@ -286,10 +286,6 @@ public class AskController {
 	
 	
 	
-	
-	
-	
-	
 	@RequestMapping(value="/votelike")
 	public ModelAndView voteLike( int askNo, ModelAndView mav,HttpSession session ) {
 		logger.info("/ask/votelike");

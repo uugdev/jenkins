@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
 
 public interface AdminAskService {
@@ -72,6 +75,58 @@ public interface AdminAskService {
 	 * @return 유저리스트
 	 */
 	public List<User> getUserList();
+
+	/**
+	 * 질문글번호로 상세조회
+	 * 
+	 * @param askNo - 전달받은 질문글번호
+	 * @return
+	 */
+	public Ask getAskDetail(int askNo);
+
+	/**
+	 * 질문글번호로 투표조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public Vote getVote(Vote voteSet);
+
+	/**
+	 * 질문글번호롤 상품조회
+	 * 
+	 * @param productNo
+	 * @return
+	 */
+	public Item getItem(int productNo);
+
+	/**
+	 * 파일번호로 파일조회
+	 * 
+	 * @param fileNo
+	 * @return
+	 */
+	public File getFile(int fileNo);
+
+	/**
+	 * 유저번호로 유저정보를 조회한다
+	 * 
+	 * @return 조회된 유저객체
+	 */
+	public User getUserInfoByUserNo(int userNo);
+
+
+	
+	/**
+	 * y,n 총 투표수 가져오기
+	 * 
+	 * @param askNo
+	 * @param voteState
+	 * @return
+	 */
+	public int getVoteStatusTotalCnt(int askNo, String voteStateY);
+
+
 
 	
 	
