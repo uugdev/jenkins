@@ -21,6 +21,24 @@
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
 	
+	<select id="selectCntMyAskScrapAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask_scrap
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectAskScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, A.* FROM (
+				SELECT a.ask_no, a.ask_title, a.ask_date, a.ask_hit
+				FROM zask a
+				INNER JOIN zask_scrap za
+				ON a.ask_no = za.ask_no
+				AND za.user_no = #{userNo }
+			) A
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
 	<select id="selectCntMyReviewAll" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM zreview
 		WHERE user_no = #{userNo }
@@ -37,6 +55,24 @@
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
 	
+	<select id="selectCntMyReviewScrapAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zreview_scrap
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectReviewScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, V.* FROM (
+				SELECT v.review_no, v.review_title, v.review_date, v.review_hit
+				FROM zreview r
+				INNER JOIN zreview_scrap zr
+				ON r.review_no = zr.review_no
+				AND zr.user_no = #{userNo }
+			) V
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>	
+	
 	<select id="selectCntMyTradeAll" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM ztrade
 		WHERE user_no = #{userNo }
@@ -52,5 +88,23 @@
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
+	
+	<select id="selectCntMyTradeScrapAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM ztrade_scrap
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<select id="selectTradeScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, T.* FROM (
+				SELECT t.trade_no, t.trade_title, t.trade_date, t.trade_hit
+				FROM ztrade t
+				INNER JOIN ztrade_scrap zt
+				ON t.trade_no = zt.trade_no
+				AND zt.user_no = #{userNo }
+			) T
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>	
 
 </mapper>

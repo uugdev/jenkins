@@ -28,6 +28,23 @@ public interface MypageService {
 	public List<Ask> getMyAskList(HashMap<String, Object> map);
 	
 	/**
+	 * 
+	 * 
+	 * @param paramData
+	 * @param userNo
+	 * @return
+	 */
+	public Paging getMyAskScrapPaging(Paging paramData, int userNo);
+	
+	/**
+	 *
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getMyAskScrapList(HashMap<String, Object> map);
+	
+	/**
 	 * 작성한 후기글에 대한 페이징 객체
 	 * 
 	 * @param paramData - curPage를 저장하고 있는 객체
@@ -43,6 +60,11 @@ public interface MypageService {
 	 * @return 후기글 리스트
 	 */
 	public List<Review> getMyReviewList(HashMap<String, Object> map);
+	
+	public Paging getMyReviewScrapPaging(Paging paramData, int userNo);
+	
+	public List<HashMap<String, Object>> getMyReviewScrapList(HashMap<String, Object> map);
+
 
 	/**
 	 * 작성한 거래글에 대한 페이징 객체
@@ -60,5 +82,14 @@ public interface MypageService {
 	 * @return 거래글 리스트
 	 */
 	public List<Trade> getMyTradeList(HashMap<String, Object> map);
+
+	public Paging getMyTradeScrapPaging(Paging paramData, int userNo);
+
+	public List<HashMap<String, Object>> getMyTradeScrapList(HashMap<String, Object> map);
+
+
+	
+
+
 	
 }

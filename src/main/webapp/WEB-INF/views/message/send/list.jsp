@@ -56,7 +56,7 @@ $(document).ready(function(){
 <table class="table table-hover">
 	<thead>
 	<tr>
-		<th><input type="checkbox" name="select" id="selectAll" /></th>
+		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
 		<th>받는 이</th>
 		<th>제목</th>
 		<th>상태</th>

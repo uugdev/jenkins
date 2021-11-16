@@ -26,6 +26,22 @@ public interface MypageDao {
 	public List<Ask> selectAskListByUserNo(HashMap<String, Object> map);
 	
 	/**
+	 * 
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public int selectCntMyAskScrapAll(int userNo);
+
+	/**
+	 * 
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectAskScrapListByUserNo(HashMap<String, Object> map);
+	
+	/**
 	 * 내가 작성한 후기의 개수를 센다
 	 * 
 	 * @param userNo - 유저 번호
@@ -40,6 +56,10 @@ public interface MypageDao {
 	 * @return 후기글 리스트
 	 */
 	public List<Review> selectReviewListByUserNo(HashMap<String, Object> map);
+	
+	public int selectCntMyReviewScrapAll(int userNo);
+	
+	public List<HashMap<String, Object>> selectReviewScrapListByUserNo(HashMap<String, Object> map);
 	
 	/**
 	 * 내가 작성한 거래글의 개수를 센다
@@ -56,5 +76,15 @@ public interface MypageDao {
 	 * @return 거래글 리스트
 	 */
 	public List<Trade> selectTradeListByUserNo(HashMap<String, Object> map);
+
+	public int selectCntMyTradeScrapAll(int userNo);
+
+	public List<HashMap<String, Object>> selectTradeScrapListByUserNo(HashMap<String, Object> map);
+
+
+
+
+	
+
 
 }

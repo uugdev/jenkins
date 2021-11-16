@@ -153,6 +153,38 @@ public class MypageController {
 		
 	}
 	
+	@RequestMapping(value="/mypage/ask/delete", method=RequestMethod.GET)
+	public String myAskDelete(int[] askNo) {
+		logger.info("/mypage/ask/delete [GET]");
+
+		for(int i=0; i<askNo.length; i++) {
+			askService.setAskComDelete(askNo[i]);
+			askService.setAskDelete(askNo[i]);
+		}	
+
+		return "redirect:/mypage/ask/list";
+	}
+	
+	@RequestMapping(value="/mypage/ask/scrap/list", method=RequestMethod.GET)
+	public void myAskScrapList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/ask/scrap/list [GET]");
+	
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyAskScrapPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> askScrapList = mypageService.getMyAskScrapList(map);
+		
+		logger.info("스크랩한 질문글 목록 : {} ", askScrapList);
+
+		model.addAttribute("ask", askScrapList);
+		model.addAttribute("paging", paging);
+		
+	}
+	
 	@RequestMapping(value="/mypage/review/list", method=RequestMethod.GET)
 	public void myReviewList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/mypage/review/list [GET])");
@@ -173,6 +205,26 @@ public class MypageController {
 		
 	}
 	
+	@RequestMapping(value="/mypage/review/scrap/list", method=RequestMethod.GET)
+	public void myreviewScrapList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/review/scrap/list [GET]");
+	
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyReviewScrapPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> reviewScrapList = mypageService.getMyReviewScrapList(map);
+		
+		logger.info("스크랩한 후기글 목록 : {} ", reviewScrapList);
+
+		model.addAttribute("review", reviewScrapList);
+		model.addAttribute("paging", paging);
+		
+	}
+	
 	@RequestMapping(value="/mypage/trade/list", method=RequestMethod.GET)
 	public void myTradeList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/mypage/trade/list [GET])");
@@ -189,6 +241,26 @@ public class MypageController {
 		logger.info("작성한 거래글 목록 : {} ", tradeList);
 
 		model.addAttribute("trade", tradeList);
+		model.addAttribute("paging", paging);
+		
+	}
+	
+	@RequestMapping(value="/mypage/trade/scrap/list", method=RequestMethod.GET)
+	public void mytradeScrapList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/trade/scrap/list [GET]");
+	
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyTradeScrapPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> tradeScrapList = mypageService.getMyTradeScrapList(map);
+		
+		logger.info("스크랩한 거래글 목록 : {} ", tradeScrapList);
+
+		model.addAttribute("trade", tradeScrapList);
 		model.addAttribute("paging", paging);
 		
 	}
