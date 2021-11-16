@@ -2,6 +2,7 @@ package com.khbill.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -410,6 +411,26 @@ public class AskServiceImpl implements AskService {
 	public List<Ask> getAskHitList(Paging paging) {
 
 		return askDao.selectAskHitList(paging);
+	}
+	
+	
+	@Override
+	public Paging getAskComPaging(Paging paramData, int askNo) {
+		
+		//총댓글수 계산
+		int totalCount = askDao.selectCntAskComAll(askNo);
+
+		// 페이징 계산
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
+	}
+	
+
+	@Override
+	public List<AskComment> getAskComListPaging(HashMap<String, Object> map) {
+
+		return askDao.selectAskComListByAskNo(map);
 	}
 	
 	

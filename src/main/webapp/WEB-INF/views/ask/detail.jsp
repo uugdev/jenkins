@@ -534,7 +534,7 @@ table, th {
 				</form>
 			</div>
 	
-	<script>
+<script>
 	$('.popupOpen1').on('click', function() {
 		$('.popupWrap1').removeClass('hide1');
 	});
@@ -545,7 +545,6 @@ table, th {
 
 	$(".btnWrap1").click(function() {
 		$(this).parents("form").submit();
-// 		history.go(-1);
 	});
 </script>
 <!-- footer start -->

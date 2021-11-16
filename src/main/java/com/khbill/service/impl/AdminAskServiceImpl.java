@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.khbill.dao.face.AdminAskDao;
 import com.khbill.dto.Ask;
 import com.khbill.dto.AskComment;
-import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;

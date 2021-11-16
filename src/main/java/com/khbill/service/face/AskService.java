@@ -1,5 +1,6 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -276,6 +277,24 @@ public interface AskService {
 	 * @return
 	 */
 	public List<Ask> getAskHitList(Paging paging);
+
+	
+	/**
+	 * 게시글댓글에 대한 페이징 객체
+	 * 
+	 * @param paramData -curPage를 저장하고있는 객체 
+	 * @param askNo - 질문글 번호
+	 * @return 페이징객체
+	 */
+	public Paging getAskComPaging(Paging paramData, int askNo);
+
+	/**
+	 * askNo로 작성한 댓글 리스트 조회
+	 * 
+	 * @param map
+	 * @return askNo 댓글 리스트
+	 */
+	public List<AskComment> getAskComListPaging(HashMap<String, Object> map);
 
 
 }

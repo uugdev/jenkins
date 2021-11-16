@@ -2,6 +2,7 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,7 +125,7 @@ public class AskController {
 	
 	
 	@RequestMapping(value="/detail", method=RequestMethod.GET)
-	public void detail(int askNo,Model model, HttpSession session) {
+	public void detail(Paging paramData ,int askNo,Model model, HttpSession session) {
 		logger.info("/ask/detail [GET]");
 		
 		Ask ask = askService.getAskDetail(askNo);
@@ -167,9 +168,19 @@ public class AskController {
 		int cntY = askService.getVoteStatusTotalCnt(askNo,voteStateN);
 		model.addAttribute("cntY",cntY);
 
-		
+		//댓글리스트 전달
 		List<AskComment> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment",askComment);
+
+//		Paging paging = askService.getAskComPaging(paramData,askNo);
+//		
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("askNo", askNo);
+//		map.put("paging", paging);
+//		
+//		List<AskComment> askComment = askService.getAskComListPaging(map);
+//		model.addAttribute("askComment",askComment);
+		
 		
 		//스크랩 상태 조회
 		AskScrap askScrap = new AskScrap(); 

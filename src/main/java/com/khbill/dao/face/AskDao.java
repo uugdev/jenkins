@@ -408,6 +408,25 @@ public interface AskDao {
 	 * @param askNo
 	 */
 	public void deleteReport(int askNo);
+
+
+	
+	/**
+	 * 게시글에 달린 댓글 수
+	 * 
+	 * @param askNo - 게시글번호
+	 * @return
+	 */
+	public int selectCntAskComAll(int askNo);
+
+
+	/**
+	 * askNo로 조회한 댓글 리스트
+	 * 
+	 * @param map - askNo, 페이징
+	 * @return
+	 */
+	public List<AskComment> selectAskComListByAskNo(HashMap<String, Object> map);
 	
 	
 	
