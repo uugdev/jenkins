@@ -49,7 +49,7 @@ function insertComment() {
 							'</td>' +
 							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
 							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 10%; padding: 5px;">'+ data.addComment.tradeComNo +'</td>' +
 							'<td style="width: 10%; padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
@@ -63,7 +63,7 @@ function insertComment() {
 							'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
 							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
 							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 10%; padding: 5px;">'+ data.addComment.tradeComNo +'</td>' +
 							'<td style="width: 10%; padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
@@ -93,8 +93,7 @@ function updateComment(tradeComNo) {
 			'<td style="width: 10%;"></td>' +
 			'<td style="width: 66%;">' +
 			'<div class="form-inline text-center">' +
-			'<div class="form-inline text-center">' +
-			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
+			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/> ' +
 			'<textarea rows="2" cols="60" class="form-control" id="tradeComUpdateContent'+ tradeComNo +'">'+ tdText +'</textarea>' +
 			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ tradeComNo +');">수정</button>　' +
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ tradeComNo +');">취소</button>' +
@@ -118,8 +117,11 @@ function updateCom(tradeComNo) {
 		}
 		, success: function(data){
 			if(data.success) {
+				var tradeComDate = moment(data.tradeComment.tradeComDate).format("YY-MM-DD HH:mm:ss");
+				
 				$("[data-tradeComNo='"+tradeComNo+"']").css("display", "table-row");
 				$("#td"+tradeComNo).html(data.tradeComment.tradeComContent);
+				$("#dateTd"+tradeComNo).html(tradeComDate);
 				$("[data-updateTradeComNo='"+tradeComNo+"']").html('');
 			} else {
 				alert("댓글 수정 실패");
@@ -225,7 +227,7 @@ function deleteComment(tradeComNo) {
 									</td>
 									<td style="width: 10%;">${tradeComment.USER_NICK }</td>
 									<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
-									<td style="width: 10%;">
+									<td id="dateTd${tradeComment.TRADE_COM_NO }" style="width: 10%;">
 										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 									</td>
 									<td style="width: 10%;">
@@ -248,7 +250,7 @@ function deleteComment(tradeComNo) {
 								<td style="width: 4%;"></td>
 								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
 								<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
-								<td style="width: 10%;">
+								<td id="dateTd${tradeComment.TRADE_COM_NO }" style="width: 10%;">
 									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 								</td>
 								<td style="width: 10%;">
@@ -294,7 +296,11 @@ function deleteComment(tradeComNo) {
 		</c:if>
 		
 		<div class="text-right">
-			<button type="button" onclick="location.href='/trade/list';" >목록으로</button>
+			<button style="float: left;" type="button" onclick="location.href='/trade/list';" >목록으로</button>
+			<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
+				<button type="button" onclick="location.href='/trade/update?tradeNo=${tradeDetail.TRADE_NO}';" >수정</button>
+				<button type="button" onclick="location.href='/trade/delete?tradeNo=${tradeDetail.TRADE_NO}';">삭제</button>
+			</c:if>
 		</div>
 		
 	</div>	<!-- 댓글 리스트 end -->
