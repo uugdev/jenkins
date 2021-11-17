@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.khbill.dao.face.AdminReviewDao">
+
+	<sql id="selectReview">
+        SELECT 
+        	review_no, U.user_no, user_nick
+        	, review_title, review_date, review_hit
+        FROM zreview R
+        INNER JOIN zuser U
+            ON U.user_no = R.user_no
+	</sql>
+	
+	<sql id="whereReviewTitleSearch">
+		WHERE review_title LIKE '%' || #{search} || '%'
+	</sql>
+	
+	<select id="selectReviewList" parameterType="com.khbill.util.Paging" resultType="HashMap">
+		SELECT * FROM (
+		    SELECT rownum rnum, R.* FROM (
+		    	<include refid="selectReview"/>
+				<include refid="whereReviewTitleSearch"/>
+		        ORDER BY review_no DESC
+		    ) R
+		) ZREVIEW
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectReview"/>
+			<include refid="whereReviewTitleSearch"/>
+		)
+	</select>
+
+	<update id="updatehit" parameterType="com.khbill.dto.Review">
+		UPDATE ZREVIEW
+		SET review_hit = review_hit + 1
+		WHERE review_no = #{reviewNo }
+	</update>
+	
+	<select id="selectReviewByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review">
+		SELECT * FROM (
+		        SELECT 
+		        	review_no, item_no, U.user_no, user_nick, file_no
+		        	, review_title, review_content, review_date, review_hit
+		        FROM zuser U
+		        INNER JOIN zreview R
+		            ON U.user_no = R.user_no
+		        ORDER BY user_no
+		) ZREVIEW
+		WHERE review_no = #{reviewNo } 
+	</select>
+	 
+	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
+		SELECT * FROM zitem
+		WHERE item_no = #{itemNo }
+	</select>
+
+	<select id="selectFileByFile" resultType="com.khbill.dto.File" parameterType="int">
+		SELECT
+			file_no, file_origin, file_stored, file_size, file_date
+		FROM zfile
+		WHERE file_no = #{fileNo }
+	</select>
+	
+</mapper>

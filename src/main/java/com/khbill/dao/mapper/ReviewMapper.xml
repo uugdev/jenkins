@@ -30,6 +30,12 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectReview"/>
+			<include refid="whereReviewTitleSearch"/>
+		)
+	</select>
 	
 	<select id="selectReviewHitList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
@@ -42,12 +48,6 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
-		SELECT count(*) FROM (
-			<include refid="selectReview"/>
-			<include refid="whereReviewTitleSearch"/>
-		)
-	</select>
 	
 	<update id="updatehit" parameterType="com.khbill.dto.Review">
 		UPDATE ZREVIEW

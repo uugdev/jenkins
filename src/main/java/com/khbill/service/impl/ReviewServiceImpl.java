@@ -68,13 +68,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Item getReviewItem(int itemNo) {
-		
 		return reviewDao.selectItemByItemNo(itemNo);
 	}
 
 	@Override
 	public com.khbill.dto.File getReviewFile(int fileNo) {
-		
 		return reviewDao.selectFileByFile(fileNo);
 	}
 
@@ -90,7 +88,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public boolean deleteReviewComment(ReviewComment reviewComment) {
-		
 		reviewCommentDao.deleteReviewComment(reviewComment);
 		
 		if( reviewCommentDao.selectCountComment(reviewComment) > 0 ) {
@@ -110,7 +107,6 @@ public class ReviewServiceImpl implements ReviewService {
 	      
 	      int itemNo = item.getItemNo();
 	      int fileNo = reviewDao.getNextFileNo();
-	      
 	      
 	      //파일이 저장될 경로
 	      String storedPath = context.getRealPath("upload");
@@ -154,7 +150,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public com.khbill.dto.File getAttachFile(Review review) {
-		
 		return reviewDao.selectReviewFileByReviewNo(review);
 	}
 
@@ -233,7 +228,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void setReviewCommentDelete(Review review) {
-		
 		reviewDao.deleteReviewCommentByReviewNo(review);
 	}
 
@@ -250,7 +244,6 @@ public class ReviewServiceImpl implements ReviewService {
 			
 			return true;
 		}
-
 	}
 
 	@Override
@@ -262,24 +255,18 @@ public class ReviewServiceImpl implements ReviewService {
 		} else {		//스크랩 하지 않은 상태
 			return false;
 		}
-		
 	}
 
-	
 	@Override
 	public void setReviewReport(ReviewReport reviewReport) {
-
 		Review review = reviewDao.selectReviewByReview(reviewReport.getReviewNo());
 		reviewReport.setRespondentNo(review.getUserNo());
 		
 		reviewDao.insertReviewReport(reviewReport);
-		
-		
 	}
 
 	@Override
 	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport) {
-		
 		int cnt = reviewDao.selectCntReviewReportCheck(reviewReport);
 		
 		if(cnt > 0) {
@@ -288,21 +275,4 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
