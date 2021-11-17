@@ -25,6 +25,7 @@ public class TradeController {
 	
 	@Autowired private TradeService tradeService;
 	
+	//거래 게시판 목록
 	@RequestMapping(value = "/trade/list")
 	public void tradeList(
 				Model model
@@ -42,6 +43,7 @@ public class TradeController {
 		
 	}
 	
+	//거래 게시글 상세보기
 	@RequestMapping(value = "/trade/detail")
 	public void tradeDetail(
 				Model model
@@ -59,9 +61,11 @@ public class TradeController {
 		
 	}
 	
+	//거래 게시글 작성
 	@RequestMapping(value = "/trade/write", method = RequestMethod.GET)
 	public void tradeGetWrite() {}
 
+	//거래 게시글 작성
 	@RequestMapping(value = "/trade/write", method = RequestMethod.POST)
 	public String tradePostWrite(
 				HttpSession session
@@ -77,6 +81,7 @@ public class TradeController {
 		return "redirect:/trade/list";
 	}
 	
+	//거래 게시글 댓글 작성
 	@RequestMapping(value = "/trade/comment/write", method = RequestMethod.POST)
 	public String tradeCommentWrite(
 				HttpSession session
@@ -94,6 +99,13 @@ public class TradeController {
 		return "redirect:/trade/detail?tradeNo=" + tradeComment.getTradeNo();
 	}
 	
+	//거래 게시글 댓글 삭제
+	@RequestMapping(value = "/trade/comment/delete", method = RequestMethod.GET)
+	public void tradeCommentDelete() {
+		
+		
+		
+	}
 	
 
 }
