@@ -143,15 +143,15 @@
 		WHERE file_no = #{fileNo }
 	</delete>
 	
-<!-- 	<delete id="deleteScrap" parameterType="int"> -->
-<!-- 		DELETE zreview_scrap -->
-<!-- 		WHERE review_no = #{reviewNo} -->
-<!-- 	</delete> -->
+	<delete id="deleteScrap" parameterType="int">
+		DELETE zreview_scrap
+		WHERE review_no = #{reviewNo}
+	</delete>
 	
-<!-- 	<delete id="deleteReport" parameterType="int"> -->
-<!-- 		DELETE zreview_report -->
-<!-- 		WHERE review_no = #{reviewNo} -->
-<!-- 	</delete> -->
+	<delete id="deleteReport" parameterType="int">
+		DELETE zreview_report
+		WHERE review_no = #{reviewNo}
+	</delete>
 	
 	
 	<delete id="deleteReviewCommentByReviewNo" parameterType="com.khbill.dto.Review">
@@ -159,12 +159,12 @@
 		WHERE review_no = #{reviewNo }
 	</delete>
 	
-	<insert id="insertScrap" parameterType="com.khbill.dto.ReviewScrap">
+	<insert id="insertReviewScrap" parameterType="com.khbill.dto.ReviewScrap">
 		INSERT INTO zreview_scrap
 		VALUES ( zreview_scrap_seq.nextval, #{userNo }, #{reviewNo })
 	</insert>
 	
-	<delete id="deleteScrap" parameterType="com.khbill.dto.ReviewScrap">
+	<delete id="deleteReviewScrap" parameterType="com.khbill.dto.ReviewScrap">
 		DELETE zreview_scrap
 		WHERE user_no = #{userNo } 
 			AND review_no = #{reviewNo }

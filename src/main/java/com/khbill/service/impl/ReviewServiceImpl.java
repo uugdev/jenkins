@@ -219,8 +219,8 @@ public class ReviewServiceImpl implements ReviewService {
 		int itemNo = item.getItemNo();
 		int fileNo = file.getFileNo();
 		
-//		reviewDao.deleteReport(review);
-//		reviewDao.deleteScrap(review);
+		reviewDao.deleteReport(review);
+		reviewDao.deleteScrap(review);
 		reviewDao.deleteReview(review);
 		reviewDao.deleteItem(itemNo);
 		reviewDao.deleteFile(fileNo);
@@ -235,12 +235,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public boolean scrap(ReviewScrap reviewScrap) {
 		if( isScrap(reviewScrap) ) { //스크랩을 한 상태
-			reviewDao.deleteScrap(reviewScrap);
+			reviewDao.deleteReviewScrap(reviewScrap);
 			
 			return false;
 			
 		} else { //스크랩을 하지 않은 상태
-			reviewDao.insertScrap(reviewScrap);
+			reviewDao.insertReviewScrap(reviewScrap);
 			
 			return true;
 		}

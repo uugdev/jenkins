@@ -142,8 +142,21 @@ public interface ReviewDao {
 	
 	
 	//---delete -----------------------------------
-
-
+	
+	/**
+	 * 신고 게시물 삭제
+	 * 
+	 * @param review
+	 */
+	public void deleteReport(Review review);
+	
+	/**
+	 * 스크랩 게시물 삭제
+	 * 
+	 * @param review
+	 */
+	public void deleteScrap(Review review);
+	
 	/**
 	 * 후기게시글 삭제
 	 * 
@@ -164,7 +177,6 @@ public interface ReviewDao {
 	 * @param fileNo
 	 */
 	public void deleteFile(int fileNo);
-	
 	/**
 	 * 게시글번호로 댓글 삭제
 	 * 
@@ -180,14 +192,15 @@ public interface ReviewDao {
 	 * 
 	 * @param reviewScrap
 	 */
-	public void insertScrap(ReviewScrap reviewScrap);
+	public void insertReviewScrap(ReviewScrap reviewScrap);
 	
 	/**
 	 * 스크랩 정보 삭제
 	 * 
 	 * @param reviewScrap
 	 */
-	public void deleteScrap(ReviewScrap reviewScrap);
+	public void deleteReviewScrap(ReviewScrap reviewScrap);
+
 
 	/**
 	 * 게시글 스크랩 수 조회
@@ -211,7 +224,7 @@ public interface ReviewDao {
 	 * @param reviewReport
 	 */
 	public void insertReviewReport(ReviewReport reviewReport);
-
+	
 	/**
 	 * 신고한 게시물인지 체크
 	 * 
@@ -219,6 +232,8 @@ public interface ReviewDao {
 	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
 	 */
 	public int selectCntReviewReportCheck(ReviewReport reviewReport);
+
+
 
 
 }
