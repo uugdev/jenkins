@@ -79,5 +79,14 @@
 		VALUES (ztrade_com_seq.nextval, #{userNo }, #{tradeNo }, #{tradeComContent }, #{tradeComSecret })
 	</insert>
 	
+	<delete id="deleteTradeComment" parameterType="int">
+		DELETE ztrade_comment
+		WHERE trade_com_no = #{tradeComNo }
+	</delete>
+	
+	<select id="selectCountTradeComment" parameterType="int" resultType="int">
+		SELECT count(*) FROM ZTRADE_COMMENT
+		WHERE trade_no = #{tradeComNo }
+	</select>
 	
 </mapper>

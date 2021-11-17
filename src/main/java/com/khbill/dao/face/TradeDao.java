@@ -27,6 +27,10 @@ public interface TradeDao {
 
 	public void insertTradeComment(TradeComment tradeComment);
 
+	public void deleteTradeComment(int tradeComNo);
+
+	public int selectCountTradeComment(int tradeComNo);
+
 
 
 }

@@ -17,3 +17,7 @@ hr {
 #commentBody {
 	text-align: left;
 }
+
+.table {
+	margin-bottom: 0;
+}

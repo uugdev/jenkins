@@ -129,4 +129,16 @@ public class TradeServiceImpl implements TradeService {
 		tradeDao.insertTradeComment(tradeComment);
 	}
 
+	@Override
+	public boolean setTradeCommentDelete(int tradeComNo) {
+		
+		tradeDao.deleteTradeComment(tradeComNo);
+		
+		if( tradeDao.selectCountTradeComment(tradeComNo) > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 }

@@ -46,6 +46,30 @@ $(document).ready(function() {
 	//$("#btnCommInsert").click() end
 	
 })
+
+function deleteComment(tradeComNo) {
+	$.ajax({
+		type: "post"
+		, url: "/trade/comment/delete"
+		, dataType: "json"
+		, data: {
+			tradeComNo: tradeComNo
+		}
+		, success: function(data){
+			if(data.success) {
+				
+				$("[data-tradeComNo='"+tradeComNo+"']").remove();
+				
+			} else {
+				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
 </script>
 
 <!-- 개별 영역 끝 -->
@@ -149,7 +173,7 @@ $(document).ready(function() {
 
 		<!-- 비로그인상태 -->
 		<c:if test="${not login }">
-			<hr style="border: 1px solid #ddd;">
+			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			<strong>로그인이 필요합니다</strong><br>
 			<button onclick='location.href="/member/login";'>로그인</button>
 			<button onclick='location.href="/member/join";'>회원가입</button>
@@ -159,7 +183,7 @@ $(document).ready(function() {
 		<c:if test="${login }">
 		<!-- 댓글 입력 -->
 		<div class="form-inline text-center">
-			<hr style="border: 1px solid #ddd;">
+			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			<input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
 			<label for="tradeComSecret">비밀글 </label>
 			<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>

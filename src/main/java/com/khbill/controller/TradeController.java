@@ -1,5 +1,7 @@
 package com.khbill.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -100,10 +102,21 @@ public class TradeController {
 	}
 	
 	//거래 게시글 댓글 삭제
-	@RequestMapping(value = "/trade/comment/delete", method = RequestMethod.GET)
-	public void tradeCommentDelete() {
+	@RequestMapping(value = "/trade/comment/delete")
+	public void tradeCommentDelete(
+				int tradeComNo
+				,Writer writer
+			) {
 		
+		logger.info("tradeComNo - {}", tradeComNo);
 		
+		boolean success = tradeService.setTradeCommentDelete(tradeComNo);
+		
+		try {
+			writer.append("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
