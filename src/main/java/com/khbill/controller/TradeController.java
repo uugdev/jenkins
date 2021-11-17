@@ -158,7 +158,7 @@ public class TradeController {
 		}
 		
 		mav.addObject("success", success);
-		mav.addObject("tradeComment", tradeComment);
+		mav.addObject("tradeComment", resultTradeComment);
 		mav.setViewName("jsonView");
 		
 		return mav; 
