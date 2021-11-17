@@ -23,8 +23,8 @@
     	 
     	    {
     	      title  : '${itemList.itemName}',
-    	      start  : '${itemList.item}',
-    	      end    : '2021-11-17'
+    	      start  : '${itemList.itemDate}',
+    	      end    : '${itemList.itemDate}'
     	    }
 		]
         });

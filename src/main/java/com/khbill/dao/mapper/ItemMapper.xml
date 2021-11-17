@@ -30,8 +30,8 @@
 	
 	<update id="updateItemStatusToY" parameterType="int">
 		UPDATE zitem
-		SET item_status = 'y'
-		AND item_date = sysdate
+		SET item_status = 'y',
+			item_date = sysdate
 		WHERE item_no = #{itemNo }
 	</update>
 	
