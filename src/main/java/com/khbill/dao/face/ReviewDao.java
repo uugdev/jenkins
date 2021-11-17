@@ -17,10 +17,20 @@ public interface ReviewDao {
 	 * 
 	 * 	paging.startNo, paging.endNo를 이용하여 rownum을 조회한다
 	 * 
-	 * @param map  - 페이징, 회원 번호
+	 * @param paging  - 페이징, 회원 번호
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<Review> selectReviewList(Paging paging);
+
+	/**
+	 * 페이징을 적용하여 후기게시글 조회순 목록 조회
+	 * 
+	 * paging.startNo, paging.endNo를 이용하여 rownum을 조회한다
+	 * 
+	 * @param paging
+	 * @return 페이징이 적용된 게시글 목록
+	 */
+	public List<Review> selectReviewHitList(Paging paging);
 
 	/**
 	 * 페이징을 위한 전체 게시글 수 조회
@@ -209,5 +219,6 @@ public interface ReviewDao {
 	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
 	 */
 	public int selectCntReviewReportCheck(ReviewReport reviewReport);
+
 
 }

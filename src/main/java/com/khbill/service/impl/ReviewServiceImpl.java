@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.ReviewCommentDao;
 import com.khbill.dao.face.ReviewDao;
-import com.khbill.dto.Ask;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
@@ -52,6 +51,11 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getReviewList(Paging paging) {		
 		return reviewDao.selectReviewList(paging);
+	}
+
+	@Override
+	public List<Review> getReviewHitList(Paging paging) {
+		return reviewDao.selectReviewHitList(paging);
 	}
 
 	@Override
@@ -284,6 +288,7 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
+
 
 }
 

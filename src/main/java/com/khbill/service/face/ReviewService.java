@@ -29,13 +29,20 @@ public interface ReviewService {
 	public Paging getPaging(Paging paramData);
 
 	/**
-	 * 페이징이 적용된 후기 게시글 목록 조회
+	 * 페이징이 적용된 후기 게시글 최신순으로 조회
 	 * 
 	 * @param paging -  페이징 정보 객체
 	 * @return List<Review>
 	 */
 	public List<Review> getReviewList(Paging paging);
-	
+
+	/**
+	 * 페이징이 적용된 후기 게시글 조회순으로 조회
+	 * 
+	 * @param paging - 페이징 정보 객
+	 * @return List<Review>
+	 */
+	public List<Review> getReviewHitList(Paging paging);
 	//--- detail ----------------------------------------
 	
 	/**
@@ -163,6 +170,7 @@ public interface ReviewService {
 	 * @return
 	 */
 	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
+
 	
 
 }

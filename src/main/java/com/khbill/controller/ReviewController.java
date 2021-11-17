@@ -50,6 +50,18 @@ public class ReviewController {
 		model.addAttribute("paging", paging);
 	}
 	
+	@RequestMapping(value = "/hitlist")
+	public void getAskHitList(Model model, Paging paramData) {
+		logger.info("/review/votenum/list [GET]");
+		
+		Paging paging = reviewService.getPaging(paramData);
+		List<Review> review = reviewService.getReviewHitList(paging);
+		
+		model.addAttribute("review", review);
+		model.addAttribute("paging", paging);
+		
+	}//hitlist
+	
 	
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String reviewDetail(
@@ -107,6 +119,7 @@ public class ReviewController {
 		
 		return "review/detail";
 	}
+
 
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
