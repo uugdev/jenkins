@@ -52,6 +52,7 @@
 	    WHERE 1=1
 	    AND c.user_no = u.user_no
 	    AND trade_no = #{tradeNo }
+	    ORDER BY trade_com_date
 	</select>
 	
 	<insert id="insertFile" parameterType="com.khbill.dto.File">
@@ -99,6 +100,20 @@
 		SELECT TRADE_COM_NO, USER_NO, TRADE_NO, TRADE_COM_CONTENT, TRADE_COM_DATE, TRADE_COM_SECRET, TRADE_COM_LIKE, TRADE_COM_HATE
         FROM ztrade_comment
 	    WHERE trade_com_no = #{tradeComNo }
+	</select>
+	
+	<select id="selectTradeCommentByUserNo" parameterType="int" resultType="com.khbill.dto.TradeComment">
+	    SELECT TRADE_COM_NO, USER_NO, TRADE_NO, TRADE_COM_CONTENT, TRADE_COM_DATE, TRADE_COM_SECRET, TRADE_COM_LIKE, TRADE_COM_HATE
+        FROM ztrade_comment
+	    WHERE user_no = #{userNo }
+        AND rownum = 1
+        ORDER BY trade_com_no DESC
+	</select>
+	
+	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
+        SELECT user_nick
+        FROM zuser
+        WHERE user_no = #{userNo }
 	</select>
 	
 </mapper>

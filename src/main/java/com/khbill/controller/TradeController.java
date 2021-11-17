@@ -86,20 +86,37 @@ public class TradeController {
 	
 	//거래 게시글 댓글 작성
 	@RequestMapping(value = "/trade/comment/write", method = RequestMethod.POST)
-	public String tradeCommentWrite(
+	public ModelAndView tradeCommentWrite(
 				HttpSession session
-				, Model model
 				, TradeComment tradeComment
+				, ModelAndView mav
 			) {
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		tradeComment.setUserNo(userNo);
 		tradeService.setTradeCommentWrite(tradeComment);
+		TradeComment addComment = tradeService.getTradeCommentWriteByUserNo(userNo);
+		String userNick = tradeService.getUserNickByUserNo(tradeComment.getUserNo());
 		
 		logger.info("userNo {}", userNo);
+		logger.info("userNick - {}", userNick);
 		logger.info("tradeComment {}", tradeComment);
+		logger.info("addComment {}", addComment);
 		
-		return "redirect:/trade/detail?tradeNo=" + tradeComment.getTradeNo();
+		boolean success = false;
+		
+		if(addComment != null) {
+			success = true;
+		} else {
+			success = false;
+		}
+		
+		mav.addObject("userNick", userNick);
+		mav.addObject("success", success);
+		mav.addObject("addComment", addComment);
+		mav.setViewName("jsonView");
+		
+		return mav; 
 	}
 	
 	//거래 게시글 댓글 삭제
@@ -121,6 +138,7 @@ public class TradeController {
 		
 	}
 	
+	//댓글 수정
 	@RequestMapping(value = "/trade/comment/update")
 	public ModelAndView tradeCommentUpdate(
 				ModelAndView mav

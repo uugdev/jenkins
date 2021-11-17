@@ -9,45 +9,123 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/tradeDetail.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 	
 	// 댓글 입력
-	$("#btnCommInsert").click(function() {
+// 	$("#btnCommInsert").click(function() {
 		
-		var newForm = $('<form></form>');
-		//set attribute (form)
-		newForm.attr("name","newForm");
-		newForm.attr("method","post");
-		newForm.attr("action","/trade/comment/write");
+// 		var newForm = $('<form></form>');
+// 		//set attribute (form)
+// 		newForm.attr("name","newForm");
+// 		newForm.attr("method","post");
+// 		newForm.attr("action","/trade/comment/write");
 		
-		var textarea = $("#tradeComContent").val();
+// 		var textarea = $("#tradeComContent").val();
 		
-		// create element & set attribute (input)
-		newForm.append($('<input/>', {type: 'hidden', name: 'tradeNo', value:'${tradeDetail.TRADE_NO }' }));
-		newForm.append($('<textarea/>', {display: 'none', name: 'tradeComContent', text: textarea }));
+// 		// create element & set attribute (input)
+// 		newForm.append($('<input/>', {type: 'hidden', name: 'tradeNo', value:'${tradeDetail.TRADE_NO }' }));
+// 		newForm.append($('<textarea/>', {display: 'none', name: 'tradeComContent', text: textarea }));
 		
-		if($("input:checkbox[id='tradeComSecret']").is(":checked") == true){
-			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'y' }));
-		}
+// 		if($("input:checkbox[id='tradeComSecret']").is(":checked") == true){
+// 			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'y' }));
+// 		}
 		
-		if($("input:checkbox[id='tradeComSecret']").is(":checked") == false){
-			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'n' }));
-		}
+// 		if($("input:checkbox[id='tradeComSecret']").is(":checked") == false){
+// 			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'n' }));
+// 		}
 
-		// append form (to body)
-		newForm.appendTo('body');
+// 		// append form (to body)
+// 		newForm.appendTo('body');
 
-		// submit form
-		newForm.submit();
+// 		// submit form
+// 		newForm.submit();
 		
-	});
+// 	});
 	//$("#btnCommInsert").click() end
 	
 	//댓글 수정 updateComment
 	
 })
+
+function insertComment() {
+	
+	var textarea = $("#tradeComContent").val();
+	var tradeComSecret = null;
+	
+	if($("input:checkbox[id='tradeComSecret']").is(":checked") == true){
+		tradeComSecret = 'y';
+	}
+	
+	if($("input:checkbox[id='tradeComSecret']").is(":checked") == false){
+		tradeComSecret = 'n';
+	}
+	
+	console.log(${tradeDetail.TRADE_NO })
+	console.log(textarea)
+	console.log(tradeComSecret)
+	
+	$.ajax({
+		type: "post"
+		, url: "/trade/comment/write"
+		, dataType: "json"
+		, data: {
+			tradeNo: ${tradeDetail.TRADE_NO }
+			, tradeComContent: textarea
+			, tradeComSecret: tradeComSecret
+		}
+		, success: function(data){
+			if(data.success) {
+				console.log("ajax 성공")
+				console.log(data.addComment)
+				
+				var userNo = '<%= session.getAttribute("userNo")%>';
+				var tradeComDate = moment(data.addComment.tradeComDate).format("YY-MM-DD HH:mm:ss");
+				
+				if(data.addComment.tradeComSecret == 'y') {
+					$('#commentBody').after('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
+							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
+							'<td style="width: 4%; text-align: center; padding: 5px;">' +
+							'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
+							'</td>' +
+							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="width: 10%; padding: 5px;">' +
+							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
+							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
+							'</td>' +
+							'</tr>');
+				}
+				
+				if(data.addComment.tradeComSecret == 'n') {
+					$('#commentBody').after('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
+							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
+							'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
+							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="width: 10%; padding: 5px;">' +
+							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
+							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
+							'</td>' +
+							'</tr>');
+				}
+				
+				$('#tradeComContent').val('');
+						
+			} else {
+				console.log("ajax 실패")
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+	
+}
 
 function updateComment(tradeComNo) {
 	
@@ -172,28 +250,6 @@ function deleteComment(tradeComNo) {
 					<tr data-updateTradeComNo="${tradeComment.TRADE_COM_NO }"></tr>
 					<tr data-tradeComNo="${tradeComment.TRADE_COM_NO }">
 						<c:choose>
-		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
-							<!-- 비밀글이 아닐 경우 -->
-								<td style="width: 4%;"></td>
-								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-								<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
-								<td style="width: 10%;">
-									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
-								</td>
-								<td style="width: 10%;">
-									<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
-										<button class="btn btn-default btn-xs"
-												onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
-												삭제
-										</button>
-										<button class="btn btn-default btn-xs"
-												onclick="updateComment(${tradeComment.TRADE_COM_NO });">
-												수정
-										</button>
-									</c:if>
-								</td>
-							</c:when>
-							
 		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'y' }">
 							<!-- 비밀글일 경우 -->
 							
@@ -232,15 +288,39 @@ function deleteComment(tradeComNo) {
 									</td>
 		                		</c:if>
 							</c:when>
+						
+		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
+							<!-- 비밀글이 아닐 경우 -->
+								<td style="width: 4%;"></td>
+								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
+								<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
+								<td style="width: 10%;">
+									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+								</td>
+								<td style="width: 10%;">
+									<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
+										<button class="btn btn-default btn-xs"
+												onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
+												삭제
+										</button>
+										<button class="btn btn-default btn-xs"
+												onclick="updateComment(${tradeComment.TRADE_COM_NO });">
+												수정
+										</button>
+									</c:if>
+								</td>
+							</c:when>
 						</c:choose>
 					</tr>
+					<tr id="appendArea"></tr>
 				</c:forEach>
 			</tbody>
 		</table>
-
+		
+		<hr style="border: 1px solid #ddd; margin-top: 0;">
+		
 		<!-- 비로그인상태 -->
 		<c:if test="${not login }">
-			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			<strong>로그인이 필요합니다</strong><br>
 			<button onclick='location.href="/member/login";'>로그인</button>
 			<button onclick='location.href="/member/join";'>회원가입</button>
@@ -250,12 +330,11 @@ function deleteComment(tradeComNo) {
 		<c:if test="${login }">
 		<!-- 댓글 입력 -->
 		<div class="form-inline text-center">
-			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			<input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
 			<label for="tradeComSecret">비밀글　</label>
 			<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
 			<textarea rows="2" cols="60" class="form-control" id="tradeComContent"></textarea>
-			<button id="btnCommInsert" class="btn">입력</button>
+			<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
 		</div>
 		<!-- 댓글 입력 end -->
 		</c:if>

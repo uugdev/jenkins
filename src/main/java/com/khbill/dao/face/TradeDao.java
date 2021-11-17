@@ -35,6 +35,11 @@ public interface TradeDao {
 
 	public TradeComment selectOneTradeCommentByTradeNo(int tradeComNo);
 
+	public TradeComment selectTradeCommentByUserNo(int userNo);
+
+	public String selectUserNickByUserNo(int userNo);
+	
+
 
 
 }

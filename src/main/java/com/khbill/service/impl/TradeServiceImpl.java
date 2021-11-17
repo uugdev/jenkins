@@ -127,6 +127,7 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public void setTradeCommentWrite(TradeComment tradeComment) {
 		tradeDao.insertTradeComment(tradeComment);
+		
 	}
 
 	@Override
@@ -148,6 +149,16 @@ public class TradeServiceImpl implements TradeService {
 		TradeComment resultCom = tradeDao.selectOneTradeCommentByTradeNo(tradeComment.getTradeComNo());
 		
 		return resultCom;
+	}
+
+	@Override
+	public TradeComment getTradeCommentWriteByUserNo(int userNo) {
+		return tradeDao.selectTradeCommentByUserNo(userNo);
+	}
+
+	@Override
+	public String getUserNickByUserNo(int userNo) {
+		return tradeDao.selectUserNickByUserNo(userNo);
 	}
 
 }

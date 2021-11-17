@@ -80,5 +80,21 @@ public interface TradeService {
 	 * @return
 	 */
 	public TradeComment setTradeCommentUpdate(TradeComment tradeComment);
+	
+	/**
+	 * 유저 번호에 해당하는 유저의 가장 최신 댓글 조회
+	 * 
+	 * @param userNo - 유저 번호
+	 * @return 유저 번호에 해당하는 유저의 가장 최신 댓글
+	 */
+	public TradeComment getTradeCommentWriteByUserNo(int userNo);
+	
+	/**
+	 * 유저 번호에 해당하는 유저 닉네임 조회
+	 * 
+	 * @param userNo - 유저 번호
+	 * @return 유저 번호에 해댕하는 유저 닉네임
+	 */
+	public String getUserNickByUserNo(int userNo);
 
 }
