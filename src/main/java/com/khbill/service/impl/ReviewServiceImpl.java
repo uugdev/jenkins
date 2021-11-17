@@ -265,7 +265,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void setReviewReport(ReviewReport reviewReport) {
 
-		Review review = reviewDao.selectReviewByReviewNo(reviewReport.getReviewNo());
+		Review review = reviewDao.selectReviewByReview(reviewReport.getReviewNo());
 		reviewReport.setRespondentNo(review.getUserNo());
 		
 		reviewDao.insertReviewReport(reviewReport);

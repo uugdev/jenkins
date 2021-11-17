@@ -36,7 +36,7 @@ public interface ReviewService {
 	 */
 	public List<Review> getReviewList(Paging paging);
 	
-	//---detail 페이지 -------------------------------
+	//--- detail ----------------------------------------
 	
 	/**
 	 * 후기 게시글 상세보기
@@ -126,6 +126,8 @@ public interface ReviewService {
 	 */
 	public void setReviewCommentDelete(Review review);
 
+	//---- Scrap -------------------------------------------- 
+	
 	/**
 	 * 게시글 번호로 게시글을 스크랩한다
 	 * 
@@ -142,13 +144,8 @@ public interface ReviewService {
 	 */
 	public boolean isScrap(ReviewScrap reviewScrap);
 
-	/**
-	 * review게시글 번호와 로그인 userNo로 신고한 게시물인지 판단한다
-	 * 
-	 * @param reviewReport
-	 * @return
-	 */
-	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
+	
+	//--------Report -----------------------------------------------
 	
 	/**
 	 * 신고게시물 삽입하기
@@ -159,6 +156,13 @@ public interface ReviewService {
 	 */
 	public void setReviewReport(ReviewReport reviewReport);
 
-
+	/**
+	 * review게시글 번호와 로그인 userNo로 신고한 게시물인지 판단한다
+	 * 
+	 * @param reviewReport
+	 * @return
+	 */
+	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
+	
 
 }

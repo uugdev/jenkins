@@ -193,7 +193,7 @@ public interface ReviewDao {
 	 * @param reviewNo
 	 * @return 
 	 */
-	public Review selectReviewByReviewNo(int reviewNo);
+	public Review selectReviewByReview(int reviewNo);
 	
 	/**
 	 * review 신고 객체 삽입
@@ -209,6 +209,5 @@ public interface ReviewDao {
 	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
 	 */
 	public int selectCntReviewReportCheck(ReviewReport reviewReport);
-
 
 }

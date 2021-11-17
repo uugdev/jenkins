@@ -84,6 +84,7 @@ public class ReviewController {
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
 		
+		
 		//댓글 리스트 전달
 		List<HashMap<String, Object>> commentList = reviewService.getReviewComList(reviewComment);
 		model.addAttribute("commentList", commentList);
@@ -243,19 +244,15 @@ public class ReviewController {
 		
 		logger.info("reviewReport: {}", reviewReport);
 		
-		int userNo = (Integer) session.getAttribute("userNo");
-		
 		reviewReport.setReviewNo(reviewNo);
-		reviewReport.setReporterNo(userNo);
+		reviewReport.setReporterNo((Integer) session.getAttribute("userNo"));
 		
 		boolean reportCheck =  reviewService.reviewReportByReviewNoLoginUserNo(reviewReport);
 		
 		if(reportCheck) {
-			
 			reviewService.setReviewReport(reviewReport);
-			
 		}
-			
+		
 		return "redirect:/review/detail?reivewNo="+reviewNo;
 	}
 	

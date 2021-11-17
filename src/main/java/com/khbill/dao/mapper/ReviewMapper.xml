@@ -165,13 +165,14 @@
 	</select>
 	
 	
-<!-- 	<select id="selectReviewByReviewNo" resultType="com.khbill.dto.Review" parameterType="int"> -->
-<!-- 		SELECT  -->
-<!-- 			review_no, item_no, user_no, file_no -->
-<!-- 			, review_title, review_content, review_date, review_hit -->
-<!-- 		FROM ZREVIEW -->
-<!-- 		WHERE review_no = #{reviewNo } -->
-<!-- 	</select> -->
+	<select id="selectReviewByReview" resultType="com.khbill.dto.Review" parameterType="int">
+		SELECT 
+			review_no, item_no, user_no, file_no
+			, review_title, review_content, review_date, review_hit
+		FROM ZREVIEW
+		WHERE review_no = #{reviewNo }
+	</select>
+	
 	
 	<insert id="insertReviewReport" parameterType="com.khbill.dto.ReviewReport">
 		INSERT INTO zreview_report
@@ -179,7 +180,7 @@
 			, #{respondentNo}, #{reportCategory}, #{reportContent}, sysdate, 'n')
 	</insert>
 	
-	<select id="selectCntReviewReportCheck" resultType="int" parameterType="com.khbill.dto.ReviewReport">
+	<select id="selectCntReviewReportCheck" parameterType="com.khbill.dto.ReviewReport" resultType="int" >
 	 	SELECT count(*) FROM zreview_report
 		WHERE review_no = #{reviewNo } AND reporter_no = #{reporterNo }
 	</select>

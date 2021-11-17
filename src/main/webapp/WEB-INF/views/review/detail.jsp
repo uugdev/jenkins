@@ -109,6 +109,15 @@ function deleteComment(reviewComNo) {
 }
 </script>
 
+<style type="text/css">
+// Class
+#item .center-block {
+/*   display: block; */
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 <div class="container">
 
 
@@ -142,8 +151,8 @@ function deleteComment(reviewComNo) {
 	</tbody>
 </table>
 
-<div id="item">
-	<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
+<div id="item" class="center-block">
+	<img id="itemImg" src="/upload/${file.fileStored}" class="img-responsive" alt="Responsive image" />
 </div>
 <%-- <a href="/board/download?fileNo=${file.fileNo }">${file.fileOrigin }</a> --%>
 
@@ -152,10 +161,13 @@ function deleteComment(reviewComNo) {
 <hr>
 
 <div class="text-center">
-	<a href="/review/list"><button class="btn btn-default">목록</button></a>
-	<c:if test="${user.userNo eq review.USER_NO }">
-		<a href="/review/update?reviewNo=${review.REVIEW_NO }"><button class="btn btn-primary">수정</button></a>
-		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"><button class="btn btn-danger">삭제</button></a>
+	<a href="/review/list">
+	<button class="btn btn-default">목록</button></a>
+	<c:if test="${userNo eq review.USER_NO }">
+		<a href="/review/update?reviewNo=${review.REVIEW_NO }">
+			<button class="btn btn-primary">수정</button></a>
+		<a href="/review/delete?reviewNo=${review.REVIEW_NO }">
+			<button  type="button" class="btn btn-danger"  id="btnDelete">삭제</button></a>
 	</c:if>
 </div>
 
@@ -213,39 +225,39 @@ function deleteComment(reviewComNo) {
 
 </div><!-- 댓글 처리 end -->
 
-	<div class="text-center">
-		<a href="/ask/list"><button class="btn btn-default">목록</button></a>
-		<c:if test="${userNo eq review.USER_NO }">
-			<a href="/review/update?reviewNo=${review.REVIEW_NO }"><button
-					class="btn btn-primary">수정</button></a>
-			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
-		</c:if>
-	</div>
+<!-- <div class="text-center"> -->
+<!-- 	<a href="/review/list"> -->
+<!-- 	<button class="btn btn-default">목록</button></a> -->
+<%-- 	<c:if test="${userNo eq review.USER_NO }"> --%>
+<%-- 		<a href="/review/update?reviewNo=${review.REVIEW_NO }"> --%>
+<!-- 			<button class="btn btn-primary">수정</button></a> -->
+<%-- 		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"> --%>
+<!-- 			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button></a> -->
+<%-- 	</c:if> --%>
+<!-- </div> -->
 	
 </div><!-- .container end -->
 <!-- </div>.wrap end -->
 
 <div class="popupWrap1 hide1">
-	<form action="/review/report" method="post">
-		<input type="hidden" name="askNo"
-			value="${review.reviewNo }" />
-		<div class="popup1">
-			<div class="title">
-				<p>신고 하기</p>
-				<span class="close1">❌</span>
-			</div>
-			<select name="reportCategory" class="select">
-				<option value="A">부적절한 홍보 게시글</option>
-				<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
-				<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
-				<option value="D">기타</option>
-			</select>	
-			<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
-			<div class="btnWrap1">
-				<button>보내기</button>
-			</div>
+<form action="/review/report" method="post">
+	<input type="hidden" name="reviewNo" value="${review.REVIEW_NO }" />
+	<div class="popup1">
+		<div class="title">
+			<p>신고 하기</p><span class="close1">❌</span>
 		</div>
-	</form>
+		<select name="reportCategory" class="select">
+			<option value="A">부적절한 홍보 게시글</option>
+			<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+			<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+			<option value="D">기타</option>
+		</select>	
+		<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+		<div class="btnWrap1">
+			<button>보내기</button>
+		</div>
+	</div>
+</form>
 </div>
 	
 <script>
