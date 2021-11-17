@@ -12,43 +12,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	// 댓글 입력
-// 	$("#btnCommInsert").click(function() {
-		
-// 		var newForm = $('<form></form>');
-// 		//set attribute (form)
-// 		newForm.attr("name","newForm");
-// 		newForm.attr("method","post");
-// 		newForm.attr("action","/trade/comment/write");
-		
-// 		var textarea = $("#tradeComContent").val();
-		
-// 		// create element & set attribute (input)
-// 		newForm.append($('<input/>', {type: 'hidden', name: 'tradeNo', value:'${tradeDetail.TRADE_NO }' }));
-// 		newForm.append($('<textarea/>', {display: 'none', name: 'tradeComContent', text: textarea }));
-		
-// 		if($("input:checkbox[id='tradeComSecret']").is(":checked") == true){
-// 			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'y' }));
-// 		}
-		
-// 		if($("input:checkbox[id='tradeComSecret']").is(":checked") == false){
-// 			newForm.append($('<input/>', {type: 'hidden', name: 'tradeComSecret', value:'n' }));
-// 		}
-
-// 		// append form (to body)
-// 		newForm.appendTo('body');
-
-// 		// submit form
-// 		newForm.submit();
-		
-// 	});
-	//$("#btnCommInsert").click() end
-	
-	//댓글 수정 updateComment
-	
-})
 
 function insertComment() {
 	
@@ -63,10 +26,6 @@ function insertComment() {
 		tradeComSecret = 'n';
 	}
 	
-	console.log(${tradeDetail.TRADE_NO })
-	console.log(textarea)
-	console.log(tradeComSecret)
-	
 	$.ajax({
 		type: "post"
 		, url: "/trade/comment/write"
@@ -78,14 +37,12 @@ function insertComment() {
 		}
 		, success: function(data){
 			if(data.success) {
-				console.log("ajax 성공")
-				console.log(data.addComment)
 				
 				var userNo = '<%= session.getAttribute("userNo")%>';
 				var tradeComDate = moment(data.addComment.tradeComDate).format("YY-MM-DD HH:mm:ss");
 				
 				if(data.addComment.tradeComSecret == 'y') {
-					$('#commentBody').after('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
+					$('#appendArea').before('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
 							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
 							'<td style="width: 4%; text-align: center; padding: 5px;">' +
 							'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
@@ -101,7 +58,7 @@ function insertComment() {
 				}
 				
 				if(data.addComment.tradeComSecret == 'n') {
-					$('#commentBody').after('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
+					$('#appendArea').before('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
 							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
 							'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
 							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
@@ -117,7 +74,7 @@ function insertComment() {
 				$('#tradeComContent').val('');
 						
 			} else {
-				console.log("ajax 실패")
+				alert("댓글 작성 실패");
 			}
 		}
 		, error: function() {
@@ -130,9 +87,7 @@ function insertComment() {
 function updateComment(tradeComNo) {
 	
     var tdText = $("#td"+tradeComNo).text();
-	console.log(tdText);
-	
-	console.log(tradeComNo);
+    
 	$("[data-tradeComNo='"+tradeComNo+"']").css("display", "none");
 	$("[data-updateTradeComNo='"+tradeComNo+"']").append('<td style="width: 4%;"></td>' +
 			'<td style="width: 10%;"></td>' +
@@ -152,7 +107,6 @@ function updateComment(tradeComNo) {
 function updateCom(tradeComNo) {
 	
 	var textarea = $("#tradeComUpdateContent"+ tradeComNo).val();
-	console.log(textarea)
 	
 	$.ajax({
 		type: "post"
@@ -168,7 +122,7 @@ function updateCom(tradeComNo) {
 				$("#td"+tradeComNo).html(data.tradeComment.tradeComContent);
 				$("[data-updateTradeComNo='"+tradeComNo+"']").html('');
 			} else {
-				console.log("ajax 실패")
+				alert("댓글 수정 실패");
 			}
 		}
 		, error: function() {
@@ -272,7 +226,7 @@ function deleteComment(tradeComNo) {
 									<td style="width: 10%;">${tradeComment.USER_NICK }</td>
 									<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
 									<td style="width: 10%;">
-										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 									</td>
 									<td style="width: 10%;">
 										<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
@@ -295,7 +249,7 @@ function deleteComment(tradeComNo) {
 								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
 								<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
 								<td style="width: 10%;">
-									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 								</td>
 								<td style="width: 10%;">
 									<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
@@ -312,8 +266,8 @@ function deleteComment(tradeComNo) {
 							</c:when>
 						</c:choose>
 					</tr>
-					<tr id="appendArea"></tr>
 				</c:forEach>
+				<tr id="appendArea"></tr>
 			</tbody>
 		</table>
 		

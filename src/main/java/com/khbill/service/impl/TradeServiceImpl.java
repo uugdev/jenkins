@@ -35,7 +35,7 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public Paging getPaging(Paging paramData) {
 		
-		//Board 테이블의 총 게시글 수를 조회한다
+		//trade 테이블의 총 게시글 수를 조회한다
 		int totalCount = tradeDao.selectCntAll(paramData);
 		
 		//Paging객체 생성

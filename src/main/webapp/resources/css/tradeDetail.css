@@ -18,6 +18,10 @@ hr {
 	text-align: left;
 }
 
+#commentBody td:nth-child(2){
+	text-align: center;
+}
+
 .table {
 	margin-bottom: 0;
 }
