@@ -233,7 +233,4 @@ public interface ReviewDao {
 	 */
 	public int selectCntReviewReportCheck(ReviewReport reviewReport);
 
-
-
-
 }

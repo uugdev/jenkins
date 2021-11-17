@@ -67,4 +67,29 @@
 		WHERE file_no = #{fileNo }
 	</select>
 	
+	<delete id="deleteReport" parameterType="int">
+		DELETE zreview_report
+		WHERE review_no = #{reviewNo}
+	</delete>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE zreview
+		WHERE review_no = #{reviewNo }
+	</delete>
+	
+	<delete id="deleteScrap" parameterType="int">
+		DELETE zreview_scrap
+		WHERE review_no = #{reviewNo}
+	</delete>
+	
+	<delete id="deleteFile" parameterType="int">
+		DELETE zfile
+		WHERE file_no = #{fileNo }
+	</delete>
+
+	<delete id="deleteReviewCommentByReviewNo" parameterType="com.khbill.dto.Review">
+		DELETE zreview_comment
+		WHERE review_no = #{reviewNo }
+	</delete>
+	
 </mapper>

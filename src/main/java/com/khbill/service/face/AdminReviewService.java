@@ -22,7 +22,7 @@ public interface AdminReviewService {
 	 * @param paramData - curPage를 저장하고있는 객체
 	 * @return 계산이 완료된 Paging객체
 	 */
-	Paging getPaging(Paging paramData);
+	public Paging getPaging(Paging paramData);
 
 	/**
 	 * 페이징이 적용된 후기 게시글 최신순으로 조회
@@ -30,7 +30,7 @@ public interface AdminReviewService {
 	 * @param paging -  페이징 정보 객체
 	 * @return List<Review>
 	 */
-	List<Review> getReviewList(Paging paging);
+	public List<Review> getReviewList(Paging paging);
 
 	/**
 	 * 후기 게시글 상세보기
@@ -38,7 +38,7 @@ public interface AdminReviewService {
 	 * @param detailReview - 상세 조회할 게시글 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	HashMap<String, Object> getReviewDetail(Review review);
+	public HashMap<String, Object> getReviewDetail(Review review);
 
 	/**
 	 *  후기 글번호롤 상품조회
@@ -46,7 +46,7 @@ public interface AdminReviewService {
 	 * @param itemNo - 상세 조회할 상품 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	Item getReviewItem(int itemNo);
+	public Item getReviewItem(int itemNo);
 
 	/**
 	 * 후기 글의 파일번호로 파일 정보 조회
@@ -54,7 +54,7 @@ public interface AdminReviewService {
 	 * @param fileNo - 상세 조회할 파일 번호 DTO
 	 * @return 첨부파일 정보
 	 */
-	File getReviewFile(int fileNo);
+	public File getReviewFile(int fileNo);
 
 	/**
 	 * 댓글 목록을 조회한다
@@ -62,7 +62,23 @@ public interface AdminReviewService {
 	 * @param review - 댓글을 조회할 게시글 정보
 	 * @return 조회된 댓글 목록
 	 */
-	List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
+	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
+
+	/**
+	 * 게시글 번호로 댓글 조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public void setReviewDelete(int reviewNo);
+
+	/**
+	 * ask댓글 삭제하기
+	 * 
+	 * @param askNo
+	 */
+	public void setReviewCommentDelete(int reviewNo);
+	
 
 
 }

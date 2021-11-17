@@ -40,7 +40,7 @@ $(document).ready(function(){
 	    	deleteReview.push($(this).val());
 	    });
 		if( result == true ){
-			location.href="/admin/review/delete?reviewNo="+deleteAsk;
+			location.href="/admin/review/delete?reviewNo="+deleteReview;
 		} else {
 			return false;
 		}
@@ -102,7 +102,7 @@ label {
 <c:forEach items="${review }" var="review">
 <tr>
 	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
-	<td><label for="${review.USER_NICK}">${review.USER_NICK }</label></td>
+	<td><label for="${review.REVIEW_NO}">${review.REVIEW_NO }</label></td>
 	<td><label for="${review.REVIEW_NO }">
 			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 		</label></td>

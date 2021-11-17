@@ -71,5 +71,36 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewServiceI
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 
+	@Override
+	public void setReviewDelete(int i) {
+		
+		Review review = new Review();
+		
+		review.setReviewNo(i);
+		adminReviewDao.selectReviewByReviewNo(review);
+		
+		Item item = new Item();
+		com.khbill.dto.File file = new com.khbill.dto.File();
+
+		item.setItemNo(review.getItemNo());
+		file.setFileNo(item.getFileNo());
+
+		int fileNo = file.getFileNo();
+
+		adminReviewDao.deleteReport(i);
+		adminReviewDao.deleteScrap(i);
+		adminReviewDao.deleteReview(i);
+		adminReviewDao.deleteFile(fileNo);
+	}
+
+	@Override
+	public void setReviewCommentDelete(int i) {
+		
+		Review review = new Review();
+		
+		review.setReviewNo(i);
+		adminReviewDao.deleteReviewCommentByReviewNo(review);
+	}
+
 	
 }

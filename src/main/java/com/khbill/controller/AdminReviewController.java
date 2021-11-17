@@ -84,6 +84,23 @@ public class AdminReviewController {
 		
 		return "admin/review/detail";
 	}
+	
+	@RequestMapping(value = "/delete")
+	public String delete(int[] reviewNo) {
+		logger.info("/admin/review/delete");
+		
+		int size = reviewNo.length;
+		for(int i=0; i<size; i++) {
+			
+			adminReviewService.setReviewCommentDelete(reviewNo[i]);
+			adminReviewService.setReviewDelete(reviewNo[i]);
+			
+		}
+		
+		logger.info("reviewNo{}", reviewNo);
+		
+		return "redirect:/admin/review/list";
+	}
 }
 
 

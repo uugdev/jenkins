@@ -222,7 +222,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDao.deleteReport(review);
 		reviewDao.deleteScrap(review);
 		reviewDao.deleteReview(review);
-		reviewDao.deleteItem(itemNo);
+		reviewDao.deleteItem(itemNo); 
 		reviewDao.deleteFile(fileNo);
 	}
 

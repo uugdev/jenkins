@@ -57,6 +57,18 @@ public interface AdminReviewDao {
 	 * @return
 	 */
 	public File selectFileByFile(int fileNo);
+
+	//--- review delete ----------------------------
+	
+	public void deleteReport(int reviewNo);
+
+	public void deleteReview(int reviewNo);
+
+	public void deleteScrap(int reviewNo);
+
+	public void deleteFile(int fileNo);
+
+	public void deleteReviewCommentByReviewNo(Review review);
 	
 	
 }
