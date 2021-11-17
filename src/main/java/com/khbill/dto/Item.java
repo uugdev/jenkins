@@ -1,5 +1,7 @@
 package com.khbill.dto;
 
+import java.util.Date;
+
 public class Item {
 
 	private int itemNo;
@@ -9,10 +11,12 @@ public class Item {
 	private String itemName;
 	private int itemPrice;
 	private String itemStatus;
+	private Date itemDate;
 	@Override
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", userNo=" + userNo + ", fileNo=" + fileNo + ", itemBrand=" + itemBrand
-				+ ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemStatus=" + itemStatus + "]";
+				+ ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemStatus=" + itemStatus + ", itemDate="
+				+ itemDate + "]";
 	}
 	public int getItemNo() {
 		return itemNo;
@@ -56,7 +60,12 @@ public class Item {
 	public void setItemStatus(String itemStatus) {
 		this.itemStatus = itemStatus;
 	}
-
+	public Date getItemDate() {
+		return itemDate;
+	}
+	public void setItemDate(Date itemDate) {
+		this.itemDate = itemDate;
+	}
 	
 	
 	

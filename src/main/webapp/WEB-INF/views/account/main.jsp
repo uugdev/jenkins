@@ -22,8 +22,8 @@
     	  events: [ 
     	 
     	    {
-    	      title  : 'event1',
-    	      start  : '2021-11-17',
+    	      title  : '${itemList.itemName}',
+    	      start  : '${itemList.item}',
     	      end    : '2021-11-17'
     	    }
 		]
