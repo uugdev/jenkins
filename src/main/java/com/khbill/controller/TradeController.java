@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
@@ -105,7 +106,7 @@ public class TradeController {
 	@RequestMapping(value = "/trade/comment/delete")
 	public void tradeCommentDelete(
 				int tradeComNo
-				,Writer writer
+				, Writer writer
 			) {
 		
 		logger.info("tradeComNo - {}", tradeComNo);
@@ -118,6 +119,31 @@ public class TradeController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping(value = "/trade/comment/update")
+	public ModelAndView tradeCommentUpdate(
+				ModelAndView mav
+				, TradeComment tradeComment
+				) {
+		logger.info("AJAX COMMENT UPDATE");
+		logger.info("tradeComment - {}", tradeComment);
+		
+		boolean success = false;
+		
+		TradeComment resultTradeComment = tradeService.setTradeCommentUpdate(tradeComment);
+		
+		if(tradeComment.getTradeComNo() == resultTradeComment.getTradeComNo()) {
+			success = true;
+		} else {
+			success = false;
+		}
+		
+		mav.addObject("success", success);
+		mav.addObject("tradeComment", tradeComment);
+		mav.setViewName("jsonView");
+		
+		return mav; 
 	}
 	
 

@@ -89,4 +89,16 @@
 		WHERE trade_no = #{tradeComNo }
 	</select>
 	
+	<update id="updateTradeComment" parameterType="com.khbill.dto.TradeComment">
+		UPDATE ztrade_comment
+		SET trade_com_content = #{tradeComContent }, trade_com_date = SYSDATE
+		WHERE trade_com_no = #{tradeComNo }
+	</update>
+	
+	<select id="selectOneTradeCommentByTradeNo" parameterType="com.khbill.dto.TradeComment" resultType="com.khbill.dto.TradeComment">
+		SELECT TRADE_COM_NO, USER_NO, TRADE_NO, TRADE_COM_CONTENT, TRADE_COM_DATE, TRADE_COM_SECRET, TRADE_COM_LIKE, TRADE_COM_HATE
+        FROM ztrade_comment
+	    WHERE trade_com_no = #{tradeComNo }
+	</select>
+	
 </mapper>

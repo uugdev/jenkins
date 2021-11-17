@@ -141,4 +141,13 @@ public class TradeServiceImpl implements TradeService {
 		}
 	}
 
+	@Override
+	public TradeComment setTradeCommentUpdate(TradeComment tradeComment) {
+		tradeDao.updateTradeComment(tradeComment);
+		
+		TradeComment resultCom = tradeDao.selectOneTradeCommentByTradeNo(tradeComment.getTradeComNo());
+		
+		return resultCom;
+	}
+
 }

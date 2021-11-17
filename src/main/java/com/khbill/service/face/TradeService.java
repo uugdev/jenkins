@@ -68,9 +68,17 @@ public interface TradeService {
 	/**
 	 * 입력받은 거래 댓글 번호로 거래 게시글 댓글 삭제
 	 * 
-	 * @param tradeComNo
+	 * @param tradeComNo - 전송받은 댓글 번호
 	 * @return
 	 */
 	public boolean setTradeCommentDelete(int tradeComNo);
+	
+	/**
+	 * 입력받은 거래 댓글 정보로 거래 게시글 댓글 수정
+	 * 
+	 * @param tradeComment - 전송받은 댓글 정보
+	 * @return
+	 */
+	public TradeComment setTradeCommentUpdate(TradeComment tradeComment);
 
 }

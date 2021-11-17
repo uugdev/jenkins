@@ -45,7 +45,65 @@ $(document).ready(function() {
 	});
 	//$("#btnCommInsert").click() end
 	
+	//댓글 수정 updateComment
+	
 })
+
+function updateComment(tradeComNo) {
+	
+    var tdText = $("#td"+tradeComNo).text();
+	console.log(tdText);
+	
+	console.log(tradeComNo);
+	$("[data-tradeComNo='"+tradeComNo+"']").css("display", "none");
+	$("[data-updateTradeComNo='"+tradeComNo+"']").append('<td style="width: 4%;"></td>' +
+			'<td style="width: 10%;"></td>' +
+			'<td style="width: 66%;">' +
+			'<div class="form-inline text-center">' +
+			'<div class="form-inline text-center">' +
+			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
+			'<textarea rows="2" cols="60" class="form-control" id="tradeComUpdateContent'+ tradeComNo +'">'+ tdText +'</textarea>' +
+			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ tradeComNo +');">수정</button>　' +
+			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ tradeComNo +');">취소</button>' +
+			'</div>' +
+			'</td>' +
+			'<td style="width: 10%;"></td>' +
+			'<td style="width: 10%;"></td>');
+}
+
+function updateCom(tradeComNo) {
+	
+	var textarea = $("#tradeComUpdateContent"+ tradeComNo).val();
+	console.log(textarea)
+	
+	$.ajax({
+		type: "post"
+		, url: "/trade/comment/update"
+		, dataType: "json"
+		, data: {
+			tradeComNo: tradeComNo
+			, tradeComContent: textarea
+		}
+		, success: function(data){
+			if(data.success) {
+				$("[data-tradeComNo='"+tradeComNo+"']").css("display", "table-row");
+				$("#td"+tradeComNo).html(data.tradeComment.tradeComContent);
+				$("[data-updateTradeComNo='"+tradeComNo+"']").html('');
+			} else {
+				console.log("ajax 실패")
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
+function cancelCom(tradeComNo) {
+	$("[data-tradeComNo='"+tradeComNo+"']").css("display", "table-row");
+	$("[data-updateTradeComNo='"+tradeComNo+"']").html('');
+}
+
 
 function deleteComment(tradeComNo) {
 	$.ajax({
@@ -111,13 +169,14 @@ function deleteComment(tradeComNo) {
 		
 			<tbody id="commentBody">
 				<c:forEach items="${tradeComment }" var="tradeComment">
+					<tr data-updateTradeComNo="${tradeComment.TRADE_COM_NO }"></tr>
 					<tr data-tradeComNo="${tradeComment.TRADE_COM_NO }">
 						<c:choose>
 		                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
 							<!-- 비밀글이 아닐 경우 -->
 								<td style="width: 4%;"></td>
 								<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-								<td style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
+								<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
 								<td style="width: 10%;">
 									<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
 								</td>
@@ -126,6 +185,10 @@ function deleteComment(tradeComNo) {
 										<button class="btn btn-default btn-xs"
 												onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
 												삭제
+										</button>
+										<button class="btn btn-default btn-xs"
+												onclick="updateComment(${tradeComment.TRADE_COM_NO });">
+												수정
 										</button>
 									</c:if>
 								</td>
@@ -151,7 +214,7 @@ function deleteComment(tradeComNo) {
 										<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
 									</td>
 									<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-									<td style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
+									<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
 									<td style="width: 10%;">
 										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
 									</td>
@@ -160,6 +223,10 @@ function deleteComment(tradeComNo) {
 											<button class="btn btn-default btn-xs"
 													onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
 													삭제
+											</button>
+											<button class="btn btn-default btn-xs"
+													onclick="updateComment(${tradeComment.TRADE_COM_NO });">
+													수정
 											</button>
 										</c:if>
 									</td>
@@ -185,7 +252,7 @@ function deleteComment(tradeComNo) {
 		<div class="form-inline text-center">
 			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			<input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
-			<label for="tradeComSecret">비밀글 </label>
+			<label for="tradeComSecret">비밀글　</label>
 			<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
 			<textarea rows="2" cols="60" class="form-control" id="tradeComContent"></textarea>
 			<button id="btnCommInsert" class="btn">입력</button>
