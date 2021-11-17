@@ -89,6 +89,29 @@ public interface MemberService {
 	 */
 	public int checkUserExists(String userNick);
 
+	/**
+	 * 해당 이메일을 사용하는 회원이 있는지 조회한다
+	 * 
+	 * @param userMail - 입력한 이메일
+	 * @return int
+	 */
+	public int checkUserMail(String userMail);
+
+	/**
+	 * 카카오 메일로 회원 정보 불러오기
+	 * 
+	 * @param kakaoEmail - 카카오 메일
+	 * @return User
+	 */
+	public User getUserByUserMail(String kakaoEmail);
+
+	/**
+	 * 카카오로 회원가입 처리
+	 * 
+	 * @param user - 유저 정보
+	 */
+	public void joinKakao(User user);
+
 
 
 }

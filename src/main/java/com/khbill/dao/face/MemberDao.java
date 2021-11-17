@@ -95,6 +95,22 @@ public interface MemberDao {
 	 * @return 1 - 존재하는 회원, 0 - 존재하지 않는 회원
 	 */
 	public int selectUserCntByUserNick(String userNick);
+
+	/**
+	 * 이메일로 조회한 회원 명수 반환
+	 * 
+	 * @param userMail
+	 * @return 1 - 회원가입 이력 존재, 0 - 카카오 로그인 처음 이용
+	 */ 
+	public int selectUserCntByUserMail(String userMail);
+
+	/**
+	 * 카카오 메일로 조회한 회원 정보 반환
+	 * 
+	 * @param kakaoEmail - 카카오 메일
+	 * @return User
+	 */
+	public User selectUserByUserMail(String kakaoEmail);
 	
 	
 

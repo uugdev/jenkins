@@ -1,5 +1,7 @@
 package com.khbill.service.impl;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +84,28 @@ public class MemberServiceImpl implements MemberService {
 	public int checkUserExists(String userNick) {
 		return memberDao.selectUserCntByUserNick(userNick);
 	}
+
+	@Override
+	public int checkUserMail(String userMail) {
+		return memberDao.selectUserCntByUserMail(userMail);
+	}
+
+	@Override
+	public User getUserByUserMail(String kakaoEmail) {
+		return memberDao.selectUserByUserMail(kakaoEmail);
+	}
+
+	@Override
+	public void joinKakao(User user) {
+		String kakaoid = "kakao-"+UUID.randomUUID().toString().split("-")[3];
+		String kakaopw = UUID.randomUUID().toString().split("-")[2]+UUID.randomUUID().toString().split("-")[4];
+		System.out.println("kakaoid = " + kakaoid);
+		System.out.println("kakaopw = " + kakaopw);
+		user.setUserId(kakaoid);
+		user.setUserPw(kakaopw);
+		
+		memberDao.insertMember(user);
+	}
+	
 	
 }

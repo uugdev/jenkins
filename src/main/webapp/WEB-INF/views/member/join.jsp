@@ -181,6 +181,31 @@ function checkUserNick() {
     return checkNick();
 }
 
+
+function checkMail(){
+    var userMail = $("#userMail").val();
+    $.ajax({
+        url:"/member/mailCheck",
+        type: "post",
+        data:{userMail:userMail},
+        success:function(cnt){
+        	 if(cnt != 1){ 
+                 $(".mail_ok").css("display","inline-block"); 
+                 $(".mail_already").css("display", "none");
+                 $("#join").prop("disabled", false);
+             } else {
+                 $(".mail_already").css("display","inline-block");
+                 $(".mail_ok").css("display", "none");
+                 $("#join").prop("disabled", true);
+             }
+        },
+        error:function(){
+            alert("에러입니다");
+        }
+    });
+};
+
+
 </script>
 
 <style type="text/css">
@@ -208,11 +233,11 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 	text-align: center;
 }
 
-.id_ok, .nick_ok {
+.id_ok, .nick_ok, .mail_ok {
 	color:#6A82FB;
 	display: none;
 }
-.id_already, .id_check, .nick_already, .nick_check {
+.id_already, .id_check, .nick_already, .nick_check, .mail_already {
 	color: red;
 	display: none;
 }
@@ -257,7 +282,9 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
-	<td><input type="email" id="userMail" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required/></td>
+	<td><input type="email" id="userMail" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><br>
+	<span class="mail_ok">사용 가능한 이메일입니다.</span>
+	<span class="mail_already">사용 중인 이메일입니다.</span></td>
 </tr>
 <tr>
 	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label></th>

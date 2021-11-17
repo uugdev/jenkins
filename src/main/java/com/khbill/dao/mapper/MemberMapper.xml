@@ -65,4 +65,16 @@
 		WHERE user_nick = #{userNick }
 	</select>
 	
+	<select id="selectUserCntByUserMail" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM zuser
+		WHERE user_mail = #{userMail}
+	</select>
+	
+	<select id="selectUserByUserMail" parameterType="String" resultType="com.khbill.dto.User">
+		SELECT * FROM zuser
+		WHERE user_mail = #{userMail}
+	</select>
+
+	
 </mapper>
