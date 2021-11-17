@@ -427,6 +427,18 @@ public interface AskDao {
 	 * @return
 	 */
 	public List<AskComment> selectAskComListByAskNo(HashMap<String, Object> map);
+
+
+	public AskComment selectAskCommentByUserNo(int userNo);
+
+
+	public String selectUserNickByUserNo(int userNo);
+
+
+	public void updateAskComment(AskComment askComment);
+
+
+	public AskComment selectOneAskCommentByAskNo(int askComNo);
 	
 	
 	

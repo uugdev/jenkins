@@ -18,6 +18,7 @@ import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.Item;
+import com.khbill.dto.TradeComment;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
@@ -434,6 +435,23 @@ public class AskServiceImpl implements AskService {
 	}
 	
 	
+	@Override
+	public AskComment getAskCommentWriteByUserNo(int userNo) {
+		return askDao.selectAskCommentByUserNo(userNo);
+	}
 	
+	@Override
+	public String getUserNickByUserNo(int userNo) {
+		return askDao.selectUserNickByUserNo(userNo);
+	}
+	
+	@Override
+	public AskComment setAskCommentUpdate(AskComment askComment) {
+		askDao.updateAskComment(askComment);
+		
+		AskComment resultCom = askDao.selectOneAskCommentByAskNo(askComment.getAskComNo());
+		
+		return resultCom;
+	}
 	
 }// class

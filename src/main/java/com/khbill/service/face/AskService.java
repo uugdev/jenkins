@@ -296,5 +296,33 @@ public interface AskService {
 	 */
 	public List<AskComment> getAskComListPaging(HashMap<String, Object> map);
 
+	
+	/**
+	 * 
+	 * 유저번호에 해당하는 유저의 가장 최신 댓글 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public AskComment getAskCommentWriteByUserNo(int userNo);
+
+	
+	/**
+	 * 유저번호에 해당하는 유저 닉네임 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public String getUserNickByUserNo(int userNo);
+
+	
+	/**
+	 * 게시글 댓글 수정
+	 * 
+	 * @param askComment
+	 * @return
+	 */
+	public AskComment setAskCommentUpdate(AskComment askComment);
+
 
 }

@@ -267,5 +267,31 @@
 	</select>
 
 
+	<select id="selectAskCommentByUserNo" parameterType="int" resultType="com.khbill.dto.AskComment">
+	SELECT * FROM zask_comment
+	    WHERE user_no = #{userNo }
+        AND rownum = 1
+        ORDER BY ask_com_no DESC
+	</select>
+	
+	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
+	    SELECT user_nick
+        FROM zuser
+        WHERE user_no = #{userNo }
+	</select>
+	
+	<update id="updateAskComment" parameterType="com.khbill.dto.AskComment">
+		UPDATE zask_comment
+		SET ask_com_content = #{askComContent }, ask_com_date = SYSDATE
+		WHERE ask_com_no = #{askComNo }
+	</update>
+	
+	<select id="selectOneAskCommentByAskNo" parameterType="com.khbill.dto.AskComment" resultType="com.khbill.dto.AskComment">
+		SELECT * FROM zask_comment
+	    WHERE ask_com_no = #{askComNo }
+	</select>
+
+
+
 
 </mapper>
