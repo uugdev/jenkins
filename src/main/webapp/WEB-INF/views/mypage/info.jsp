@@ -22,32 +22,91 @@ $(document).ready(function() {
 	
 });
 </script>
+
+<style>
+
+#left {
+	float: left;
+}
+
+#right {
+	float: right;
+}
+
+table {
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.buttonarea {
+	margin: 0 505px 50px 505px;
+	
+}
+
+.titlearea {
+	margin: 0 0 30px 0;
+}
+
+</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
 
-<h1> 회원정보 조회 </h1>
+
+<div class="titlearea">
+<h3> 회원정보 조회 </h3>
+</div>
+
+<table class="table table-hover" style="width: 300px">
+	<tr>
+		<td style="width:10%" >아이디</td>
+		<td style="width:10%" >${user.userId }</td>
+	</tr>
+	<tr>
+		<td>닉네임</td>
+		<td>${user.userNick }</td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td>${user.userMail }</td>
+	</tr>
+	<tr>
+		<td>유저 성별</td>
+		<c:if test="${user.userGender == 'M' }">
+			<td>남</td>
+		</c:if>
+		<c:if test="${user.userGender == 'F' }">
+			<td>여</td>
+	</c:if>
+	</tr>
+	<tr>
+		<td>생일</td>
+		<td>${user.userBday }</td>
+	</tr>
+	<tr>
+		<td>가입일</td>
+		<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
+	</tr>
+	<tr>
+		<td>포인트</td>
+		<td>${user.userPoint }</td>
+	</tr>
+
+</table>
 
 
-<div>아이디</div>
-<div>${user.userId }</div>
-
-<div>닉네임</div>
-<div>${user.userNick }</div>
-<div>이메일</div>
-<div>${user.userMail }</div>
-<div>가입일</div>
-<div>${user.joinDate }</div>
-<div>포인트</div>
-<div>${user.userPoint }</div>
-
-
+<div class="buttonarea">
+<div id="left">
 <a href="<%=request.getContextPath() %>/mypage/update?userNo=${user.userNo }"><button id="btnUpdate">수정하기</button></a>
+</div>
+<div id="right">
 <form action="/mypage/delete" method="post">
 <button id="btnDelete">회원탈퇴</button>
 <input type="hidden" name="userNo" value="${user.userNo }">
 </form>
+</div>
+</div>
 
 
 
