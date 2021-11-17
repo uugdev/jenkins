@@ -98,7 +98,9 @@ public class MypageController {
 		//조회한 유저 정보 전달
 		
 		if(session.getAttribute("login") != null) {
-			model.addAttribute("user", user);			
+			model.addAttribute("user", user);
+			model.addAttribute("Bday", user.getUserBday());
+			logger.info(user.getUserBday());
 		}
 		
 	}
