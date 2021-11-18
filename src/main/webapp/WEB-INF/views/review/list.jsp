@@ -42,6 +42,8 @@ td:nth-child(2) {
 }
 </style>
 
+
+
 <div class="container">
 
 <h1 style="text-align: center;">후기</h1>
@@ -79,7 +81,9 @@ td:nth-child(2) {
 </tbody>
 </table>
 
-<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+<c:if test="${login }">
+	<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+</c:if>
 
 <div class="form-inline text-center">
 	<input class="form-control" type="text" id="search" value="${param.search }" />
