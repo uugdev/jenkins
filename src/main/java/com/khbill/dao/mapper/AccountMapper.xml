@@ -10,6 +10,15 @@
 		WHERE item_status = 'y'
 	</select>
 
+	<select id="selectUserByUserNo" resultType="com.khbill.dto.User" parameterType="int">
+		select * from zuser
+		WHERE user_no = #{userNo}
+	</select>
 
+	<update id="updateExtraMoney" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+			SET extra_money = #{extraMoney}
+		WHERE user_no = #{userNo}
+	</update>
 
 </mapper>

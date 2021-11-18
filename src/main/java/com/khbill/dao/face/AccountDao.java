@@ -3,6 +3,7 @@ package com.khbill.dao.face;
 import java.util.List;
 
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
 
 public interface AccountDao {
 
@@ -15,5 +16,20 @@ public interface AccountDao {
 	 * @return
 	 */
 	public List<Item> selectItemStatus(int userNo);
+
+	/**
+	 * 유저번호로 유저조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public User selectUserByUserNo(int userNo);
+
+	/**
+	 * 지출가능금액 업데이트
+	 * 
+	 * @param user
+	 */
+	public void updateExtraMoney(User user);
 
 }

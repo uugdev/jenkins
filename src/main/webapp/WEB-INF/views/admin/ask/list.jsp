@@ -124,11 +124,11 @@ label {
 
 <div class="clearfix"></div>
 
+
+
+	</div><!-- .container end -->
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
-
-
-</div><!-- .container end -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+<!-- footer start -->
 </div><!-- .wrap end -->
 
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />

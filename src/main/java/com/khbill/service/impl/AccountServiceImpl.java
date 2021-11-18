@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.AccountDao;
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
 
 @Service
@@ -26,5 +27,24 @@ public class AccountServiceImpl implements AccountService {
 
 		return accountDao.selectItemStatus(userNo);
 	}
+	
+	
+	@Override
+	public User getUserInfo(int userNo) {
+		return accountDao.selectUserByUserNo(userNo);
+	}
+	
+	
+	@Override
+	public void setUpdateExtraMoney(int userNo, int money) {
+
+		User user = new User();
+		user.setUserNo(userNo);
+		user.setExtraMoney(money);
+		accountDao.updateExtraMoney(user);
+		
+	}
+	
+	
 	
 }

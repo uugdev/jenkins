@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
 import com.khbill.util.Paging;
 
@@ -31,13 +32,38 @@ public class AccountController {
 		logger.info("/account/main [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
+		User user = accountService.getUserInfo(userNo);
 		
 		List<Item> itemList =  accountService.getItemListByLoginUserNo(userNo);
 		logger.info("itemList : {}", itemList);
 		
 		
+		model.addAttribute("user",user);
 		model.addAttribute("itemList",itemList);
+	}
 	
+	@RequestMapping(value = "/account/extramoney", method = RequestMethod.POST)
+	public String accountExtraMoney(String extraMoney,Model model, HttpSession session) {
+		logger.info("/account/extramoney [POST]");
+		
+		
+		int userNo = (int)session.getAttribute("userNo");
+		int money = Integer.parseInt(extraMoney);
+		
+		accountService.setUpdateExtraMoney(userNo,money);
+		
+		User user = accountService.getUserInfo(userNo);
+		
+		
+		List<Item> itemList =  accountService.getItemListByLoginUserNo(userNo);
+		logger.info("itemList : {}", itemList);
+		
+		
+		model.addAttribute("user",user);
+		model.addAttribute("itemList",itemList);
+		
+		return "redirect:/account/main";
+		
 	}
 	
 	

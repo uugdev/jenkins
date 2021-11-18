@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
-<c:import url="/WEB-INF/views/layout/header.jsp" />
+<c:import url="/WEB-INF/views/layout/adminheader.jsp" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/reportPopup.css">
 <!-- header end -->
@@ -316,7 +316,6 @@ table, th {
 		</table>
 		<!-- 댓글 리스트 end -->
 
-	</div>
 
 	<!-- 댓글 처리 -->
 
@@ -332,12 +331,11 @@ table, th {
 
 
 	<%-- --%>
-
-</div>
 <!-- .container end -->
-</div>
-<!-- .wrap end -->
-
+	</div>
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+<!-- .wrap end -->
+</div>
+
 

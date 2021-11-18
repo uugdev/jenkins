@@ -3,6 +3,7 @@ package com.khbill.service.face;
 import java.util.List;
 
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
 
 public interface AccountService {
 
@@ -13,5 +14,21 @@ public interface AccountService {
 	 * @return
 	 */
 	List<Item> getItemListByLoginUserNo(int userNo);
+
+	/**
+	 * 유저의 지출가능금액 수정
+	 * 
+	 * @param userNo
+	 * @param money
+	 */
+	public void setUpdateExtraMoney(int userNo, int money);
+
+	/**
+	 * 유저번호로 유저조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public User getUserInfo(int userNo);
 
 }

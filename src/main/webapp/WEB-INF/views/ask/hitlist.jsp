@@ -95,12 +95,12 @@ td:nth-child(2) {
 
 	</div>
 	<!-- .container end -->
+<c:import url="/WEB-INF/views/ask/paging.jsp" />
+<!-- footer start -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div>
 <!-- .wrap end -->
 
 
-<c:import url="/WEB-INF/views/ask/paging.jsp" />
 
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
 
