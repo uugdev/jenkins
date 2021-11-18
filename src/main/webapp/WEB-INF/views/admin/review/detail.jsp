@@ -171,8 +171,8 @@ function deleteComment(reviewComNo) {
 
 	
 </div><!-- .container end -->
-</div><!-- .wrap end -->
-
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+
+</div><!-- .wrap end -->

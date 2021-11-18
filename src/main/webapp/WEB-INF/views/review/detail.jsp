@@ -239,6 +239,10 @@ function deleteComment(reviewComNo) {
 <!-- </div> -->
 	
 </div><!-- .container end -->
+
+<!-- footer start -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+
 </div><!-- .wrap end -->
 
 <div class="popupWrap1 hide1">
@@ -278,6 +282,3 @@ $(".btnWrap1").click(function() {
 });
 </script>
 
-
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
