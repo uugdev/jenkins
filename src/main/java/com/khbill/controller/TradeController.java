@@ -2,6 +2,7 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -53,8 +54,8 @@ public class TradeController {
 				, int tradeNo
 			) {
 		
-		Object tradeDetail = tradeService.getTradeDetail(tradeNo);
-		List<Object> tradeComment = tradeService.getTradeCommentDetail(tradeNo);
+		HashMap<String, String> tradeDetail = tradeService.getTradeDetail(tradeNo);
+		List<HashMap<String, String>> tradeComment = tradeService.getTradeCommentDetail(tradeNo);
 		
 		logger.info("tradeDetail - {}", tradeDetail);
 		logger.info("tradeComment - {}", tradeComment);
@@ -80,6 +81,27 @@ public class TradeController {
 		logger.info("trade - {}", trade);
 		
 		tradeService.setTradeWrite(session, file, trade);
+		
+		return "redirect:/trade/list";
+	}
+	
+	@RequestMapping(value = "/trade/update", method = RequestMethod.GET)
+	public void tradeUpdate(
+			Model model
+			, int tradeNo
+			) {
+		
+		HashMap<String, String> tradeDetail = tradeService.getTradeDetail(tradeNo);
+		
+		model.addAttribute("tradeDetail", tradeDetail);
+		
+	}
+	
+	@RequestMapping(value = "/trade/delete")
+	public String tradeDelete(
+				int tradeNo
+			) {
+		tradeService.setTradeDelete(tradeNo);
 		
 		return "redirect:/trade/list";
 	}

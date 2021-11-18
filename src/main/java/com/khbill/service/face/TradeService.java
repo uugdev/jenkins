@@ -1,5 +1,6 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -39,7 +40,7 @@ public interface TradeService {
 	 * @param tradeNo - 조회한 게시글 번호
 	 * @return tradeNo에 해당하는 거래 게시글 Object
 	 */
-	public Object getTradeDetail(int tradeNo);
+	public HashMap<String, String> getTradeDetail(int tradeNo);
 	
 	/**
 	 * tradeNo에 해당하는 거래 게시글 댓글 리스트 조회
@@ -47,7 +48,7 @@ public interface TradeService {
 	 * @param tradeNo - 조회한 게시글 번호
 	 * @return tradeNo에 해당하는 거래 게시글 댓글 리스트
 	 */
-	public List<Object> getTradeCommentDetail(int tradeNo);
+	public List<HashMap<String, String>> getTradeCommentDetail(int tradeNo);
 	
 	/**
 	 * 입력받은 데이터로 거래 게시글 작성
@@ -96,5 +97,12 @@ public interface TradeService {
 	 * @return 유저 번호에 해댕하는 유저 닉네임
 	 */
 	public String getUserNickByUserNo(int userNo);
+	
+	/**
+	 * 게시글 번호에 해당하는 게시글, 댓글, 신고, 스크랩, 파일 삭제
+	 * 
+	 * @param tradeNo - 삭제할 게시글 번호
+	 */
+	public void setTradeDelete(int tradeNo);
 
 }

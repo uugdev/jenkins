@@ -41,7 +41,7 @@
 	    FROM ztrade t, zuser u, zfile f
 	    WHERE 1=1
 	    AND t.user_no = u.user_no
-	    AND t.file_no = f.file_no
+	    AND t.file_no = f.file_no (+)
 	
 	    AND t.trade_no = #{tradeNo }
 	</select>
@@ -80,9 +80,34 @@
 		VALUES (ztrade_com_seq.nextval, #{userNo }, #{tradeNo }, #{tradeComContent }, #{tradeComSecret })
 	</insert>
 	
-	<delete id="deleteTradeComment" parameterType="int">
+	<delete id="deleteTradeCommentByTradeComNo" parameterType="int">
 		DELETE ztrade_comment
 		WHERE trade_com_no = #{tradeComNo }
+	</delete>
+
+	<delete id="deleteTradeCommentByTradeNo" parameterType="int">
+		DELETE ztrade_comment
+		WHERE trade_no = #{tradeNo }
+	</delete>
+
+	<delete id="deleteTradeReportByTradeNo" parameterType="int">
+		DELETE ztrade_report
+		WHERE trade_no = #{tradeNo }
+	</delete>
+
+	<delete id="deleteTradeScrapByTradeNo" parameterType="int">
+		DELETE ztrade_scrap
+		WHERE trade_no = #{tradeNo }
+	</delete>
+	
+	<delete id="deleteTradeFileByFileStored" parameterType="String">
+		DELETE zfile
+		WHERE file_stored = #{fileStored }
+	</delete>
+	
+	<delete id="deleteTradeByTradeNo" parameterType="int">
+		DELETE ztrade
+		WHERE trade_no = #{tradeNo }
 	</delete>
 	
 	<select id="selectCountTradeComment" parameterType="int" resultType="int">

@@ -6,7 +6,7 @@ public class Trade {
 
 	private int tradeNo;
 	private int userNo;
-	private int fileNo;
+	private Integer fileNo;
 	private int tradeCategory;
 	private String tradeTitle;
 	private String tradeContent;
@@ -25,8 +25,9 @@ public class Trade {
 	public String toString() {
 		return "Trade [tradeNo=" + tradeNo + ", userNo=" + userNo + ", fileNo=" + fileNo + ", tradeCategory="
 				+ tradeCategory + ", tradeTitle=" + tradeTitle + ", tradeContent=" + tradeContent + ", tradeDate="
-				+ tradeDate + ", tradeHit=" + tradeHit + "]";
+				+ tradeDate + ", tradeHit=" + tradeHit + ", user=" + user + "]";
 	}
+	
 	public int getTradeNo() {
 		return tradeNo;
 	}
@@ -39,10 +40,10 @@ public class Trade {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public int getFileNo() {
+	public Integer getFileNo() {
 		return fileNo;
 	}
-	public void setFileNo(int fileNo) {
+	public void setFileNo(Integer fileNo) {
 		this.fileNo = fileNo;
 	}
 	public int getTradeCategory() {
@@ -75,6 +76,5 @@ public class Trade {
 	public void setTradeHit(int tradeHit) {
 		this.tradeHit = tradeHit;
 	}
-	
 	
 }

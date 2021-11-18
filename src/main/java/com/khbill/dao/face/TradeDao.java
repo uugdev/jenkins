@@ -1,5 +1,6 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.File;
@@ -31,7 +32,7 @@ public interface TradeDao {
 	 * @param tradeNo - 게시글 번호
 	 * @return 상세 페이지에 필요한 정보
 	 */
-	public Object selectTradeByTradeNo(int tradeNo);
+	public HashMap<String, String> selectTradeByTradeNo(int tradeNo);
 	
 	/**
 	 * 
@@ -39,7 +40,7 @@ public interface TradeDao {
 	 * @param tradeNo
 	 * @return
 	 */
-	public List<Object> selectTradeCommentByTradeNo(int tradeNo);
+	public List<HashMap<String, String>> selectTradeCommentByTradeNo(int tradeNo);
 	
 	/**
 	 * 
@@ -82,7 +83,7 @@ public interface TradeDao {
 	 * 
 	 * @param tradeComNo
 	 */
-	public void deleteTradeComment(int tradeComNo);
+	public void deleteTradeCommentByTradeComNo(int tradeComNo);
 	
 	/**
 	 * 
@@ -122,6 +123,41 @@ public interface TradeDao {
 	 * @return
 	 */
 	public String selectUserNickByUserNo(int userNo);
+	
+	/**
+	 * 거래 게시글 번호로 거래 게시글 댓글 모두 삭제
+	 * 
+	 * @param tradeNo - 삭제할 댓글의 게시글 번호
+	 */
+	public void deleteTradeCommentByTradeNo(int tradeNo);
+	
+	/**
+	 * 거래 게시글 번호로 거래 게시글 신고 모두 삭제
+	 * 
+	 * @param tradeNo - 삭제할 신고의 게시글 번호
+	 */
+	public void deleteTradeReportByTradeNo(int tradeNo);
+	
+	/**
+	 * 거래 게시글 번호로 거래 게시글 스크랩 모두 삭제
+	 * 
+	 * @param tradeNo - 삭제할 스크랩의 게시글 번호
+	 */
+	public void deleteTradeScrapByTradeNo(int tradeNo);
+	
+	/**
+	 * 저장파일명으로 거래 게시글과 연결되어 있는 파일 삭제
+	 * 
+	 * @param string - 삭제할 저장파일명
+	 */
+	public void deleteTradeFileByFileStored(String string);
+	
+	/**
+	 * 거래 게시글 번호로 거래 게시글 삭제
+	 * 
+	 * @param tradeNo - 삭제할 거래 게시글 번호
+	 */
+	public void deleteTradeByTradeNo(int tradeNo);
 	
 
 

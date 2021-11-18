@@ -2,6 +2,7 @@ package com.khbill.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,7 +52,7 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public Object getTradeDetail(int tradeNo) {
+	public HashMap<String, String> getTradeDetail(int tradeNo) {
 		
 		tradeDao.updateHit(tradeNo);
 		
@@ -59,7 +60,7 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public List<Object> getTradeCommentDetail(int tradeNo) {
+	public List<HashMap<String, String>> getTradeCommentDetail(int tradeNo) {
 		
 		logger.info("tradeNo - {}", tradeNo);
 		
@@ -70,9 +71,14 @@ public class TradeServiceImpl implements TradeService {
 	public void setTradeWrite(HttpSession session, MultipartFile file, Trade trade) {
 		
 		int userNo = (int) session.getAttribute("userNo");
+		trade.setUserNo(userNo);
 		
 		if(file.getSize() <= 0) {
-			logger.info("파일의 크기가 0, 처리 중단");
+			logger.info("파일의 크기가 0, 파일 없음");
+			
+			trade.setFileNo(null);
+			
+			tradeDao.insertTrade(trade);
 			return;
 		}
 		
@@ -118,7 +124,6 @@ public class TradeServiceImpl implements TradeService {
 		tradeDao.insertFile(tradeFile);
 		
 		trade.setFileNo(fileNo);
-		trade.setUserNo(userNo);
 		
 		tradeDao.insertTrade(trade);
 		
@@ -133,7 +138,7 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public boolean setTradeCommentDelete(int tradeComNo) {
 		
-		tradeDao.deleteTradeComment(tradeComNo);
+		tradeDao.deleteTradeCommentByTradeComNo(tradeComNo);
 		
 		if( tradeDao.selectCountTradeComment(tradeComNo) > 0 ) {
 			return false;
@@ -160,5 +165,25 @@ public class TradeServiceImpl implements TradeService {
 	public String getUserNickByUserNo(int userNo) {
 		return tradeDao.selectUserNickByUserNo(userNo);
 	}
+
+	@Override
+	public void setTradeDelete(int tradeNo) {
+		
+		HashMap<String, String> trade = tradeDao.selectTradeByTradeNo(tradeNo);
+		
+		tradeDao.deleteTradeCommentByTradeNo(tradeNo);
+		tradeDao.deleteTradeReportByTradeNo(tradeNo);
+		tradeDao.deleteTradeScrapByTradeNo(tradeNo);
+		tradeDao.deleteTradeByTradeNo(tradeNo);
+		
+		if(trade.get("FILE_STORED") == null) {
+			logger.info("삭제할 파일이 없습니다.");
+		} else {
+			tradeDao.deleteTradeFileByFileStored(trade.get("FILE_STORED"));
+		}
+		
+	}
+	
+	
 
 }

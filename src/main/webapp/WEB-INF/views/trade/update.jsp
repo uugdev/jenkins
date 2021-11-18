@@ -41,12 +41,12 @@ $(document).ready(function() {
 	
 	<div id="writeMain">
 	
-		<h1>거래 게시글 작성</h1>
+		<h1>거래 게시글 수정</h1>
 		<hr style="margin-top: 20px;">
 	
-		<form id="writeForm" action="/trade/write" method="post" enctype="multipart/form-data">
+		<form id="writeForm" action="/trade/update" method="post" enctype="multipart/form-data">
 		
-			<input type="text" style="width: 60%;" name="tradeTitle" placeholder="제목을 입력해주세요"/>
+			<input type="text" style="width: 60%;" name="tradeTitle" value="${tradeDetail.TRADE_TITLE }" placeholder="제목을 입력해주세요"/>
 			<select name="tradeCategory">
 				<option value="0">팝니다</option>
 				<option value="1">삽니다</option>
@@ -55,7 +55,9 @@ $(document).ready(function() {
 		
 			<div class="form-group">
 				<label for="tradeContent"></label>
-				<textarea rows="10" style="width: 100%; height: 400px;" id="tradeContent" name="tradeContent"></textarea>
+				<textarea rows="10" style="width: 100%; height: 400px;" id="tradeContent" name="tradeContent">
+				${tradeDetail.TRADE_CONTENT }
+				</textarea>
 			</div>
 			
 			<div class="form-group" style="float: left;">
@@ -65,7 +67,7 @@ $(document).ready(function() {
 			
 			<div class="text-right">
 				<button type="button" id="btnCancel" class="btn btn-default">취소</button>
-				<button type="button" id="btnWrite" class="btn btn-info">작성</button>
+				<button type="button" id="btnWrite" class="btn btn-info">수정</button>
 			</div>
 		
 		</form>
