@@ -124,8 +124,13 @@ function deleteComment(reviewComNo) {
 
 <h1 style="text-align: center;">${review.REVIEW_TITLE }</h1>
 <hr>
-
-<span class="pull-left">작성자 ${review.USER_NICK }</span>
+<c:if test="${userNo eq review.USER_NO }">
+<span>작성자 ${review.USER_NICK }</span>
+</c:if>
+<c:if test="${userNo ne review.USER_NO }">
+<a href="<%=request.getContextPath() %>/message/write?userNick=${review.USER_NICK }" onclick="return confirm('쪽지를 보내시겠습니까?');"><span class="pull-left">작성자 ${review.USER_NICK }</span></a>
+</c:if>
+<span class="pull-left"></span>
 <span class="pull-left"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
 	<c:if test="${review.USER_NO ne userNo }">
 		<c:if test="${review.USER_NO ne 0 }">

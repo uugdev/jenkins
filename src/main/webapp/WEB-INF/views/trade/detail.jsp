@@ -171,7 +171,15 @@ function deleteComment(tradeComNo) {
 
 	<h1>${tradeDetail.TRADE_TITLE }</h1>
 	<span style="float: left;">
-		${tradeDetail.USER_NICK } | <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
+	<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
+	${tradeDetail.USER_NICK }
+	</c:if>
+	<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
+	<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
+				onclick="return confirm('쪽지를 보내시겠습니까?');">${tradeDetail.USER_NICK }</a>
+	 </c:if>
+
+		| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
 	</span>
 	<span style="float: right;">
 		신고 | 조회 ${tradeDetail.TRADE_HIT } | 댓글 4
