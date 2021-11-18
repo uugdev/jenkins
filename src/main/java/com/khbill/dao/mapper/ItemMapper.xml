@@ -53,7 +53,7 @@
 					      AND i.item_no = a.product_no
 					      AND a.user_no = #{userNo }) sub LEFT OUTER JOIN zreview r
 					ON r.item_no = sub.item_no
-				ORDER BY sub.ask_date
+				ORDER BY sub.ask_date DESC
 			) J
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	

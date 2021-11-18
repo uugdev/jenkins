@@ -8,6 +8,37 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$('.btnUpdate').click(function() {
+		
+		var answer = confirm("결제로 변경하시겠습니까?\n변경 즉시 투표는 종료되고 다시 상태를 변경할 수 없습니다.")
+		
+		if( answer == true ){
+			
+			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
+			
+		} else {
+			return false;
+		}
+	})
+	
+	$('.btnWrite').click(function() {
+		
+		var answer = confirm("구매하신 상품에 대한 후기를 작성하시겠습니까?")
+		
+		if( answer == true ){
+			
+			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
+			
+		} else {
+			return false;
+		}
+	})
+	
+})
+</script>
 
 <!-- 개별 영역 끝 -->
 
@@ -18,13 +49,13 @@
 
 <table class="table table-hover">
 	<tr>
-		<th>번호</th>
-		<th>상품명</th>
-		<th>가격</th>
-		<th>작성일</th>
-		<th>마감일</th>
-		<th>조회수</th>
-		<th>상태</th>
+		<th style="width:10%">번호</th>
+		<th style="width:30%">상품명</th>
+		<th style="width:20%">가격</th>
+		<th style="width:5%">조회수</th>
+		<th style="width:10%">작성일</th>
+		<th style="width:10%">마감일</th>
+		<th style="width:10%">상태</th>
 	</tr>
 	
 	<c:forEach items="${list }" var="list" varStatus="status">
@@ -32,17 +63,17 @@
 		<td>${status.count }</td>
 		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${list.ITEM_NO }">${list.ITEM_NAME }</a></td>
 		<td>${list.ITEM_PRICE }</td>
+		<td>${list.ASK_HIT }</td>
 		<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
 		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
-		<td>${list.ASK_HIT }</td>
 		<c:if test="${list.ITEM_STATUS == 'n'}">
-			<td><a href="<%=request.getContextPath() %>/mypage/item/status?itemNo=${list.ITEM_NO }"><button>결제로 변경하기</button></a></td>
+			<td><a href="<%=request.getContextPath() %>/mypage/item/status?itemNo=${list.ITEM_NO }"><button class="btnUpdate">결제로 변경하기</button></a></td>
 		</c:if>
 		<c:if test="${list.ITEM_STATUS == 'y' && empty list.REVIEW_NO }">
-			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ITEM_NO }"><button>리뷰 작성하기</button></a></td>
-		</c:if>
+			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ITEM_NO }"><button class="btnWrite">리뷰 작성하기</button></a></td>
+		</c:if>	
 		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.REVIEW_NO }">
-			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button>후기 확인하기</button></a></td>
+			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail">후기 확인하기</button></a></td>
 		</c:if>
 	</tr>
 	</c:forEach>
@@ -56,4 +87,5 @@
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+
 
