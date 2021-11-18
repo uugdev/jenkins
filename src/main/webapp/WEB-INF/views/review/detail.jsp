@@ -118,6 +118,7 @@ function deleteComment(reviewComNo) {
 }
 </style>
 
+<div class="wrap">
 <div class="container">
 
 
@@ -225,6 +226,7 @@ function deleteComment(reviewComNo) {
 
 </div><!-- 댓글 처리 end -->
 
+
 <!-- <div class="text-center"> -->
 <!-- 	<a href="/review/list"> -->
 <!-- 	<button class="btn btn-default">목록</button></a> -->
@@ -237,7 +239,7 @@ function deleteComment(reviewComNo) {
 <!-- </div> -->
 	
 </div><!-- .container end -->
-<!-- </div>.wrap end -->
+</div><!-- .wrap end -->
 
 <div class="popupWrap1 hide1">
 <form action="/review/report" method="post">
@@ -259,7 +261,8 @@ function deleteComment(reviewComNo) {
 	</div>
 </form>
 </div>
-	
+
+
 <script>
 $('.popupOpen1').on('click', function() {
 	$('.popupWrap1').removeClass('hide1');

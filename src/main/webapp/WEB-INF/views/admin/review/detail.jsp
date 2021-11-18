@@ -79,8 +79,9 @@ function deleteComment(reviewComNo) {
 }
 </style>
 
-<div class="container">
 
+<div class="wrap">
+<div class="container">
 
 <h1 style="text-align: center;">${review.REVIEW_TITLE }</h1>
 <hr>
@@ -170,7 +171,7 @@ function deleteComment(reviewComNo) {
 
 	
 </div><!-- .container end -->
-<!-- </div>.wrap end -->
+</div><!-- .wrap end -->
 
 
 <!-- footer start -->

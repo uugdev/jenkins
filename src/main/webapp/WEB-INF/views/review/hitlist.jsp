@@ -42,6 +42,8 @@ td:nth-child(2) {
 }
 </style>
 
+
+<div class="wrap">
 <div class="container">
 
 <h1 style="text-align: center;">후기</h1>
@@ -67,7 +69,7 @@ td:nth-child(2) {
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${review }" var="review">
+<c:forEach items="${reviewList }" var="review">
 	<tr>
 		<td>${review.REVIEW_NO }</td>
 		<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
@@ -89,7 +91,7 @@ td:nth-child(2) {
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 </div><!-- .container -->
-
+</div><!-- .wrap end -->
 
 <%--footer--%>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
