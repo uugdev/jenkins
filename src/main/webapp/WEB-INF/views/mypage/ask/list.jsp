@@ -49,6 +49,8 @@ $(document).ready(function(){
 
 <div class="wrap">
 <div class="container">
+<c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
+
 
 <h1>작성한 질문글 내역</h1>
 

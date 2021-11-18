@@ -8,7 +8,7 @@
 	    <div class="panel-heading">
 	      <h3 class="panel-title">마이페이지</h3>
 	      	<ul style="list-style: none; padding-left: 0;">
-	      		<li><a href="/mypage/info">회원정보</a></li>
+	      		<li style="line-height: 40px;"><a href="/mypage/info">회원정보</a></li>
 	      		<li><a href="/mypage/item/list">결제 체크하기</a></li>
 	      		<li><a href="/mypage/ask/list">작성한 글</a></li>
 	      		<li><a href="/mypage/ask/comment/list">작성한 댓글</a></li>

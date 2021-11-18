@@ -13,6 +13,7 @@
 
 <div class="wrap">
 <div class="container">
+<c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 <%--
 

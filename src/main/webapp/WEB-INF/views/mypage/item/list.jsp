@@ -45,16 +45,20 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 
-<h1>결제 체크 리스트</h1>
 
+<c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
+
+<div class="col-md-9" style="height: 500px;">
+
+<h1>결제 체크 리스트</h1>
 <table class="table table-hover">
 	<tr>
-		<th style="width:10%">번호</th>
-		<th style="width:30%">상품명</th>
-		<th style="width:20%">가격</th>
+		<th style="width:5%">번호</th>
+		<th style="width:20%">상품명</th>
+		<th style="width:15%">가격</th>
 		<th style="width:5%">조회수</th>
 		<th style="width:10%">작성일</th>
-		<th style="width:10%">마감일</th>
+		<th style="width:10%">투표 마감일</th>
 		<th style="width:10%">상태</th>
 	</tr>
 	
@@ -78,6 +82,7 @@ $(document).ready(function(){
 	</tr>
 	</c:forEach>
 </table>
+</div>
 
 
 

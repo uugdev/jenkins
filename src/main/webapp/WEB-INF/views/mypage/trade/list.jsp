@@ -15,6 +15,8 @@
 <div class="container">
 
 <h1>작성한 거래글 내역</h1>
+<c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
+
 
 <table class="table table-striped table-hover">
 <thead>
