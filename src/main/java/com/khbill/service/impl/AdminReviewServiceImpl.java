@@ -102,5 +102,16 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewServiceI
 		adminReviewDao.deleteReviewCommentByReviewNo(review);
 	}
 
+	@Override
+	public boolean deleteReviewComment(ReviewComment reviewComment) {
+		adminReviewDao.deleteReviewComment(reviewComment);
+		
+		if( adminReviewDao.selectCountComment(reviewComment) > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	
 }

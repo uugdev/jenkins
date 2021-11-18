@@ -92,4 +92,14 @@
 		WHERE review_no = #{reviewNo }
 	</delete>
 	
+	<delete id="deleteReviewComment" parameterType="com.khbill.dto.ReviewComment">
+		DELETE ZREVIEW_COMMENT
+		WHERE review_com_no = #{reviewComNo }
+	</delete>
+	
+	<select id="selectCountComment" parameterType="com.khbill.dto.ReviewComment" resultType="int">
+		SELECT count(*) FROM ZREVIEW_COMMENT
+		WHERE review_no = #{reviewNo }
+	</select>
+	
 </mapper>

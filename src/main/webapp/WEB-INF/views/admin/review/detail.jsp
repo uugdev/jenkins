@@ -153,10 +153,8 @@ function deleteComment(reviewComNo) {
 		<td style="width: 20%;">
 			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
 		<td style="width: 5%;">
-			<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
 			<button class="btn btn-default btn-xs"
 				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-			</c:if>
 		</td>		
 	</tr>
 	</c:forEach>

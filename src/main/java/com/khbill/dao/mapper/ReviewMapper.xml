@@ -183,8 +183,7 @@
 			, review_title, review_content, review_date, review_hit
 		FROM ZREVIEW
 		WHERE review_no = #{reviewNo }
-	</select>
-	
+	</select>	
 	
 	<insert id="insertReviewReport" parameterType="com.khbill.dto.ReviewReport">
 		INSERT INTO zreview_report

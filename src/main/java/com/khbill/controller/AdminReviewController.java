@@ -1,5 +1,7 @@
 package com.khbill.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,6 +102,19 @@ public class AdminReviewController {
 		logger.info("reviewNo{}", reviewNo);
 		
 		return "redirect:/admin/review/list";
+	}
+	
+	@RequestMapping(value = "/comment/delete")
+	public void adminReviewComDelete(ReviewComment reviewComment, Writer writer, Model model) {
+		logger.info("/admin/review/comment/delete");
+		
+		boolean success = adminReviewService.deleteReviewComment(reviewComment);
+		
+		try {
+			writer.append("{\"success\":"+success+"}");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
 

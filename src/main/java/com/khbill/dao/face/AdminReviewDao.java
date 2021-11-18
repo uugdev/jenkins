@@ -6,6 +6,7 @@ import java.util.List;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.Review;
+import com.khbill.dto.ReviewComment;
 import com.khbill.util.Paging;
 
 public interface AdminReviewDao {
@@ -69,6 +70,10 @@ public interface AdminReviewDao {
 	public void deleteFile(int fileNo);
 
 	public void deleteReviewCommentByReviewNo(Review review);
+
+	public void deleteReviewComment(ReviewComment reviewComment);
+
+	public int selectCountComment(ReviewComment reviewComment);
 	
 	
 }

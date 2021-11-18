@@ -106,12 +106,11 @@ label {
 	<td><label for="${review.REVIEW_NO }">
 			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 		</label></td>
-					<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
 		
 <%-- 		<c:forEach items="${user }" var="user"> --%>
 <%-- 			<c:if test="${review.userNo ne 0}"> --%>
 <%-- 				<c:if test="${review.USER_NO eq userNo}"> --%>
-<%-- 					<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td> --%>
+					<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
 <%-- 				</c:if> --%>
 <%-- 			</c:if> --%>
 <%-- 		</c:forEach> --%>

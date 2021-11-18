@@ -78,6 +78,14 @@ public interface AdminReviewService {
 	 * @param askNo
 	 */
 	public void setReviewCommentDelete(int reviewNo);
+
+	/**
+	 * 댓글을 삭제한다
+	 * 
+	 * @param reviewComment - 삭제하려는 댓글의 정보
+	 * @return 삭제 성공 여부
+	 */
+	public boolean deleteReviewComment(ReviewComment reviewComment);
 	
 
 
