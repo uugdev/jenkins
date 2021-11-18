@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#update").click(function() {
+/* 	$("#update").click(function() {
 	
 		if($("#extraMoney").val() == ""  ) {
 			
@@ -52,7 +52,41 @@ $(document).ready(function() {
 		}
 		
 	})
-	
+ */
+ 
+	$("#update").click(function() {
+		
+		var change = $("#extraMoney").val() ;
+		
+		if( change == ""  ) {
+			
+			alert("변경금액을 입력해주세요")
+			return;
+			
+		} else {
+			
+			$.ajax({
+				type: "post"
+				, url: "/account/extramoney"
+				, data: { extraMoney: change }
+				, dataType: "json"
+				, success: function( data ) {
+						console.log("성공");
+						$('.popupWrap1').addClass('hide1');
+						$('#ch').html(data.changeMoney + "원")
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			}); //ajax end
+			
+			
+		}
+		
+	})
+
+ 
+ 
 })
 </script>
 
@@ -77,7 +111,7 @@ $(document).ready(function() {
 
 			<div style="flex: 1; margin-top: 100px;">
 				<div style="margin-top: 10px; text-align: right;">
-					<h2>${user.extraMoney}원</h2>
+					<h2 id=ch>${user.extraMoney}원</h2>
 				</div>
 				<button class="popupOpen1 pull-right" id="updateMoney">지출
 					가능금액 설정하기</button>
@@ -94,8 +128,6 @@ $(document).ready(function() {
 <!-- .wrap end -->
 </div>
 <div class="popupWrap1 hide1">
-	<form action="/account/extramoney" method="post">
-		<input type="hidden" name="userNo" value="${userNo }" />
 		<div class="popup1">
 			<div class="title">
 				<p>지출 가능금액을 설정해주세요</p>
@@ -104,10 +136,9 @@ $(document).ready(function() {
 			<input type="number" name="extraMoney" id="extraMoney" /> 
 			<span style="font-size: x-large;">원</span>
 			<div class="btnWrap1">
-				<button type="button" id="update">저장</button>
+				<button id="update">저장</button>
 			</div>
 		</div>
-	</form>
 </div>
 
 <script>

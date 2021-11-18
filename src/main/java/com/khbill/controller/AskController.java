@@ -374,26 +374,31 @@ public class AskController {
 		return mav;
 	}
 
+
+	//신고 ajax처리
 	@RequestMapping(value = "/report", method = RequestMethod.POST)
-	public String askReport(int askNo, AskReport askReport, HttpSession session) {
+	public ModelAndView askReport(int askNo, AskReport askReport, HttpSession session,ModelAndView mav) {
 		logger.info("/ask/report [POST]");
-
+		
 		logger.info("askReport: {}", askReport);
-
+		
 		int userNo = (Integer) session.getAttribute("userNo");
-
+		
 		askReport.setAskNo(askNo);
 		askReport.setReporterNo(userNo);
-
+		
 		boolean reportCheck = askService.askReportByAskNoLoginUserNo(askReport);
-
+		
 		if (reportCheck) {
-
+			
 			askService.setAskReport(askReport);
-
+			
 		}
-
-		return "redirect:/ask/detail?askNo=" + askNo;
+		
+		mav.addObject("reportCheck", reportCheck);
+		mav.setViewName("jsonView");
+		
+		return mav;
 	}
 
 

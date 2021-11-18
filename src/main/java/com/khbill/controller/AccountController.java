@@ -12,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.khbill.dto.AskScrap;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
@@ -22,51 +24,47 @@ import com.khbill.util.Paging;
 public class AccountController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
-	
-	
+
 	@Autowired
 	AccountService accountService;
-	
+
 	@RequestMapping(value = "/account/main", method = RequestMethod.GET)
-	public void accountMain(HttpSession session,Model model) {
+	public void accountMain(HttpSession session, Model model) {
 		logger.info("/account/main [GET]");
-		
-		int userNo = (int)session.getAttribute("userNo");
+
+		int userNo = (int) session.getAttribute("userNo");
 		User user = accountService.getUserInfo(userNo);
-		
-		List<Item> itemList =  accountService.getItemListByLoginUserNo(userNo);
+
+		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
 		logger.info("itemList : {}", itemList);
-		
-		
-		model.addAttribute("user",user);
-		model.addAttribute("itemList",itemList);
+
+		model.addAttribute("user", user);
+		model.addAttribute("itemList", itemList);
 	}
-	
+
+
 	@RequestMapping(value = "/account/extramoney", method = RequestMethod.POST)
-	public String accountExtraMoney(String extraMoney,Model model, HttpSession session) {
+	public ModelAndView accountExtraMoney(String extraMoney, ModelAndView mav, HttpSession session) {
 		logger.info("/account/extramoney [POST]");
-		
-		
-		int userNo = (int)session.getAttribute("userNo");
+
+		int userNo = (int) session.getAttribute("userNo");
 		int money = Integer.parseInt(extraMoney);
-		
-		accountService.setUpdateExtraMoney(userNo,money);
-		
+
+		accountService.setUpdateExtraMoney(userNo, money);
+
 		User user = accountService.getUserInfo(userNo);
+		int changeMoney = user.getExtraMoney();
+//		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
+		logger.info("changeMoney : {}", changeMoney);
+
 		
-		
-		List<Item> itemList =  accountService.getItemListByLoginUserNo(userNo);
-		logger.info("itemList : {}", itemList);
-		
-		
-		model.addAttribute("user",user);
-		model.addAttribute("itemList",itemList);
-		
-		return "redirect:/account/main";
-		
+//		mav.addObject("user", user);
+		mav.addObject("changeMoney", changeMoney);
+//		mav.addObject("itemList", itemList);
+		mav.setViewName("jsonView");
+
+		return mav;
+
 	}
-	
-	
-	
-	
+
 }

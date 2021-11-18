@@ -57,6 +57,50 @@ $(document).ready(function() {
 	}); //$("#btnRecommend").click() end
 	
 	
+$("#setReport").click(function() {
+		
+		var content = $("#reportContent").val() ;
+		var category = $("#reportCategory").val();
+		if( content == ""  ) {
+			
+			alert("신고사유를 입력해주세요")
+			return;
+			
+		} else {
+			
+			$.ajax({
+				type: "post"
+				, url: "/ask/report"
+				, data: { reportCategory: category ,reportContent: content, "askNo": '${ask.askNo }'}
+				, dataType: "json"
+				, success: function( data ) {
+						console.log("성공");
+						$('.popupWrap1').addClass('hide1');
+						$('#reportContent').val('');
+						
+						if( data.reportCheck ) {
+							
+							alert("신고가 완료되었습니다.");
+							
+						} else {
+							
+							alert("이미 신고한 게시글입니다.");
+							
+							
+						}
+						
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			}); //ajax end
+			
+			
+		}
+		
+	});
+	
+	
 	
 	
 	var userno = "<c:out value='${userNo}' />";
@@ -138,7 +182,7 @@ $(document).ready(function() {
 			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
-	
+
 	
 	$("#btnDelete").click(function() {
 
@@ -556,15 +600,12 @@ table, th {
 <!-- .wrap end -->
 
 			<div class="popupWrap1 hide1">
-				<form action="/ask/report" method="post">
-					<input type="hidden" name="askNo"
-						value="${ask.askNo }" />
 					<div class="popup1">
 						<div class="title">
 							<p>신고 하기</p>
 							<span class="close1">❌</span>
 						</div>
-						<select name="reportCategory" class="select">
+						<select id="reportCategory" name="reportCategory" class="select">
 							<option value="A">부적절한 홍보 게시글</option>
 							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
 							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
@@ -572,10 +613,9 @@ table, th {
 						</select>	
 						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
 						<div class="btnWrap1">
-							<button>보내기</button>
+							<button id="setReport">보내기</button>
 						</div>
 					</div>
-				</form>
 			</div>
 	
 <script>
@@ -587,9 +627,9 @@ table, th {
 		$(this).parents('.popup1').children('textarea').val('');
 	});
 
-	$(".btnWrap1").click(function() {
-		$(this).parents("form").submit();
-	});
+// 	$(".btnWrap1").click(function() {
+// 		$(this).parents("form").submit();
+// 	});
 </script>
 <!-- footer start -->
 
