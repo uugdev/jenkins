@@ -1,6 +1,5 @@
 package com.khbill.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.khbill.dto.AskScrap;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
-import com.khbill.util.Paging;
 
 @Controller
 public class AccountController {

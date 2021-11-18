@@ -141,6 +141,7 @@ public class AskController {
 		model.addAttribute("vote", vote);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
+		logger.info("file : {} " ,file);
 
 		String check = askService.voteCheck(vote);
 

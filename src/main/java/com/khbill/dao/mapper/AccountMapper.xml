@@ -7,7 +7,8 @@
 
 	<select id="selectItemStatus" resultType="com.khbill.dto.Item" parameterType="int">
 		SELECT * FROM zitem
-		WHERE item_status = 'y'
+		WHERE item_status = 'y' AND user_no = #{userNo}
+		ORDER BY item_date
 	</select>
 
 	<select id="selectUserByUserNo" resultType="com.khbill.dto.User" parameterType="int">
