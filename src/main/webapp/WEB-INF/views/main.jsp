@@ -290,10 +290,12 @@
 
 		<hr class="featurette-divider">
 	<p class="pull-right"><a href="#">맨 위로</a></p>
+	
+
 
 </div><!-- .container #main end -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div><!-- .wrap end -->
 
 <!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
 <script src="/resources/js/main.js"></script>

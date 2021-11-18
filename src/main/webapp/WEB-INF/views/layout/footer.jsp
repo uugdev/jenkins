@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <footer>
-   <div id="footer">
+   <nav id="footer">
       <div id="in-footer">
          <p>
             <a>이건못참조</a> · <a>이용약관</a> · <a>개인정보 보호</a>
@@ -11,7 +12,8 @@
          </p>
          <p><a href="/admin/login">　</a></p>
       </div>
-   </div>
+   </nav>
 </footer>
+    
 </body>
 </html>
