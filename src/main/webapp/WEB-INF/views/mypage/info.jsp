@@ -20,31 +20,37 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#btnUpdate').click(function() {
+		
+		var answer = confirm("회원정보 수정 페이지로 이동하시겠습니까?")
+		
+		if( answer == true ){
+			
+			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
+			
+		} else {
+			return false;
+		}
+	})
+	
 });
 </script>
 
 <style>
 
-#left {
+#btnUpdate {
 	float: left;
+	margin: 0 0 0 20px;
 }
 
-#right {
+#btnDelete {
 	float: right;
+	margin: 0 20px 0 0;
 }
 
 table {
     margin-left: auto; 
     margin-right: auto;
-}
-
-.buttonarea {
-	margin: 0 505px 50px 505px;
-	
-}
-
-.titlearea {
-	margin: 0 0 30px 0;
 }
 
 </style>
@@ -53,63 +59,60 @@ table {
 <div class="wrap">
 <div class="container">
 
-
-<div class="titlearea">
-<h3> 회원정보 조회 </h3>
-</div>
-
-<table class="table table-hover" style="width: 300px">
-	<tr>
-		<td style="width:10%" >아이디</td>
-		<td style="width:10%" >${user.userId }</td>
-	</tr>
-	<tr>
-		<td>닉네임</td>
-		<td>${user.userNick }</td>
-	</tr>
-	<tr>
-		<td>이메일</td>
-		<td>${user.userMail }</td>
-	</tr>
-	<tr>
-		<td>유저 성별</td>
-		<c:if test="${user.userGender == 'M' }">
-			<td>남</td>
-		</c:if>
-		<c:if test="${user.userGender == 'F' }">
-			<td>여</td>
-	</c:if>
-	</tr>
-	<tr>
-		<td>생일</td>
-		<td>${user.userBday }</td>
-	</tr>
-	<tr>
-		<td>가입일</td>
-		<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
-	</tr>
-	<tr>
-		<td>포인트</td>
-		<td>${user.userPoint }</td>
-	</tr>
-
-</table>
-
-
-<div class="buttonarea">
-<div id="left">
-<a href="<%=request.getContextPath() %>/mypage/update?userNo=${user.userNo }"><button id="btnUpdate">수정하기</button></a>
-</div>
-<div id="right">
-<form action="/mypage/delete" method="post">
-<button id="btnDelete">회원탈퇴</button>
-<input type="hidden" name="userNo" value="${user.userNo }">
-</form>
-</div>
-</div>
-
-
-
+<c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
+	<div class="one">
+		<div class="col-md-9" style="height: 500px;">
+	
+		<h3> 회원정보 조회 </h3>
+	
+		<table class="table table-hover" style="width: 300px">
+			<tr>
+				<td style="width:10%" >아이디</td>
+				<td style="width:10%" >${user.userId }</td>
+			</tr>
+			<tr>
+				<td>닉네임</td>
+				<td>${user.userNick }</td>
+			</tr>
+			<tr>
+				<td>이메일</td>
+				<td>${user.userMail }</td>
+			</tr>
+			<tr>
+				<td>유저 성별</td>
+				<c:if test="${user.userGender == 'M' }">
+					<td>남</td>
+				</c:if>
+				<c:if test="${user.userGender == 'F' }">
+					<td>여</td>
+			</c:if>
+			</tr>
+			<tr>
+				<td>생일</td>
+				<td>${user.userBday }</td>
+			</tr>
+			<tr>
+				<td>가입일</td>
+				<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
+			</tr>
+			<tr>
+				<td>포인트</td>
+				<td>${user.userPoint }</td>
+			</tr>
+		
+		</table>
+		
+		
+		<div class="buttonarea" style="width:200px; margin: 0 auto;">
+		<a href="<%=request.getContextPath() %>/mypage/update?userNo=${user.userNo }"><button id="btnUpdate" class="btn" class="left">수정하기</button></a>
+		<form action="/mypage/delete" method="post">
+		<button id="btnDelete" class="btn">회원탈퇴</button>
+		<input type="hidden" name="userNo" value="${user.userNo }">
+		</form>
+		</div><!-- .buttonarea end -->
+		
+		</div> <!-- .col-md-9 end -->
+	</div> <!-- .one end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
