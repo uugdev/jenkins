@@ -291,12 +291,15 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" value="0"/></td>
 </tr>
 <tr>
-	<th><label for="userBday">생일</label></th>
-	<td><input type="text" id="userBday" name="userBday" style="cursor: default;" placeholder="생일을 입력하세요" autocomplete="off" readonly/></td>
+	<th><label for="userBday">생일<span class="required">&nbsp;*</span></label></th>
+	<td><input type="text" id="userBday" name="userBday" style="cursor: default;" placeholder="생일을 입력하세요" autocomplete="off" required readonly/></td>
 </tr>
 <tr>
 	<th>성별</th>
-	<td><input type="radio" name="userGender" value="F" checked="checked"/>&nbsp;여성&nbsp;&nbsp;&nbsp;<input type="radio" name="userGender" value="M" />&nbsp;남성&nbsp;&nbsp;&nbsp;</td>
+	<td><input type="radio" name="userGender" value="F"/>&nbsp;여성&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="userGender" value="M" />&nbsp;남성&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="userGender" value="N" checked="checked"/>&nbsp;선택 안함&nbsp;&nbsp;&nbsp;
+	</td>
 </tr>
 </table>
 

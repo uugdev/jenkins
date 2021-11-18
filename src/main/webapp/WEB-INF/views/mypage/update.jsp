@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
@@ -90,6 +91,10 @@ table {
 </style>
 
 <!-- 개별 영역 끝 -->
+<!-- 카카오 로그인 확인 절차 -->
+<c:set var="userId" value="${user.userId }" />
+<c:set var="kakaoUser" value="${fn:substringBefore(userId, '-') }" />
+<!-- 카카오 로그인 확인 절차 끝 -->
 
 <div class="wrap">
 <div class="container">
@@ -107,14 +112,24 @@ table {
 		<input type="hidden" name="userMail" value="${user.userMail }" />
 		
 		<table class="table table-hover" style="width: 300px">
-			<tr>
-				<td style="width: 10%" >아이디</td>
-				<td style="width: 10%">${user.userId }</td>
-			</tr>
-			<tr>
-				<td>비밀번호</td>
-				<td ><input type="text" name="userPw" value="${user.userPw }"></td>
-			</tr>
+			<c:if test="${kakaoUser == '' || empty kakaoUser }">
+				<tr>
+					<td style="width: 10%" >아이디</td>
+					<td style="width: 10%">${user.userId }</td>
+				</tr>			
+			</c:if>
+			<c:if test="${kakaoUser == 'kakao' }">
+				<tr>
+					<td style="width: 10%" >아이디</td>
+					<td style="width: 10%">소셜 로그인 회원입니다.</td>
+				</tr>			
+			</c:if>
+			<c:if test="${kakaoUser == '' || empty kakaoUser}">
+				<tr>
+					<td>비밀번호</td>
+					<td ><input type="text" name="userPw" value="${user.userPw }"></td>
+				</tr>			
+			</c:if>
 			<tr>
 				<td>닉네임</td>
 				<td><input type="text" name="userNick" value="${user.userNick }"></td>
@@ -135,12 +150,24 @@ table {
 						&nbsp;여성&nbsp;&nbsp;&nbsp;
 						<input type="radio" name="userGender" value="M" checked="checked" />
 						&nbsp;남성&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="userGender" value="N" />
+						&nbsp;선택 안함&nbsp;&nbsp;&nbsp;
 					</c:if>
 					<c:if test="${user.userGender == 'F'}">
 						<input type="radio" name="userGender" value="F" checked="checked" />
 						&nbsp;여성&nbsp;&nbsp;&nbsp;
 						<input type="radio" name="userGender" value="M" />
 						&nbsp;남성&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="userGender" value="N" />
+						&nbsp;선택 안함&nbsp;&nbsp;&nbsp;
+					</c:if>
+					<c:if test="${user.userGender == 'N'}">
+						<input type="radio" name="userGender" value="F" />
+						&nbsp;여성&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="userGender" value="M" />
+						&nbsp;남성&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="userGender" value="N" checked="checked" />
+						&nbsp;선택 안함&nbsp;&nbsp;&nbsp;
 					</c:if>
 				</td>
 			<tr>

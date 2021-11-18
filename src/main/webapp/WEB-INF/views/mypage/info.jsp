@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
@@ -55,6 +57,10 @@ table {
 
 </style>
 <!-- 개별 영역 끝 -->
+<!-- 카카오 로그인 확인 절차 -->
+<c:set var="userId" value="${user.userId }" />
+<c:set var="kakaoUser" value="${fn:substringBefore(userId, '-') }" />
+<!-- 카카오 로그인 확인 절차 끝 -->
 
 <div class="wrap">
 <div class="container">
@@ -68,7 +74,12 @@ table {
 		<table class="table table-hover" style="width: 300px">
 			<tr>
 				<td style="width:10%" >아이디</td>
-				<td style="width:10%" >${user.userId }</td>
+				<c:if test="${kakaoUser == 'kakao'}">
+					<td style="width:10%">소셜 로그인 회원입니다.</td>
+				</c:if>
+				<c:if test="${kakaoUser == '' }">
+					<td style="width:10%" >${user.userId }</td>			
+				</c:if>
 			</tr>
 			<tr>
 				<td>닉네임</td>
@@ -85,7 +96,10 @@ table {
 				</c:if>
 				<c:if test="${user.userGender == 'F' }">
 					<td>여</td>
-			</c:if>
+				</c:if>
+				<c:if test="${user.userGender == 'N' }">
+					<td>선택 안함</td>
+				</c:if>
 			</tr>
 			<tr>
 				<td>생일</td>

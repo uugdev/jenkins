@@ -35,7 +35,7 @@ public class MemberController {
 	public String loginProc(User user, HttpSession session, 
 			@RequestParam(value="kakaoEmail", required=false) String kakaoEmail, 
 			@RequestParam(value="kakaoGender", required=false) String kakaoGender, 
-			Model model, HttpServletResponse resp, PrintWriter out) {
+			Model model, HttpServletResponse resp) {
 //		logger.info("{}", user);
 //		logger.info("kakao email, gender : {}, {}", kakaoEmail, kakaoGender);
 		
@@ -53,11 +53,10 @@ public class MemberController {
 			} else {
 				logger.info("Login Failed");
 				session.invalidate();
-				resp.setCharacterEncoding("UTF-8");
-				resp.setContentType("text/html; charset=UTF-8");
+
 				resp.setHeader("Content-Type", "text/html;charset=UTF-8");
 				try {
-					out = resp.getWriter();
+					PrintWriter out = resp.getWriter();
 					out.append("<script>");
 					out.append("alert('로그인을 실패하였습니다. 로그인 정보를 다시 확인해주세요.'); location.href='/member/login';");
 					out.append("</script>");
@@ -88,6 +87,15 @@ public class MemberController {
 					return "redirect:/main";
 				} else {
 					logger.info("kakao로 시작하는 아이디가 아님!");
+					resp.setHeader("Content-Type", "text/html;charset=UTF-8");
+					try {
+						PrintWriter out = resp.getWriter();
+						out.append("<script>");
+						out.append("alert('입력하신 이메일은 이미 가입 이력이 있습니다. 일반 로그인을 이용해주세요.'); location.href='/member/login';");
+						out.append("</script>");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					return null;
 				}
 				
