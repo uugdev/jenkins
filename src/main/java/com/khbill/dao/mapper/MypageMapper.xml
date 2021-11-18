@@ -21,9 +21,27 @@
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
 	
+	<select id="selectCntMyAskCommentAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask_comment
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectAskCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, A.* FROM (
+				SELECT a.ask_no, za.ask_com_content, za.ask_com_date, a.ask_hit
+				FROM zask a
+				INNER JOIN zask_comment za
+				ON a.ask_no = za.ask_no
+				AND za.user_no = #{userNo }
+			) A
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
 	<select id="selectCntMyAskScrapAll" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM zask_scrap
-		WHERE user_no = #{userNo}
+		WHERE user_no = #{userNo }
 	</select>
 	
 	<select id="selectAskScrapListByUserNo" resultType="HashMap" parameterType="HashMap">

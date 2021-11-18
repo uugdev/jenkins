@@ -11,13 +11,26 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$('.btnUpdate').click(function() {
+	$('.btnUpdateY').click(function() {
 		
 		var answer = confirm("결제로 변경하시겠습니까?\n변경 즉시 투표는 종료되고 다시 상태를 변경할 수 없습니다.")
 		
 		if( answer == true ){
 			
-			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
+			location.href="/mypage/item/yes";
+			
+		} else {
+			return false;
+		}
+	})
+
+	$('.btnUpdateN').click(function() {
+		
+		var answer = confirm("결제안함으로 변경하시겠습니까?\n변경 즉시 투표는 종료되고 다시 상태를 변경할 수 없습니다.")
+		
+		if( answer == true ){
+			
+			location.href="/mypage/item/no";
 			
 		} else {
 			return false;
@@ -30,7 +43,7 @@ $(document).ready(function(){
 		
 		if( answer == true ){
 			
-			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
+			location.href="review/write";
 			
 		} else {
 			return false;
@@ -53,13 +66,13 @@ $(document).ready(function(){
 <h1>결제 체크 리스트</h1>
 <table class="table table-hover">
 	<tr>
-		<th style="width:5%">번호</th>
+		<th style="width:5%">글번호</th>
 		<th style="width:20%">상품명</th>
 		<th style="width:15%">가격</th>
 		<th style="width:5%">조회수</th>
 		<th style="width:10%">작성일</th>
 		<th style="width:10%">투표 마감일</th>
-		<th style="width:10%">상태</th>
+		<th style="width:20%">상태</th>
 	</tr>
 	
 	<c:forEach items="${list }" var="list" varStatus="status">
@@ -70,25 +83,29 @@ $(document).ready(function(){
 		<td>${list.ASK_HIT }</td>
 		<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
 		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
-		<c:if test="${list.ITEM_STATUS == 'n'}">
-			<td><a href="<%=request.getContextPath() %>/mypage/item/status?itemNo=${list.ITEM_NO }"><button class="btnUpdate">결제로 변경하기</button></a></td>
+		<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
+			<td><a href="<%=request.getContextPath() %>/mypage/item/yes?itemNo=${list.ITEM_NO }"><button class="btnUpdateY">구매했음</button></a>
+			<a href="<%=request.getContextPath() %>/mypage/item/no?itemNo=${list.ITEM_NO }"><button class="btnUpdateN">구매안했음</button></a></td>
 		</c:if>
-		<c:if test="${list.ITEM_STATUS == 'y' && empty list.REVIEW_NO }">
+		<c:if test="${list.ITEM_STATUS == 'n'&& not empty list.ITEM_DATE}">
+			<td>안살래요</td>
+		</c:if>
+		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && empty list.REVIEW_NO }">
 			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ITEM_NO }"><button class="btnWrite">리뷰 작성하기</button></a></td>
 		</c:if>	
-		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.REVIEW_NO }">
+		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && not empty list.REVIEW_NO }">
 			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail">후기 확인하기</button></a></td>
 		</c:if>
 	</tr>
 	</c:forEach>
 </table>
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 </div>
 
 
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 
 public interface ItemDao {
 
@@ -35,7 +37,7 @@ public interface ItemDao {
 	 * 
 	 * @param askNo
 	 */
-	public void updateItemStatusToY(int askNo);
+	public void updateItemStatus(Item item);
 
 	/**
 	 * 질문글 번호로 아이템 번호를 받아온다
@@ -60,6 +62,16 @@ public interface ItemDao {
 	 * @return 총 게시글 수
 	 */
 	public int selectItemCntAll(int userNo);
+
+	/**
+	 * 정답을 맞춘 사람의 번호를 가져온다
+	 * 
+	 * @param vote
+	 * @return
+	 */
+	public List<User> selectCorrectUser(Vote vote);
+
+	public void updateUserPoint(User u);
 
 	
 }

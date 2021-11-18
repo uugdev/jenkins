@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.ItemDao;
 import com.khbill.dto.Item;
+import com.khbill.dto.User;
+import com.khbill.dto.Vote;
 import com.khbill.service.face.ItemService;
 import com.khbill.util.Paging;
 
@@ -26,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public void setItemStatus(int askNo) {
+	public void setItemStatus(int askNo, String status) {
 		
 		int votePeriod = itemDao.selectCntVoteInProgress(askNo);
 		logger.info("votePeriod : {}", votePeriod);
@@ -37,19 +39,35 @@ public class ItemServiceImpl implements ItemService {
 			
 			int itemNo = itemDao.selectItemNoByAskNo(askNo);
 			
-			itemDao.updateItemStatusToY(itemNo);
+			Item item = new Item();
+			item.setItemNo(itemNo);
+			item.setItemStatus(status);
+			
+			itemDao.updateItemStatus(item);
 			
 		} else { //투표가 끝났음
 			
 			int itemNo = itemDao.selectItemNoByAskNo(askNo);
 			
-			itemDao.updateItemStatusToY(itemNo);
+			Item item = new Item();
+			item.setItemNo(itemNo);
+			item.setItemStatus(status);
 			
 		}
 		
+		//투표한 회원들에게 점수 부여하기
+		Vote vote = new Vote();
+		vote.setAskNo(askNo);
+		vote.setVoteState(status);
+		
+		List<User> list = itemDao.selectCorrectUser(vote);
+		System.out.println(list);
+		
+		for(User u : list) {
+			itemDao.updateUserPoint(u);
+		}
+		
 	}
-	
-
 	
 	@Override
 	public List<HashMap<String, Object>> getItemList(HashMap<String, Object> map) {

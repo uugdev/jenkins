@@ -56,14 +56,31 @@ public class MypageController {
 
 	}
 	
-	@RequestMapping(value="/mypage/item/status")
-	public String itemStatus(Item item) {
-		logger.info("/mypage/item/status [GET]");
+	@RequestMapping(value="/mypage/item/yes")
+	public String itemStatusY(Item item) {
+		logger.info("/mypage/item/yes [GET]");
 		
 		int askNo = itemService.getAskNoByItemNo(item);
 		
+		String status = "y";
+		
 		//아이템 결제 상태를 변경하기
-		itemService.setItemStatus(askNo);
+		itemService.setItemStatus(askNo, status);
+		
+		return "redirect:/mypage/item/list";
+		
+	}
+	
+	@RequestMapping(value="/mypage/item/no")
+	public String itemStatusN(Item item) {
+		logger.info("/mypage/item/no [GET]");
+		
+		int askNo = itemService.getAskNoByItemNo(item);
+		
+		String status = "n";
+		
+		//아이템 결제 상태를 변경하기
+		itemService.setItemStatus(askNo, status);
 		
 		return "redirect:/mypage/item/list";
 		
@@ -165,6 +182,25 @@ public class MypageController {
 		}	
 
 		return "redirect:/mypage/ask/list";
+	}
+	
+	@RequestMapping(value="/mypage/ask/comment/list", method=RequestMethod.GET)
+	public void MyAskCommentList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/ask/comment/list [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyAskCommentPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> askCommentList = mypageService.getMyAskCommentList(map);
+		
+		logger.info("스크랩한 질문글 목록 : {} ", askCommentList);
+
+		model.addAttribute("ask", askCommentList);
+		model.addAttribute("paging", paging);
 	}
 	
 	@RequestMapping(value="/mypage/ask/scrap/list", method=RequestMethod.GET)

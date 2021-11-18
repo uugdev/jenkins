@@ -50,6 +50,22 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
+	public Paging getMyAskCommentPaging(Paging paramData, int userNo) {
+		
+		int totalCount = mypageDao.selectCntMyAskCommentAll(userNo);
+	
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
+		 
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getMyAskCommentList(HashMap<String, Object> map) {
+		return mypageDao.selectAskCommentListByUserNo(map);
+	}
+	
+	@Override
 	public Paging getMyReviewPaging(Paging paramData, int userNo) {
 		
 		int totalCount = mypageDao.selectCntMyReviewAll(userNo);

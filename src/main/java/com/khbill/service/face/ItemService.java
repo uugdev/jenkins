@@ -29,7 +29,7 @@ public interface ItemService {
 	 * 
 	 * @param askNo - 문의번호
 	 */
-	public void setItemStatus(int askNo);
+	public void setItemStatus(int askNo, String status);
 
 	/**
 	 * 페이징

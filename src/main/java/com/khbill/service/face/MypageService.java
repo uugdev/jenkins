@@ -87,6 +87,10 @@ public interface MypageService {
 
 	public List<HashMap<String, Object>> getMyTradeScrapList(HashMap<String, Object> map);
 
+	public Paging getMyAskCommentPaging(Paging paramData, int userNo);
+
+	public List<HashMap<String, Object>> getMyAskCommentList(HashMap<String, Object> map);
+
 
 	
 
