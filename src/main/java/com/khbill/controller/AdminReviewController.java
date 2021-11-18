@@ -39,9 +39,9 @@ public class AdminReviewController {
 		logger.info("페이징 처리 {}", paging);
 		
 		//게시글 목록 조회
-		List<Review> review = adminReviewService.getReviewList(paging);
+		List<Review> reviewList = adminReviewService.getReviewList(paging);
 		
-		model.addAttribute("review", review);
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("paging", paging);
 		
 	}

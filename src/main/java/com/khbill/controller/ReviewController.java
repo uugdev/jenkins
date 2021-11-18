@@ -44,9 +44,9 @@ public class ReviewController {
 		logger.info("페이징 처리 {}", paging);
 		
 		//게시글 목록 조회
-		List<Review> review = reviewService.getReviewList(paging);
+		List<Review> reviewList = reviewService.getReviewList(paging);
 		
-		model.addAttribute("review", review);
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("paging", paging);
 	}
 	
@@ -55,9 +55,9 @@ public class ReviewController {
 		logger.info("/review/votenum/list [GET]");
 		
 		Paging paging = reviewService.getPaging(paramData);
-		List<Review> review = reviewService.getReviewHitList(paging);
+		List<Review> reviewList = reviewService.getReviewHitList(paging);
 		
-		model.addAttribute("review", review);
+		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("paging", paging);
 		
 	}//hitlist

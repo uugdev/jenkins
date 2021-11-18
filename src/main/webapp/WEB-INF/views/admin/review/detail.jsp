@@ -156,7 +156,7 @@ function deleteComment(reviewComNo) {
 		<td style="width: 5%;">
 			<button class="btn btn-default btn-xs"
 				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-		</td>		
+		</td>
 	</tr>
 	</c:forEach>
 	</table>

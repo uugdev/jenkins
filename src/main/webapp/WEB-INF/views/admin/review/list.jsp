@@ -100,7 +100,7 @@ label {
 	<th>조회수</th>
 	<th>작성일</th>
 </tr>
-<c:forEach items="${review }" var="review">
+<c:forEach items="${reviewList }" var="review">
 <tr>
 	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
 	<td><label for="${review.REVIEW_NO}">${review.REVIEW_NO }</label></td>
