@@ -40,18 +40,17 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
- 
 	$("#update").click(function() {
-		
-		var change = $("#extraMoney").val() ;
-		
-		if( change == ""  ) {
-			
+
+		var limit = uncomma($('input[name=extraMoney]').val()); //건들지마
+
+		if( limit == ""  ) {
 			alert("변경금액을 입력해주세요")
 			return;
-			
-		} else {
-			
+		}
+		
+		change = parseInt(limit); //건들지마
+
 			$.ajax({
 				type: "post"
 				, url: "/account/extramoney"
@@ -59,18 +58,25 @@ $(document).ready(function() {
 				, dataType: "json"
 				, success: function( data ) {
 						console.log("성공");
+						
+						var data1 = data.changeMoney;
+						var data1 = comma(data.changeMoney);
+						
 						$('.popupWrap1').addClass('hide1');
 						$('#extraMoney').val('');
-						$('#ch').html(data.changeMoney + "원")
+// 						$('#ch').html(data.changeMoney + '원')
+						$('#ch').html( data1);
+					
+
+				
+						
+						
+						
 				}
 				, error: function() {
 					console.log("실패");
 				}
 			}); //ajax end
-			
-			
-		}
-		
 	})
 
  
@@ -89,7 +95,6 @@ $(document).ready(function() {
 .spanSize {
 	font-size: x-large;
 }
-
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -131,7 +136,11 @@ $(document).ready(function() {
 					</div>
 					<div style="flex: 1;">
 						<div>
-							<h2 id=ch>${user.extraMoney}원</h2>
+							<h2 id="ch">
+								<fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${user.extraMoney}" />
+								원
+							</h2>
 						</div>
 						<button class="popupOpen1" id="updateMoney">지출가능금액 설정하기</button>
 					</div>
@@ -151,12 +160,12 @@ $(document).ready(function() {
 	<!-- .wrap end -->
 </div>
 <div class="popupWrap1 hide1">
-	<div class="popup1">
+	<div class="popup1 commaInput">
 		<div class="title">
 			<p>지출 가능금액을 설정해주세요</p>
 			<span class="close1">❌</span>
 		</div>
-		<input type="number" name="extraMoney" id="extraMoney" /> <span
+		<input type="text" name="extraMoney" id="extraMoney" value="" /> <span
 			style="font-size: x-large;">원</span>
 		<div class="btnWrap1">
 			<button id="update">저장</button>
@@ -164,6 +173,32 @@ $(document).ready(function() {
 	</div>
 </div>
 <script type="text/javascript">
+//---인풋창 3자리마다콤마찍기---
+var $input = $(".commaInput [type='text']");
+// 입력 값 알아내기
+$input.on('keyup', function() {
+    var _this = this;
+    numberFormat(_this)
+});
+// 콤마 찍기
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    
+}
+//---인풋창 3자리마다콤마찍기end---
+
+//--------- 콤마 풀기
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+}
+function numberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+}
+//--------- 콤마 풀기end
+
+
 			var context = document
                 .getElementById('myChart')
                 .getContext('2d');
@@ -231,7 +266,12 @@ $(document).ready(function() {
                     }
                 }
             });
+
+
+            
 </script>
+
+
 <script>
 	$('.popupOpen1').on('click', function() {
 		$('.popupWrap1').removeClass('hide1');

@@ -48,13 +48,13 @@ public class AccountController {
 
 
 	@RequestMapping(value = "/account/extramoney", method = RequestMethod.POST)
-	public ModelAndView accountExtraMoney(String extraMoney, ModelAndView mav, HttpSession session) {
+	public ModelAndView accountExtraMoney(int extraMoney, ModelAndView mav, HttpSession session) {
 		logger.info("/account/extramoney [POST]");
 
 		int userNo = (int) session.getAttribute("userNo");
-		int money = Integer.parseInt(extraMoney);
+//		int money = Integer.parseInt(extraMoney);
 
-		accountService.setUpdateExtraMoney(userNo, money);
+		accountService.setUpdateExtraMoney(userNo, extraMoney);
 
 		User user = accountService.getUserInfo(userNo);
 		int changeMoney = user.getExtraMoney();
