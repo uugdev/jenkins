@@ -5,7 +5,6 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-
 	<!-- DB접속 정보 -->
 	<bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
@@ -57,13 +56,13 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
+	
 	<!-- gmail설정 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 	     <property name="host" value="smtp.gmail.com" />
 	     <property name="port" value="587" />
-	     <property name="username" value="kh.bill1206@gmail.com"/>
-	     <property name="password" value="1004lacuna"/>
+	     <property name="username" value="kh.bill1206@gmail.com"/> <!-- 자신의 이메일 아이디 -->
+	     <property name="password" value="khlacuna"/> <!-- 자신의 비밀번호 -->
 	 
 	 <!-- 보안연결 TLS과 관련된 설정 -->
 	     <property name="javaMailProperties">
