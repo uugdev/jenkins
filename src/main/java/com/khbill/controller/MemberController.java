@@ -2,13 +2,18 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +31,7 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
 	@Autowired MemberService memberService;
+	@Autowired JavaMailSender mailSender;
 	
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
@@ -168,4 +174,34 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/joinSuccess")
 	public void joinSuccess() {	}
+	
+	@RequestMapping(value="/member/sendMail", method=RequestMethod.POST)
+	public @ResponseBody String sendMail(String userMail, Model model) {
+		
+		String authkey = UUID.randomUUID().toString().split("-")[2] + UUID.randomUUID().toString().split("-")[4].substring(0, 2);
+		model.addAttribute("authkey", authkey);
+		
+		String subject = "KH BiLL 이메일 인증 메일입니다.";
+		String content = "회원가입을 완료하기 위해서 아래 인증문자를 이메일 인증란에 작성하고 회원가입을 진행해주세요!\n\n";
+		content += "<h3><strong>"+ authkey +"</strong></h3>";
+		String from = "kh.bill1206@gmail.com";
+		String to = userMail;
+		
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+			
+			mailHelper.setFrom(from);
+			mailHelper.setTo(to);
+			mailHelper.setSubject(subject);
+			mailHelper.setText(content, true);
+			
+			mailSender.send(mail);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		return authkey;
+	}
+	
 }
