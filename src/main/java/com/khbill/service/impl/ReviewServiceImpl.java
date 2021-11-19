@@ -21,6 +21,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.TradeComment;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -33,7 +34,6 @@ public class ReviewServiceImpl implements ReviewService {
 	@Autowired ReviewCommentDao reviewCommentDao;
 	
 	@Autowired private ServletContext context;
-	
 
 	@Override
 	public Paging getPaging(Paging paramData) {
@@ -49,12 +49,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getReviewList(Paging paging) {		
+	public List<Review> getReviewList(Paging paging) {
+		
 		return reviewDao.selectReviewList(paging);
 	}
 
 	@Override
 	public List<Review> getReviewHitList(Paging paging) {
+		
 		return reviewDao.selectReviewHitList(paging);
 	}
 
@@ -68,26 +70,31 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Item getReviewItem(int itemNo) {
+		
 		return reviewDao.selectItemByItemNo(itemNo);
 	}
 
 	@Override
 	public com.khbill.dto.File getReviewFile(int fileNo) {
+		
 		return reviewDao.selectFileByFile(fileNo);
 	}
 
-	@Override
-	public void setReviewCommentWrite(ReviewComment reviewComment) {	
-		reviewCommentDao.insertReviewComment(reviewComment);
-	}
+//	@Override
+//	public void setReviewCommentWrite(ReviewComment reviewComment) {	
+//		
+//		reviewCommentDao.insertReviewComment(reviewComment);
+//	}
 	
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
+		
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 
 	@Override
 	public boolean deleteReviewComment(ReviewComment reviewComment) {
+		
 		reviewCommentDao.deleteReviewComment(reviewComment);
 		
 		if( reviewCommentDao.selectCountComment(reviewComment) > 0 ) {
@@ -150,6 +157,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public com.khbill.dto.File getAttachFile(Review review) {
+		
 		return reviewDao.selectReviewFileByReviewNo(review);
 	}
 
@@ -275,4 +283,36 @@ public class ReviewServiceImpl implements ReviewService {
 			return true;
 		}
 	}
+	
+	//-------- Comment ---------------------------------------------------------------
+	
+
+	@Override
+	public void setReviewCommentWrite(ReviewComment reviewComment) {
+		
+		reviewCommentDao.insertReviewComment(reviewComment);
+	}
+	
+	@Override
+	public ReviewComment getReviewCommentWriteByUserNo(int userNo) {
+		
+		return reviewCommentDao.selectReviewCommentByUserNo(userNo);
+	}
+	
+	@Override
+	public String getUserNickByUserNo(int userNo) {
+		
+		return reviewCommentDao.selectUserNickByUserNo(userNo);
+	}
+
+	@Override
+	public ReviewComment setReviewCommentUpdate(ReviewComment reviewComment) {
+		
+		reviewCommentDao.updateReviewComment(reviewComment);
+		
+		ReviewComment resultComment =  reviewCommentDao.selectOneReviewCommentByReviewNo(reviewComment.getReviewComNo());
+		
+		return resultComment;
+	}
+
 }

@@ -36,6 +36,7 @@ public class ReviewController {
 	@Autowired private ReviewService reviewService;
 	@Autowired private AskService askService;
 	
+	//후기 게시글 목록
 	@RequestMapping(value = "/list")
 	public void reviewList(Model model, Paging paramData) {
 	
@@ -50,6 +51,7 @@ public class ReviewController {
 		model.addAttribute("paging", paging);
 	}
 	
+	//후기 게시글 조회순
 	@RequestMapping(value = "/hitlist")
 	public void getAskHitList(Model model, Paging paramData) {
 		logger.info("/review/votenum/list [GET]");
@@ -60,9 +62,9 @@ public class ReviewController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("paging", paging);
 		
-	}//hitlist
+	}
 	
-	
+	//후기 게시글 상세
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String reviewDetail(
 			Review review, ReviewComment reviewComment
@@ -120,8 +122,7 @@ public class ReviewController {
 		return "review/detail";
 	}
 
-
-	
+	//후기게시글 작성 - GET
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void reviewWrite(int askNo, Model model) {
 		logger.info("/review/write [GET]");
@@ -136,7 +137,7 @@ public class ReviewController {
 		model.addAttribute("item",item);
 	}
 	
-	
+	//후기 게시글 작성 - POST
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String reviewWriteProc(
 			Review review, User user, int askNo, Item item
@@ -157,7 +158,7 @@ public class ReviewController {
 		return "redirect:/review/list";
 	}
 	
-	
+	//다운로드...? 삭제예정
 	@RequestMapping(value="/download")
 	public String download(int fileNo, Model model) {
 		
@@ -168,9 +169,7 @@ public class ReviewController {
 		return "down";
 	}
 	
-	
-	
-	
+	//후기 게시글 수정 - GET
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String reviewUpdate(Review review, Item item, File file,  Model model) {
 		logger.info("/review/update [GET]");
@@ -204,6 +203,7 @@ public class ReviewController {
 		return "review/update";
 	}
 	
+	//후기 게시글 수정 - POST
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String reviewUpdateProc(
 			Review review, User user, Item item
@@ -225,6 +225,7 @@ public class ReviewController {
 		
 	}
 	
+	//후기 게시글 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String deleteProc(Review review) {
 		
@@ -234,7 +235,7 @@ public class ReviewController {
 		return "redirect:/review/list";
 	}
 	
-	
+	//후기 게시글 스크랩
 	@RequestMapping(value = "/scrap", method = RequestMethod.GET)
 	public ModelAndView scrap(int reviewNo, ReviewScrap reviewScrap, ModelAndView mav, HttpSession session) {
 		logger.info("/review/scrap [GET]");
@@ -251,6 +252,7 @@ public class ReviewController {
 		return mav;
 	}
 	
+	//후기 게시글 신고
 	@RequestMapping(value ="/report",method = RequestMethod.POST)
 	public String reviewReport(int reviewNo, ReviewReport reviewReport, HttpSession session) {
 		logger.info("/reviewreport [POST]");
@@ -268,8 +270,7 @@ public class ReviewController {
 		
 		return "redirect:/review/detail?reivewNo="+reviewNo;
 	}
-	
-	
+
 }
 
 

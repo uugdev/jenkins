@@ -11,6 +11,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.TradeComment;
 import com.khbill.util.Paging;
 
 public interface ReviewService {
@@ -68,14 +69,6 @@ public interface ReviewService {
 	 * @return 첨부파일 정보
 	 */
 	public File getReviewFile(int fileNo);
-
-	/**
-	 * 새로운 댓글을 삽입한다 
-	 * 
-	 * @param reviewComment - 입력된 댓글 정보
-	 */
-	public void setReviewCommentWrite(ReviewComment reviewComment);
-	
 	/**
 	 * 댓글 목록을 조회한다
 	 * 
@@ -125,6 +118,36 @@ public interface ReviewService {
 	 * @param reviewNo - 삭제할 게시글의 게시글번호 객체
 	 */
 	public void setReviewDelete(Review review);
+	
+	/**
+	 * 새로운 댓글을 삽입한다 
+	 * 
+	 * @param reviewComment - 입력된 댓글 정보
+	 */
+	public void setReviewCommentWrite(ReviewComment reviewComment);
+	
+	/**
+	 * 유저번호에 해당하는 유저의 가장 최신 댓글 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public ReviewComment getReviewCommentWriteByUserNo(int userNo);
+	
+	/**
+	 * 유저번호에 해당하는 유저 닉네임 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public String getUserNickByUserNo(int userNo);
+	/**
+	 * 입력받은 후기 댓글로 후기 게시글 댓글 수정
+	 * 
+	 * @param reviewComment - 전송 받은 댓글 정보
+	 * @return
+	 */
+	public ReviewComment setReviewCommentUpdate(ReviewComment reviewComment);
 
 	/**
 	 * 게시글번호로 댓글 삭제
@@ -170,6 +193,7 @@ public interface ReviewService {
 	 * @return
 	 */
 	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
+
 
 	
 

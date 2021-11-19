@@ -14,8 +14,6 @@ public interface ReviewCommentDao {
 	 * @param review - 댓글조회 대상 게시글 정보
 	 * @return 조회된 댓글 목록
 	 */
-//	public List<ReviewComment> selectReviewCommentByReview(Review review);
-//	public HashMap<String, Object> selectReviewCommentByReview(ReviewComment reviewComment);
 	public List<HashMap<String, Object>> selectReviewCommentByReview(ReviewComment reviewComment);
 
 	/**
@@ -24,6 +22,25 @@ public interface ReviewCommentDao {
 	 * @param reviewComment - 삽입하려는 댓글 정보
 	 */
 	public void insertReviewComment(ReviewComment reviewComment);
+	
+	public ReviewComment selectReviewCommentByUserNo(int userNo);
+	
+	public String selectUserNickByUserNo(int userNo);
+	
+	/**
+	 * 댓글 수정
+	 * 
+	 * @param reviewComment - 업데이트하려는 댓글 정보
+	 */
+	public void updateReviewComment(ReviewComment reviewComment);
+	
+	/**
+	 * 
+	 * 
+	 * @param reviewComNo
+	 * @return
+	 */
+	public ReviewComment selectOneReviewCommentByReviewNo(int reviewComNo);
 	
 	/**
 	 * 댓글 삭제
@@ -40,6 +57,7 @@ public interface ReviewCommentDao {
 	 * @return 댓글 개수
 	 */
 	public int selectCountComment(ReviewComment reviewComment);
+
 
 
 
