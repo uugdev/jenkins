@@ -22,4 +22,27 @@
 		WHERE user_no = #{userNo}
 	</update>
 
+
+	<select id="selectItemSum" resultType="HashMap" parameterType="HashMap">
+	<![CDATA[
+		SELECT NVL(ITEM_PRICE, 0) item_price, l ITEM_DATE FROM (
+		    SELECT
+		        sum(item_price) as item_price
+		        , to_char(item_date,'mm') as item_date
+		    FROM zitem
+		    WHERE user_no = #{userNo} AND item_status = 'y' AND to_char(sysdate, 'yyyy') = to_char(item_date, 'yyyy')
+		    GROUP BY to_char(item_date,'mm')
+		) z
+		RIGHT OUTER JOIN (
+		    SELECT
+		        TO_CHAR(level, '00') l
+		    FROM dual
+		    CONNECT BY level <= 12
+		) le
+		ON trim(z.item_date) = trim(le.l)
+		ORDER BY l
+	]]>
+	</select>
+
+
 </mapper>

@@ -7,6 +7,8 @@
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <link rel="stylesheet" type="text/css" href="/resources/css/reportPopup.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 <!-- header end -->
 
 <script type="text/javascript">
@@ -50,38 +52,38 @@ $(document).ready(function() {
 	}); //$("#btnRecommend").click() end
 	
 	
-	// 댓글 입력
-	$("#btnCommInsert").click(function() {
+// 	// 댓글 입력
+// 	$("#btnCommInsert").click(function() {
 		
-		$form = $("<form>").attr({
-			action: "/review/comment/write",
-			method: "post"
-		}).append(
-			$("<input>").attr({
-				type:"hidden",
-				name:"reviewNo",
-				value:"${review.REVIEW_NO }"
-			})
-		).append(
-			$("<textarea>")
-				.attr("name", "reviewComContent")
-				.css("display", "none")
-				.text($("#reviewComContent").val())
-		);
-		$(document.body).append($form);
-		$form.submit();
+// 		$form = $("<form>").attr({
+// 			action: "/review/comment/write",
+// 			method: "post"
+// 		}).append(
+// 			$("<input>").attr({
+// 				type:"hidden",
+// 				name:"reviewNo",
+// 				value:"${review.REVIEW_NO }"
+// 			})
+// 		).append(
+// 			$("<textarea>")
+// 				.attr("name", "reviewComContent")
+// 				.css("display", "none")
+// 				.text($("#reviewComContent").val())
+// 		);
+// 		$(document.body).append($form);
+// 		$form.submit();
 		
-	}); //$("#btnCommInsert").click() end
+// 	}); //$("#btnCommInsert").click() end
 
-	$("#btnDelete").click(function() {
+// 	$("#btnDelete").click(function() {
 
-		var result = confirm("정말 삭제하시겠습니까?");
+// 		var result = confirm("정말 삭제하시겠습니까?");
 
-		if (result == true) {
-			$(location).attr("href", "/review/delete?reviewNo=${review.REVIEW_NO }");
-		}
+// 		if (result == true) {
+// 			$(location).attr("href", "/review/delete?reviewNo=${review.REVIEW_NO }");
+// 		}
 
-	});	//$("#btnDelete").click() end
+// 	});	//$("#btnDelete").click() end
 
 });
 
@@ -100,6 +102,132 @@ function deleteComment(reviewComNo) {
 				
 			} else {
 				alert("댓글 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+</script>
+
+
+<script type="text/javascript">
+function insertComment() {
+	var textarea = $("#reviewComContent").val();
+	
+	$.ajax({
+		type: "post"
+		, url: "/review/comment/write"
+		, dataType: "json"
+		, data: {
+			reviewNo: ${review.REVIEW_NO }
+			, reviewComContent: textarea
+		}
+		, success: function(data){
+			if(data.success) {
+			
+				console.log("안녕!")
+				
+			var userNo = '<%=session.getAttribute("userNo")%>';
+			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
+				
+			$('#appendArea').before('<tr data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></tr>' +
+					'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'">' +
+					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
+					'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
+					'<td id="td'+ data.addComment.reviewComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.reviewComContent +'</td>' +
+					'<td style="width: 10%; padding: 5px;">'+ reviewComDate +'</td>' +
+					'<td style="width: 10%; padding: 5px;">' +
+					'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.reviewComNo +');">삭제</button> ' +
+					'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.reviewComNo +');">수정</button>' +
+					'</td>' +
+					'</tr>');
+				
+				$('#reviewComContent').val('');
+						
+			} else {
+				alert("댓글 작성 실패");
+			}
+		}
+		 ,error: function() {
+			console.log("error");
+		}
+	});
+	
+}
+
+function updateComment(reviewComNo) {
+	
+    var askText = $("#td"+reviewComNo).text();
+    
+	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "none");
+	$("[data-updateReviewComNo='"+reviewComNo+"']").append('<td style="width: 4%;"></td>' +
+			'<td style="width: 10%;"></td>' +
+			'<td style="width: 66%;">' +
+			'<div class="form-inline text-center">' +
+			'<div class="form-inline text-center">' +
+			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
+			'<textarea rows="2" cols="60" class="form-control" id="reviewComUpdateContent'+ reviewComNo +'">'+ askText +'</textarea>' +
+			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ reviewComNo +');">수정</button>　' +
+			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
+			'</div>' +
+			'</td>' +
+			'<td style="width: 10%;"></td>' +
+			'<td style="width: 10%;"></td>');
+}
+
+function updateCom(reviewComNo) {
+	
+	var textarea = $("#reviewComUpdateContent"+ reviewComNo).val();
+	
+	$.ajax({
+		type: "post"
+		, url: "/review/comment/update"
+		, dataType: "json"
+		, data: {
+			reviewComNo: reviewComNo
+			, reviewComContent: textarea
+		}
+		, success: function(data){
+			if(data.success) {
+				var reviewComDate = moment(data.reviewComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
+				
+				$("[data-reviewComNo='"+reviewComNo+"']").css("display", "table-row");
+				$("#td"+reviewComNo).html(data.reviewComment.reviewComContent);
+				$("#dateTd"+reviewComNo).html(reviewComDate);
+				$("[data-updateReviewComNo='"+reviewComNo+"']").html('');
+			} else {
+				alert("댓글 수정 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
+function cancelCom(reviewComNo) {
+	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "table-row");
+	$("[data-updateReviewComNo='"+reviewComNo+"']").html('');
+}
+
+
+function deleteComment(reviewComNo) {
+	$.ajax({
+		type: "post"
+		, url: "/review/comment/delete"
+		, dataType: "json"
+		, data: {
+			reviewComNo: reviewComNo
+		}
+		, success: function(data){
+			if(data.success) {
+				
+				$("[data-reviewComNo='"+reviewComNo+"']").remove();
+				
+			} else {
+				alert("댓글 삭제 실패"); 
 			}
 		}
 		, error: function() {
@@ -138,7 +266,7 @@ function deleteComment(reviewComNo) {
 			<button id="report" class="popupOpen1">신고</button>
 		</c:if>
 	</c:if>
-<span class="pull-right">조회수 ${review.REVIEW_HIT }</span>
+<span class="pull-right">조회 ${review.REVIEW_HIT }</span>
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -160,22 +288,11 @@ function deleteComment(reviewComNo) {
 <div id="item" class="center-block">
 	<img id="itemImg" src="/upload/${file.fileStored}" class="img-responsive" alt="Responsive image" />
 </div>
-<%-- <a href="/board/download?fileNo=${file.fileNo }">${file.fileOrigin }</a> --%>
 
 <div style="text-align: center;">${review.REVIEW_CONTENT }</div><!-- 본문 -->
 
 <hr>
 
-<div class="text-center">
-	<a href="/review/list">
-	<button class="btn btn-default">목록</button></a>
-	<c:if test="${userNo eq review.USER_NO }">
-		<a href="/review/update?reviewNo=${review.REVIEW_NO }">
-			<button class="btn btn-primary">수정</button></a>
-		<a href="/review/delete?reviewNo=${review.REVIEW_NO }">
-			<button  type="button" class="btn btn-danger"  id="btnDelete">삭제</button></a>
-	</c:if>
-</div>
 
 <!-- 댓글 처리 -->
 <hr>
@@ -194,7 +311,7 @@ function deleteComment(reviewComNo) {
 	<div class="form-inline text-center">
 		<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
 		<textarea rows="2" cols="60" class="form-control" id="reviewComContent"></textarea>
-		<button id="btnCommInsert" class="btn">입력</button>
+		<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
 	</div>	<!-- 댓글 입력 end -->
 	</c:if>
 	
@@ -202,46 +319,67 @@ function deleteComment(reviewComNo) {
 	<table class="table table-striped table-hover table-condensed">
 	<thead>
 	<tr>
-		<!-- 		<th style="width: 5%;">번호</th> -->
+		<th style="width: 4%;"></th>
 		<th style="width: 10%;">작성자</th>
-		<th style="width: 65%;">댓글</th>
-		<th style="width: 20%;">작성일</th>
-		<th style="width: 5%;"></th>
+		<th style="width: 66%;">댓글</th>
+		<th style="width: 10%;">작성일</th>
+		<th style="width: 10%;"></th>
 	</tr>
 	</thead>
 
 	<tbody id="commentBody">
-	<c:forEach items="${commentList }" var="reviewComment">
-	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-<%-- 		 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
-		<td style="width: 10%;">${reviewComment.USER_NICK }</td>
-		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td>
-		<td style="width: 20%;">
-			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
-		<td style="width: 5%;">
-			<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
-			<button class="btn btn-default btn-xs"
-				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-			</c:if>
-		</td>		
-	</tr>
-	</c:forEach>
+		<c:forEach items="${commentList }" var="reviewComment">
+			<tr data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }"></tr>
+			<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
+			<td style="width: 10%;"></td>
+					<td style="width: 10%;">${reviewComment.USER_NICK }</td>
+			<%-- 		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td> --%>
+			<td id="td${reviewComment.REVIEW_COM_NO }" style="width: 66%;">${reviewComment.REVIEW_COM_CONTENT }</td>
+			<td style="width: 10%;">
+				<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+			<td style="width: 10%;">
+				<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
+					<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
+					<button class="btn btn-default btn-xs" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
+				</c:if>
+			</td>
+			</tr>
+		</c:forEach>
+		<tr id="appendArea"></tr>
 	</table>
 	<!-- 	댓글 리스트 end -->
 
+<!-- 	<tbody id="commentBody"> -->
+<%-- 	<c:forEach items="${commentList }" var="reviewComment"> --%>
+<%-- 	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }"> --%>
+<%-- <%-- 		 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
+<%-- 		<td style="width: 10%;">${reviewComment.USER_NICK }</td> --%>
+<%-- 		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td> --%>
+<!-- 		<td style="width: 20%;"> -->
+<%-- 			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td> --%>
+<!-- 		<td style="width: 5%;"> -->
+<%-- 			<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }"> --%>
+<!-- 			<button class="btn btn-default btn-xs" -->
+<%-- 				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button> --%>
+<%-- 			</c:if> --%>
+<!-- 		</td>		 -->
+<!-- 	</tr> -->
+<%-- 	</c:forEach> --%>
+<!-- 	</table> -->
+<!-- 	<!-- 	댓글 리스트 end -->
+
+
 </div><!-- 댓글 처리 end -->
 
-
-<!-- <div class="text-center"> -->
-<!-- 	<a href="/review/list"> -->
-<!-- 	<button class="btn btn-default">목록</button></a> -->
-<%-- 	<c:if test="${userNo eq review.USER_NO }"> --%>
-<%-- 		<a href="/review/update?reviewNo=${review.REVIEW_NO }"> --%>
-<!-- 			<button class="btn btn-primary">수정</button></a> -->
-<%-- 		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"> --%>
-<!-- 			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button></a> -->
-<%-- 	</c:if> --%>
-<!-- </div> -->
+<div class="text-center" style="margin-bottom: 100px;">
+	<a href="/review/list"><button class="btn btn-default">목록</button></a>
+	<c:if test="${userNo eq review.USER_NO }">
+		<a href="/review/update?reviewNo=${review.REVIEW_NO }">
+			<button class="btn btn-primary">수정</button></a>
+		<a href="/review/delete?reviewNo=${review.REVIEW_NO }">
+			<button  type="button" class="btn btn-danger"  id="btnDelete">삭제</button></a>
+	</c:if>
+</div>
 	
 </div><!-- .container end -->
 

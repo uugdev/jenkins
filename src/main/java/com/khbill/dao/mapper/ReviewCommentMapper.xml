@@ -24,8 +24,34 @@
 	<insert id="insertReviewComment" parameterType="com.khbill.dto.ReviewComment">
 		INSERT INTO ZREVIEW_COMMENT
 			(review_com_no, user_no, review_no, review_com_content, review_com_date, review_com_like, review_com_hate )
-		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{userNo}, #{reviewNo}, #{reviewComContent}, sysdate, 0, 0 )
+		VALUES ( ZREVIEW_COMMENT_seq.nextval, #{userNo }, #{reviewNo }, #{reviewComContent }, sysdate, 0, 0 )
 	</insert>
+	
+	<select id="selectReviewCommentByUserNo" parameterType="int" resultType="com.khbill.dto.ReviewComment">
+		SELECT 
+        	REVIEW_COM_NO, USER_NO, REVIEW_NO, REVIEW_COM_CONTENT, REVIEW_COM_DATE, REVIEW_COM_LIKE, REVIEW_COM_HATE
+		FROM zreview_comment
+		WHERE user_no = #{userNo }
+		AND rownum = 1
+		ORDER BY REVIEW_COM_DATE
+	</select>
+	
+	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
+        SELECT user_nick
+        FROM zuser
+        WHERE user_no = #{userNo }
+	</select>
+	
+	<update id="updateReviewComment" parameterType="com.khbill.dto.ReviewComment">
+		UPDATE ZREVIEW_COMMENT
+			SET review_com_content = #{reviewComContent }, review_com_date = SYSDATE
+		WHERE review_com_no = #{reviewComNo }
+	</update>
+	
+	<select id="selectOneReviewCommentByReviewNo" parameterType="com.khbill.dto.ReviewComment" resultType="com.khbill.dto.ReviewComment">
+		SELECT * FROM ZREVIEW_COMMENT
+	    WHERE review_com_no = #{reviewComNo }
+	</select>
 
 	<delete id="deleteReviewComment" parameterType="com.khbill.dto.ReviewComment">
 		DELETE ZREVIEW_COMMENT

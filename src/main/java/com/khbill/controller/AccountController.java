@@ -1,5 +1,6 @@
 package com.khbill.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +38,12 @@ public class AccountController {
 
 		model.addAttribute("user", user);
 		model.addAttribute("itemList", itemList);
+		
+		List <HashMap<String,Object>> itemSum = accountService.getUserItemSum(userNo);	
+		
+		model.addAttribute("itemSum",itemSum);
+		
+		
 	}
 
 

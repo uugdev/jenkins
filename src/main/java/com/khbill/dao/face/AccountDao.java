@@ -1,5 +1,6 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Item;
@@ -31,5 +32,13 @@ public interface AccountDao {
 	 * @param user
 	 */
 	public void updateExtraMoney(User user);
+
+	/**
+	 * 월별지출액 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<HashMap<String,Object>> selectItemSum(int userNo);
 
 }

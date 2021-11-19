@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
     	 
 		events: [ 
-			<c:forEach items="${itemList}" var="item">
+			<c:forEach items="${itemList}" var="i">
 				{
-					title  : '${item.itemName}',
-    	      		start  : '<fmt:formatDate value="${ item.itemDate }" pattern="YYYY-MM-dd" />',
-    	      		end    : '<fmt:formatDate value="${ item.itemDate }" pattern="YYYY-MM-dd" />'
+					title  : '${i.itemName}',
+    	      		start  : '<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />',
+    	      		end    : '<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />'
     	    	},
     	    </c:forEach>
 		]
@@ -164,30 +164,29 @@ $(document).ready(function() {
 	</div>
 </div>
 <script type="text/javascript">
-            var context = document
+			var context = document
                 .getElementById('myChart')
                 .getContext('2d');
             var myChart = new Chart(context, {
                 type: 'bar', // 차트의 형태
                 data: { // 차트에 들어갈 데이터
                     labels: [
-                        //x 축
-                        '1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'
+						
+ 							   '1월','2월','3월','4월','5월','6월','7월','8월','9월',
+ 							  '10월','11월','12월'
+						
                     ],
                     datasets: [
                         { //데이터
                             label: '지출내역', //차트 제목
                             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                           
-                            
-                            
+                            	
+                            //여기가 지출내역 데이터입니다
                             data: [
-                            <c:forEach items="${itemList}" var="item">
-                                ${item.itemPrice}, //x축 label에 대응되는 데이터 값
-                         	</c:forEach>
+                            	<c:forEach items="${itemSum }" var="sum">
+                           			${sum.ITEM_PRICE },
+                            	</c:forEach>
                             ],
-                            
-                            
                             
                             backgroundColor: [
                                 //색상
