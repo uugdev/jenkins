@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.service.face.TradeService;
@@ -86,7 +87,7 @@ public class TradeController {
 	}
 	
 	@RequestMapping(value = "/trade/update", method = RequestMethod.GET)
-	public void tradeUpdate(
+	public void tradeGetUpdate(
 			Model model
 			, int tradeNo
 			) {
@@ -94,6 +95,38 @@ public class TradeController {
 		HashMap<String, String> tradeDetail = tradeService.getTradeDetail(tradeNo);
 		
 		model.addAttribute("tradeDetail", tradeDetail);
+		
+	}
+
+	@RequestMapping(value = "/trade/update", method = RequestMethod.POST)
+	public String tradePostUpdate(
+			MultipartFile file
+			, Trade trade
+			) {
+		
+		logger.info("trade - {}", trade);
+		logger.info("file - {}", file);
+		
+		tradeService.setTradeUpdate(file, trade);
+		
+		return "redirect:/trade/detail?tradeNo=" + trade.getTradeNo();
+		
+	}
+	
+	@RequestMapping(value = "/trade/update/deletefile", method = RequestMethod.POST)
+	public ModelAndView tradeUpdateDeleteFile(
+			ModelAndView mav
+			, File file
+			) {
+		
+		boolean success = tradeService.setTradeUpdateDeleteFile(file);
+		
+		logger.info("success - {}", success);
+		
+		mav.addObject("success", success);
+		mav.setViewName("jsonView");
+		
+		return mav;
 		
 	}
 	

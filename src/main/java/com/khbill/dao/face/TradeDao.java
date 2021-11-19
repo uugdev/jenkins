@@ -51,7 +51,7 @@ public interface TradeDao {
 	public int insertFile(File tradeFile);
 	
 	/**
-	 * 
+	 * 추가할 파일을 fileNo을 nextVal해서 조회
 	 * 
 	 * @return
 	 */
@@ -146,11 +146,11 @@ public interface TradeDao {
 	public void deleteTradeScrapByTradeNo(int tradeNo);
 	
 	/**
-	 * 저장파일명으로 거래 게시글과 연결되어 있는 파일 삭제
+	 * 저장 파일 이름으로 거래 게시글과 연결되어 있는 파일 삭제
 	 * 
-	 * @param string - 삭제할 저장파일명
+	 * @param fileStored - 삭제할 저장파일명
 	 */
-	public void deleteTradeFileByFileStored(String string);
+	public void deleteTradeFileByFileStored(String fileStored);
 	
 	/**
 	 * 거래 게시글 번호로 거래 게시글 삭제
@@ -159,6 +159,35 @@ public interface TradeDao {
 	 */
 	public void deleteTradeByTradeNo(int tradeNo);
 	
+	/**
+	 * 저장된 파일 이름로 거래 게시글 count
+	 * 
+	 * @param fileStored - 조회할 저장된 파일 이름
+	 * @return 있을 경우 1, 없을 경우 0
+	 */
+	public int selectTradeFileCountByFileStored(File file);
+	
+	/**
+	 * 저장 파일 이름으로 FILE_STORED를 NULL로 변경
+	 * 
+	 * @param fileStored - 변경될 저장 파일 이름
+	 */
+	public void updateTradeFileNullByFileNo(int fileNo);
+	
+	/**
+	 * fileStored에 해당하는 fileNo을 조회
+	 * 
+	 * @param fileStored - 저장된 파일
+	 * @return
+	 */
+	public int selectFileNoByFileStored(String fileStored);
+	
+	/**
+	 * 전달받은 거래 게시글 정보로 게시글 업데이트
+	 * 
+	 * @param trade - 변경될 게시글 정보
+	 */
+	public void updateTradeByTrade(Trade trade);
 
 
 

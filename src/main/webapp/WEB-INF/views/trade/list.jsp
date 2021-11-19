@@ -12,6 +12,7 @@
 <!-- 개별 영역 끝 -->
 
 <script type="text/javascript">
+
 	$(document).ready(function() {
 		$("#btnWrite").click(function() {
 			$(location).attr("href", "/trade/write");
@@ -94,7 +95,7 @@ td:nth-child(2) {
 	<!-- .container end -->
 </div>
 <!-- .wrap end -->
-
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+
 

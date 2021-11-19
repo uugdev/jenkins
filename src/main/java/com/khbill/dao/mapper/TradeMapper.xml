@@ -110,10 +110,25 @@
 		WHERE trade_no = #{tradeNo }
 	</delete>
 	
+	<select id="selectTradeFileCountByFileStored" parameterType="com.khbill.dto.File" resultType="int">
+    	SELECT count(*) FROM(
+			SELECT t.file_no
+	        FROM ZTRADE t, ZFILE f
+			WHERE t.file_no = f.file_no
+	        AND f.file_stored = #{fileStored }
+        )
+	</select>
+	
 	<select id="selectCountTradeComment" parameterType="int" resultType="int">
 		SELECT count(*) FROM ZTRADE_COMMENT
 		WHERE trade_no = #{tradeComNo }
 	</select>
+
+	<update id="updateTradeFileNullByFileNo" parameterType="int">
+		UPDATE ztrade
+		SET file_no = NULL
+		WHERE file_no = #{fileNo }
+	</update>
 	
 	<update id="updateTradeComment" parameterType="com.khbill.dto.TradeComment">
 		UPDATE ztrade_comment
@@ -140,5 +155,21 @@
         FROM zuser
         WHERE user_no = #{userNo }
 	</select>
+	
+	<select id="selectFileNoByFileStored" parameterType="String" resultType="int">	
+		SELECT file_no
+		FROM zfile
+		WHERE file_stored = #{fileStored }
+	</select>
+	
+	<update id="updateTradeByTrade" parameterType="com.khbill.dto.Trade">
+		UPDATE ztrade
+		SET trade_content = #{tradeContent }, trade_category = #{tradeCategory }
+		, trade_date = SYSDATE, trade_title = #{tradeTitle }
+		<if test="fileNo != null">
+			, file_no = #{fileNo }
+		</if>
+		WHERE trade_no = #{tradeNo }
+	</update>
 	
 </mapper>

@@ -20,7 +20,7 @@
 %>
 
 <div class="wrap">
-    <div class="container-fluid" style="background-color: black;">
+    <div class="container-fluid" style="background-image: url(https://i.imgur.com/yJFIiNB.png)">
         <div class="container" style="padding: 0; margin-bottom: 25px;">
             <div class="col-md-8" style="margin-top: 25px;">
             	<div>

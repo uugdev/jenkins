@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.util.Paging;
@@ -104,5 +105,21 @@ public interface TradeService {
 	 * @param tradeNo - 삭제할 게시글 번호
 	 */
 	public void setTradeDelete(int tradeNo);
+	
+	/**
+	 * 게시글 수정 중 기존에 있던 파일을 삭제하고 삭제여부를 true, false로 반환
+	 * 
+	 * @param fileStored - 삭제할 파일 이름
+	 * @return 파일 삭제여부를 true, false로 반환
+	 */
+	public boolean setTradeUpdateDeleteFile(File file);
+	
+	/**
+	 * 입력받은 데이터로 거래 게시글 수정
+	 * 
+	 * @param file - 전송받은 파일
+	 * @param trade - 전송받은 게시글 정보
+	 */
+	public void setTradeUpdate(MultipartFile file, Trade trade);
 
 }

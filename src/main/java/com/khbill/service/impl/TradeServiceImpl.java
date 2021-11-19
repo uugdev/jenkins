@@ -183,7 +183,88 @@ public class TradeServiceImpl implements TradeService {
 		}
 		
 	}
-	
+
+	@Override
+	public boolean setTradeUpdateDeleteFile(com.khbill.dto.File file) {
+		
+		logger.info("file - {}", file);
+		
+		//삭제할 파일번호 조회
+		int fileNo = tradeDao.selectFileNoByFileStored(file.getFileStored());
+		
+		//ztrade - file_no을 null로 변경
+		tradeDao.updateTradeFileNullByFileNo(fileNo);
+		
+		//zfile - file 삭제
+		tradeDao.deleteTradeFileByFileStored(file.getFileStored());
+		
+		int fileCnt = tradeDao.selectTradeFileCountByFileStored(file);
+		
+		if( fileCnt > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+
+	@Override
+	public void setTradeUpdate(MultipartFile file, Trade trade) {
+		
+		if(file.getSize() <= 0) {
+			logger.info("파일의 크기가 0, 추가된 파일 없음");
+			
+			tradeDao.updateTradeByTrade(trade);
+			
+			return;
+		}
+		
+		//파일이 저장될 경로(RealPath)
+		String storedPath = context.getRealPath("upload");
+		logger.info("upload realPath : {}", storedPath); 
+		
+		//upload폴더가 존재하지 않으면 생성한다
+		File storedFolder = new File(storedPath);
+		if( !storedFolder.exists() ) {
+			storedFolder.mkdir();
+		}
+		
+		//저장될 파일의 이름 생성하기
+		String filename = file.getOriginalFilename(); //원본파일명
+		filename += UUID.randomUUID().toString().split("-")[4]; //UUID추가
+		logger.info("filename : {}", filename);
+		
+		
+		//저장될 파일의 정보 객체 - java.util.File
+		File dest = new File(storedFolder, filename);
+		
+		try {
+			
+			//업로드된 파일을 저장하기
+			file.transferTo(dest);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		int fileNo = tradeDao.selectFileNo();
+		
+		//DB에 기록할 정보 객체 - DTO
+		com.khbill.dto.File tradeFile = new com.khbill.dto.File();
+		tradeFile.setFileNo(fileNo);
+		tradeFile.setFileSize((int)file.getSize());
+		tradeFile.setFileOrigin(file.getOriginalFilename());
+		tradeFile.setFileStored(filename);
+		
+		tradeDao.insertFile(tradeFile);
+		
+		trade.setFileNo(fileNo);
+		
+		tradeDao.updateTradeByTrade(trade);
+		
+	}
 	
 
 }
