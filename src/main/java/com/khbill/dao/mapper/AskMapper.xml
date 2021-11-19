@@ -154,6 +154,7 @@
 	<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
 		SELECT * FROM zask_comment
 		WHERE ask_no = #{askNo}
+		ORDER BY ask_com_no 
 	</select>
 	
 	

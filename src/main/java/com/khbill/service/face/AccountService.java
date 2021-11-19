@@ -1,5 +1,6 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Item;
@@ -30,5 +31,13 @@ public interface AccountService {
 	 * @return
 	 */
 	public User getUserInfo(int userNo);
+
+	/**
+	 * 유저의 결제체크아이템 가격의 합(달별)
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<HashMap<String,Object>> getUserItemSum(int userNo);
 
 }

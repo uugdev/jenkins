@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -43,6 +44,12 @@ public class AccountServiceImpl implements AccountService {
 		user.setExtraMoney(money);
 		accountDao.updateExtraMoney(user);
 		
+	}
+	
+	
+	@Override
+	public List<HashMap<String,Object>> getUserItemSum(int userNo) {
+		return accountDao.selectItemSum(userNo);
 	}
 	
 	
