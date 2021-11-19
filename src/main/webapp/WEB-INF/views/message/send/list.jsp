@@ -56,11 +56,11 @@ $(document).ready(function(){
 <table class="table table-hover">
 	<thead>
 	<tr>
-		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th>받는 이</th>
-		<th>제목</th>
-		<th>상태</th>
-		<th>보낸 날짜</th>
+		<th style="width: 10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+		<th style="width: 10%">받는 이</th>
+		<th style="width: 30%">제목</th>
+		<th style="width: 10%">상태</th>
+		<th style="width: 10%">보낸 날짜</th>
 
 	</tr>
 	</thead>
@@ -74,7 +74,7 @@ $(document).ready(function(){
 			<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
 			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
 		</td>
-		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:MM" /></td>
+		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
 	
 	</tr>
 	</c:forEach>

@@ -14,30 +14,32 @@
 <div class="wrap">
 <div class="container">
 
-<h1>보낸 쪽지 상세보기 페이지</h1>
+<h3>보낸 쪽지 상세보기 페이지</h3>
 
-<table>
-	<tr>
-		<td>제목</td>
-		<td>${msg.msgTitle }</td>
-	</tr>
-	<tr>
-		<td>내용</td>
-		<td>${msg.msgContent }</td>
-	</tr>
+<table class="table table-hover">
 	<tr>
 		<td>받는 사람</td>
 		<td>${userNick } </td>
+		<td>보낸 시간</td>
+		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:mm" /></td>
 	</tr>
 	<tr>
-		<td>보낸 시간</td>
-		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:MM" /></td>
+		<td colspan="4">제목</td>
+	</tr>
+	<tr>
+		<td colspan="4">${msg.msgTitle }</td>
+	</tr>
+	<tr>
+		<td colspan="4">내용</td>
+	</tr>	
+	<tr>
+		<td colspan="4" height="200px;">${msg.msgContent }</td>
 	</tr>
 	
 </table>
 
 
-<a href="/message/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
+<a href="/message/send/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

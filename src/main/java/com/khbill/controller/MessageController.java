@@ -88,7 +88,13 @@ public class MessageController {
 
 		messageService.setMessageWrite(msg);
 
-		return "redirect:/message/send/list";
+		return "redirect:/message/close";
+	}
+	
+	@RequestMapping(value="/message/close")
+	public void closeMessage() {
+		logger.info("/message/close [GET]");
+		
 	}
 
 	@RequestMapping(value="/message/reply", method=RequestMethod.GET)

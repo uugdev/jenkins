@@ -31,12 +31,12 @@
 	</tr>
 	<tr>
 		<td>받은 시간</td>
-		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:MM" /></td>
+		<td><fmt:formatDate value="${msg.msgDate }" pattern="yy-MM-dd HH:mm" /></td>
 	</tr>
 </table>
 
 <a href="/message/reply?userNo=${msg.senderNo }"><button>답장</button></a>
-<a href="/message/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
+<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

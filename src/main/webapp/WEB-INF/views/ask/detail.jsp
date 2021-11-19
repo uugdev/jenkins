@@ -19,6 +19,19 @@
 <script src="/resources/js/segbar.js"></script>
 
 <script type="text/javascript">
+function message () {
+	var answer = confirm('쪽지를 보내시겠습니까?');
+        
+	if(answer) {
+		
+		window.open('/message/write?userNick=${user.userNick }', '새창의 Title', 'height=400, width=300, resizable=yes, scrollbars=yes');
+	} 
+        	
+}
+
+</script>
+
+<script type="text/javascript">
 $(document).ready(function() {
 	if( ${isScrap } ) {
 		$("#scrap")
@@ -409,9 +422,8 @@ table, th {
 		<span>작성자 : ${user.userNick }</span>
 		</c:if>
 		<c:if test="${userNo ne ask.userNo }">
-		<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
-			onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
-				${user.userNick }</span></a></c:if> | <span><fmt:formatDate
+		<span class="confirmation" onclick="message();">작성자 :
+				${user.userNick }</span></c:if> | <span><fmt:formatDate
 				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
 				<c:if test="${ask.userNo ne userNo }">
 					<c:if test="${ask.userNo ne 0 }">
