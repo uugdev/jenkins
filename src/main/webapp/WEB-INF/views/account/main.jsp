@@ -62,10 +62,14 @@ $(document).ready(function() {
 						var data1 = data.changeMoney;
 						var data1 = comma(data.changeMoney);
 						
+						var data2 = data.sub;
+						var data2 = comma(data.sub);
+						
 						$('.popupWrap1').addClass('hide1');
 						$('#extraMoney').val('');
 // 						$('#ch').html(data.changeMoney + '원')
 						$('#ch').html( data1 + '원');
+						$('#subMoney').html( data2 + '원');
 					
 
 				
@@ -111,37 +115,49 @@ $(document).ready(function() {
 				<!--차트가 그려질 부분-->
 				<canvas id="myChart"></canvas>
 				<div style="display: flex;">
-					<div style="flex: 1;">
-						<c:forEach items="${itemList}" var="i">
-							<table class="table table-striped table-hover">
-								<thead>
-									<tr>
-										<th>상품명</th>
-										<th>상품브랜드</th>
-										<th>상품가격</th>
-										<th>결제날짜</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>${i.itemName}</td>
-										<td>${i.itemBrand}</td>
-										<td>${i.itemPrice}</td>
-										<td><fmt:formatDate value="${ i.itemDate }"
-												pattern="YYYY-MM-dd" /></td>
-									</tr>
-								</tbody>
-							</table>
-						</c:forEach>
+					<div style="flex: 2;">
+						<table class="table table-striped table-hover">
+							<tr>
+								<th>상품명</th>
+								<th>상품브랜드</th>
+								<th>상품가격</th>
+								<th>결제날짜</th>
+							</tr>
+							<c:forEach items="${monthItemList}" var="i">
+								<tr>
+									<td>${i.itemName}</td>
+									<td>${i.itemBrand}</td>
+									<td><fmt:formatNumber type="number" maxFractionDigits="3"
+											value="${i.itemPrice}" /></td>
+									<td><fmt:formatDate value="${ i.itemDate }"
+											pattern="YYYY-MM-dd" /></td>
+								</tr>
+							</c:forEach>
+							<tr>
+								<th></th>
+								<th></th>
+								<th>이번달지출액</th>
+								<th>지출가능금액</th>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td id="monthPrice"><fmt:formatNumber type="number"
+										maxFractionDigits="3" value="${monthPrice}" />원</td>
+								<td id="subMoney"><fmt:formatNumber type="number"
+										maxFractionDigits="3" value="${subMoney}" />원</td>
+							</tr>
+						</table>
 					</div>
 					<div style="flex: 1;">
 						<div>
 							<h2 id="ch">
 								<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${user.extraMoney}" />원
+									value="${user.extraMoney}" />
+								원
 							</h2>
 						</div>
-						<button class="popupOpen1" id="updateMoney">지출가능금액 설정하기</button>
+						<button class="popupOpen1" id="updateMoney">지출한도 설정하기</button>
 					</div>
 				</div>
 

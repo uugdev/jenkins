@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
+import com.khbill.service.face.MainService;
 
 @Controller
 public class AccountController {
@@ -26,17 +27,30 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 
+	@Autowired MainService mainService;
+	
+	
 	@RequestMapping(value = "/account/main", method = RequestMethod.GET)
 	public void accountMain(HttpSession session, Model model) {
 		logger.info("/account/main [GET]");
 
 		int userNo = (int) session.getAttribute("userNo");
 		User user = accountService.getUserInfo(userNo);
-
+		
 		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
 		logger.info("itemList : {}", itemList);
-
+		
+		//유저의 이번달 지출 금액
+		int monthPrice = accountService.getitemSumMon(userNo);
+		
+		int subMoney = user.getExtraMoney() - monthPrice;
+		//이번달 지출 아이템 리스트
+		List<Item> monthItemList = accountService.getItemListByMon(userNo);
+		
 		model.addAttribute("user", user);
+		model.addAttribute("subMoney", subMoney);
+		model.addAttribute("monthPrice", monthPrice);
+		model.addAttribute("monthItemList", monthItemList);
 		model.addAttribute("itemList", itemList);
 		
 		List <HashMap<String,Object>> itemSum = accountService.getUserItemSum(userNo);	
@@ -60,15 +74,25 @@ public class AccountController {
 		int changeMoney = user.getExtraMoney();
 //		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
 		logger.info("changeMoney : {}", changeMoney);
-
+		
+		//유저의 이번달 지출금액
+		int month = accountService.getitemSumMon(userNo);
+		
+		//유저의 지출가능금액 - 이번달지출금액
+		int sub = changeMoney - month;
 		
 //		mav.addObject("user", user);
 		mav.addObject("changeMoney", changeMoney);
+		mav.addObject("sub", sub);
 //		mav.addObject("itemList", itemList);
 		mav.setViewName("jsonView");
 
 		return mav;
 
 	}
+	
+	
+	
+	
 
 }

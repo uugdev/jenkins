@@ -14,7 +14,7 @@ public interface AccountService {
 	 * @param userNo
 	 * @return
 	 */
-	List<Item> getItemListByLoginUserNo(int userNo);
+	public List<Item> getItemListByLoginUserNo(int userNo);
 
 	/**
 	 * 유저의 지출가능금액 수정
@@ -40,4 +40,23 @@ public interface AccountService {
 	 */
 	public List<HashMap<String,Object>> getUserItemSum(int userNo);
 
+	
+	/**
+	 * 로그인유저의 이번달 지출금액의합
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public int getitemSumMon(int userNo);
+
+	
+	
+	/**
+	 * 로그인유저의 이번달 결제체크된 아이템리스트
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<Item> getItemListByMon(int userNo);
+	
 }

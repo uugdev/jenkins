@@ -43,6 +43,25 @@
 		ORDER BY l
 	]]>
 	</select>
+	
+	
+	<select id="selectItemListMonSumUserNo" resultType="int" parameterType="int">
+	<![CDATA[
+		SELECT nvl(SUM(item_price), 0)
+		FROM zitem
+		WHERE item_status = 'y' AND user_no = #{userNo } AND to_char(sysdate, 'mm') = to_char(item_date, 'mm')
+	]]>
+	</select>
+	
+	
+	<select id="selectUserMonItemList" resultType="com.khbill.dto.Item" parameterType="int">
+	<![CDATA[
+	    SELECT * FROM zitem
+        WHERE item_status = 'y' AND user_no = #{userNo} AND to_char(sysdate, 'mm') = to_char(item_date, 'mm')
+		ORDER BY item_date
+	]]>
+	</select>
+
 
 
 </mapper>

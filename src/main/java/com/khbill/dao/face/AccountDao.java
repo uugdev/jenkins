@@ -34,11 +34,29 @@ public interface AccountDao {
 	public void updateExtraMoney(User user);
 
 	/**
-	 * 월별지출액 조회
+	 * 이번년도 월별지출액 조회
 	 * 
 	 * @param userNo
 	 * @return
 	 */
 	public List<HashMap<String,Object>> selectItemSum(int userNo);
+	
+	
+	/**
+	 * 유저의 이번달 지출액 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public int selectItemListMonSumUserNo(int userNo);
+
+
+	/**
+	 * 유저가 이번달 구매한 아이템
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<Item> selectUserMonItemList(int userNo);
 
 }

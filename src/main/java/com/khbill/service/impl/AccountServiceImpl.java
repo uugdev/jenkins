@@ -30,6 +30,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	
+	
 	@Override
 	public User getUserInfo(int userNo) {
 		return accountDao.selectUserByUserNo(userNo);
@@ -51,6 +52,20 @@ public class AccountServiceImpl implements AccountService {
 	public List<HashMap<String,Object>> getUserItemSum(int userNo) {
 		return accountDao.selectItemSum(userNo);
 	}
+	
+	
+	@Override
+	public int getitemSumMon(int userNo) {
+		return accountDao.selectItemListMonSumUserNo(userNo);
+	}
+	
+	@Override
+	public List<Item> getItemListByMon(int userNo) {
+		
+		return accountDao.selectUserMonItemList(userNo);
+	}
+	
+	
 	
 	
 	
