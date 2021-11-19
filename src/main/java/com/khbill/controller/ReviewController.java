@@ -254,13 +254,15 @@ public class ReviewController {
 	
 	//후기 게시글 신고
 	@RequestMapping(value ="/report",method = RequestMethod.POST)
-	public String reviewReport(int reviewNo, ReviewReport reviewReport, HttpSession session) {
+	public ModelAndView reviewReport(int reviewNo, ReviewReport reviewReport, HttpSession session, ModelAndView mav) {
 		logger.info("/reviewreport [POST]");
 		
 		logger.info("reviewReport: {}", reviewReport);
 		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
 		reviewReport.setReviewNo(reviewNo);
-		reviewReport.setReporterNo((Integer) session.getAttribute("userNo"));
+		reviewReport.setReporterNo(userNo);
 		
 		boolean reportCheck =  reviewService.reviewReportByReviewNoLoginUserNo(reviewReport);
 		
@@ -268,7 +270,10 @@ public class ReviewController {
 			reviewService.setReviewReport(reviewReport);
 		}
 		
-		return "redirect:/review/detail?reivewNo="+reviewNo;
+		mav.addObject("reportCheck", reportCheck);
+		mav.setViewName("jsonView");
+		
+		return mav;
 	}
 
 }

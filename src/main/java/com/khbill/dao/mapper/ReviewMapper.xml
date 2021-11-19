@@ -48,7 +48,6 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
-	
 	<update id="updatehit" parameterType="com.khbill.dto.Review">
 		UPDATE ZREVIEW
 		SET review_hit = review_hit + 1
@@ -193,10 +192,10 @@
 	
 	<select id="selectCntReviewReportCheck" parameterType="com.khbill.dto.ReviewReport" resultType="int" >
 	 	SELECT count(*) FROM zreview_report
-		WHERE review_no = #{reviewNo } AND reporter_no = #{reporterNo }
+		WHERE review_no = #{reviewNo } 
+			AND reporter_no = #{reporterNo }
 	</select>
 	
-		
 </mapper>
 
 

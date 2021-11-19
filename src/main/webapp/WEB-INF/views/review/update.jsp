@@ -29,9 +29,12 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
 		
+		var limit = uncomma($('input[name=itemPrice]').val()); //건들지마
+		var price = parseInt(limit); //건들지마
 		var result = confirm("게시글을 수정하시겠습니까?");
-
+		
 		if (result == true) {
+			$('input[name=itemPrice]').val(price);
 			$("form").submit();
 		} else {
 			
@@ -76,7 +79,9 @@ $(document).ready(function() {
 </div>
 <div class="form-group">
 	<label for="itemPrice">가격</label>
-	<input type="text" id="itemPrice" value="${item.itemPrice }" name="itemPrice" class="form-control" readonly="readonly"/>
+<%-- 	<input type="text" id="itemPrice" value="${item.itemPrice }" name="itemPrice" class="form-control" readonly="readonly"/> --%>
+	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="<fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${item.itemPrice }"/>" readonly="readonly"/>
 </div>
 
 
@@ -116,6 +121,32 @@ nhn.husky.EZCreator.createInIFrame({
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 });
+
+
+//---인풋창 3자리마다콤마찍기---
+var $input = $(".commaInput [type='text']");
+//입력 값 알아내기
+$input.on('keyup', function() {
+  var _this = this;
+  numberFormat(_this)
+});
+//콤마 찍기
+function comma(str) {
+  str = String(str);
+  return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+  
+}
+//---인풋창 3자리마다콤마찍기end---
+
+//--------- 콤마 풀기
+function uncomma(str) {
+  str = String(str);
+  return str.replace(/[^\d]+/g, '');
+}
+function numberFormat(obj) {
+  obj.value = comma(uncomma(obj.value));
+}
+//--------- 콤마 풀기end
 </script>
 
 </div><!-- .container -->

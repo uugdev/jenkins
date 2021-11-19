@@ -62,8 +62,6 @@ public class ReviewCommentController {
 		
 		if(addComment != null) {
 			success = true;
-//		} else {
-//			success = false;
 		}
 		
 		mav.addObject("userNick", userNick);
@@ -73,7 +71,6 @@ public class ReviewCommentController {
 		
 		return mav; 
 }
-	
 	
 	//후기 게시글 댓글 수정
 	@RequestMapping(value = "/comment/update", method = RequestMethod.POST)

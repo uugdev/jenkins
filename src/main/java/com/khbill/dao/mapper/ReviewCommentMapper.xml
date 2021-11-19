@@ -33,7 +33,7 @@
 		FROM zreview_comment
 		WHERE user_no = #{userNo }
 		AND rownum = 1
-		ORDER BY REVIEW_COM_DATE
+		ORDER BY REVIEW_COM_DATE DESC
 	</select>
 	
 	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
