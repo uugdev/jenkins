@@ -32,6 +32,7 @@ $(document).ready(function () {
 	
 	});
 	
+	
 	$("#join").click(function(){
 		var userId = $("#userId").val();
 		var userPw = $("#userPw").val();
@@ -205,6 +206,40 @@ function checkMail(){
     });
 };
 
+var authKey;
+function sendMail(){
+	
+	var userMail = $("#userMail").val();
+	$.ajax({
+	     url:"/member/sendMail",
+	     type: "post",
+	     async: false,
+	     data:{userMail:userMail},
+	     success:function(authkey){
+			authKey = authkey;
+			$("#verifyMail").css("display", "inline-block");
+	     },
+	     error:function(){
+	         alert("에러입니다");
+	     }
+	});
+	
+};
+
+function checkVerifyCode(){
+	var verifyCode = $("#verifyCode").val();
+	
+	if(verifyCode == authKey){
+		$(".verify_ok").css("display", "inline-block");
+		$(".verify_no").css("display", "none");
+        $("#join").prop("disabled", false);
+	} else {
+		$(".verify_ok").css("display", "none");
+		$(".verify_no").css("display", "inline-block");
+        $("#join").prop("disabled", true);
+	}
+}
+
 
 </script>
 
@@ -233,17 +268,22 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 	text-align: center;
 }
 
-.id_ok, .nick_ok, .mail_ok {
+.id_ok, .nick_ok, .mail_ok, .verify_ok {
 	color:#6A82FB;
 	display: none;
 }
-.id_already, .id_check, .nick_already, .nick_check, .mail_already {
+.id_already, .id_check, .nick_already, .nick_check, .mail_already, .verify_no {
 	color: red;
 	display: none;
 }
 .required {
 	color: red;
 }
+
+#verifyMail {
+	display: none;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -282,9 +322,12 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
-	<td><input type="email" id="userMail" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><br>
+	<td><input style="width: 86%;" type="email" id="userMail" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><button id="btnSend" type="button" onclick="sendMail()">이메일 인증</button><br>
 	<span class="mail_ok">사용 가능한 이메일입니다.</span>
-	<span class="mail_already">사용 중인 이메일입니다.</span></td>
+	<span class="mail_already">사용 중인 이메일입니다.</span><br>
+	<div id="verifyMail" style="width: 100%;"><input type="text" maxlength="6" id="verifyCode" name="verifyCode" placeholder="인증문자를 입력하세요" autocomplete="off" required oninput="checkVerifyCode()"/></div><br>
+	<span class="verify_ok">인증되었습니다.</span>
+	<span class="verify_no">인증문자가 틀렸습니다.</span></td>
 </tr>
 <tr>
 	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label></th>
@@ -310,5 +353,5 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 </div><!-- .wrap end -->
 
 <!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
+<%-- <c:import url="/WEB-INF/views/layout/footer.jsp" /> --%>
 
