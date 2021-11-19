@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
-<c:import url="/WEB-INF/views/layout/header.jsp" />
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
@@ -21,58 +20,80 @@ function submitContents(elClickedObj) {
 	} catch(e) {}
 }
 
+</script>
+<script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#btnWrite").click(function() {
-		submitContents($("#btnWrite"));
 		
-		$("form").submit();
-		history.go(-1);
+		var answer = confirm("쪽지를 보내시겠습니까?");
+		
+		if( answer == true) {
+			submitContents($("#btnWrite"));
+			$("form").submit();
+		}
 	})
-	
+
 	$("#btnCancel").click(function() {
-		history.go(-1);
+		window.open('','_self').close();
 	})
-	
-	
 })
 </script>
+
+
+<style>
+
+body {
+	padding: 20px 0 0 0;
+}
+table, h3 {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.wrap {
+	width: 600px;
+	padding: 0 0 30px 0;
+	margin: 0 0 0 10px;
+
+}
+
+.buttonarea {
+	margin: 0 0 0 250px;
+}
+
+
+</style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-<div class="container">
 
-<h1>상대 지정해서 쪽지 작성하기</h1>
-<hr>
+<h3>쪽지 보내기</h3>
 
 <form action="/message/mem/write" method="post">
 
-<table class="table table-hover" style="width: 600px;'">
+<table class="table table-hover" style="width: 590px;'">
 	<tr>
-		<td><label for="userNick">받는 사람</label></td>
-		<td><input type="text" id="userNick" name="userNick" />
+		<td style="width:30%"><label for="userNick">받는 사람</label></td>
+		<td style="width:70%"><input type="text" id="userNick" name="userNick" />
 	</tr>
 	
 	<tr>
-		<td><label for="title">제목</label></td>
-		<td><input type="text" id="msgTitle" name="msgTitle" /></td>
-	</tr>
-	<tr>
-		<td colspan="2"><label for="content">내용</label></td>
+		<td style="width:30%"><label for="title">제목</label></td>
+		<td style="width:70%"><input type="text" id="msgTitle" name="msgTitle" /></td>
 	</tr>
 	<tr>
 		<td colspan="2"><textarea rows="10" id="msgContent" name="msgContent"></textarea></td>
 	</tr>
 </table>
-
-	<button id="btnWrite">발송</button>
 </form>
+<span class="buttonarea">
+	<button id="btnWrite">보내기</button>
 	<button id="btnCancel">취소</button>
+</span>
 
-
-</div><!-- .container end -->
 </div><!-- .wrap end -->
-
 <script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
@@ -83,9 +104,8 @@ nhn.husky.EZCreator.createInIFrame({
 });
 </script>
 
-
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
+</body>
+</html>
 
 
 

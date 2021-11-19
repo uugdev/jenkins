@@ -8,6 +8,19 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+<script type="text/javascript">
+function message () {
+	var answer = confirm('쪽지를 보내시겠습니까?');
+	
+	if(answer) {
+		
+		window.open('/message/mem/write', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+	} else {
+		return false;
+	}
+}
+
+</script>
 
 <script type="text/javascript">
 $(document).ready(function(){

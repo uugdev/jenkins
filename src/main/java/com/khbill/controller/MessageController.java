@@ -121,7 +121,7 @@ public class MessageController {
 
 		messageService.setMessageWrite(msg);
 
-		return "redirect:/message/send/list";
+		return "redirect:/message/close";
 
 	}
 
@@ -189,6 +189,7 @@ public class MessageController {
 
 		model.addAttribute("msg", viewMsg);
 		model.addAttribute("userNick", senderNick);
+		model.addAttribute("senderNo", viewMsg.getSenderNo());
 
 		return "message/receive/detail";
 
