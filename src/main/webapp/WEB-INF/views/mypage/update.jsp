@@ -68,8 +68,108 @@ $(document).ready(function() {
 	
 	 $('#userBday').datepicker("setDate", bYear + "-" + bMonth + "-" + bDate); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	
-});
+
+	$("#btnUpdate").click(function() {
+		
+		var userPw = $("#userPw").val();
+		var userPwCheck = $("#userPwCheck").val();
+		var userNick = $("#userNick").val();
+		
+		var pwRegex = /^[a-zA-z0-9]{8,16}$/;
+		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
+		
+		var pwregex = pwRegex.exec(userPw);
+		if(pwregex == null){
+			alert("비밀번호를 다시 확인해주세요!");
+			$("#userPw").focus();
+			return false;
+		}
+		
+		if(userPw != userPwCheck){
+			alert("비밀번호가 일치하지 않습니다.");
+			$("#userPwCheck").focus();
+			return false;
+		}
+		
+		var nickregex = nickRegex.exec(userNick);
+		if(nickregex == null){
+			alert("닉네임을 다시 확인해주세요");
+			$("#userNick").focus();
+			return false;
+		}
+	
+		
+	})
+
+})
+
+function checkUserPw() {
+	var userPw = $("#userPw").val();
+
+    var regex = /^[a-zA-z0-9]{8,16}$/;
+	var result = regex.exec(userPw)
+	
+	if(result != null){
+	    $(".pw.regex").html("");
+	} else {
+	    $(".pw.regex").html("비밀번호는 영어 대소문자와 숫자 8~16자리로만 사용 가능합니다!");
+	    $(".pw.regex").css("color","red");
+	}
+}
+
+function checkPwSame(){
+	if($("#userPw").val() == $("#userPwCheck").val()){
+		$(".pwchk.regex").html("");
+        $("#join").prop("disabled", false);
+	} else {
+		$(".pwchk.regex").html("비밀번호가 일치하지 않습니다.");
+		$(".pwchk.regex").css("color", "red");
+        $("#join").prop("disabled", true);
+	}
+}
+
+function checkNick(){
+    var userNick = $('#userNick').val();
+    $.ajax({
+        url:"/member/nickCheck",
+        type: "post",
+        data:{userNick:userNick},
+        success:function(cnt){
+        	 if(cnt != 1){ 
+                 $(".nick_ok").css("display","inline-block"); 
+                 $(".nick_already").css("display", "none");
+                 $(".nick_check").css("display", "none");
+                 $("#join").prop("disabled", false);
+             } else {
+                 $(".nick_already").css("display","inline-block");
+                 $(".nick_ok").css("display", "none");
+                 $(".nick_check").css("display", "none");
+                 $("#join").prop("disabled", true);
+             }
+        },
+        error:function(){
+            alert("에러입니다");
+        }
+    });
+};
+
+
+function checkUserNick() {
+	var userNick = $("#userNick").val();
+
+    var idRegExp = /^[가-힣a-zA-z0-9]{4,12}$/;
+    if (!idRegExp.test(userNick)) {
+        $(".nick_already").css("display","none");
+        $(".nick_ok").css("display", "none");
+        $(".nick_check").css("display", "inline-block");
+        return false;
+    }
+    return checkNick();
+}
+
+
 </script>
+
 
 <style>
 
@@ -86,6 +186,20 @@ $(document).ready(function() {
 table {
     margin-left: auto; 
     margin-right: auto;
+}
+
+td {
+	height: 45px;
+	vertical-align: center;
+}
+
+.nick_ok {
+	color:#6A82FB;
+	display: none;
+}
+.nick_already, .nick_check {
+	color: red;
+	display: none;
 }
 
 </style>
@@ -111,7 +225,7 @@ table {
 		<input type="hidden" name="userId" value="${user.userId }" />
 		<input type="hidden" name="userMail" value="${user.userMail }" />
 		
-		<table class="table table-hover" style="width: 300px">
+		<table class="table table-hover" style="width: 500px">
 			<c:if test="${kakaoUser == '' || empty kakaoUser }">
 				<tr>
 					<td style="width: 10%" >아이디</td>
@@ -127,12 +241,23 @@ table {
 			<c:if test="${kakaoUser == '' || empty kakaoUser}">
 				<tr>
 					<td>비밀번호</td>
-					<td ><input type="text" name="userPw" value="${user.userPw }"></td>
+					<td ><input type="password" id="userPw" name="userPw" value="${user.userPw }" required oninput="checkUserPw()"><br>
+					<span class="pw regex"></span></td>
+				</tr>			
+			</c:if>
+			<c:if test="${kakaoUser == '' || empty kakaoUser}">
+				<tr>
+					<td>비밀번호확인</td>
+					<td ><input type="password" id="userPwCheck" name="userPwCheck" value="${user.userPw }" required onkeyup="checkPwSame()"><br>
+					<span class="pwchk regex"></span></td>
 				</tr>			
 			</c:if>
 			<tr>
 				<td>닉네임</td>
-				<td><input type="text" name="userNick" value="${user.userNick }"></td>
+				<td><input type="text" id="userNick" name="userNick" value="${user.userNick }" required oninput="checkUserNick()"><br>
+				<span class="nick_ok">사용 가능한 닉네임입니다.</span>
+				<span class="nick_already">사용 중인 닉네임입니다.</span>
+				<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
 			</tr>
 			<tr>
 				<td>이메일</td>

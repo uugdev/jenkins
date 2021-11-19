@@ -55,6 +55,11 @@ table {
     margin-right: auto;
 }
 
+td {
+	height: 45px;
+	vertical-align: center;
+}
+
 </style>
 <!-- 개별 영역 끝 -->
 <!-- 카카오 로그인 확인 절차 -->
@@ -71,7 +76,7 @@ table {
 	
 		<h3> 회원정보 조회 </h3>
 	
-		<table class="table table-hover" style="width: 300px">
+		<table class="table table-hover" style="width: 500px">
 			<tr>
 				<td style="width:10%" >아이디</td>
 				<c:if test="${kakaoUser == 'kakao'}">

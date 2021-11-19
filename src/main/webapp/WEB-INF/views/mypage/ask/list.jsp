@@ -29,7 +29,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("선택한 질문글을 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+		var answer = confirm("선택한 글을 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
@@ -52,7 +52,8 @@ $(document).ready(function(){
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 
-<h1>작성한 질문글 내역</h1>
+<h3>작성한 질문글 내역</h3>
+<div class="col-md-9" style="height: 500px;">
 
 <table class="table table-striped table-hover">
 <thead>
@@ -71,15 +72,17 @@ $(document).ready(function(){
 		<td>${ask.askNo }</td>
 		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
 		<td>${ask.askHit }</td>
-		<td><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm:ss" /></td>
+		<td><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd" /></td>
 	</tr>
 	</c:forEach>
 </table>
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 <button id="btnDelete" class="pull-left">삭제</button>
 <div class="clearfix"></div>
 
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
+</div>
+
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 
