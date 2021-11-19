@@ -22,6 +22,23 @@ function message () {
 
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btnDelete").click(function() {
+		var answer = confirm("쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+
+		if( answer == true ){
+			location.href="/message/send/delete?msgNo="
+		} else {
+			return false;
+		}
+	})
+
+})
+</script>
+
+
 <style>
 table {
 	margin: 0 auto;
@@ -53,7 +70,7 @@ table {
 </table>
 
 <button id="messageWrite" onclick="message()">답장하기</button>
-<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
+<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button id="btnDelete">삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

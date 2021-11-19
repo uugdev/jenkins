@@ -58,23 +58,38 @@ $(document).ready(function(){
 })
 </script>
 
+<style>
+
+#messageWrite {
+	margin: 0 0 0 100px;
+}
+
+#btnDelete {
+	margin: 0 0 100px 60px;
+}
+
+
+</style>
+
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
+<div style="height: 30px;"></div>
+<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button>
 
-<h3>보낸 쪽지 리스트</h3>
-<hr>
+<div style="height:10px;"></div>
+
+<h3>보낸 쪽지</h3>
 
 <table class="table table-hover">
 	<thead>
 	<tr>
 		<th style="width: 10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 10%">받는 이</th>
+		<th style="width: 10%">받는 사람</th>
 		<th style="width: 30%">제목</th>
 		<th style="width: 10%">상태</th>
 		<th style="width: 10%">보낸 날짜</th>
-
 	</tr>
 	</thead>
 	<tbody>
@@ -88,13 +103,12 @@ $(document).ready(function(){
 			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
 		</td>
 		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
-	
 	</tr>
 	</c:forEach>
 	</tbody>
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-<div class="clearfix"></div>
+<div style="height:50px;"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
