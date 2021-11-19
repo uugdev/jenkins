@@ -90,7 +90,9 @@ $(document).ready(function() {
 </div>
 <div class="form-group">
 	<label for="itemPrice">가격</label>
-	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="${item.itemPrice }" readonly="readonly"/>
+<%-- 	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="${item.itemPrice }" readonly="readonly"/> --%>
+	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="<fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${item.itemPrice }"/>" readonly="readonly"/>
 </div>
 
 <div class="form-group" id="item">

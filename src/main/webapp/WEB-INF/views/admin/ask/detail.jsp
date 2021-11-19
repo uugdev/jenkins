@@ -231,7 +231,8 @@ table, th {
 				<tr>
 					<td>${item.itemBrand }</td>
 					<td>${item.itemName }</td>
-					<td>${item.itemPrice }원</td>
+					<td><fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${item.itemPrice }" />원</td>
 				</tr>
 			</tbody>
 		</table>

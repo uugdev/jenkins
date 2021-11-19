@@ -24,7 +24,7 @@ function message () {
         
 	if(answer) {
 		
-		window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+		window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
 	
 	} else {
 		return false;
@@ -195,7 +195,7 @@ $("#setReport").click(function() {
 					}); //ajax end
 				} //check like중복투표확인 if문 end
 	 		}); //$("#hate").click() end
-			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
+			}//loginUserVoteState 로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
 
@@ -212,7 +212,7 @@ $("#setReport").click(function() {
 
 	
 	
-	initChart(${cntY}, ${cntN})
+	initChart(${cntY}, ${cntN});
 
 });
 
@@ -448,7 +448,8 @@ table, th {
 				<tr>
 					<td>${item.itemBrand }</td>
 					<td>${item.itemName }</td>
-					<td>${item.itemPrice }원</td>
+					<td><fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${item.itemPrice }" />원</td>
 				</tr>
 			</tbody>
 		</table>

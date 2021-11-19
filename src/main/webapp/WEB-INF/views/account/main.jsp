@@ -49,7 +49,7 @@ $(document).ready(function() {
 			return;
 		}
 		
-		change = parseInt(limit); //건들지마
+		var change = parseInt(limit); //건들지마
 
 			$.ajax({
 				type: "post"
@@ -65,7 +65,7 @@ $(document).ready(function() {
 						$('.popupWrap1').addClass('hide1');
 						$('#extraMoney').val('');
 // 						$('#ch').html(data.changeMoney + '원')
-						$('#ch').html( data1);
+						$('#ch').html( data1 + '원');
 					
 
 				
@@ -138,8 +138,7 @@ $(document).ready(function() {
 						<div>
 							<h2 id="ch">
 								<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${user.extraMoney}" />
-								원
+									value="${user.extraMoney}" />원
 							</h2>
 						</div>
 						<button class="popupOpen1" id="updateMoney">지출가능금액 설정하기</button>
