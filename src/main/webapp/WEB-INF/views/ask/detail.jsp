@@ -21,12 +21,13 @@
 <script type="text/javascript">
 function message () {
 	var answer = confirm('쪽지를 보내시겠습니까?');
-        
+	
 	if(answer) {
 		
-		window.open('/message/write?userNick=${user.userNick }', '새창의 Title', 'height=400, width=300, resizable=yes, scrollbars=yes');
-	} 
-        	
+		window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+	} else {
+		return false;
+	}
 }
 
 </script>
