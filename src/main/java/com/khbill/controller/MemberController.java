@@ -204,4 +204,59 @@ public class MemberController {
 		return authkey;
 	}
 	
+	@RequestMapping(value="/member/findId", method=RequestMethod.GET)
+	public void findId() {	};
+	
+	@RequestMapping(value="/member/findId", method=RequestMethod.POST)
+	public @ResponseBody String findIdProc(String mailAdr) {
+		User user = memberService.getUserByUserMail(mailAdr);
+		if(user == null) {
+			return "noUserId";
+		} else if(user.getUserId().split("-")[0].equals("kakao")) {
+			return "kakaoMember";
+		} else {
+			return user.getUserId();
+		}
+	}
+
+	@RequestMapping(value="/member/findPw", method=RequestMethod.GET)
+	public void findPw() {	};
+	
+	@RequestMapping(value="/member/findPw", method=RequestMethod.POST)
+	public @ResponseBody String findPwProc(String mailAdr) {
+		User user = memberService.getUserByUserMail(mailAdr);
+		if(user == null) {
+			return "noUserInfo";
+		} else if(user.getUserId().split("-")[0].equals("kakao")) {
+			return "kakaoMember";
+		} else {
+			String tempPw = UUID.randomUUID().toString().split("-")[2] + UUID.randomUUID().toString().split("-")[4].substring(3, 7);
+			User tempUser = new User();
+			tempUser.setUserNo(user.getUserNo());
+			tempUser.setUserPw(tempPw);
+			memberService.setUserTempPwUpdate(tempUser);
+			
+			String subject = "KH BiLL 임시 비밀번호입니다.";
+			String content = "아래 임시 비밀번호로 로그인 후 개인정보 보호를 위해 반드시 마이페이지에서 비밀번호를 변경해주세요!\n\n";
+			content += "<h3><strong>"+ tempPw +"</strong></h3>";
+			String from = "kh.bill1206@gmail.com";
+			String to = mailAdr;
+			
+			try {
+				MimeMessage mail = mailSender.createMimeMessage();
+				MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
+				
+				mailHelper.setFrom(from);
+				mailHelper.setTo(to);
+				mailHelper.setSubject(subject);
+				mailHelper.setText(content, true);
+				
+				mailSender.send(mail);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			return "success";
+		}
+	}
+	
 }

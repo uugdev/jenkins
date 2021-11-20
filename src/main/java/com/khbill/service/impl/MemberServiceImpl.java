@@ -97,7 +97,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void joinKakao(User user) {
-		String kakaoid = "kakao-"+UUID.randomUUID().toString().split("-")[3];
+		String kakaoid = "kakao-"+UUID.randomUUID().toString().split("-")[3]+UUID.randomUUID().toString().split("-")[1].substring(0, 4);
 		String kakaopw = UUID.randomUUID().toString().split("-")[2]+UUID.randomUUID().toString().split("-")[4];
 		System.out.println("kakaoid = " + kakaoid);
 		System.out.println("kakaopw = " + kakaopw);
@@ -106,6 +106,11 @@ public class MemberServiceImpl implements MemberService {
 		
 		memberDao.insertMember(user);
 	}
-	
+
+	@Override
+	public void setUserTempPwUpdate(User tempUser) {
+		memberDao.updateUserTempPw(tempUser);
+	}
+
 	
 }

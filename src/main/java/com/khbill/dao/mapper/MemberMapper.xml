@@ -70,11 +70,18 @@
 		FROM zuser
 		WHERE user_mail = #{userMail}
 	</select>
-	
+		
 	<select id="selectUserByUserMail" parameterType="String" resultType="com.khbill.dto.User">
 		SELECT * FROM zuser
 		WHERE user_mail = #{userMail}
 	</select>
-
+	
+	<update id="updateUserTempPw" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+		SET user_pw = #{userPw}
+		WHERE user_no = #{userNo}
+	</update>
+	
+	
 	
 </mapper>
