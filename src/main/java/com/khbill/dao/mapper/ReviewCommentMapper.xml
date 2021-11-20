@@ -16,7 +16,7 @@
 		        INNER JOIN zuser U
 		            ON U.user_no = C.user_no
 	            WHERE review_no = #{reviewNo }
-		        ORDER BY review_com_no DESC
+		        ORDER BY review_com_date
 		    ) C
 		) ZREVIEW_COMMENT
 	</select>
@@ -33,7 +33,7 @@
 		FROM zreview_comment
 		WHERE user_no = #{userNo }
 		AND rownum = 1
-		ORDER BY REVIEW_COM_DATE DESC
+		ORDER BY REVIEW_COM_NO DESC
 	</select>
 	
 	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">

@@ -89,15 +89,11 @@ public class ReviewController {
 		file = reviewService.getReviewFile(fileNo);
 		logger.info("파일 번호: {}", fileNo);
 		
-//		logger.info("review: {}", reviewMap);
-//		logger.info("item : {}", item);
-//		logger.info("file : {}", file);
-		
 		//모델값 전달
 		model.addAttribute("review", reviewMap);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
-		
+	
 		
 		//댓글 리스트 전달
 		List<HashMap<String, Object>> commentList = reviewService.getReviewComList(reviewComment);
@@ -156,17 +152,6 @@ public class ReviewController {
 		reviewService.setReviewWrite(review, item, file);
 
 		return "redirect:/review/list";
-	}
-	
-	//다운로드...? 삭제예정
-	@RequestMapping(value="/download")
-	public String download(int fileNo, Model model) {
-		
-		File file = reviewService.getReviewFile(fileNo);
-		
-		model.addAttribute("downFile", file);
-		
-		return "down";
 	}
 	
 	//후기 게시글 수정 - GET

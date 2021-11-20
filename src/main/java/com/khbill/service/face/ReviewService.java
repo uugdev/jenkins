@@ -69,6 +69,7 @@ public interface ReviewService {
 	 * @return 첨부파일 정보
 	 */
 	public File getReviewFile(int fileNo);
+	
 	/**
 	 * 댓글 목록을 조회한다
 	 * 

@@ -49,105 +49,49 @@ $(document).ready(function() {
 			}
 		}); //ajax end
 		
-	}); //$("#btnRecommend").click() end
+	}); //$("#scrap").click() end
 
-$("#setReport").click(function() {
-		
-	var content = $("#reportContent").val() ;
-	var category = $("#reportCategory").val();
-	if(content == "") {
-		
-		alert("신고사유를 입력해주세요")
-		return;
-		
-	} else {
-		$.ajax({
-			type: "post"
-			, url: "/review/report"
-			, data: {reportCategory: category, reportContent: content, "reviewNo": '${review.REVIEW_NO }'}
-			, dataType: "json"
-			, success: function( data ) {
-				console.log("성공");
-				$('.popupWrap1').addClass('hide1');
-				$('#reportContent').val('');
-				
-				if(data.reportCheck) {
-					alert("신고가 완료되었습니다.");
-				} else {
-					alert("이미 신고한 게시글입니다.");
+	$("#setReport").click(function() {
+			
+		var content = $("#reportContent").val() ;
+		var category = $("#reportCategory").val();
+		if(content == "") {
+			
+			alert("신고사유를 입력해주세요")
+			return;
+			
+		} else {
+			$.ajax({
+				type: "post"
+				, url: "/review/report"
+				, data: {reportCategory: category, reportContent: content, "reviewNo": '${review.REVIEW_NO }'}
+				, dataType: "json"
+				, success: function( data ) {
+					console.log("성공");
+					$('.popupWrap1').addClass('hide1');
+					$('#reportContent').val('');
+					
+					if(data.reportCheck) {
+						alert("신고가 완료되었습니다.");
+					} else {
+						alert("이미 신고한 게시글입니다.");
+					}
 				}
-			}
-			, error: function() {
-				console.log("실패");
-			}
-		}); //ajax end
-	}
-});	//$("#setReport").click() end
-
-
-// 	// 댓글 입력
-// 	$("#btnCommInsert").click(function() {
-		
-// 		$form = $("<form>").attr({
-// 			action: "/review/comment/write",
-// 			method: "post"
-// 		}).append(
-// 			$("<input>").attr({
-// 				type:"hidden",
-// 				name:"reviewNo",
-// 				value:"${review.REVIEW_NO }"
-// 			})
-// 		).append(
-// 			$("<textarea>")
-// 				.attr("name", "reviewComContent")
-// 				.css("display", "none")
-// 				.text($("#reviewComContent").val())
-// 		);
-// 		$(document.body).append($form);
-// 		$form.submit();
-		
-// 	}); //$("#btnCommInsert").click() end
-
-// 	$("#btnDelete").click(function() {
-
-// 		var result = confirm("정말 삭제하시겠습니까?");
-
-// 		if (result == true) {
-// 			$(location).attr("href", "/review/delete?reviewNo=${review.REVIEW_NO }");
-// 		}
-
-// 	});	//$("#btnDelete").click() end
+				, error: function() {
+					console.log("실패");
+				}
+			}); //ajax end
+		}
+	});	//$("#setReport").click() end
 
 }); //$(document).ready() end
-
-function deleteComment(reviewComNo) {
-	$.ajax({
-		type: "post"
-		, url: "/review/comment/delete"
-		, dataType: "json"
-		, data: {
-			reviewComNo: reviewComNo
-		}
-		, success: function(data){
-			if(data.success) {
-				
-				$("[data-reviewComNo='"+reviewComNo+"']").remove();
-				
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
-}
 </script>
-
 
 <script type="text/javascript">
 function insertComment() {
 	var textarea = $("#reviewComContent").val();
+	
+// 	console.log(textarea)
 	
 	$.ajax({
 		type: "post"
@@ -160,23 +104,23 @@ function insertComment() {
 		, success: function(data){
 			if(data.success) {
 			
-				console.log("안녕!")
-				
+			console.log("안녕!")
+			
 			var userNo = '<%=session.getAttribute("userNo")%>';
 			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
 				
 			$('#appendArea').before('<tr data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></tr>' +
-				'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'">' +
+				'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'" style="text-align: left;">' +
 				'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
 				'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
-				'<td id="td'+ data.addComment.reviewComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.reviewComContent +'</td>' +
-				'<td style="width: 10%; padding: 5px;">' + reviewComDate +'</td>' +
+				'<td id="td'+ data.addComment.reviewComNo +'" style="width: 66%; padding: 5px;">'+ textarea +'</td>' +
+				'<td id="dateTd'+ data.addComment.reviewComNo +'" style="width: 10%; padding: 5px;">'+ reviewComDate +'</td>' +
 				'<td style="width: 10%; padding: 5px;">' +
 				'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.reviewComNo +');">삭제</button> ' +
 				'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.reviewComNo +');">수정</button>' +
 				'</td>' +
 				'</tr>');
-				
+			
 				$('#reviewComContent').val('');
 				
 			} else {
@@ -191,16 +135,15 @@ function insertComment() {
 
 function updateComment(reviewComNo) {
 	
-    var askText = $("#td"+reviewComNo).text();
+    var reviewText = $("#td"+reviewComNo).text();
     
 	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "none");
 	$("[data-updateReviewComNo='"+reviewComNo+"']").append('<td style="width: 4%;"></td>' +
 			'<td style="width: 10%;"></td>' +
 			'<td style="width: 66%;">' +
 			'<div class="form-inline text-center">' +
-			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
-			'<textarea rows="2" cols="60" class="form-control" id="reviewComUpdateContent'+ reviewComNo +'">'+ askText +'</textarea>' +
+			'<textarea rows="2" cols="60" class="form-control" id="reviewComUpdateContent'+ reviewComNo +'">'+ reviewText +'</textarea>' +
 			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ reviewComNo +');">수정</button>　' +
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
 			'</div>' +
@@ -225,6 +168,8 @@ function updateCom(reviewComNo) {
 			if(data.success) {
 				var reviewComDate = moment(data.reviewComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
 				
+				console.log(data.reviewComment.reviewComDate)
+				
 				$("[data-reviewComNo='"+reviewComNo+"']").css("display", "table-row");
 				$("#td"+reviewComNo).html(data.reviewComment.reviewComContent);
 				$("#dateTd"+reviewComNo).html(reviewComDate);
@@ -243,7 +188,6 @@ function cancelCom(reviewComNo) {
 	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "table-row");
 	$("[data-updateReviewComNo='"+reviewComNo+"']").html('');
 }
-
 
 function deleteComment(reviewComNo) {
 	$.ajax({
@@ -283,21 +227,21 @@ function deleteComment(reviewComNo) {
 
 <h1 style="text-align: center;">${review.REVIEW_TITLE }</h1>
 <hr>
+<span style="float: left;">
 <c:if test="${userNo eq review.USER_NO }">
 	<span>작성자 ${review.USER_NICK }</span>
 </c:if>
 <c:if test="${userNo ne review.USER_NO }">
-	<a href="<%=request.getContextPath() %>/message/write?userNick=${review.USER_NICK }" onclick="return confirm('쪽지를 보내시겠습니까?');"><span class="pull-left">작성자 ${review.USER_NICK }</span></a>
+<a href="<%=request.getContextPath() %>/message/write?userNick=${review.USER_NICK }" 
+	onclick="return confirm('쪽지를 보내시겠습니까?');">작성자 ${review.USER_NICK }</a>
 </c:if>
-<span class="pull-left"></span>
-<span class="pull-left"><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
-	<c:if test="${review.USER_NO ne userNo }">
-		<c:if test="${review.USER_NO ne 0 }">
-			<button id="scrap">스크랩</button>
-			<button id="report" class="popupOpen1">신고</button>
-		</c:if>
-	</c:if>
-<span class="pull-right">조회 ${review.REVIEW_HIT }</span>
+<fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/>
+</span>
+<c:if test="${review.USER_NO ne userNo }">
+	<button id="scrap">스크랩</button>
+	<button id="report" class="popupOpen1">신고</button>
+</c:if>
+<span style="float: right;">신고 | 조회 ${review.REVIEW_HIT } | 댓글</span>
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -311,75 +255,76 @@ function deleteComment(reviewComNo) {
 		<tr>
 			<td>${item.itemBrand }</td>		
 			<td>${item.itemName }</td>		
-			<td><fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }"/>원</td>	
+			<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>원</td>	
 		</tr>
 	</tbody>
 </table>
 
 <div id="item" class="center-block">
 	<img id="itemImg" src="/upload/${file.fileStored}" class="img-responsive" alt="Responsive image" />
+	<div style="text-align: center;">${review.REVIEW_CONTENT }</div><!-- 본문 -->
 </div>
-
-<div style="text-align: center;">${review.REVIEW_CONTENT }</div><!-- 본문 -->
-
 <hr>
 
 <!-- 댓글 처리 -->
 <div>
-
-	<!-- 비로그인상태 -->
-	<c:if test="${not login }">
-	<strong>로그인이 필요합니다</strong><br>
-	<button onclick='location.href="/member/login";'>로그인</button>
-	<button onclick='location.href="/member/join";'>회원가입</button>
-	</c:if>
 	
-	<!-- 로그인상태 -->
-	<c:if test="${login }">
-	<!-- 댓글 입력 -->
-	<div class="form-inline text-center">
-		<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
-		<textarea rows="2" cols="60" class="form-control" id="reviewComContent"></textarea>
-		<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
-	<!-- 댓글 입력 end -->
-	</div>
-	</c:if>
-	
-	<!-- 댓글 리스트 -->
-	<table class="table table-striped table-hover table-condensed">
-	<thead>
-	<tr>
-		<th style="width: 4%;"></th>
-		<th style="width: 10%;">작성자</th>
-		<th style="width: 66%;">댓글</th>
-		<th style="width: 10%;">작성일</th>
-		<th style="width: 10%;"></th>
-	</tr>
-	</thead>
+<!-- 댓글 리스트 -->
+<table class="table table-hover table-condensed">
+<thead>
+<tr>
+	<th style="width: 4%;"></th>
+	<th style="width: 10%;">작성자</th>
+	<th style="width: 66%;">댓글</th>
+	<th style="width: 10%;">작성일</th>
+	<th style="width: 10%;"></th>
+</tr>
+</thead>
 
-	<tbody id="commentBody">
-		<c:forEach items="${commentList }" var="reviewComment">
-			<tr data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }"></tr>
-			<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-			<td style="width: 4%;"></td>
+<tbody id="commentBody">
+	<c:forEach items="${commentList }" var="reviewComment">
+		<tr data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></tr>
+		<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
+			<td style="width: 4%;"></td>	
 			<td style="width: 10%;">${reviewComment.USER_NICK }</td>
 			<td id="td${reviewComment.REVIEW_COM_NO }" style="width: 66%;">${reviewComment.REVIEW_COM_CONTENT }</td>
-			<td style="width: 10%;">
-				<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+			<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
+				<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+			</td>			
 			<td style="width: 10%;">
 				<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
 					<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
 					<button class="btn btn-default btn-xs" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
 				</c:if>
 			</td>
-			</tr>
-		</c:forEach>
-		<tr id="appendArea"></tr>
-	</tbody>
-	</table><!-- 댓글 리스트 end -->
+		</tr>
+	</c:forEach>
+	<tr id="appendArea"></tr>
+</tbody>
+</table>
 
+<hr style="border: 1px solid #ddd; margin-top: 0;">
+
+<!-- 비로그인상태 -->
+<c:if test="${not login }">
+	<strong>로그인이 필요합니다</strong><br>
+	<button onclick='location.href="/member/login";'>로그인</button>
+	<button onclick='location.href="/member/join";'>회원가입</button>
+</c:if>
+	
+<!-- 로그인상태 -->
+<c:if test="${login }">
+<!-- 댓글 입력 -->
+<div class="form-inline text-center">
+	<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
+	<textarea rows="2" cols="60" class="form-control" id="reviewComContent"></textarea>
+	<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
+<!-- 댓글 입력 end -->
+</div>
+</c:if>
 </div><!-- 댓글 처리 end -->
+
+<br>
 
 <div class="text-center" style="margin-bottom: 100px;">
 	<a href="/review/list"><button class="btn btn-default">목록</button></a>
@@ -388,14 +333,19 @@ function deleteComment(reviewComNo) {
 		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"><button type="button" class="btn btn-danger" id="btnDelete">삭제</button></a>
 	</c:if>
 </div>
-	
-</div><!-- .container end -->
+
+<!-- .container end -->
+</div>
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 
-</div><!-- .wrap end -->
+<!-- .wrap end -->
+</div>
 
+
+
+<!-- 신고 처리 코드 영역 -->
 <div class="popupWrap1 hide1">
 	<div class="popup1">
 		<div class="title">
@@ -424,4 +374,3 @@ $('.close1').on('click', function() {
 	$(this).parents('.popup1').children('textarea').val('');
 });
 </script>
-
