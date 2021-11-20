@@ -6,6 +6,7 @@ import java.util.List;
 import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
+import com.khbill.dto.TradeReport;
 import com.khbill.util.Paging;
 
 public interface TradeDao {
@@ -188,6 +189,21 @@ public interface TradeDao {
 	 * @param trade - 변경될 게시글 정보
 	 */
 	public void updateTradeByTrade(Trade trade);
+	
+	/**
+	 * 신고한 게시물인지 체크
+	 * 
+	 * @param tradeReport - 전달받은 신고정보
+	 * @return 신고한 게시글 - 1, 안한 게시글 - 0 반환
+	 */
+	public int selectCntTradeReportCheck(TradeReport tradeReport);
+	
+	/**
+	 * 전달받은 신고정보를 입력
+	 * 
+	 * @param tradeReport - 전달받은 신고정보
+	 */
+	public void insertTradeReport(TradeReport tradeReport);
 
 
 

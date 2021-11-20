@@ -37,7 +37,12 @@
 	</select>
 	
 	<select id="selectTradeByTradeNo" resultType="HashMap" parameterType="int">
-	    SELECT t.user_no, t.trade_no, t.trade_title, t.trade_content, t.trade_date, t.trade_hit, f.file_stored, u.user_nick
+	    SELECT t.user_no, t.trade_no, t.trade_title, t.trade_content, t.trade_category, t.trade_date, t.trade_hit, f.file_stored, u.user_nick
+        , (
+        SELECT count(trade_com_no)
+        FROM ztrade_comment
+        WHERE trade_no = #{tradeNo }
+        ) trade_com_count
 	    FROM ztrade t, zuser u, zfile f
 	    WHERE 1=1
 	    AND t.user_no = u.user_no
@@ -171,5 +176,18 @@
 		</if>
 		WHERE trade_no = #{tradeNo }
 	</update>
+	
+	<select id="selectCntTradeReportCheck" parameterType="com.khbill.dto.TradeReport" resultType="int" >
+	 	SELECT count(*) FROM zreview_report
+		WHERE 1=1
+		AND review_no = #{tradeNo } 
+		AND reporter_no = #{reporterNo }
+	</select>
+	
+	<insert id="insertTradeReport" parameterType="com.khbill.dto.TradeReport">
+		INSERT INTO ztrade_report
+		VALUES (ztrade_report_seq.nextval, #{tradeNo}, #{reporterNo}
+			, #{respondentNo}, #{reportCategory}, #{reportContent}, sysdate, 'n')
+	</insert>
 	
 </mapper>

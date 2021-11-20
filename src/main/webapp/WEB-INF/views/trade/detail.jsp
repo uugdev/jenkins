@@ -8,10 +8,62 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+<link rel="stylesheet" type="text/css" href="/resources/css/reportPopup.css">
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/tradeDetail.css" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 <script type="text/javascript">
+
+$(document).ready(function() {
+	
+	$('.popupOpen1').on('click', function() {
+		$('.popupWrap1').removeClass('hide1');
+	});
+	
+	$('.close1').on('click', function() {
+		$(this).parents('.popupWrap1').addClass('hide1');
+		$(this).parents('.popup1').children('textarea').val('');
+	});
+	
+	$("#setReport").click(function() {
+		
+		var content = $("#reportContent").val() ;
+		var category = $("#reportCategory").val();
+		if( content == ""  ) {
+			
+			alert("신고사유를 입력해주세요")
+			return;
+			
+		} else {
+			
+			$.ajax({
+				type: "post"
+				, url: "/trade/report"
+				, data: { reportCategory: category, reportContent: content, "tradeNo": "${tradeDetail.TRADE_NO }"}
+				, dataType: "json"
+				, success: function( data ) {
+						console.log("성공");
+						$('.popupWrap1').addClass('hide1');
+						$('#reportContent').val('');
+						
+						if( data.reportCheck ) {
+							alert("신고가 완료되었습니다.");
+						} else {
+							alert("이미 신고한 게시글입니다.");
+						}
+				}
+				, error: function() {
+					console.log("실패");
+				}
+			}); //ajax end
+			
+		}
+		
+	});
+	
+});
+
+var tradeComCount = ${tradeDetail.TRADE_COM_COUNT }
 
 function insertComment() {
 	
@@ -37,6 +89,8 @@ function insertComment() {
 		}
 		, success: function(data){
 			if(data.success) {
+				
+				$("#tradeComCount").html(++tradeComCount, tradeComCount);
 				
 				var userNo = '<%= session.getAttribute("userNo")%>';
 				var tradeComDate = moment(data.addComment.tradeComDate).format("YY-MM-DD HH:mm:ss");
@@ -170,27 +224,30 @@ function deleteComment(tradeComNo) {
 	<div class="container">
 	
 		<h1>
-			${tradeDetail.TRADE_TITLE }
 			<c:if test="${tradeDetail.TRADE_CATEGORY eq 1 }">
 				[삽니다] 
 			</c:if>
 			<c:if test="${tradeDetail.TRADE_CATEGORY eq 0 }">
 				[팝니다] 
 			</c:if>
+			${tradeDetail.TRADE_TITLE }
 		</h1>
 		<span style="float: left;">
 		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
-		${tradeDetail.USER_NICK }
+			${tradeDetail.USER_NICK }
 		</c:if>
 		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
-		<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
-					onclick="return confirm('쪽지를 보내시겠습니까?');">${tradeDetail.USER_NICK }</a>
-		 </c:if>
-	
+			<a href="<%=request.getContextPath() %>/message/write?userNick=${tradeDetail.USER_NICK }"
+			   onclick="return confirm('쪽지를 보내시겠습니까?');">${tradeDetail.USER_NICK }</a>
+		</c:if>
 			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
 		</span>
 		<span style="float: right;">
-			신고 | 조회 ${tradeDetail.TRADE_HIT } | 댓글 4
+			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
+				<button id="scrap">스크랩</button>
+				<button id="report" class="popupOpen1">신고</button>
+			</c:if>
+			 | 조회 ${tradeDetail.TRADE_HIT } | 댓글 <span id="tradeComCount">${tradeDetail.TRADE_COM_COUNT }</span>
 		</span>
 		<hr style="margin-top: 40px;">
 		
@@ -325,5 +382,24 @@ function deleteComment(tradeComNo) {
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div><!-- .wrap end -->
+
+			<div class="popupWrap1 hide1">
+					<div class="popup1">
+						<div class="title">
+							<p>신고 하기</p>
+							<span class="close1">❌</span>
+						</div>
+						<select id="reportCategory" name="reportCategory" class="select">
+							<option value="A">부적절한 홍보 게시글</option>
+							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+							<option value="D">기타</option>
+						</select>	
+						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+						<div class="btnWrap1">
+							<button id="setReport">보내기</button>
+						</div>
+					</div>
+			</div>
 
 

@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.TradeDao;
+import com.khbill.dto.Review;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
+import com.khbill.dto.TradeReport;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -263,6 +265,33 @@ public class TradeServiceImpl implements TradeService {
 		trade.setFileNo(fileNo);
 		
 		tradeDao.updateTradeByTrade(trade);
+		
+	}
+
+	@Override
+	public boolean tradeReportByTradeNoLoginUserNo(TradeReport tradeReport) {
+		int cnt = tradeDao.selectCntTradeReportCheck(tradeReport);
+		
+		if(cnt > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public void setTradeReport(TradeReport tradeReport) {
+		
+		HashMap<String, String> trade = tradeDao.selectTradeByTradeNo(tradeReport.getTradeNo());
+		
+		System.out.println(trade);
+		String strUserNo = String.valueOf(trade.get("USER_NO"));
+		
+		int userNo = Integer.parseInt(strUserNo);
+		
+		tradeReport.setRespondentNo(userNo);
+		
+		tradeDao.insertTradeReport(tradeReport);
 		
 	}
 	
