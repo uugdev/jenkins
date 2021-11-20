@@ -44,10 +44,6 @@ $(document).ready(function(){
 	})
 })
 
-// if("${not empty loginFailed}"){
-// 	alert('로그인을 실패하였습니다.\n로그인 정보를 확인해주세요!')
-// }
-
 </script>
 
 <style type="text/css">
@@ -62,7 +58,7 @@ input[type=text]{
 <div class="wrap">
 <div class="container">
 
-<h3>로그인(임시)</h3>
+<h3>로그인</h3>
 <hr>
 
 <form action="/member/login" method="post" name="login_form">
@@ -90,6 +86,13 @@ input[type=text]{
 </div>
 
 </form>
+
+<hr>
+<div class="text-center">
+	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;<a href="/member/findId">아이디</a>&nbsp;/&nbsp;<a href="/member/findPw">비밀번호 찾기</a>
+	&nbsp;&nbsp;|&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a href="/member/join">회원가입</a>
+</div>
+
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

@@ -112,6 +112,13 @@ public interface MemberService {
 	 */
 	public void joinKakao(User user);
 
+	/**
+	 * 임시 비밀번호로 회원 비번 변경
+	 * 
+	 * @param User - 임시 비밀번호와 변경하려는 회원 정보가 담겨있는 User 객체
+	 */
+	public void setUserTempPwUpdate(User tempUser);
+
 
 
 }

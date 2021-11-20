@@ -107,11 +107,17 @@ public interface MemberDao {
 	/**
 	 * 카카오 메일로 조회한 회원 정보 반환
 	 * 
-	 * @param kakaoEmail - 카카오 메일
+	 * @param mail - 메일 주소
 	 * @return User
 	 */
 	public User selectUserByUserMail(String kakaoEmail);
-	
-	
+
+	/**
+	 * 임시 비밀번호로 변경
+	 * 
+	 * @param tempUser - 임시 비번 객체
+	 */
+	public void updateUserTempPw(User tempUser);
+
 
 }
