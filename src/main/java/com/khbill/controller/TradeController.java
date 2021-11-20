@@ -18,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.File;
+import com.khbill.dto.ReviewReport;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
+import com.khbill.dto.TradeReport;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -218,6 +220,35 @@ public class TradeController {
 		
 		return mav; 
 	}
+	
+	@RequestMapping(value = "/trade/report")
+	public ModelAndView tradeReport(
+				int tradeNo
+				, TradeReport tradeReport
+				, HttpSession session
+				, ModelAndView mav
+			) {
+		logger.info("tradeReport: {}", tradeReport);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		
+		tradeReport.setTradeNo(tradeNo);
+		tradeReport.setReporterNo(userNo);
+		
+		boolean reportCheck =  tradeService.tradeReportByTradeNoLoginUserNo(tradeReport);
+		
+		if(reportCheck) {
+			tradeService.setTradeReport(tradeReport);
+		}
+		
+		mav.addObject("reportCheck", reportCheck);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+	}
+	
+		
 	
 
 }

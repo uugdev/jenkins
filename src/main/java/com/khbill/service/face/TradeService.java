@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
+import com.khbill.dto.TradeReport;
 import com.khbill.util.Paging;
 
 public interface TradeService {
@@ -121,5 +122,20 @@ public interface TradeService {
 	 * @param trade - 전송받은 게시글 정보
 	 */
 	public void setTradeUpdate(MultipartFile file, Trade trade);
+	
+	/**
+	 * trade 게시글 번호와 로그인 userNo로 신고한 게시물인지 판단한다
+	 * 
+	 * @param tradeReport - 전송받은 신고정보
+	 * @return 판단한 결과
+	 */
+	public boolean tradeReportByTradeNoLoginUserNo(TradeReport tradeReport);
+	
+	/**
+	 * 신고 게시글 삽입하기
+	 * 
+	 * @param tradeReport - 전송받은 신고정보
+	 */
+	public void setTradeReport(TradeReport tradeReport);
 
 }
