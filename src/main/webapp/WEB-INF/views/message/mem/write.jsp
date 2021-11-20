@@ -21,25 +21,81 @@ function submitContents(elClickedObj) {
 }
 
 </script>
+
 <script type="text/javascript">
-$(document).ready(function() {
+
+$(document).ready(function () {
 	
-	$("#btnWrite").click(function() {
+	$("#btnWrite").click(function(){
+		
+		var userNick = $("#userNick").val();
+		
+		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
+
+	
+		var nickregex = nickRegex.exec(userNick);
+		if(nickregex == null){
+			alert("닉네임을 다시 확인해주세요");
+			$("#userNick").focus();
+			return false;
+		}
 		
 		var answer = confirm("쪽지를 보내시겠습니까?");
 		
-		if( answer == true) {
+		if( answer == true){
 			submitContents($("#btnWrite"));
-			$("form").submit();
-		}
-	})
+			$("form").submit();		
+		} else {
+			return false;
 
+		}
+	});
+	
+	
 	$("#btnCancel").click(function() {
 		window.open('','_self').close();
 	})
-})
-</script>
+});
 
+function checkNick(){
+    var userNick = $('#userNick').val();
+    $.ajax({
+        url:"/member/nickCheck",
+        type: "post",
+        data:{userNick:userNick},
+        success:function(cnt){
+        	 if(cnt != 1){ 
+                 $(".nick_ok").css("display","inline-block"); 
+                 $(".nick_already").css("display", "none");
+                 $(".nick_check").css("display", "none");
+                 $("#join").prop("disabled", false);
+             } else {
+                 $(".nick_already").css("display","inline-block");
+                 $(".nick_ok").css("display", "none");
+                 $(".nick_check").css("display", "none");
+                 $("#join").prop("disabled", true);
+             }
+        },
+        error:function(){
+            alert("에러입니다");
+        }
+    });
+};
+
+function checkUserNick() {
+	var userNick = $("#userNick").val();
+
+    var idRegExp = /^[가-힣a-zA-z0-9]{4,12}$/;
+    if (!idRegExp.test(userNick)) {
+        $(".nick_already").css("display","none");
+        $(".nick_ok").css("display", "none");
+        $(".nick_check").css("display", "inline-block");
+        return false;
+    }
+    return checkNick();
+}
+
+</script>
 
 <style>
 
@@ -62,6 +118,11 @@ table, h3 {
 	margin: 0 0 0 250px;
 }
 
+.nick_ok, .nick_check {
+	color:#6A82FB;
+	display: none;
+}
+
 
 </style>
 
@@ -76,7 +137,9 @@ table, h3 {
 <table class="table table-hover" style="width: 590px;'">
 	<tr>
 		<td style="width:30%"><label for="userNick">받는 사람</label></td>
-		<td style="width:70%"><input type="text" id="userNick" name="userNick" />
+		<td style="width:70%"><input type="text" id="userNick" name="userNick" required oninput="checkUserNick()"/><br>
+		<span class="nick_ok">존재하지 않는 회원입니다.</span>
+		<span class="nick_check">존재하지 않는 회원입니다.</span></td>
 	</tr>
 	
 	<tr>

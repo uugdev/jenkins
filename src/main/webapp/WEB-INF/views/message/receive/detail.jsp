@@ -14,12 +14,28 @@ function message () {
 	
 	if(answer) {
 		
-		window.open('/message/reply?userNo=${senderNo}', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+		window.open('/message/reply?userNo=${senderNo}', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
 	} else {
 		return false;
 	}
 }
 
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btnDelete").click(function() {
+		var answer = confirm("쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+
+		if( answer == true ){
+			location.href="/message/receive/delete?msgNo="
+		} else {
+			return false;
+		}
+	})
+
+})
 </script>
 
 <style>
@@ -53,7 +69,8 @@ table {
 </table>
 
 <button id="messageWrite" onclick="message()">답장하기</button>
-<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button>삭제</button></a>
+<a href="/message/receive/list"><button>목록</button></a>
+<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button id="btnDelete">삭제</button></a>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

@@ -14,7 +14,7 @@ function message () {
 	
 	if(answer) {
 		
-		window.open('/message/mem/write', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+		window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
 	} else {
 		return false;
 	}
@@ -58,9 +58,13 @@ $(document).ready(function(){
 </script>
 
 <style>
-.sendMessage {
-	margin: 50px 0 0 0;
+#messageWrite {
+    margin: 0 0 0 60px;
 
+}
+
+#btnDelete {
+    margin: 0 0 100px 60px;
 }
 
 </style>
@@ -71,9 +75,9 @@ $(document).ready(function(){
 <div class="container">
 <div style="height: 30px;"></div>
 <button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button>
-<h3>받은 쪽지 리스트</h3>
+<div style="height: 30px;"></div>
 
-
+<h3>받은 쪽지함</h3>
 <table class="table table-hover">
 	<thead>
 	<tr>
@@ -100,9 +104,11 @@ $(document).ready(function(){
 	</tbody>
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-<div class="clearfix"></div>
+<div style="height: 5pxx;"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
+<div class="clearfix"></div>
+
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

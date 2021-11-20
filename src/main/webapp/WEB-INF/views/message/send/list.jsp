@@ -14,7 +14,7 @@ function message () {
 	
 	if(answer) {
 		
-		window.open('/message/mem/write', '쪽지 보내기', 'height=480, width=620, left=400, top=500, resizable=no');
+		window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
 	} else {
 		return false;
 	}
@@ -42,7 +42,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n삭제시 보낸 쪽지함에서만 삭제되고, 상대방의 쪽지함에서는 삭제되지 않습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
@@ -58,14 +58,26 @@ $(document).ready(function(){
 })
 </script>
 
+<style>
+#messageWrite {
+    margin: 0 0 0 60px;
+
+}
+
+#btnDelete {
+    margin: 0 0 100px 60px;
+}
+
+</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
+<div style="height: 30px;"></div>
+<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button>
+<div style="height: 30px;"></div>
 
-<h3>보낸 쪽지 리스트</h3>
-<hr>
-
+<h3>보낸 쪽지함</h3>
 <table class="table table-hover">
 	<thead>
 	<tr>
@@ -94,9 +106,11 @@ $(document).ready(function(){
 	</tbody>
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-<div class="clearfix"></div>
+<div style="height: 5pxx;"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
+<div class="clearfix"></div>
+
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
