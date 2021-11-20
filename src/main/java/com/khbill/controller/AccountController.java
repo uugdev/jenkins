@@ -1,5 +1,6 @@
 package com.khbill.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.service.face.AccountService;
-import com.khbill.service.face.MainService;
 
 @Controller
 public class AccountController {
@@ -27,9 +27,6 @@ public class AccountController {
 	@Autowired
 	AccountService accountService;
 
-	@Autowired MainService mainService;
-	
-	
 	@RequestMapping(value = "/account/main", method = RequestMethod.GET)
 	public void accountMain(HttpSession session, Model model) {
 		logger.info("/account/main [GET]");
@@ -37,12 +34,14 @@ public class AccountController {
 		int userNo = (int) session.getAttribute("userNo");
 		User user = accountService.getUserInfo(userNo);
 		
+		//전체 아이템구매리스트
 		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
 		logger.info("itemList : {}", itemList);
 		
 		//유저의 이번달 지출 금액
 		int monthPrice = accountService.getitemSumMon(userNo);
 		
+		//남은지출금액
 		int subMoney = user.getExtraMoney() - monthPrice;
 		//이번달 지출 아이템 리스트
 		List<Item> monthItemList = accountService.getItemListByMon(userNo);
@@ -53,6 +52,8 @@ public class AccountController {
 		model.addAttribute("monthItemList", monthItemList);
 		model.addAttribute("itemList", itemList);
 		
+
+		//올해 아이템체크리스트 총액 (월별)
 		List <HashMap<String,Object>> itemSum = accountService.getUserItemSum(userNo);	
 		
 		model.addAttribute("itemSum",itemSum);
@@ -66,13 +67,11 @@ public class AccountController {
 		logger.info("/account/extramoney [POST]");
 
 		int userNo = (int) session.getAttribute("userNo");
-//		int money = Integer.parseInt(extraMoney);
 
 		accountService.setUpdateExtraMoney(userNo, extraMoney);
 
 		User user = accountService.getUserInfo(userNo);
 		int changeMoney = user.getExtraMoney();
-//		List<Item> itemList = accountService.getItemListByLoginUserNo(userNo);
 		logger.info("changeMoney : {}", changeMoney);
 		
 		//유저의 이번달 지출금액
@@ -81,14 +80,43 @@ public class AccountController {
 		//유저의 지출가능금액 - 이번달지출금액
 		int sub = changeMoney - month;
 		
-//		mav.addObject("user", user);
+		List<Item> monthItemList = accountService.getItemListByMon(userNo);
+		int arr[] = new int[monthItemList.size()+1];
+		
+		logger.info("monthItemList.size(): {}", monthItemList.size());
+		
+		
+		for (int i = 0; i < monthItemList.size(); i++) {
+			
+			arr[i] = monthItemList.get(i).getItemPrice();
+			
+		}
+		
+		arr[monthItemList.size()] =  sub;
+		
+//		arr[monthItemList.size()+1] = 
+		
+		logger.info("arr: {}", arr);
+
+		
+//		mav.addObject("monthItemList", monthItemList);
 		mav.addObject("changeMoney", changeMoney);
 		mav.addObject("sub", sub);
-//		mav.addObject("itemList", itemList);
+		mav.addObject("arr", arr);
 		mav.setViewName("jsonView");
 
+		
+		
+		
+		
+		
 		return mav;
 
+		
+		
+		
+		
+		
 	}
 	
 	

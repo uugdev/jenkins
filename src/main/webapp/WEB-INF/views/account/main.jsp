@@ -40,6 +40,64 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
+	var context2 = document
+    .getElementById('myChart2')
+    .getContext('2d');
+var myChart2 = new Chart(context2, {
+    type: 'doughnut', // 차트의 형태
+    data: { // 차트에 들어갈 데이터
+        labels: [
+            //x 축
+        	<c:forEach items="${monthItemList }" var="mon">
+					'${mon.itemName }', 
+			</c:forEach>
+            '지출가능금액'
+        ],
+        datasets: [
+            { //데이터
+                label: 'test1', //차트 제목
+                data: [
+                	<c:forEach items="${monthItemList }" var="sum">
+                		${sum.itemPrice },
+            		</c:forEach>
+                		${user.extraMoney} - ${monthPrice}
+                ],
+                backgroundColor: [
+                    //색상
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    //경계선 색상
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1 //경계선 굵기
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            ]
+        }
+    }
+});
+	
+	
 	$("#update").click(function() {
 
 		var limit = uncomma($('input[name=extraMoney]').val()); //건들지마
@@ -51,7 +109,7 @@ $(document).ready(function() {
 		
 		var change = parseInt(limit); //건들지마
 
-			$.ajax({
+			$.ajax({ 
 				type: "post"
 				, url: "/account/extramoney"
 				, data: { extraMoney: change }
@@ -60,21 +118,20 @@ $(document).ready(function() {
 						console.log("성공");
 						
 						var data1 = data.changeMoney;
-						var data1 = comma(data.changeMoney);
-						
+						var data1 = comma(data1);
+						 
 						var data2 = data.sub;
-						var data2 = comma(data.sub);
+						var data2 = comma(data2);
+						var arr = [];
+						var arr = data.arr;
 						
 						$('.popupWrap1').addClass('hide1');
 						$('#extraMoney').val('');
-// 						$('#ch').html(data.changeMoney + '원')
 						$('#ch').html( data1 + '원');
 						$('#subMoney').html( data2 + '원');
-					
-
-				
 						
-						
+						myChart2.data.datasets[0].data= arr;
+						myChart2.update();
 						
 				}
 				, error: function() {
@@ -164,7 +221,14 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-
+		<!-- 기본 도넛차트 -->
+		<div style="width: 500px; height: 500px;" id="doughnut">
+			<canvas id="myChart2"></canvas>
+		</div>
+		<!-- 도넛차트 ajax처리 -->
+		<div style="width: 500px; height: 500px;">
+			<canvas id="myChart3"></canvas>
+		</div>
 
 		<%-- 내부 콘텐츠 영역입니다. --%>
 		<!-- .container end -->
@@ -214,78 +278,77 @@ function numberFormat(obj) {
 //--------- 콤마 풀기end
 
 
-			var context = document
-                .getElementById('myChart')
-                .getContext('2d');
-            var myChart = new Chart(context, {
-                type: 'bar', // 차트의 형태
-                data: { // 차트에 들어갈 데이터
-                    labels: [
-						
- 							   '1월','2월','3월','4월','5월','6월','7월','8월','9월',
- 							  '10월','11월','12월'
-						
-                    ],
-                    datasets: [
-                        { //데이터
-                            label: '지출내역', //차트 제목
-                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                            	
-                            //여기가 지출내역 데이터입니다
-                            data: [
-                            	<c:forEach items="${itemSum }" var="sum">
-                           			${sum.ITEM_PRICE },
-                            	</c:forEach>
-                            ],
-                            
-                            backgroundColor: [
-                                //색상
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                //경계선 색상
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1 //경계선 굵기
-                        }/* ,
-                        {
-                            label: 'test2',
-                            fill: false,
-                            data: [
-                                8, 34, 12, 24
-                            ],
-                            backgroundColor: 'rgb(157, 109, 12)',
-                            borderColor: 'rgb(157, 109, 12)'
-                        } */
-                    ]
-                },
-                options: {
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        ]
-                    }
-                }
-            });
+				var context = document
+	                .getElementById('myChart')
+	                .getContext('2d');
+	            var myChart = new Chart(context, {
+	                type: 'bar', // 차트의 형태
+	                data: { // 차트에 들어갈 데이터
+	                    labels: [
+							
+	 							   '1월','2월','3월','4월','5월','6월','7월','8월','9월',
+	 							  '10월','11월','12월'
+							
+	                    ],
+	                    datasets: [
+	                        { //데이터
+	                            label: '지출내역', //차트 제목
+	                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+	                            	
+	                            //여기가 지출내역 데이터입니다
+	                            data: [
+	                            	<c:forEach items="${itemSum }" var="sum">
+	                           			${sum.ITEM_PRICE },
+	                            	</c:forEach>
+	                            ],
+	                            
+	                            backgroundColor: [
+	                                //색상
+	                                'rgba(255, 99, 132, 0.2)',
+	                                'rgba(54, 162, 235, 0.2)',
+	                                'rgba(255, 206, 86, 0.2)',
+	                                'rgba(75, 192, 192, 0.2)',
+	                                'rgba(153, 102, 255, 0.2)',
+	                                'rgba(255, 159, 64, 0.2)'
+	                            ],
+	                            borderColor: [
+	                                //경계선 색상
+	                                'rgba(255, 99, 132, 1)',
+	                                'rgba(54, 162, 235, 1)',
+	                                'rgba(255, 206, 86, 1)',
+	                                'rgba(75, 192, 192, 1)',
+	                                'rgba(153, 102, 255, 1)',
+	                                'rgba(255, 159, 64, 1)'
+	                            ],
+	                            borderWidth: 1 //경계선 굵기
+	                        }/* ,
+	                        {
+	                            label: 'test2',
+	                            fill: false,
+	                            data: [
+	                                8, 34, 12, 24
+	                            ],
+	                            backgroundColor: 'rgb(157, 109, 12)',
+	                            borderColor: 'rgb(157, 109, 12)'
+	                        } */
+	                    ]
+	                },
+	                options: {
+	                    scales: {
+	                        yAxes: [
+	                            {
+	                                ticks: {
+	                                    beginAtZero: true
+	                                }
+	                            }
+	                        ]
+	                    }
+	                }
+	            });
 
 
             
 </script>
-
 
 <script>
 	$('.popupOpen1').on('click', function() {
