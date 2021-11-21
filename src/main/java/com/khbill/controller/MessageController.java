@@ -1,7 +1,5 @@
 package com.khbill.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,7 +56,7 @@ public class MessageController {
 
 		messageService.setMessageWrite(msg);
 
-		return "redirect:/message/send/list";
+		return "redirect:/message/close";
 	}
 	
 	@RequestMapping(value="/message/send/error")

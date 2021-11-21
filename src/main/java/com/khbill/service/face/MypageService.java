@@ -91,6 +91,14 @@ public interface MypageService {
 
 	public List<HashMap<String, Object>> getMyAskCommentList(HashMap<String, Object> map);
 
+	public Paging getMyReviewCommentPaging(Paging paramData, int userNo);
+
+	public List<HashMap<String, Object>> getMyReviewCommentList(HashMap<String, Object> map);
+
+	public Paging getMyTradeCommentPaging(Paging paramData, int userNo);
+
+	public List<HashMap<String, Object>> getMyTradeCommentList(HashMap<String, Object> map);
+
 
 	
 

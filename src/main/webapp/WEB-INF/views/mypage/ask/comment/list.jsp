@@ -18,7 +18,7 @@
 
 <div class="col-md-9" style="height: 500px;">
 
-<h3>작성한 댓글</h3>
+<h3>질문게시판에 작성한 댓글</h3>
 <table class="table table-striped table-hover">
 <thead>
 	<tr>
@@ -32,7 +32,7 @@
 	<tr>
 		<td>${ask.ASK_NO }</td>
 		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${ask.ASK_NO }">${ask.ASK_COM_CONTENT }</a></td>
-		<td><fmt:formatDate value="${ask.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
+		<td><fmt:formatDate value="${ask.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm" /></td>
 	</tr>
 	</c:forEach>
 </table>

@@ -76,8 +76,8 @@ table {
 <a href="/message/receive/delete?msgNo=${msg.msgNo }"><button id="btnDelete">삭제</button></a>
 
 </div><!-- .container end -->
-</div><!-- .wrap end -->
-
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
+</div><!-- .wrap end -->
+
 

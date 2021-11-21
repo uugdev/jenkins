@@ -52,7 +52,7 @@ $(document).ready(function(){
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 
-<h3>작성한 질문글 내역</h3>
+<h3>작성한 질문글</h3>
 <div class="col-md-9" style="height: 500px;">
 
 <table class="table table-striped table-hover">
@@ -72,13 +72,13 @@ $(document).ready(function(){
 		<td>${ask.askNo }</td>
 		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
 		<td>${ask.askHit }</td>
-		<td><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd" /></td>
+		<td><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></td>
 	</tr>
 	</c:forEach>
 </table>
+<button id="btnDelete" class="pull-left">삭제</button>
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-<button id="btnDelete" class="pull-left">삭제</button>
 <div class="clearfix"></div>
 
 </div>

@@ -85,6 +85,14 @@ public interface MypageDao {
 
 	public List<HashMap<String, Object>> selectAskCommentListByUserNo(HashMap<String, Object> map);
 
+	public int selectCntMyReviewCommentAll(int userNo);
+
+	public List<HashMap<String, Object>> selectReviewCommentListByUserNo(HashMap<String, Object> map);
+
+	public int selectCntMyTradeCommentAll(int userNo);
+
+	public List<HashMap<String, Object>> selectTradeCommentListByUserNo(HashMap<String, Object> map);
+
 
 
 

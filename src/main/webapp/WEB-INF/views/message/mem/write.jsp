@@ -119,7 +119,7 @@ table, h3 {
 }
 
 .nick_ok, .nick_check {
-	color:#6A82FB;
+	color:red;
 	display: none;
 }
 

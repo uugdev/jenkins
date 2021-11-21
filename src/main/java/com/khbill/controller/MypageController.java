@@ -22,6 +22,8 @@ import com.khbill.service.face.AskService;
 import com.khbill.service.face.ItemService;
 import com.khbill.service.face.MemberService;
 import com.khbill.service.face.MypageService;
+import com.khbill.service.face.ReviewService;
+import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
 @Controller
@@ -30,6 +32,8 @@ public class MypageController {
 	private static final Logger logger = LoggerFactory.getLogger(MypageController.class);
 	
 	@Autowired AskService askService;
+	@Autowired ReviewService reviewService;
+	@Autowired TradeService tradeService;
 	@Autowired ItemService itemService;
 	@Autowired MemberService memberService;
 	@Autowired MypageService mypageService;
@@ -197,7 +201,7 @@ public class MypageController {
 		
 		List<HashMap<String, Object>> askCommentList = mypageService.getMyAskCommentList(map);
 		
-		logger.info("스크랩한 질문글 목록 : {} ", askCommentList);
+		logger.info("질문글에 작성한 댓글 목록 : {} ", askCommentList);
 
 		model.addAttribute("ask", askCommentList);
 		model.addAttribute("paging", paging);
@@ -243,8 +247,43 @@ public class MypageController {
 		
 	}
 	
+	@RequestMapping(value="/mypage/review/delete", method=RequestMethod.GET)
+	public String myReviewDelete(int[] reviewNo) {
+		logger.info("/mypage/review/delete [GET]");
+
+		for(int i=0; i<reviewNo.length; i++) {
+			
+			Review deleteReview = reviewService.getReviewByReviewNo(reviewNo[i]);
+			logger.info("삭제할 리뷰 정보 : {}", deleteReview);
+			
+			reviewService.setReviewCommentDelete(deleteReview);
+			reviewService.setReviewDelete(deleteReview);
+			
+		}
+		return "redirect:/mypage/review/list";
+	}
+	
+	@RequestMapping(value="/mypage/review/comment/list", method=RequestMethod.GET)
+	public void MyReviewCommentList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/review/comment/list [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyReviewCommentPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> reviewCommentList = mypageService.getMyReviewCommentList(map);
+		
+		logger.info("후기글에 작성한 댓글 목록 : {} ", reviewCommentList);
+
+		model.addAttribute("ask", reviewCommentList);
+		model.addAttribute("paging", paging);
+	}
+	
 	@RequestMapping(value="/mypage/review/scrap/list", method=RequestMethod.GET)
-	public void myreviewScrapList(Paging paramData, HttpSession session, Model model) {
+	public void myReviewScrapList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/mypage/review/scrap/list [GET]");
 	
 		int userNo = (int)session.getAttribute("userNo");
@@ -281,6 +320,36 @@ public class MypageController {
 		model.addAttribute("trade", tradeList);
 		model.addAttribute("paging", paging);
 		
+	}
+	
+	@RequestMapping(value="/mypage/trade/delete", method=RequestMethod.GET)
+	public String myTradeDelete(int[] tradeNo) {
+		logger.info("/mypage/trade/delete [GET]");
+
+		for(int i=0; i<tradeNo.length; i++) {
+			tradeService.setTradeDelete(tradeNo[i]);
+		}	
+
+		return "redirect:/mypage/trade/list";
+	}
+	
+	@RequestMapping(value="/mypage/trade/comment/list", method=RequestMethod.GET)
+	public void MyTradeCommentList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/mypage/trade/comment/list [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		Paging paging = mypageService.getMyTradeCommentPaging(paramData, userNo);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+		
+		List<HashMap<String, Object>> tradeCommentList = mypageService.getMyTradeCommentList(map);
+		
+		logger.info("거래글에 작성한 댓글 목록 : {} ", tradeCommentList);
+
+		model.addAttribute("trade", tradeCommentList);
+		model.addAttribute("paging", paging);
 	}
 	
 	@RequestMapping(value="/mypage/trade/scrap/list", method=RequestMethod.GET)

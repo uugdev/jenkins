@@ -73,6 +73,24 @@
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
 	</select>
 	
+	<select id="selectCntMyReviewCommentAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zreview_comment
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectReviewCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, V.* FROM (
+				SELECT v.review_no, zr.review_com_content, zr.review_com_date, v.review_hit
+				FROM zreview v
+				INNER JOIN zreview_comment zr
+				ON v.review_no = zr.review_no
+				AND zr.user_no = #{userNo }
+			) V
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
 	<select id="selectCntMyReviewScrapAll" resultType="int" parameterType="int">
 		SELECT COUNT(*) FROM zreview_scrap
 		WHERE user_no = #{userNo}
@@ -82,9 +100,9 @@
 		SELECT * FROM (
 			SELECT rownum rnum, V.* FROM (
 				SELECT v.review_no, v.review_title, v.review_date, v.review_hit
-				FROM zreview r
+				FROM zreview v
 				INNER JOIN zreview_scrap zr
-				ON r.review_no = zr.review_no
+				ON v.review_no = zr.review_no
 				AND zr.user_no = #{userNo }
 			) V
 		) R
@@ -102,6 +120,24 @@
 				SELECT * FROM ztrade
 				WHERE user_no = #{userNo }
 				ORDER BY trade_date DESC
+			) T
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
+	</select>
+	
+	<select id="selectCntMyTradeCommentAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM ztrade_comment
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectTradeCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, T.* FROM (
+				SELECT t.trade_no, zt.trade_com_content, zt.trade_com_date, t.trade_hit
+				FROM ztrade t
+				INNER JOIN ztrade_comment zt
+				ON t.trade_no = zt.trade_no
+				AND zt.user_no = #{userNo }
 			) T
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }

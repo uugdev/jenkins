@@ -81,6 +81,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
+	public Paging getMyReviewCommentPaging(Paging paramData, int userNo) {
+		
+		int totalCount = mypageDao.selectCntMyReviewCommentAll(userNo);
+		
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getMyReviewCommentList(HashMap<String, Object> map) {
+		return mypageDao.selectReviewCommentListByUserNo(map);
+	}
+	
+	@Override
 	public Paging getMyReviewScrapPaging(Paging paramData, int userNo) {
 		
 		int totalCount = mypageDao.selectCntMyReviewScrapAll(userNo);
@@ -109,6 +124,22 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<Trade> getMyTradeList(HashMap<String, Object> map) {
 		return mypageDao.selectTradeListByUserNo(map);
+	}
+	
+	@Override
+	public Paging getMyTradeCommentPaging(Paging paramData, int userNo) {
+		
+		int totalCount = mypageDao.selectCntMyTradeCommentAll(userNo);
+		
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getMyTradeCommentList(HashMap<String, Object> map) {
+		return mypageDao.selectTradeCommentListByUserNo(map);
+
 	}
 	
 	@Override

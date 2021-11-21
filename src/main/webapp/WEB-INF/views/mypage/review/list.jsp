@@ -72,7 +72,7 @@ $(document).ready(function(){
 		<td>${review.reviewNo }</td>
 		<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
 		<td>${review.reviewHit }</td>
-		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd" /></td>
+		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm" /></td>
 	</tr>
 	</c:forEach>
 </table>
