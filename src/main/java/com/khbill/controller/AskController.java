@@ -2,6 +2,7 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,14 +44,16 @@ public class AskController {
 
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskList(paging);
-		List<User> user = askService.getUserList();
-
-		System.out.println("ask" + user);
-		System.out.println("user" + user);
+//		List<User> user = askService.getUserList();
 
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
-		model.addAttribute("user", user);
+//		model.addAttribute("user", user);
+		
+		//유저등급
+		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
+		model.addAttribute("userGrade", userGrade);
+		
 
 	}// list
 
@@ -76,11 +79,15 @@ public class AskController {
 
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskHitList(paging);
-		List<User> user = askService.getUserList();
+//		List<User> user = askService.getUserList();
 
-		model.addAttribute("user", user);
+//		model.addAttribute("user", user);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
+		
+		//유저등급
+		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
+		model.addAttribute("userGrade", userGrade);
 
 	}// list
 
@@ -130,9 +137,9 @@ public class AskController {
 
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 
-		List<User> userList = askService.getUserList();
+//		List<User> userList = askService.getUserList();
 
-		model.addAttribute("userList", userList);
+//		model.addAttribute("userList", userList);
 		model.addAttribute("user", user);
 		model.addAttribute("status", status);
 		model.addAttribute("result", result);
@@ -159,15 +166,6 @@ public class AskController {
 		List<AskComment> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment", askComment);
 
-//		Paging paging = askService.getAskComPaging(paramData,askNo);
-//		
-//		HashMap<String, Object> map = new HashMap<>();
-//		map.put("askNo", askNo);
-//		map.put("paging", paging);
-//		
-//		List<AskComment> askComment = askService.getAskComListPaging(map);
-//		model.addAttribute("askComment",askComment);
-
 		// 스크랩 상태 조회
 		AskScrap askScrap = new AskScrap();
 		askScrap.setAskNo(askNo);
@@ -176,6 +174,12 @@ public class AskController {
 		// 스크랩 상태 전달
 		boolean isScrap = askService.isScrap(askScrap);
 		model.addAttribute("isScrap", isScrap);
+		
+		
+		//유저등급
+		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
+		model.addAttribute("userGrade", userGrade);
+		
 
 	}
 

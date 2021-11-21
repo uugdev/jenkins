@@ -106,18 +106,14 @@ public class AccountController {
 		mav.setViewName("jsonView");
 
 		
-		
-		
-		
-		
 		return mav;
 
 		
-		
-		
-		
-		
 	}
+	
+	
+	
+	
 	
 	
 	

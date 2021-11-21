@@ -293,6 +293,12 @@
 	</select>
 
 
+	<select id="selectUserWithGrade" resultType="hashmap">
+		SELECT *
+		FROM USERWITHGRADE 
+		ORDER BY USER_POINT DESC
+	</select>
+
 
 
 </mapper>

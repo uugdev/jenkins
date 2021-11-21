@@ -55,13 +55,17 @@ var myChart2 = new Chart(context2, {
         ],
         datasets: [
             { //데이터
-                label: 'test1', //차트 제목
                 data: [
                 	<c:forEach items="${monthItemList }" var="sum">
                 		${sum.itemPrice },
             		</c:forEach>
                 		${user.extraMoney} - ${monthPrice}
                 ],
+                
+                holeSize: 0.6,
+                animationSpeed: 0.5,
+                
+                
                 backgroundColor: [
                     //색상
                     'rgba(255, 99, 132, 0.2)',
@@ -85,12 +89,28 @@ var myChart2 = new Chart(context2, {
         ]
     },
     options: {
+    	
+    	title: { 
+    		display: true, // 차트 제목 
+    		text: '이번달 지출내역'
+    	},
+    	legend: {
+            display: true,
+            position: "top"
+          },
+    	
+    	
+    	responsive: true, 
+    	maintainAspectRatio: false,
         scales: {
-            yAxes: [
+            Axes: [
                 {
-                    ticks: {
-                        beginAtZero: true
-                    }
+                	scaleLabel:{
+                	    display: false
+                	},
+            		ticks: {
+                		display:false // it should work
+                 	}
                 }
             ]
         }
@@ -119,7 +139,7 @@ var myChart2 = new Chart(context2, {
 						
 						var data1 = data.changeMoney;
 						var data1 = comma(data1);
-						 
+						  
 						var data2 = data.sub;
 						var data2 = comma(data2);
 						var arr = [];
@@ -146,16 +166,96 @@ var myChart2 = new Chart(context2, {
 </script>
 <style type="text/css">
 #calendar {
-	width: 100%;
-	height: 30%;
-	margin-bottom: 200px;
-	margin-top: 100px;
-	margin-bottom: 200px;
+	
 }
 
 .spanSize {
 	font-size: x-large;
 }
+
+#plugin {
+	height: 515px;
+	display: flex;
+	margin-top: 100px;
+	margin-bottom: 50px;
+}
+
+#calendar {
+	flex: 1;
+	margin-right: 50px;
+}
+
+#chartJs {
+	flex: 1;
+	height: 500px;
+}
+
+#barChart {
+	height: 250px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	
+}
+
+#doughnut {
+	width: 50%;
+	height: 240px;
+	flex: 1;
+	margin-left: 10px;
+}
+
+#btnMoney {
+	width: 50%;
+	height: 250px;
+	flex: 1;
+	align-items: center;
+}
+
+#monthMoney {
+	display: flex;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.12);
+}
+
+#updateMoney {
+	
+	box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.12);
+	line-height: 30px;
+	font-size: large;
+	width: 150px;
+	height: 35px;
+	background: #337ab7;
+	border-color: #337ab7;
+	color: white;
+	border-radius: 5px;
+	padding: 0;		
+}
+
+#itemlist {
+
+	display: flex;
+	margin-bottom: 100px;
+
+}
+
+#bill {
+
+	width: 50%;
+	flex: 1;
+
+}
+
+#ment {
+	width: 50%;
+	flex: 1;
+	margin-left: 26px;
+	border: 1px solid #ccc;
+	border-radius: 5px;s
+
+}
+
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -164,71 +264,97 @@ var myChart2 = new Chart(context2, {
 	<div class="container">
 
 		<%-- 내부 콘텐츠 영역입니다. --%>
-		<div style="display: flex;" id="plugin">
+		<div id="plugin">
 
-			<div id='calendar' style="flex: 4; margin-right: 50px;"></div>
+			<div id='calendar'></div>
 
-			<div style="flex: 4; margin-top: 100px;">
-				<!--차트가 그려질 부분-->
-				<canvas id="myChart"></canvas>
-				<div style="display: flex;">
-					<div style="flex: 2;">
-						<table class="table table-striped table-hover">
-							<tr>
-								<th>상품명</th>
-								<th>상품브랜드</th>
-								<th>상품가격</th>
-								<th>결제날짜</th>
-							</tr>
-							<c:forEach items="${monthItemList}" var="i">
-								<tr>
-									<td>${i.itemName}</td>
-									<td>${i.itemBrand}</td>
-									<td><fmt:formatNumber type="number" maxFractionDigits="3"
-											value="${i.itemPrice}" /></td>
-									<td><fmt:formatDate value="${ i.itemDate }"
-											pattern="YYYY-MM-dd" /></td>
-								</tr>
-							</c:forEach>
-							<tr>
-								<th></th>
-								<th></th>
-								<th>이번달지출액</th>
-								<th>지출가능금액</th>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td id="monthPrice"><fmt:formatNumber type="number"
-										maxFractionDigits="3" value="${monthPrice}" />원</td>
-								<td id="subMoney"><fmt:formatNumber type="number"
-										maxFractionDigits="3" value="${subMoney}" />원</td>
-							</tr>
-						</table>
+
+			<div id="chartJs">
+				<div id="barChart">
+					<!--차트가 그려질 부분-->
+					<canvas id="myChart" style=""></canvas>
+				</div>
+				<div id="monthMoney">
+					<!-- 기본 도넛차트 -->
+					<div id="doughnut">
+						<canvas id="myChart2"></canvas>
 					</div>
-					<div style="flex: 1;">
+					<div style="position: relative;" id="btnMoney">
 						<div>
-							<h2 id="ch">
+							<h3 style="margin-top: 50px;">이번달 지출한도</h3>
+							<h3 id="ch" style="margin-top: 0">
 								<fmt:formatNumber type="number" maxFractionDigits="3"
 									value="${user.extraMoney}" />
 								원
-							</h2>
+							</h3>
 						</div>
-						<button class="popupOpen1" id="updateMoney">지출한도 설정하기</button>
+						<button class="popupOpen1" id="updateMoney">지출한도 수정하기</button>
+						<div class="popupWrap1 hide1">
+							<div class="popup1 commaInput">
+								<div class="title">
+									<p> 지출 가능금액을 설정해주세요</p>
+									<span class="close1">❌</span>
+								</div>
+								<input type="text" name="extraMoney" id="extraMoney" value="" />
+								<span style="font-size: x-large;">원</span>
+								<div class="btnWrap1">
+									<button id="update">저장</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
 			</div>
 		</div>
 
-		<!-- 기본 도넛차트 -->
-		<div style="width: 500px; height: 500px;" id="doughnut">
-			<canvas id="myChart2"></canvas>
+
+
+
+		<div id="itemlist">
+			<div id="bill">
+				<table class="table table-striped table-hover">
+					<tr>
+						<th>상품명</th>
+						<th>상품브랜드</th>
+						<th>상품가격</th>
+						<th>결제날짜</th>
+					</tr>
+					<c:forEach items="${monthItemList}" var="i">
+						<tr>
+							<td>${i.itemName}</td>
+							<td>${i.itemBrand}</td>
+							<td><fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${i.itemPrice}" /></td>
+							<td><fmt:formatDate value="${ i.itemDate }"
+									pattern="YYYY-MM-dd" /></td>
+						</tr>
+					</c:forEach>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>이번달지출액</th>
+						<th>지출가능금액</th>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td id="monthPrice"><fmt:formatNumber type="number"
+								maxFractionDigits="3" value="${monthPrice}" />원</td>
+						<td id="subMoney"><fmt:formatNumber type="number"
+								maxFractionDigits="3" value="${subMoney}" />원</td>
+					</tr>
+				</table>
+			</div>
+			<div id="ment">
+				<h1>이번 달 지출금액은 지난 달보다 </h1>
+				<h1><span style="color: red">24000원 </span>더 쓰셨네요!</h1>
+				<h1><span style="color: blue">24000원 </span>덜 쓰셨네요!</h1>
+				
+			</div>
 		</div>
-		<!-- 도넛차트 ajax처리 -->
-		<div style="width: 500px; height: 500px;">
-			<canvas id="myChart3"></canvas>
-		</div>
+
+
 
 		<%-- 내부 콘텐츠 영역입니다. --%>
 		<!-- .container end -->
@@ -238,19 +364,7 @@ var myChart2 = new Chart(context2, {
 
 	<!-- .wrap end -->
 </div>
-<div class="popupWrap1 hide1">
-	<div class="popup1 commaInput">
-		<div class="title">
-			<p>지출 가능금액을 설정해주세요</p>
-			<span class="close1">❌</span>
-		</div>
-		<input type="text" name="extraMoney" id="extraMoney" value="" /> <span
-			style="font-size: x-large;">원</span>
-		<div class="btnWrap1">
-			<button id="update">저장</button>
-		</div>
-	</div>
-</div>
+
 <script type="text/javascript">
 //---인풋창 3자리마다콤마찍기---
 var $input = $(".commaInput [type='text']");
@@ -292,7 +406,7 @@ function numberFormat(obj) {
 	                    ],
 	                    datasets: [
 	                        { //데이터
-	                            label: '지출내역', //차트 제목
+	                            label: '월별 지출내역', //차트 제목
 	                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 	                            	
 	                            //여기가 지출내역 데이터입니다
@@ -334,6 +448,7 @@ function numberFormat(obj) {
 	                    ]
 	                },
 	                options: {
+	                	maintainAspectRatio: false,
 	                    scales: {
 	                        yAxes: [
 	                            {

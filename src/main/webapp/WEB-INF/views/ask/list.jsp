@@ -20,14 +20,14 @@
 		$("#btnSearch").click(function() {
 			location.href = "/ask/list?search=" + $("#search").val();
 		});
-		
-		$("#search").keypress(function(event){
-		     if ( event.which == 13 ) {
-		         $("#btnSearch").click();
-		         return false;
-		     }
+
+		$("#search").keypress(function(event) {
+			if (event.which == 13) {
+				$("#btnSearch").click();
+				return false;
+			}
 		});
-		
+
 	})
 </script>
 
@@ -53,10 +53,9 @@ td:nth-child(2) {
 		<h1>게시판 최신순</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
-			<a href="/ask/list">최신순</a>
-			<a href="/ask/hitlist">조회순</a>
+			<a href="/ask/list">최신순</a> <a href="/ask/hitlist">조회순</a>
 		</div>
-		
+
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -72,16 +71,43 @@ td:nth-child(2) {
 					<tr>
 						<td>${ask.askNo }</td>
 						<td><a href="/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
-						<c:forEach items="${user }" var="user">
-							<c:if test="${ask.userNo ne 0}">
-								<c:if test="${ask.userNo eq user.userNo}">
-									<td>${user.userNick }</td>
+						<c:forEach items="${userGrade}" var="grade">
+							<c:if test="${grade.USER_NO eq ask.userNo }">
+								<c:if test="${ask.userNo ne 0}">
+									<c:if test="${ask.userNo eq grade.USER_NO}">
+										<c:choose>
+											<c:when test="${grade.GRADE eq 'bronze' }">
+												<td><img style="width: 15%;" alt="아이콘"
+													src="/resources/img/브론즈.png">${grade.USER_NICK }</td>
+											</c:when>
+
+											<c:when test="${grade.GRADE eq 'silver' }">
+												<td><img style="width: 15%;" alt="아이콘"
+													src="/resources/img/실버.png">${grade.USER_NICK }</td>
+											</c:when>
+
+											<c:when test="${grade.GRADE eq 'GOLD' }">
+												<td><img style="width: 15%;" alt="아이콘"
+													src="/resources/img/골드.png">${grade.USER_NICK }</td>
+											</c:when>
+
+											<c:when test="${grade.GRADE eq 'platinum' }">
+												<td><img style="width: 15%;" alt="아이콘"
+													src="/resources/img/플래티넘.png">${grade.USER_NICK }</td>
+											</c:when>
+
+											<c:when test="${grade.GRADE eq 'diamond' }">
+												<td><img style="width: 15%;" alt="아이콘"
+													src="/resources/img/다이아.png">${grade.USER_NICK }</td>
+											</c:when>
+										</c:choose>
+									</c:if>
 								</c:if>
 							</c:if>
 						</c:forEach>
-							<c:if test="${ask.userNo eq 0}">
-								<td>탈퇴한 회원입니다</td>
-							</c:if>
+						<c:if test="${ask.userNo eq 0}">
+							<td>탈퇴한 회원입니다</td>
+						</c:if>
 						<td>${ask.askHit }</td>
 						<td><fmt:formatDate value="${ask.askDate }"
 								pattern="yy-MM-dd HH:mm:ss" /></td>
@@ -103,9 +129,9 @@ td:nth-child(2) {
 
 	</div>
 	<!-- .container end -->
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
+	<c:import url="/WEB-INF/views/layout/paging.jsp" />
+	<!-- footer start -->
+	<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div>
 <!-- .wrap end -->
 

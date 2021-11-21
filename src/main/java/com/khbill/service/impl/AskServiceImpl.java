@@ -454,4 +454,11 @@ public class AskServiceImpl implements AskService {
 		return resultCom;
 	}
 	
+	
+	@Override
+	public List<HashMap<String, Object>> getUserGrade() {
+		return askDao.selectUserWithGrade();
+	}
+	
+	
 }// class

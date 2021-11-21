@@ -439,6 +439,14 @@ public interface AskDao {
 
 
 	public AskComment selectOneAskCommentByAskNo(int askComNo);
+
+
+	/**
+	 * 유저등급 조회
+	 * 
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectUserWithGrade();
 	
 	
 	

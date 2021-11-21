@@ -324,5 +324,14 @@ public interface AskService {
 	 */
 	public AskComment setAskCommentUpdate(AskComment askComment);
 
+	
+	/**
+	 * 유저등급조회 리스트
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getUserGrade();
+
 
 }
