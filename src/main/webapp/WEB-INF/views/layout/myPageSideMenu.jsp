@@ -41,9 +41,8 @@
     left: -9999px;
 }
 
-.M02>li:hover {
+.M02>li:hover .M03 {
     left: 100px;
-    text-decoration: underline;
 }
 
 .M02>li a:hover {
