@@ -18,10 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.File;
-import com.khbill.dto.ReviewReport;
+import com.khbill.dto.ReviewScrap;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
+import com.khbill.dto.TradeScrap;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -54,15 +55,28 @@ public class TradeController {
 	@RequestMapping(value = "/trade/detail")
 	public void tradeDetail(
 				Model model
+				, HttpSession session
 				, int tradeNo
 			) {
 		
 		HashMap<String, String> tradeDetail = tradeService.getTradeDetail(tradeNo);
 		List<HashMap<String, String>> tradeComment = tradeService.getTradeCommentDetail(tradeNo);
 		
+		//스크랩 상태 조회
+		TradeScrap tradeScrap = new TradeScrap();
+		tradeScrap.setTradeNo(tradeNo);
+		
+		int userNo = (Integer) session.getAttribute("userNo");
+		tradeScrap.setUserNo(userNo);
+		
+		//스크랩 상태 전달
+		boolean isScrap = tradeService.isScrap(tradeScrap);
+		
 		logger.info("tradeDetail - {}", tradeDetail);
 		logger.info("tradeComment - {}", tradeComment);
+		logger.info("reviewScrap{}", tradeScrap);	
 		
+		model.addAttribute("isScrap", isScrap);
 		model.addAttribute("tradeDetail", tradeDetail);
 		model.addAttribute("tradeComment", tradeComment);
 		
@@ -242,6 +256,27 @@ public class TradeController {
 		}
 		
 		mav.addObject("reportCheck", reportCheck);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
+	}
+	
+	@RequestMapping(value = "/trade/scrap")
+	public ModelAndView scrap(
+				int tradeNo
+				, TradeScrap tradeScrap
+				, ModelAndView mav
+				, HttpSession session
+			) {
+		
+		//스크랩 정보 토글
+		tradeScrap.setTradeNo(tradeNo);
+		tradeScrap.setUserNo((Integer) session.getAttribute("userNo"));
+		
+		boolean resultScrap = tradeService.setScrap(tradeScrap);
+		
+		mav.addObject("resultScrap",resultScrap);
 		mav.setViewName("jsonView");
 		
 		return mav;

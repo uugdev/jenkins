@@ -190,4 +190,23 @@
 			, #{respondentNo}, #{reportCategory}, #{reportContent}, sysdate, 'n')
 	</insert>
 	
+	<select id="selectCountScrap" parameterType="com.khbill.dto.TradeScrap" resultType="int">
+		SELECT count(*) FROM ztrade_scrap
+		WHERE 1=1
+		AND trade_no = #{tradeNo } 
+		AND user_no = #{userNo }
+	</select>
+	
+	<delete id="deleteTradeScrap" parameterType="com.khbill.dto.TradeScrap">
+		DELETE ztrade_scrap
+		WHERE 1=1
+		AND user_no = #{userNo } 
+		AND trade_no = #{tradeNo }
+	</delete>
+	
+	<insert id="insertTradeScrap" parameterType="com.khbill.dto.TradeScrap">
+		INSERT INTO ztrade_scrap
+		VALUES ( ztrade_scrap_seq.nextval, #{userNo }, #{tradeNo } )
+	</insert>
+	
 </mapper>

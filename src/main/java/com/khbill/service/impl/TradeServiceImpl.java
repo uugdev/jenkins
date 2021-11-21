@@ -20,6 +20,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
+import com.khbill.dto.TradeScrap;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
 
@@ -292,6 +293,34 @@ public class TradeServiceImpl implements TradeService {
 		tradeReport.setRespondentNo(userNo);
 		
 		tradeDao.insertTradeReport(tradeReport);
+		
+	}
+
+	@Override
+	public boolean setScrap(TradeScrap tradeScrap) {
+		
+		if(isScrap(tradeScrap)) { //스크랩을 한 상태
+			tradeDao.deleteTradeScrap(tradeScrap);
+			
+			return false;
+			
+		} else { //스크랩을 하지 않은 상태
+			tradeDao.insertTradeScrap(tradeScrap);
+			
+			return true;
+		}
+		
+	}
+
+	@Override
+	public boolean isScrap(TradeScrap tradeScrap) {
+		int cnt = tradeDao.selectCountScrap(tradeScrap);
+		
+		if(cnt > 0) { //스크랩을 한 상태
+			return true;
+		} else { //스크랩을 하지 않은 상태
+			return false;
+		}
 		
 	}
 	

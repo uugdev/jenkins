@@ -7,6 +7,7 @@ import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
+import com.khbill.dto.TradeScrap;
 import com.khbill.util.Paging;
 
 public interface TradeDao {
@@ -204,6 +205,28 @@ public interface TradeDao {
 	 * @param tradeReport - 전달받은 신고정보
 	 */
 	public void insertTradeReport(TradeReport tradeReport);
+	
+	/**
+	 * 거래 게시글 번호로 카운트 조회
+	 * 
+	 * @param tradeScrap - 전달받은 스크랩 정보
+	 * @return 전달받은 스크랩 정보 존재 여부 1, 0
+	 */
+	public int selectCountScrap(TradeScrap tradeScrap);
+	
+	/**
+	 * 전달받은 스크랩 정보로 삭제
+	 * 
+	 * @param tradeScrap - 전달받은 삭제할 스크랩 정보
+	 */
+	public void deleteTradeScrap(TradeScrap tradeScrap);
+	
+	/**
+	 * 전달받은 스크랩 정보로 입력
+	 * 
+	 * @param tradeScrap - 전달받은 입력할 스크랩 정보
+	 */
+	public void insertTradeScrap(TradeScrap tradeScrap);
 
 
 

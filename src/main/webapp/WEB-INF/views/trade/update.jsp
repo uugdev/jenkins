@@ -9,11 +9,12 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/tradeWrite.css" />
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/alert.css" />
+<script type="text/javascript" src="/resources/js/alert.js"></script>
 <!-- 스마트 에디터 2 라이브러리 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
-
 
 /* -------------------------------------------------------- */
 
@@ -46,71 +47,9 @@ $(function () {
             }
         })
     });
-
-    $(document).on("click", "#alert", function () {
-        action_popup.alert("경고창");
-    });
-
-    $(".modal_close").on("click", function () {
-        action_popup.close(this);
-    });
     
 });
 
-var action_popup = {
-    timer: 300,
-    confirm: function (txt, callback) {
-        if (txt == null || txt.trim() == "") {
-            console.warn("confirm message is empty.");
-            return;
-        } else if (callback == null || typeof callback != 'function') {
-            console.warn("callback is null or not function.");
-            return;
-        } else {
-            $(".type-confirm .btn_ok").on("click", function () {
-                $(this).unbind("click");
-                callback(true);
-                action_popup.close(this);
-            });
-            this.open("type-confirm", txt);
-        }
-    },
-
-    alert: function (txt) {
-        if (txt == null || txt.trim() == "") {
-            console.warn("confirm message is empty.");
-            return;
-        } else {
-            this.open("type-alert", txt);
-        }
-    },
-
-    open: function (type, txt) {
-        var popup = $("." + type);
-        popup.find(".menu_msg").text(txt);
-        $("body").append("<div class='dimLayer'></div>");
-        $(".dimLayer").css('height', $(document).height()).attr("target", type);
-        popup.fadeIn(this.timer);
-    },
-
-    close: function (target) {
-        var modal = $(target).closest(".modal-section");
-        var dimLayer;
-        if (modal.hasClass("type-confirm")) {
-            dimLayer = $(".dimLayer[target=type-confirm]");
-            $(".type-confirm .btn_ok").unbind("click");
-        } else if (modal.hasClass("type-alert")) {
-            dimLayer = $(".dimLayer[target=type-alert]")
-        } else {
-            console.warn("close unknown target.")
-            return;
-        }
-        modal.fadeOut(this.timer);
-        setTimeout(function () {
-            dimLayer != null ? dimLayer.remove() : "";
-        }, this.timer);
-    }
-}
 
 
 /* -------------------------------------------------------- */
@@ -205,37 +144,33 @@ $(document).ready(function() {
 	</div>
 
 </div><!-- .container end -->
+</div><!-- .wrap end -->
+
+<!-- confirm 모달을 쓸 페이지에 추가 start-->
+<section class="modal modal-section type-confirm">
+    <div class="enroll_box">
+        <p class="menu_msg"></p>
+    </div>
+    <div class="enroll_btn">
+        <button class="btn pink_btn btn_ok">확인</button>
+        <button class="btn gray_btn modal_close">취소</button>
+    </div>
+</section>
+<!-- confirm 모달을 쓸 페이지에 추가 end-->
+
+<!-- alert 모달을 쓸 페이지에 추가 start-->
+<section class="modal modal-section type-alert">
+    <div class="enroll_box">
+        <p class="menu_msg"></p>
+    </div>
+    <div class="enroll_btn">
+        <button class="btn pink_btn modal_close">확인</button>
+    </div>
+</section>
+<!-- alert 모달을 쓸 페이지에 추가 end-->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-
-
-	<!-- confirm 모달을 쓸 페이지에 추가 start-->
-	<section class="modal modal-section type-confirm">
-	    <div class="enroll_box">
-	        <p class="menu_msg"></p>
-	    </div>
-	    <div class="enroll_btn">
-	        <button class="btn pink_btn btn_ok">확인</button>
-	        <button class="btn gray_btn modal_close">취소</button>
-	    </div>
-	</section>
-	<!-- confirm 모달을 쓸 페이지에 추가 end-->
-	
-	<!-- alert 모달을 쓸 페이지에 추가 start-->
-	<section class="modal modal-section type-alert">
-	    <div class="enroll_box">
-	        <p class="menu_msg"></p>
-	    </div>
-	    <div class="enroll_btn">
-	        <button class="btn pink_btn modal_close">확인</button>
-	    </div>
-	</section>
-	<!-- alert 모달을 쓸 페이지에 추가 end-->
-
-
-</div><!-- .wrap end -->
-
 
 <script type="text/javascript">
 var oEditors = [];

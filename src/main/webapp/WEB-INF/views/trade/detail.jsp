@@ -25,6 +25,35 @@ $(document).ready(function() {
 		$(this).parents('.popup1').children('textarea').val('');
 	});
 	
+	if(${isScrap}) {
+		$("#scrap").html('스크랩 취소');
+	} else {
+		$("#scrap").html('스크랩');
+	}
+	
+	$("#scrap").click(function() {
+		
+		$.ajax({
+			type: "get"
+			, url: "/trade/scrap"
+			, data: { "tradeNo": '${tradeDetail.TRADE_NO }' }
+			, dataType: "json"
+			, success: function( data ) {
+	
+				if( data.resultScrap ) { //스크랩 성공
+					$("#scrap").html('스크랩 취소');
+				
+				} else { //스크랩 취소 성공
+					$("#scrap").html('스크랩');
+				}
+			}
+			, error: function() {
+				console.log("실패");
+			}
+		}); //ajax end
+		
+	}); //$("#scrap").click() end
+	
 	$("#setReport").click(function() {
 		
 		var content = $("#reportContent").val() ;
@@ -243,7 +272,8 @@ function deleteComment(tradeComNo) {
 			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
 		</span>
 		<span style="float: right;">
-			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
+		
+			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo}">
 				<button id="scrap">스크랩</button>
 				<button id="report" class="popupOpen1">신고</button>
 			</c:if>
@@ -251,8 +281,10 @@ function deleteComment(tradeComNo) {
 		</span>
 		<hr style="margin-top: 40px;">
 		
-		<div id="detailMain" style="height: 500px;">
-			<img alt="#" src="/upload/${tradeDetail.FILE_STORED }">
+		<div id="detailMain" style="height: auto; padding-top: 20px; padding-bottom: 20px;">
+			<c:if test="${tradeDetail.FILE_STORED ne null }">
+				<img alt="#" src="/upload/${tradeDetail.FILE_STORED }">
+			</c:if>
 			<div id="writeContent">
 				${tradeDetail.TRADE_CONTENT }
 			</div>
@@ -379,9 +411,9 @@ function deleteComment(tradeComNo) {
 		</div>	<!-- 댓글 리스트 end -->
 	
 	</div><!-- .container end -->
+</div><!-- .wrap end -->
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-</div><!-- .wrap end -->
 
 			<div class="popupWrap1 hide1">
 					<div class="popup1">

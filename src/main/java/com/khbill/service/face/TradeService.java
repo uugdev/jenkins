@@ -11,6 +11,7 @@ import com.khbill.dto.File;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
+import com.khbill.dto.TradeScrap;
 import com.khbill.util.Paging;
 
 public interface TradeService {
@@ -137,5 +138,21 @@ public interface TradeService {
 	 * @param tradeReport - 전송받은 신고정보
 	 */
 	public void setTradeReport(TradeReport tradeReport);
+	
+	/**
+	 * 게시글 번호로 게시글을 스크랩
+	 * 
+	 * @param tradeScrap - 스크랩할 게시글 정보
+	 * @return 스크랩 확인 여부 true, false
+	 */
+	public boolean setScrap(TradeScrap tradeScrap);
+	
+	/**
+	 * 사용자 스크랩 상태
+	 * 
+	 * @param tradeScrap - 스크랩 상태를 확인할 정보
+	 * @return 스크랩 상태 true, false
+	 */
+	public boolean isScrap(TradeScrap tradeScrap);
 
 }
