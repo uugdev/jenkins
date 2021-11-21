@@ -154,5 +154,13 @@ public interface TradeService {
 	 * @return 스크랩 상태 true, false
 	 */
 	public boolean isScrap(TradeScrap tradeScrap);
+	
+	/**
+	 * 페이징이 적용된 거래 게시글 조회순으로 조회
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return 페이징이 적용된 게시글 목록
+	 */
+	public List<Trade> getTradeHitList(Paging paging);
 
 }

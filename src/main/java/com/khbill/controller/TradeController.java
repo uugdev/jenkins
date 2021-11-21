@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.File;
-import com.khbill.dto.ReviewScrap;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
@@ -49,6 +48,42 @@ public class TradeController {
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("paging", paging);
 		
+	}
+	
+	//거래 게시판 조회수 기준 목록
+	@RequestMapping(value = "/trade/list/hit")
+	public String tradeHitList(
+				Model model
+				, Paging paramData
+			) {
+		
+		Paging paging = tradeService.getPaging(paramData);
+		
+		List<Trade> tradeList = tradeService.getTradeHitList(paging);
+		
+		model.addAttribute("tradeList", tradeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("res", true);
+		
+		return "trade/ajaxlist";
+	}
+	
+	//거래 게시판 조회수 기준 목록
+	@RequestMapping(value = "/trade/list/latest")
+	public String tradeLatestList(
+				Model model
+				, Paging paramData
+			) {
+		
+		Paging paging = tradeService.getPaging(paramData);
+		
+		List<Trade> tradeList = tradeService.getTradeList(paging);
+		
+		model.addAttribute("tradeList", tradeList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("res", true);
+		
+		return "trade/ajaxlist";
 	}
 	
 	//거래 게시글 상세보기

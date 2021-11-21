@@ -19,14 +19,19 @@
 	</sql>
 
 	<select id="selectTradeList" resultType="HashMap" parameterType="com.khbill.util.Paging">
-        SELECT * FROM (
-		    SELECT rownum rnum, T.* FROM (
-				<include refid="selectTrade"/>
-				<include refid="whereTitleSearch"/>
-				ORDER BY trade_no DESC
-		    ) T
-		) ZTRADE
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+		SELECT T.trade_no, U.user_no, T.user_nick, T.trade_category, T.trade_title, T.trade_date, T.trade_hit, u.grade_url
+		FROM USERWITHURL U, (
+            SELECT trade_no, U.user_no, user_nick, trade_category, trade_title, trade_date, trade_hit
+            FROM ztrade T, zuser U
+            WHERE 1=1
+            AND U.user_no = T.user_no 
+            AND trade_title LIKE '%' || #{search} || '%'
+            ORDER BY trade_no DESC
+        ) T
+        WHERE 1=1
+        AND U.user_no = T.user_no
+        AND rownum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY T.trade_no DESC
 	</select>
 	
 	<select id="selectCntAll" resultType="int">
@@ -208,5 +213,21 @@
 		INSERT INTO ztrade_scrap
 		VALUES ( ztrade_scrap_seq.nextval, #{userNo }, #{tradeNo } )
 	</insert>
+	
+	<select id="selectTradeHitList" parameterType="com.khbill.util.Paging" resultType="HashMap">
+		SELECT T.trade_no, U.user_no, T.user_nick, T.trade_category, T.trade_title, T.trade_date, T.trade_hit, u.grade_url
+		FROM USERWITHURL U, (
+            SELECT trade_no, U.user_no, user_nick, trade_category, trade_title, trade_date, trade_hit
+            FROM ztrade T, zuser U
+            WHERE 1=1
+            AND U.user_no = T.user_no 
+            AND trade_title LIKE '%' || #{search} || '%'
+            ORDER BY trade_no DESC
+        ) T
+        WHERE 1=1
+        AND U.user_no = T.user_no
+        AND rownum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY T.trade_hit DESC
+	</select>
 	
 </mapper>

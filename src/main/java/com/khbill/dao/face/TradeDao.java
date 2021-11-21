@@ -227,6 +227,16 @@ public interface TradeDao {
 	 * @param tradeScrap - 전달받은 입력할 스크랩 정보
 	 */
 	public void insertTradeScrap(TradeScrap tradeScrap);
+	
+	/**
+	 * 페이징을 적용하여 거래 게시글 조회순 목록 조회
+	 * 
+	 * paging.startNo, paging.endNo를 이용하여 rownum을 조회한다
+	 * 
+	 * @param paging - 페이징 정보 객체
+	 * @return 페이징이 적용된 게시글 목록
+	 */
+	public List<Trade> selectTradeHitList(Paging paging);
 
 
 

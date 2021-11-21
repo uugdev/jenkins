@@ -322,6 +322,11 @@ public class TradeServiceImpl implements TradeService {
 		}
 		
 	}
+
+	@Override
+	public List<Trade> getTradeHitList(Paging paging) {
+		return tradeDao.selectTradeHitList(paging);
+	}
 	
 
 }

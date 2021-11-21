@@ -22,16 +22,53 @@
 		$("#btnSearch").click(function() {
 			location.href = "/trade/list?search=" + $("#search").val();
 		});
+		
+		$("#hitList").click(function () {
+			console.log("#ajax clicked")
+			
+			$.ajax({
+				type: "get"
+				, url: "/trade/list/hit"
+				, data: {}
+				, dataType: "html"
+				, success: function ( res ) {
+					console.log("AJAX 성공")
+					
+					$("#ajaxArea").html( res )
+					
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+		
+		$("#latestList").click(function () {
+			console.log("#ajax clicked")
+			
+			$.ajax({
+				type: "get"
+				, url: "/trade/list/latest"
+				, data: {}
+				, dataType: "html"
+				, success: function ( res ) {
+					console.log("AJAX 성공")
+					
+					$("#ajaxArea").html( res )
+					
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+		
 	})
 </script>
 
 <style type="text/css">
 table {
 	table-layout: fixed;
-}
-
-table, th {
-	text-align: center;
 }
 
 td:nth-child(2) {
@@ -43,42 +80,51 @@ td:nth-child(2) {
 
 <div class="wrap">
 	<div class="container">
-
+	
 		<h1>거래</h1>
 		<hr>
-
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th style="width: 10%;">글번호</th>
-					<th style="width: 45%;">제목</th>
-					<th style="width: 20%;">작성자</th>
-					<th style="width: 10%;">조회수</th>
-					<th style="width: 15%;">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${tradeList }" var="board">
+		
+		<div class="pull-right" style="margin-bottom: 10px;">
+			<a id="latestList">최신순</a>
+			<a id="hitList">조회순</a>
+		</div>
+		
+		<div id="ajaxArea">
+			<table class="table table-striped table-hover">
+				<thead>
 					<tr>
-						<td>${board.TRADE_NO }</td>
-						<td>
-							<a href="/trade/detail?tradeNo=${board.TRADE_NO }">
-								<c:if test="${board.TRADE_CATEGORY eq 1 }">
-									[삽니다] 
-								</c:if>
-								<c:if test="${board.TRADE_CATEGORY eq 0 }">
-									[팝니다] 
-								</c:if>
-								${board.TRADE_TITLE }
-							</a>
-						</td>
-						<td>${board.USER_NICK }</td>
-						<td>${board.TRADE_HIT }</td>
-						<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
+						<th style="width: 10%;">글번호</th>
+						<th style="width: 45%;">제목</th>
+						<th style="width: 12%;">작성자</th>
+						<th style="width: 10%;">조회수</th>
+						<th style="width: 15%;">작성일</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach items="${tradeList }" var="board">
+						<tr>
+							<td>${board.TRADE_NO }</td>
+							<td>
+								<a href="/trade/detail?tradeNo=${board.TRADE_NO }">
+									<c:if test="${board.TRADE_CATEGORY eq 1 }">
+										[삽니다] 
+									</c:if>
+									<c:if test="${board.TRADE_CATEGORY eq 0 }">
+										[팝니다] 
+									</c:if>
+									${board.TRADE_TITLE }
+								</a>
+							</td>
+							<td style="text-align: left;">
+							<img alt="#" src="${board.GRADE_URL}" style="width: 30px; height: 30px;"> ${board.USER_NICK }
+							</td>
+							<td>${board.TRADE_HIT }</td>
+							<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 		<c:if test="${login }">
 			<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
 		</c:if>
@@ -92,7 +138,7 @@ td:nth-child(2) {
 		</div>
 		<c:import url="/WEB-INF/views/layout/paging.jsp" />
 	</div>
-	<!-- .container end -->
+<!-- .container end -->
 </div>
 <!-- .wrap end -->
 <!-- footer start -->
