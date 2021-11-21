@@ -195,6 +195,14 @@ public interface ReviewService {
 	 */
 	public boolean reviewReportByReviewNoLoginUserNo(ReviewReport reviewReport);
 
+	/**
+	 * reviewNo로 review받아오기
+	 * 
+	 * @param reviewNo
+	 * @return
+	 */
+	public Review getReviewByReviewNo(int reviewNo);
+
 
 	
 

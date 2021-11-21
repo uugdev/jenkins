@@ -230,7 +230,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDao.deleteReport(review);
 		reviewDao.deleteScrap(review);
 		reviewDao.deleteReview(review);
-		reviewDao.deleteItem(itemNo); 
+//		reviewDao.deleteItem(itemNo); 
 		reviewDao.deleteFile(fileNo);
 	}
 
@@ -238,6 +238,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public void setReviewCommentDelete(Review review) {
 		reviewDao.deleteReviewCommentByReviewNo(review);
 	}
+		
+	@Override
+	public Review getReviewByReviewNo(int reviewNo) {
+		return reviewDao.selectDeleteReviewByReviewNo(reviewNo);
+	}
+
 
 
 	@Override

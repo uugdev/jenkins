@@ -196,6 +196,11 @@
 			AND reporter_no = #{reporterNo }
 	</select>
 	
+	<select id="selectDeleteReviewByReviewNo" parameterType="int" resultType="com.khbill.dto.Review">
+		SELECT * FROM zreview
+		WHERE review_no = #{reviewNo }	
+	</select>
+	
 </mapper>
 
 
