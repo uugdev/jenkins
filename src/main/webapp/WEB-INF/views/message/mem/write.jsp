@@ -34,12 +34,7 @@ $(document).ready(function () {
 
 	
 		var nickregex = nickRegex.exec(userNick);
-		if(nickregex == null){
-			alert("닉네임을 다시 확인해주세요");
-			$("#userNick").focus();
-			return false;
-		}
-		
+			
 		var answer = confirm("쪽지를 보내시겠습니까?");
 		
 		if( answer == true){

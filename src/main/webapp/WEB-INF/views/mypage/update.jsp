@@ -202,6 +202,14 @@ td {
 	display: none;
 }
 
+input[type=text]{
+	width: 100%;
+}
+
+input[type=password]{
+	width: 100%;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
