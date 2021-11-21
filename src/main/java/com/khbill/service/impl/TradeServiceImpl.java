@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.khbill.dao.face.TradeDao;
-import com.khbill.dto.Review;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeComment;
 import com.khbill.dto.TradeReport;
@@ -311,7 +310,7 @@ public class TradeServiceImpl implements TradeService {
 		}
 		
 	}
-
+	
 	@Override
 	public boolean isScrap(TradeScrap tradeScrap) {
 		int cnt = tradeDao.selectCountScrap(tradeScrap);

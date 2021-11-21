@@ -9,8 +9,6 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/tradeWrite.css" />
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/alert.css" />
-<script type="text/javascript" src="/resources/js/alert.js"></script>
 <!-- 스마트 에디터 2 라이브러리 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
@@ -48,9 +46,11 @@ $(function () {
         })
     });
     
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+    
 });
-
-
 
 /* -------------------------------------------------------- */
 
@@ -145,29 +145,6 @@ $(document).ready(function() {
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
-
-<!-- confirm 모달을 쓸 페이지에 추가 start-->
-<section class="modal modal-section type-confirm">
-    <div class="enroll_box">
-        <p class="menu_msg"></p>
-    </div>
-    <div class="enroll_btn">
-        <button class="btn pink_btn btn_ok">확인</button>
-        <button class="btn gray_btn modal_close">취소</button>
-    </div>
-</section>
-<!-- confirm 모달을 쓸 페이지에 추가 end-->
-
-<!-- alert 모달을 쓸 페이지에 추가 start-->
-<section class="modal modal-section type-alert">
-    <div class="enroll_box">
-        <p class="menu_msg"></p>
-    </div>
-    <div class="enroll_btn">
-        <button class="btn pink_btn modal_close">확인</button>
-    </div>
-</section>
-<!-- alert 모달을 쓸 페이지에 추가 end-->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
