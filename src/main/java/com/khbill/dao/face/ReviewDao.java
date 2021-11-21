@@ -232,5 +232,12 @@ public interface ReviewDao {
 	 * @return 신고한게시글 - 1 , 안한게시글 - 0 반환
 	 */
 	public int selectCntReviewReportCheck(ReviewReport reviewReport);
+	
+	/**
+	 * 마이페이지 삭제용 메소드 따로
+	 * 
+	 * @param reviewNo
+	 */
+	public Review selectDeleteReviewByReviewNo(int reviewNo);
 
 }
