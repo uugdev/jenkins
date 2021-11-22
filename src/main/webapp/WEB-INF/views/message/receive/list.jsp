@@ -79,11 +79,10 @@ $(document).ready(function(){
 
 <div style="height:10px;"></div>
 
-<h3>받은 쪽지</h3>
+<h3>받은 쪽지함</h3>
 
 <div style="height: 30px;"></div>
 
-<h3>받은 쪽지함</h3>
 <table class="table table-hover">
 	<thead>
 	<tr>

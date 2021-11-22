@@ -99,7 +99,7 @@ body {
 }
 table, h3 {
 	text-align: center;
-	margin: 0 auto;
+	margin: 0 0 5px 0 auto;
 }
 
 .wrap {

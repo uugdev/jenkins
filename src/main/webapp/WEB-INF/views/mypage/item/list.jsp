@@ -66,13 +66,13 @@ $(document).ready(function(){
 <h1>결제 체크 리스트</h1>
 <table class="table table-hover">
 	<tr>
-		<th style="width:5%">글번호</th>
-		<th style="width:20%">상품명</th>
-		<th style="width:15%">가격</th>
-		<th style="width:5%">조회수</th>
-		<th style="width:10%">작성일</th>
-		<th style="width:10%">투표 마감일</th>
-		<th style="width:20%">상태</th>
+		<th style="width:9%"><strong>번호</strong></th>
+		<th style="width:20%"><strong>상품명</strong></th>
+		<th style="width:12%"><strong>가격</strong></th>
+		<th style="width:8%"><strong>조회수</strong></th>
+		<th style="width:12%"><strong>작성일</strong></th>
+		<th style="width:12%"><strong>투표 마감일</strong></th>
+		<th style="width:15%"><strong>상태</strong></th>
 	</tr>
 	
 	<c:forEach items="${list }" var="list" varStatus="status">

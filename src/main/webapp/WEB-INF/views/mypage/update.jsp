@@ -210,6 +210,10 @@ input[type=password]{
 	width: 100%;
 }
 
+.titlearea {
+	margin: 0 0 30px 0;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -222,12 +226,11 @@ input[type=password]{
 <div class="container">
 
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
-
-<div class="one">
-	<div class="col-md-9" style="height:500px;">
-		
-		<h3> 회원정보 수정 </h3>
-			
+	<div class="one">
+		<div class="col-md-9" style="height:500px;">
+			<div class="titlearea"> 
+				<h3>회원정보 수정</h3>
+			</div>			
 		<form action="/mypage/update" method="post">
 		<input type="hidden" name="userNo" value="${user.userNo }" />
 		<input type="hidden" name="userId" value="${user.userId }" />
@@ -236,47 +239,47 @@ input[type=password]{
 		<table class="table table-hover" style="width: 500px">
 			<c:if test="${kakaoUser == '' || empty kakaoUser }">
 				<tr>
-					<td style="width: 10%" >아이디</td>
+					<td style="width: 10%" ><strong>아이디</strong></td>
 					<td style="width: 10%">${user.userId }</td>
 				</tr>			
 			</c:if>
 			<c:if test="${kakaoUser == 'kakao' }">
 				<tr>
-					<td style="width: 10%" >아이디</td>
+					<td style="width: 10%" ><strong>아이디</strong></td>
 					<td style="width: 10%">소셜 로그인 회원입니다.</td>
 				</tr>			
 			</c:if>
 			<c:if test="${kakaoUser == '' || empty kakaoUser}">
 				<tr>
-					<td>비밀번호</td>
+					<td><strong>비밀번호</strong></td>
 					<td ><input type="password" id="userPw" name="userPw" value="${user.userPw }" required oninput="checkUserPw()"><br>
 					<span class="pw regex"></span></td>
 				</tr>			
 			</c:if>
 			<c:if test="${kakaoUser == '' || empty kakaoUser}">
 				<tr>
-					<td>비밀번호확인</td>
+					<td><strong>비밀번호확인</strong></td>
 					<td ><input type="password" id="userPwCheck" name="userPwCheck" value="${user.userPw }" required onkeyup="checkPwSame()"><br>
 					<span class="pwchk regex"></span></td>
 				</tr>			
 			</c:if>
 			<tr>
-				<td>닉네임</td>
+				<td><strong>닉네임</strong></td>
 				<td><input type="text" id="userNick" name="userNick" value="${user.userNick }" required oninput="checkUserNick()"><br>
 				<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 				<span class="nick_already">사용 중인 닉네임입니다.</span>
 				<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
 			</tr>
 			<tr>
-				<td>이메일</td>
+				<td><strong>이메일</strong></td>
 				<td>${user.userMail }
 			</tr>
 			<tr>
-				<td>생일</td>
+				<td><strong>생일</strong></td>
 				<td><input type="text" id="userBday" name="userBday" style="cursor: default;" placeholder="생일을 입력하세요" autocomplete="off" readonly /></td>
 			<tr>
 			<tr>
-				<td>성별</td>
+				<td><strong>성별</strong></td>
 				<td>
 					<c:if test="${user.userGender == 'M'}">
 						<input type="radio" name="userGender" value="F" />

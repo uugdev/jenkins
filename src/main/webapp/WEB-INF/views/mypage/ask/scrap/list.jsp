@@ -51,7 +51,7 @@ $(document).ready(function(){
 <div class="container">
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
-<h3>스크랩한 질문글 내역</h3>
+<h3>스크랩한 질문글</h3>
 <div class="col-md-9" style="height: 500px;">
 
 <table class="table table-striped table-hover">

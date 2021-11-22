@@ -83,13 +83,11 @@ $(document).ready(function(){
 
 <div style="height:10px;"></div>
 
-<h3>보낸 쪽지</h3>
-
+<h3>보낸 쪽지함</h3>
 
 <div style="height: 30px;"></div>
 
-<h3>보낸 쪽지함</h3>
->>>>>>> jiwon<table class="table table-hover">
+<table class="table table-hover">
 	<thead>
 	<tr>
 		<th style="width: 10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>

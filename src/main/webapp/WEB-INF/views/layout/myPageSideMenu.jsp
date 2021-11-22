@@ -54,6 +54,10 @@ ul {
 	padding-left: 0;
 }
 
+li {
+	font-weight: bold;
+}
+
 
 
 
@@ -61,7 +65,7 @@ ul {
 <div class="col-md-3" style="height: 500px;">
 	<div id="menu">
 		<ul class="M01">
-			<li><h4>마이페이지</h4></li>
+			<li><h4><strong>마이페이지</strong></h4></li>
 			<li><a>회원정보</a>
 				<ul class="M02">
 					<li><a href="/mypage/info">내 정보 조회</a></li>

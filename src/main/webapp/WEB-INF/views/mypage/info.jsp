@@ -73,12 +73,12 @@ td {
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 	<div class="one">
 		<div class="col-md-9" style="height: 500px;">
-	
-		<h3> 회원정보 조회 </h3>
-	
+			<div class="titlearea"> 
+				<h3>회원정보 조회</h3>
+			</div>	
 		<table class="table table-hover" style="width: 500px">
 			<tr>
-				<td style="width:10%" >아이디</td>
+				<td style="width:10%" ><strong>아이디</strong></td>
 				<c:if test="${kakaoUser == 'kakao'}">
 					<td style="width:10%">소셜 로그인 회원입니다.</td>
 				</c:if>
@@ -87,15 +87,15 @@ td {
 				</c:if>
 			</tr>
 			<tr>
-				<td>닉네임</td>
+				<td><strong>닉네임</strong></td>
 				<td>${user.userNick }</td>
 			</tr>
 			<tr>
-				<td>이메일</td>
+				<td><strong>이메일</strong></td>
 				<td>${user.userMail }</td>
 			</tr>
 			<tr>
-				<td>유저 성별</td>
+				<td><strong>유저 성별</strong></td>
 				<c:if test="${user.userGender == 'M' }">
 					<td>남</td>
 				</c:if>
@@ -107,15 +107,15 @@ td {
 				</c:if>
 			</tr>
 			<tr>
-				<td>생일</td>
+				<td><strong>생일</strong></td>
 				<td>${user.userBday }</td>
 			</tr>
 			<tr>
-				<td>가입일</td>
+				<td><strong>가입일</strong></td>
 				<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
 			</tr>
 			<tr>
-				<td>포인트</td>
+				<td><strong>포인트</strong></td>
 				<td>${user.userPoint }</td>
 			</tr>
 		
