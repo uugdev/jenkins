@@ -18,7 +18,6 @@ import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.AskScrap;
 import com.khbill.dto.Item;
-import com.khbill.dto.TradeComment;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
 import com.khbill.service.face.AskService;
@@ -233,11 +232,9 @@ public class AskServiceImpl implements AskService {
 	}
 
 	@Override
-	public List<AskComment> getAskComList(int askNo) {
+	public List<HashMap<String, String>> getAskComList(int askNo) {
 
-		List<AskComment> askComment = askDao.selectAskComByAskNo(askNo);
-
-		return askComment;
+		return askDao.selectAskComByAskNo(askNo);
 	}
 
 	@Override

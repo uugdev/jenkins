@@ -215,7 +215,7 @@ public interface AskDao {
 	 * @param askNo
 	 * @return
 	 */
-	public List<AskComment> selectAskComByAskNo(int askNo);
+	public List<HashMap<String, String>> selectAskComByAskNo(int askNo);
 
 
 	/**

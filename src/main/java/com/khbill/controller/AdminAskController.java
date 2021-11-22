@@ -2,6 +2,7 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.khbill.dto.Ask;
-import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -39,9 +39,7 @@ public class AdminAskController {
 		
 		Paging paging = adminAskService.getPaging(paramData);
 		List<Ask> list = adminAskService.getAskList(paging);
-		List<User> user = adminAskService.getUserList();
 		
-		model.addAttribute("user", user);
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 	
@@ -66,10 +64,10 @@ public class AdminAskController {
 		
 		User user = adminAskService.getUserInfoByUserNo(ask.getUserNo());
 		
-		List<User> userList = adminAskService.getUserList();
+//		List<User> userList = adminAskService.getUserList();
 		
 		model.addAttribute("adminLogin",adminLogin);
-		model.addAttribute("userList",userList);
+//		model.addAttribute("userList",userList);
 		model.addAttribute("user",user);
 		model.addAttribute("ask",ask);
 		model.addAttribute("vote",vote);
@@ -86,8 +84,12 @@ public class AdminAskController {
 		model.addAttribute("cntY",cntY);
 
 		
-		List<AskComment> askComment = adminAskService.getAskComList(askNo);
+		List<HashMap<String, String>> askComment = adminAskService.getAskComList(askNo);
+		
+		logger.info("askComment : {}", askComment);
 		model.addAttribute("askComment",askComment);
+		
+		
 		
 		
 	}

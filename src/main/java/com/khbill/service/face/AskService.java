@@ -135,7 +135,7 @@ public interface AskService {
 	 * @param askNo
 	 * @return
 	 */
-	public List<AskComment> getAskComList(int askNo);
+	public List<HashMap<String, String>> getAskComList(int askNo);
 
 
 	/**

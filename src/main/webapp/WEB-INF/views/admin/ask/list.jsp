@@ -101,21 +101,35 @@ label {
 </tr>
 <c:forEach items="${list }" var="askList">
 <tr>
-	<td><input type="checkbox" name="select" id="${askList.askNo }" value="${askList.askNo }" class="check" /></td>
-	<td><label for="${askList.askNo}">${askList.askNo }</label></td>
-	<td><label for="${askList.askNo }"><a href="/admin/ask/detail?askNo=${askList.askNo }">${askList.askTitle }</a></label></td>
-		<c:forEach items="${user }" var="user">
-			<c:if test="${ask.userNo ne 0}">
-				<c:if test="${askList.userNo eq user.userNo}">
-					<td><label for="${askList.askNo }">${user.userNick }</label></td>
-				</c:if>
-			</c:if>
-		</c:forEach>
-			<c:if test="${askList.userNo eq 0}">
-				<td>탈퇴한 회원입니다</td>
-			</c:if>
-	<td><label for="${askList.askNo }">${askList.askHit }</label></td>
-	<td><fmt:formatDate value="${askList.askDate }" pattern="yyyy-MM-dd"/></td>
+	<td>
+		<input type="checkbox" name="select" id="${askList.ASK_NO }" value="${askList.ASK_NO }" class="check" />
+	</td>
+	<td>
+		<label for="${askList.ASK_NO}">${askList.ASK_NO }</label>
+	</td>
+	<td>
+		<label for="${askList.ASK_NO }">
+			<a href="/admin/ask/detail?askNo=${askList.ASK_NO }">${askList.ASK_TITLE }</a>
+		</label>
+	</td>
+	<c:if test="${askList.USER_NICK ne null}">
+		<td style="text-align: left;">
+			<label for="${askList.ASK_NO }">
+				<img alt="#" src="${askList.GRADE_URL}" style="width: 30px; height: 30px;" />
+				${askList.USER_NICK }
+			</label>
+		</td>
+	</c:if>
+	
+	<c:if test="${askList.USER_NICK eq null}">
+		<td>탈퇴한 회원입니다</td>
+	</c:if>
+	<td>
+		<label for="${askList.ASK_NO }">${askList.ASK_HIT }</label>
+	</td>
+	<td>
+		<fmt:formatDate value="${askList.ASK_DATE }" pattern="yyyy-MM-dd"/>
+	</td>
 </tr>
 </c:forEach>
 

@@ -36,8 +36,8 @@ table {
 	table-layout: fixed;
 }
 
-table, th {
-	text-align: center;
+table, th, td {
+	text-align: left;
 }
 
 td:nth-child(2) {
@@ -59,57 +59,28 @@ td:nth-child(2) {
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th style="width: 10%;">글번호</th>
-					<th style="width: 45%;">제목</th>
-					<th style="width: 20%;">작성자</th>
-					<th style="width: 10%;">조회수</th>
-					<th style="width: 15%;">작성일</th>
+					<th style="width: 10%; text-align: left;">글번호</th>
+					<th style="width: 45%; text-align: left;">제목</th>
+					<th style="width: 12%; text-align: left;">작성자</th>
+					<th style="width: 10%; text-align: left;">조회수</th>
+					<th style="width: 15%; text-align: left;">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${list }" var="ask">
 					<tr>
-						<td>${ask.askNo }</td>
-						<td><a href="/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
-						<c:forEach items="${userGrade}" var="grade">
-							<c:if test="${grade.USER_NO eq ask.userNo }">
-								<c:if test="${ask.userNo ne 0}">
-									<c:if test="${ask.userNo eq grade.USER_NO}">
-										<c:choose>
-											<c:when test="${grade.GRADE eq 'bronze' }">
-												<td><img style="width: 15%;" alt="아이콘"
-													src="/resources/img/브론즈.png">${grade.USER_NICK }</td>
-											</c:when>
-
-											<c:when test="${grade.GRADE eq 'silver' }">
-												<td><img style="width: 15%;" alt="아이콘"
-													src="/resources/img/실버.png">${grade.USER_NICK }</td>
-											</c:when>
-
-											<c:when test="${grade.GRADE eq 'GOLD' }">
-												<td><img style="width: 15%;" alt="아이콘"
-													src="/resources/img/골드.png">${grade.USER_NICK }</td>
-											</c:when>
-
-											<c:when test="${grade.GRADE eq 'platinum' }">
-												<td><img style="width: 15%;" alt="아이콘"
-													src="/resources/img/플래티넘.png">${grade.USER_NICK }</td>
-											</c:when>
-
-											<c:when test="${grade.GRADE eq 'diamond' }">
-												<td><img style="width: 15%;" alt="아이콘"
-													src="/resources/img/다이아.png">${grade.USER_NICK }</td>
-											</c:when>
-										</c:choose>
-									</c:if>
-								</c:if>
-							</c:if>
-						</c:forEach>
-						<c:if test="${ask.userNo eq 0}">
+						<td>${ask.ASK_NO }</td>
+						<td><a href="/ask/detail?askNo=${ask.ASK_NO }">${ask.ASK_TITLE }</a></td>
+						<c:if test="${ask.USER_NICK eq null}">
 							<td>탈퇴한 회원입니다</td>
 						</c:if>
-						<td>${ask.askHit }</td>
-						<td><fmt:formatDate value="${ask.askDate }"
+						<c:if test="${ask.USER_NICK ne null }">
+							<td style="text-align: left;"><img alt="#"
+								src="${ask.GRADE_URL}" style="width: 30px; height: 30px;">
+								${ask.USER_NICK }</td>
+						</c:if>
+						<td>${ask.ASK_HIT }</td>
+						<td><fmt:formatDate value="${ask.ASK_DATE }"
 								pattern="yy-MM-dd HH:mm:ss" /></td>
 					</tr>
 				</c:forEach>

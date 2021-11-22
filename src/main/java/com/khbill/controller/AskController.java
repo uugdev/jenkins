@@ -44,15 +44,9 @@ public class AskController {
 
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskList(paging);
-//		List<User> user = askService.getUserList();
 
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
-//		model.addAttribute("user", user);
-		
-		//유저등급
-		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
-		model.addAttribute("userGrade", userGrade);
 		
 
 	}// list
@@ -79,18 +73,13 @@ public class AskController {
 
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskHitList(paging);
-//		List<User> user = askService.getUserList();
 
-//		model.addAttribute("user", user);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
-		
-		//유저등급
-		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
-		model.addAttribute("userGrade", userGrade);
 
 	}// list
 
+	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void setAskWrite(HttpServletRequest req, Model model) {
 		logger.info("/ask/write [GET]");
@@ -163,7 +152,7 @@ public class AskController {
 		model.addAttribute("cntY", cntY);
 
 		// 댓글리스트 전달
-		List<AskComment> askComment = askService.getAskComList(askNo);
+		List<HashMap<String, String>> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment", askComment);
 
 		// 스크랩 상태 조회
@@ -175,10 +164,9 @@ public class AskController {
 		boolean isScrap = askService.isScrap(askScrap);
 		model.addAttribute("isScrap", isScrap);
 		
-		
 		//유저등급
-		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
-		model.addAttribute("userGrade", userGrade);
+//		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
+//		model.addAttribute("userGrade", userGrade);
 		
 
 	}

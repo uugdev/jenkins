@@ -5,27 +5,38 @@
 
 <mapper namespace="com.khbill.dao.face.AskDao">
 
+	
 	<sql id="selectAsk">
-		SELECT ask_no,user_no,product_no,ask_title,ask_content,ask_date,ask_hit
-		FROM zask
+        SELECT 
+        	ask_no, U.user_no, user_nick, product_no,
+        	ask_title, ask_content, ask_date, ask_hit
+        FROM zask A
+        INNER JOIN zuser U
+        ON U.user_no (+) = A.user_no
 	</sql>
+	
 	
 	<sql id="whereTitleSearch">
 			WHERE ask_title LIKE '%' || #{search} || '%'
 	</sql>
 	
-	<select id="selectAskList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging">
-		SELECT * FROM (
-				SELECT rownum rnum, A.* FROM (
-					<include refid="selectAsk"/>
-					<include refid="whereTitleSearch"/>
-					ORDER BY ask_no DESC
-				) A
-			) R
-			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	<select id="selectAskList" resultType="HashMap" parameterType="com.khbill.util.Paging">
+		SELECT A.ask_no, U.user_no, A.user_nick, A.ask_title, A.ask_content, A.ask_date, A.ask_hit, u.grade_url
+		FROM USERWITHURL U, (
+            SELECT ask_no, U.user_no, user_nick, ask_title, ask_content, product_no, ask_date, ask_hit
+            FROM zask A, zuser U
+            WHERE 1=1
+            AND U.user_no(+) = A.user_no 
+            AND ask_title LIKE '%' || #{search} || '%'
+            ORDER BY ask_no DESC
+        ) A
+        WHERE 1=1
+        AND U.user_no(+) = A.user_no
+        AND rownum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY A.ask_no DESC
 	</select>
 	
-	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+	<select id="selectCntAll" resultType="int">
 		SELECT COUNT(*) FROM (
 				<include refid="selectAsk"/>
 				<include refid="whereTitleSearch"/>
@@ -88,7 +99,7 @@
 	</insert>
 	
 	<select id="selectAskByAskNo" resultType="com.khbill.dto.Ask" parameterType="int">
-		<include refid="selectAsk"/>
+		SELECT * FROM zask
 		WHERE ask_no = #{askNo }
 	</select>
 	
@@ -151,10 +162,13 @@
 		VALUES (zask_comment_seq.nextval,#{askNo},#{userNo},#{askComContent},sysdate,0,0) 
 	</insert>
 	
-	<select id="selectAskComByAskNo" resultType="com.khbill.dto.AskComment" parameterType="int">
-		SELECT * FROM zask_comment
-		WHERE ask_no = #{askNo}
-		ORDER BY ask_com_no 
+	<select id="selectAskComByAskNo" resultType="HashMap" parameterType="int">
+		SELECT u.user_nick, c.user_no, c.ask_com_no, c.ask_no, c.ask_com_content, c.ask_com_date
+		FROM zask_comment c, zuser u
+	    WHERE 1=1
+	    AND c.user_no = u.user_no
+	    AND ask_no = #{askNo }
+	    ORDER BY ask_com_no
 	</select>
 	
 	
@@ -228,15 +242,20 @@
 	</select>
 
 
-	<select id="selectAskHitList" resultType="com.khbill.dto.Ask" parameterType="com.khbill.util.Paging" >
-		SELECT * FROM (
-				SELECT rownum rnum, A.* FROM (
-					<include refid="selectAsk"/>
-					<include refid="whereTitleSearch"/>
-					ORDER BY ask_hit DESC
-				) A
-			) R
-			WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	<select id="selectAskHitList" resultType="HashMap" parameterType="com.khbill.util.Paging" >
+		SELECT A.ask_no, U.user_no, A.user_nick, A.ask_title, A.ask_content, A.ask_date, A.ask_hit, u.grade_url
+		FROM USERWITHURL U, (
+            SELECT ask_no, U.user_no, user_nick, ask_title, ask_content, product_no, ask_date, ask_hit
+            FROM zask A, zuser U
+            WHERE 1=1
+            AND U.user_no(+) = A.user_no 
+            AND ask_title LIKE '%' || #{search} || '%'
+            ORDER BY ask_no DESC
+        ) A
+        WHERE 1=1
+        AND U.user_no(+) = A.user_no
+        AND rownum BETWEEN #{startNo } AND #{endNo }
+		ORDER BY A.ask_hit DESC
 	</select>
 
 
@@ -261,7 +280,7 @@
 			SELECT rownum rnum, A.* FROM (
 				SELECT * FROM zask_comment
 				WHERE ask_no = #{askNo }
-				ORDER BY ask_com_date DESC
+				ORDER BY ask_com_no DESC
 			) A
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }

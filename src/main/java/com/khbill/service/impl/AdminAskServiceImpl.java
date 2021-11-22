@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.AdminAskDao;
 import com.khbill.dto.Ask;
-import com.khbill.dto.AskComment;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
 import com.khbill.dto.Vote;
@@ -88,11 +88,10 @@ public class AdminAskServiceImpl implements AdminAskService {
 	}
 	
 	@Override
-	public List<AskComment> getAskComList(int askNo) {
+	public List<HashMap<String, String>> getAskComList(int askNo) {
 
-		List<AskComment> askComment = adminAskDao.selectAskComByAskNo(askNo);
 
-		return askComment;
+		return adminAskDao.selectAskComByAskNo(askNo);
 	}
 
 

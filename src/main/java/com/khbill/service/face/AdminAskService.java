@@ -1,9 +1,9 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Ask;
-import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -57,7 +57,7 @@ public interface AdminAskService {
 	 * @param askNo
 	 * @return
 	 */
-	public List<AskComment> getAskComList(int askNo);
+	public List<HashMap<String, String>> getAskComList(int askNo);
 
 	
 	/**

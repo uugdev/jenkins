@@ -1,9 +1,9 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Ask;
-import com.khbill.dto.AskComment;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
 import com.khbill.dto.User;
@@ -86,7 +86,7 @@ public interface AdminAskDao {
 	 * @param askNo
 	 * @return
 	 */
-	public List<AskComment> selectAskComByAskNo(int askNo);
+	public List<HashMap<String, String>> selectAskComByAskNo(int askNo);
 	
 	/**
 	 * 

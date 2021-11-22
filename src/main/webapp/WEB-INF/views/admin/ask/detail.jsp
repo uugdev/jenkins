@@ -232,7 +232,7 @@ table, th {
 					<td>${item.itemBrand }</td>
 					<td>${item.itemName }</td>
 					<td><fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }" />원</td>
+							value="${item.itemPrice }" />원</td>
 				</tr>
 			</tbody>
 		</table>
@@ -290,53 +290,55 @@ table, th {
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<!-- 		<th style="width: 10%;">번호</th> -->
+					<th style="width: 4%;"></th>
 					<th style="width: 10%;">작성자</th>
-					<th style="width: 65%;">댓글</th>
-					<th style="width: 20%;">작성일</th>
-					<th style="width: 5%;"></th>
-					<!-- 					<th style="width: 5%;"></th> -->
+					<th style="width: 64%;">댓글</th>
+					<th style="width: 12%;">작성일</th>
+					<th style="width: 10%;"></th>
 				</tr>
 			</thead>
+
+
 			<tbody id="commentBody">
 				<c:forEach items="${askComment}" var="askComment">
-					<tr data-askComNo="${askComment.askComNo }">
-						<%-- 		<td style="width: 5%;">${comment.rnum }</td> --%>
-						<c:forEach items="${userList }" var="userList">
-							<c:if test="${askComment.userNo eq userList.userNo}">
-								<td style="width: 10%;">${userList.userNick }</td>
-							</c:if>
-						</c:forEach>
-						<td style="width: 65%;" id="askComCon">${askComment.askComContent }</td>
-						<td style="width: 20%;"><fmt:formatDate
-								value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
-						<td style="width: 5%;"><button class="btn btn-default btn-xs"
-								onclick="deleteComment(${askComment.askComNo });">삭제</button></td>
+					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
+					<tr data-askComNo="${askComment.ASK_COM_NO }">
+						<td></td>
+						<td>${askComment.USER_NICK }</td>
+						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
+						<td><fmt:formatDate
+								value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+						<td>
+							<button class="btn btn-default btn-xs"
+								onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
+						</td>
 					</tr>
 				</c:forEach>
+				<tr id="appendArea"></tr>
+			</tbody>
 		</table>
 		<!-- 댓글 리스트 end -->
 
 
-	<!-- 댓글 처리 -->
+		<!-- 댓글 처리 -->
 
 
 
 
-	<!-- 댓글 처리 end -->
+		<!-- 댓글 처리 end -->
 
-	<div class="text-center">
-		<a href="/admin/ask/list"><button class="btn btn-default">목록</button></a>
-		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+		<div class="text-center">
+			<a href="/admin/ask/list"><button class="btn btn-default">목록</button></a>
+			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+		</div>
+
+
+		<%-- --%>
+		<!-- .container end -->
 	</div>
-
-
-	<%-- --%>
-<!-- .container end -->
-	</div>
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
-<!-- .wrap end -->
+	<!-- footer start -->
+	<c:import url="/WEB-INF/views/layout/footer.jsp" />
+	<!-- .wrap end -->
 </div>
 
 

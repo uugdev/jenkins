@@ -249,11 +249,11 @@ function insertComment() {
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
-					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
-					'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
-					'<td id="td'+ data.addComment.askComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.askComContent +'</td>' +
-					'<td style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
-					'<td style="width: 10%; padding: 5px;">' +
+					'<td></td>' +
+					'<td>'+ data.userNick +'</td>' +
+					'<td id="td'+ data.addComment.askComNo +'">'+ data.addComment.askComContent +'</td>' +
+					'<td>'+ askComDate +'</td>' +
+					'<td>' +
 					'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.askComNo +');">삭제</button> ' +
 					'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.askComNo +');">수정</button>' +
 					'</td>' +
@@ -271,15 +271,15 @@ function insertComment() {
 	});
 	
 }
-
+s
 function updateComment(askComNo) {
 	
     var askText = $("#td"+askComNo).text();
     
 	$("[data-askComNo='"+askComNo+"']").css("display", "none");
-	$("[data-updateAskComNo='"+askComNo+"']").append('<td style="width: 4%;"></td>' +
-			'<td style="width: 10%;"></td>' +
-			'<td style="width: 66%;">' +
+	$("[data-updateAskComNo='"+askComNo+"']").append('<td></td>' +
+			'<td></td>' +
+			'<td>' +
 			'<div class="form-inline text-center">' +
 			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
@@ -288,8 +288,8 @@ function updateComment(askComNo) {
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
 			'</td>' +
-			'<td style="width: 10%;"></td>' +
-			'<td style="width: 10%;"></td>');
+			'<td></td>' +
+			'<td></td>');
 }
 
 function updateCom(askComNo) {
@@ -376,7 +376,9 @@ table, th {
 
 .check {
 	display: flex;
-	justify-content: space-between; text-align : center; width : 500px;
+	justify-content: space-between;
+	text-align: center;
+	width: 500px;
 	margin: 0 auto;
 	width: 500px;
 	text-align: center;
@@ -421,20 +423,22 @@ table, th {
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
 		<!-- <div class="clearfix"></div> -->
 		<hr>
-		<c:if test="${userNo eq ask.userNo }" >
-		<span>작성자 : ${user.userNick }</span>
+		<c:if test="${userNo eq ask.userNo }">
+			<span>작성자 : ${user.userNick }</span>
 		</c:if>
 		<c:if test="${userNo ne ask.userNo }">
-		<span class="confirmation" onclick="message();">작성자 :
-				${user.userNick }</span></c:if> | <span><fmt:formatDate
-				value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></span>
-				<c:if test="${ask.userNo ne userNo }">
-					<c:if test="${ask.userNo ne 0 }">
-						<button id="scrap">스크랩</button>
-						<button id="report" class="popupOpen1">신고</button>
-					</c:if>
-				</c:if>
-				<span class="pull-right">조회수 : ${ask.askHit }</span>
+			<span class="confirmation" onclick="message();">작성자 :
+				${user.userNick }</span>
+		</c:if>
+		| <span><fmt:formatDate value="${ask.askDate }"
+				pattern="yy-MM-dd HH:mm" /></span>
+		<c:if test="${ask.userNo ne userNo }">
+			<c:if test="${ask.userNo ne 0 }">
+				<button id="scrap">스크랩</button>
+				<button id="report" class="popupOpen1">신고</button>
+			</c:if>
+		</c:if>
+		<span class="pull-right">조회수 : ${ask.askHit }</span>
 
 		<table class="table table-striped table-hover">
 			<thead>
@@ -449,7 +453,7 @@ table, th {
 					<td>${item.itemBrand }</td>
 					<td>${item.itemName }</td>
 					<td><fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }" />원</td>
+							value="${item.itemPrice }" />원</td>
 				</tr>
 			</tbody>
 		</table>
@@ -502,8 +506,8 @@ table, th {
 				</div>
 			</div>
 		</c:if>
-		
-		
+
+
 		<c:if test="${check eq 'n'}">
 			<div class="check">
 				<div>
@@ -513,11 +517,12 @@ table, th {
 							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
 					</c:if>
 					<c:if test="${cntY <= cntN}">
-						<img class="vote pull-left"
-							src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
+						<img class="vote pull-left" src="https://i.imgur.com/iLdts0b.png"
+							alt="찬성" />
 					</c:if>
 				</div>
-				<div id="chartBox"> 투표가 종료되었습니다
+				<div id="chartBox">
+					투표가 종료되었습니다
 					<div class="chart"></div>
 				</div>
 
@@ -528,8 +533,8 @@ table, th {
 							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
 					</c:if>
 					<c:if test="${cntY >= cntN}">
-						<img class="vote pull-right"
-							src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+						<img class="vote pull-right" src="https://i.imgur.com/0sDsZn8.png"
+							alt="반대" />
 					</c:if>
 				</div>
 			</div>
@@ -543,35 +548,29 @@ table, th {
 				<tr>
 					<th style="width: 4%;"></th>
 					<th style="width: 10%;">작성자</th>
-					<th style="width: 66%;">댓글</th>
-					<th style="width: 10%;">작성일</th>
+					<th style="width: 64%;">댓글</th>
+					<th style="width: 12%;">작성일</th>
 					<th style="width: 10%;"></th>
 				</tr>
 			</thead>
-			
-			
+
+
 			<tbody id="commentBody">
 				<c:forEach items="${askComment}" var="askComment">
-					<tr data-updateAskComNo="${askComment.askComNo }"></tr>
-					<tr data-askComNo="${askComment.askComNo }">
-					<td style="width: 4%;"></td>
-					<c:forEach items="${userList }" var="userList">
-						<c:if test="${askComment.userNo eq userList.userNo}">
-							<td style="width: 10%;">${userList.userNick }</td>
-						</c:if>
-					</c:forEach>
-					
-					<td id="td${askComment.askComNo }" style="width: 66%;">${askComment.askComContent }</td>
-					<td style="width: 10%;">
-						<fmt:formatDate value="${askComment.askComDate }" pattern="yy-MM-dd hh:mm:ss" /></td>
-					<td style="width: 10%;">
-						<c:if test="${userNo eq askComment.userNo }">
-							<button class="btn btn-default btn-xs"
-							onclick="deleteComment(${askComment.askComNo });">삭제</button>
-							<button class="btn btn-default btn-xs"
-							onclick="updateComment(${askComment.askComNo });">수정</button>
-						</c:if>
-					</td>
+					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
+					<tr data-askComNo="${askComment.ASK_COM_NO }">
+						<td></td>
+						<td>${askComment.USER_NICK }</td>
+						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
+						<td><fmt:formatDate
+								value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+						<td><c:if
+								test="${userNo eq askComment.USER_NO }">
+								<button class="btn btn-default btn-xs"
+									onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
+								<button class="btn btn-default btn-xs"
+									onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
+							</c:if></td>
 					</tr>
 				</c:forEach>
 				<tr id="appendArea"></tr>
@@ -579,61 +578,61 @@ table, th {
 		</table>
 		<!-- 댓글 리스트 end -->
 
-	
-	<!-- 댓글 처리 -->
 
-	<!-- 로그인상태 -->
-	<c:if test="${login }">
-		<!-- 댓글 입력 -->
-		<div class="form-inline text-center">
-			<input type="text" size="10" class="form-control" id="userNick"
-				value="${userNick }" readonly="readonly" />
-			<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
-			<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
-		</div>
-		<!-- 댓글 입력 end -->
-	</c:if>
+		<!-- 댓글 처리 -->
 
-	
-	<!-- 댓글 처리 end -->
-
-	<div class="text-center" style="margin-bottom: 100px;">
-		<a href="/ask/list"><button class="btn btn-default">목록</button></a>
-		<c:if test="${userNo eq ask.userNo }">
-			<a href="/ask/update?askNo=${ask.askNo }"><button
-					class="btn btn-primary">수정</button></a>
-			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+		<!-- 로그인상태 -->
+		<c:if test="${login }">
+			<!-- 댓글 입력 -->
+			<div class="form-inline text-center">
+				<input type="text" size="10" class="form-control" id="userNick"
+					value="${userNick }" readonly="readonly" />
+				<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
+				<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
+			</div>
+			<!-- 댓글 입력 end -->
 		</c:if>
+
+
+		<!-- 댓글 처리 end -->
+
+		<div class="text-center" style="margin-bottom: 100px;">
+			<a href="/ask/list"><button class="btn btn-default">목록</button></a>
+			<c:if test="${userNo eq ask.userNo }">
+				<a href="/ask/update?askNo=${ask.askNo }"><button
+						class="btn btn-primary">수정</button></a>
+				<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+			</c:if>
+		</div>
+
+
+		<%-- --%>
+
 	</div>
-
-
-	<%-- --%>
-
-	</div>
-<!-- .container end -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
+	<!-- .container end -->
+	<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div>
 <!-- .wrap end -->
 
-			<div class="popupWrap1 hide1">
-					<div class="popup1">
-						<div class="title">
-							<p>신고 하기</p>
-							<span class="close1">❌</span>
-						</div>
-						<select id="reportCategory" name="reportCategory" class="select">
-							<option value="A">부적절한 홍보 게시글</option>
-							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
-							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
-							<option value="D">기타</option>
-						</select>	
-						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
-						<div class="btnWrap1">
-							<button id="setReport">보내기</button>
-						</div>
-					</div>
-			</div>
-	
+<div class="popupWrap1 hide1">
+	<div class="popup1">
+		<div class="title">
+			<p>신고 하기</p>
+			<span class="close1">❌</span>
+		</div>
+		<select id="reportCategory" name="reportCategory" class="select">
+			<option value="A">부적절한 홍보 게시글</option>
+			<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+			<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+			<option value="D">기타</option>
+		</select>
+		<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+		<div class="btnWrap1">
+			<button id="setReport">보내기</button>
+		</div>
+	</div>
+</div>
+
 <script>
 	$('.popupOpen1').on('click', function() {
 		$('.popupWrap1').removeClass('hide1');
