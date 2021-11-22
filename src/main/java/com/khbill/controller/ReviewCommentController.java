@@ -91,7 +91,7 @@ public class ReviewCommentController {
 		logger.info("resultReviewComment{}", resultReviewComment);
 		
 		mav.addObject("success", success);
-		mav.addObject("reviewComment", reviewComment);
+		mav.addObject("reviewComment", resultReviewComment);
 		mav.setViewName("jsonView");
 
 		return mav;
