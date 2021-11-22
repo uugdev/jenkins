@@ -137,6 +137,7 @@ public class TradeController {
 		return "redirect:/trade/list";
 	}
 	
+	//거래 게시글 업데이트.GET
 	@RequestMapping(value = "/trade/update", method = RequestMethod.GET)
 	public void tradeGetUpdate(
 			Model model
@@ -149,6 +150,7 @@ public class TradeController {
 		
 	}
 
+	//거래 게시글 업데이트.POST
 	@RequestMapping(value = "/trade/update", method = RequestMethod.POST)
 	public String tradePostUpdate(
 			MultipartFile file
@@ -164,6 +166,7 @@ public class TradeController {
 		
 	}
 	
+	//거래 게시글 파일 삭제 ajax
 	@RequestMapping(value = "/trade/update/deletefile", method = RequestMethod.POST)
 	public ModelAndView tradeUpdateDeleteFile(
 			ModelAndView mav
@@ -181,6 +184,7 @@ public class TradeController {
 		
 	}
 	
+	//거래 게시글 삭제
 	@RequestMapping(value = "/trade/delete")
 	public String tradeDelete(
 				int tradeNo
@@ -256,6 +260,8 @@ public class TradeController {
 		boolean success = false;
 		
 		TradeComment resultTradeComment = tradeService.setTradeCommentUpdate(tradeComment);
+		
+		logger.info("resultTradeComment : {}", resultTradeComment);
 		
 		if(tradeComment.getTradeComNo() == resultTradeComment.getTradeComNo()) {
 			success = true;

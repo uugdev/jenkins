@@ -57,12 +57,15 @@
 	</select>
 	
 	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
-        SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
-	    FROM ztrade_comment c, zuser u
-	    WHERE 1=1
-	    AND c.user_no = u.user_no
-	    AND trade_no = #{tradeNo }
-	    ORDER BY trade_com_date
+        SELECT C.*, U.grade_url
+        FROM USERWITHURL U, (
+            SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
+            FROM ztrade_comment c, zuser u
+            WHERE 1=1
+            AND c.user_no = u.user_no
+            AND trade_no = #{tradeNo }
+            ORDER BY trade_com_date ) C
+        WHERE U.user_no = C.user_no
 	</select>
 	
 	<insert id="insertFile" parameterType="com.khbill.dto.File">

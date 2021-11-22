@@ -122,7 +122,7 @@ td:nth-child(2) {
 							</c:if>
 							<c:if test="${board.USER_NICK ne null }">
 								<td style="text-align: left;">
-									<img alt="#" src="${board.GRADE_URL}" style="width: 30px; height: 30px;"> ${board.USER_NICK }
+									<img alt="#" src="${board.GRADE_URL}" style="width: 20px; height: 20px;"> ${board.USER_NICK }
 								</td>
 							</c:if>
 							<td>${board.TRADE_HIT }</td>

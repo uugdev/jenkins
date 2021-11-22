@@ -22,5 +22,8 @@
 
 <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/header.css" />
 
+<!-- 구글 아이콘 -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body>

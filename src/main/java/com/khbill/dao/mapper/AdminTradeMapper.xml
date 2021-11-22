@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.khbill.dao.face.AdminTradeDao">
+
+	<sql id="selectTrade">
+        SELECT 
+        	trade_no, U.user_no, user_nick, trade_category
+        	, trade_title, trade_date, trade_hit
+        FROM ztrade T
+        INNER JOIN zuser U
+        ON U.user_no(+) = T.user_no
+	</sql>
+
+	<sql id="whereTitleSearch">
+		WHERE trade_title LIKE '%' || #{search} || '%'
+	</sql>
+	
+</mapper>

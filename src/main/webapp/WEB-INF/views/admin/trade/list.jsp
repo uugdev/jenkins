@@ -23,32 +23,30 @@ $(document).ready(function(){
 	$(document).on('click', '.check', function() {
 	    if($('input[class=check]:checked').length==$('.check').length){
 	        $('#selectAll').prop('checked', true);
-	    }else{
+	    } else {
 	       $('#selectAll').prop('checked', false);
 	    }
 	});
 	
 	
-	
-	
-	
 	$("#btnDelete").click(function(){
 		var result = confirm("선택한 게시글을 삭제하시겠습니까?")
-		var deleteReview = [];
+		var deleteTrade = [];
    
 	    $('.check:checked').each(function(){
-	    	deleteReview.push($(this).val());
+	    	deleteTrade.push($(this).val());
 	    });
 		if( result == true ){
-			location.href="/admin/review/delete?reviewNo="+deleteReview;
+			location.href="/admin/trade/delete?tradeNo="+deleteTrade;
 		} else {
 			return false;
 		}
 	})
 	
 	$("#btnSearch").click(function() {
-		location.href="/admin/review/list?search="+$("#search").val();
+		location.href="/admin/trade/list?search="+$("#search").val();
 	});
+	
 	$("#search").keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $("#btnSearch").click();
@@ -79,61 +77,72 @@ label {
 
 <!-- 개별 영역 끝 -->
 
-
 <div class="wrap">
-<div class="container">
-
-<h3>후기게시판 목록</h3>
-<hr>
-<span class="pull-left">총 ${paging.totalCount }개</span>
-<div class="pull-right" style="width: 300px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
-	<button id="btnSearch" class="pull-right btn">검색</button>
-</div>
-<div class="clearfix"></div>
-<table class="table table-hover table-condensed">
-<tr>
-	<th><input type="checkbox" name="select" id="selectAll" /></th>
-	<th>후기글 번호</th>
-	<th width="45%">제목</th>
-	<th>닉네임</th>
-	<th>조회수</th>
-	<th>작성일</th>
-</tr>
-<c:forEach items="${reviewList }" var="review">
-<tr>
-	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
-	<td><label for="${review.REVIEW_NO}">${review.REVIEW_NO }</label></td>
-	<td><label for="${review.REVIEW_NO }">
-			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
-		</label></td>
+	<div class="container">
+	
+		<h1>거래 게시판 목록</h1>
+		<hr>
 		
-<%-- 		<c:forEach items="${user }" var="user"> --%>
-<%-- 			<c:if test="${review.userNo ne 0}"> --%>
-<%-- 				<c:if test="${review.USER_NO eq userNo}"> --%>
-					<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
-<%-- 				</c:if> --%>
-<%-- 			</c:if> --%>
-<%-- 		</c:forEach> --%>
-<%-- 			<c:if test="${review.USER_NO eq 0}"> --%>
-<!-- 				<td>탈퇴한 회원입니다</td> -->
-<%-- 			</c:if> --%>
+		<span class="pull-left">총 ${paging.totalCount }개</span>
+		<div class="pull-right" style="width: 300px; margin: 0 auto;">
+			<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
+			<button id="btnSearch" class="pull-right btn">검색</button>
+		</div>
+		
+		<div class="clearfix"></div>
+		<table class="table table-hover table-condensed">
+			<tr>
+				<th><input type="checkbox" name="select" id="selectAll" /></th>
+				<th>후기글 번호</th>
+				<th>카테고리</th>
+				<th width="45%">제목</th>
+				<th>닉네임</th>
+				<th>조회수</th>
+				<th>작성일</th>
+			</tr>
 			
-	<td><label for="${review.USER_NO }">${review.REVIEW_HIT }</label></td>
-	<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yyyy-MM-dd"/></td>
-</tr>
-</c:forEach>
-
-</table>
-<button id="btnDelete" class="pull-left">삭제</button>
-
-<div class="clearfix"></div>
-
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
-
-
-</div><!-- .container end -->
-</div><!-- .wrap end -->
+			<c:forEach items="${tradeList }" var="trade">
+			<tr>
+				<td><input type="checkbox" name="select" id="${trade.TRADE_NO }" value="${trade.TRADE_NO }" class="check" /></td>
+				<td><label for="${trade.TRADE_NO }">${trade.TRADE_NO }</label></td>
+				<td>
+					<c:if test="${trade.TRADE_CATEGORY eq 0 }">
+						[팝니다]
+					</c:if>
+					<c:if test="${trade.TRADE_CATEGORY eq 1 }">
+						[삽니다]
+					</c:if>
+				</td>
+				<td>
+					<label for="${trade.TRADE_NO }">
+						<a href="/admin/trade/detail?tradeNo=${trade.TRADE_NO  }">${trade.TRADE_TITLE }</a>
+					</label>
+				</td>
+				
+				<c:if test="${trade.USER_NICK eq null }">
+					<td>
+						탈퇴(된)한 회원
+					</td>
+				</c:if>
+				<c:if test="${trade.USER_NICK ne null }">
+					<td style="text-align: left;">
+						<label for="${trade.TRADE_NO }">${trade.USER_NICK }</label>
+					</td>
+				</c:if>
+				<td><label for="${trade.USER_NO }">${trade.TRADE_HIT }</label></td>
+				<td><fmt:formatDate value="${trade.TRADE_DATE }" pattern="yyyy-MM-dd"/></td>
+			</tr>
+			</c:forEach>
+		</table>
+		
+		<button id="btnDelete" class="pull-left">삭제</button>
+		
+		<div class="clearfix"></div>
+		
+		<c:import url="/WEB-INF/views/layout/paging.jsp" />
+		
+	</div> <!-- .container end -->
+</div> <!-- .wrap end -->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

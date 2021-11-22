@@ -60,7 +60,7 @@ $(document).ready(function() {
 		var category = $("#reportCategory").val();
 		if( content == ""  ) {
 			
-			alert("신고사유를 입력해주세요")
+			action_popup.alert("신고 사유를 입력해주세요!");
 			return;
 			
 		} else {
@@ -76,9 +76,9 @@ $(document).ready(function() {
 						$('#reportContent').val('');
 						
 						if( data.reportCheck ) {
-							alert("신고가 완료되었습니다.");
+							action_popup.alert("신고가 완료되었습니다.");
 						} else {
-							alert("이미 신고한 게시글입니다.");
+							action_popup.alert("이미 신고한 게시글입니다.");
 						}
 				}
 				, error: function() {
@@ -200,6 +200,9 @@ function updateCom(tradeComNo) {
 		}
 		, success: function(data){
 			if(data.success) {
+				
+				console.log(data.tradeComment.tradeComDate)
+				
 				var tradeComDate = moment(data.tradeComment.tradeComDate).format("YY-MM-DD HH:mm:ss");
 				
 				$("[data-tradeComNo='"+tradeComNo+"']").css("display", "table-row");
@@ -246,6 +249,27 @@ function deleteComment(tradeComNo) {
 	});
 }
 
+function sendMessage() {
+	
+    action_popup.confirm("쪽지를 보내시겠습니까?", function (res) {
+        if (res) {
+        	
+        	/* ----------------------------------------- */
+        	
+        	return "<%=request.getContextPath() %>/message/write?userNick=${tradeDetail.USER_NICK }"
+        	
+        	/* ----------------------------------------- */
+           
+        }
+    })
+    
+	/* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+	
+}
+
 </script>
 
 <!-- 개별 영역 끝 -->
@@ -270,8 +294,7 @@ function deleteComment(tradeComNo) {
 			${tradeDetail.USER_NICK }
 		</c:if>
 		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
-			<a href="<%=request.getContextPath() %>/message/write?userNick=${tradeDetail.USER_NICK }"
-			   onclick="return confirm('쪽지를 보내시겠습니까?');">${tradeDetail.USER_NICK }</a>
+			<a onclick='sendMessage()'>${tradeDetail.USER_NICK }</a>
 		</c:if>
 			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
 		</span>
@@ -305,8 +328,8 @@ function deleteComment(tradeComNo) {
 				<thead>
 					<tr>
 						<th style="width: 4%;"></th>
-						<th style="width: 10%;">작성자</th>
-						<th style="width: 66%;">댓글</th>
+						<th style="width: 12%;">작성자</th>
+						<th style="width: 64%;">댓글</th>
 						<th style="width: 10%;">작성일</th>
 						<th style="width: 10%;"></th>
 					</tr>
@@ -325,23 +348,25 @@ function deleteComment(tradeComNo) {
 										<td style="width: 4%; text-align: center;">
 											<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
 										</td>
-										<td style="width: 10%;"></td>
-										<td style="width: 66%; text-align: center;">비밀글입니다!</td>
+										<td style="width: 12%;"></td>
+										<td style="width: 64%; text-align: center;">비밀글입니다!</td>
 										<td style="width: 10%;"></td>
 										<td style="width: 10%;"></td>
 			                		</c:if>
 									
 									<!-- 게시글 유저와 비밀글쓴이일 경우 -->
 			                		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO or sessionScope.userNo eq tradeComment.USER_NO }">
-										<td style="width: 4%; text-align: center;">
+										<td style="text-align: center;">
 											<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
 										</td>
-										<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-										<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
-										<td id="dateTd${tradeComment.TRADE_COM_NO }" style="width: 10%;">
+										<td style="text-align: left;">
+											<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
+										</td>
+										<td id="td${tradeComment.TRADE_COM_NO }">${tradeComment.TRADE_COM_CONTENT }</td>
+										<td id="dateTd${tradeComment.TRADE_COM_NO }">
 											<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 										</td>
-										<td style="width: 10%;">
+										<td>
 											<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
 												<button class="btn btn-default btn-xs"
 														onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
@@ -358,13 +383,15 @@ function deleteComment(tradeComNo) {
 							
 			                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
 								<!-- 비밀글이 아닐 경우 -->
-									<td style="width: 4%;"></td>
-									<td style="width: 10%;">${tradeComment.USER_NICK }</td>
-									<td id="td${tradeComment.TRADE_COM_NO }" style="width: 66%;">${tradeComment.TRADE_COM_CONTENT }</td>
-									<td id="dateTd${tradeComment.TRADE_COM_NO }" style="width: 10%;">
+									<td></td>
+									<td style="text-align: left;">
+										<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
+									</td>
+									<td id="td${tradeComment.TRADE_COM_NO }">${tradeComment.TRADE_COM_CONTENT }</td>
+									<td id="dateTd${tradeComment.TRADE_COM_NO }">
 										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 									</td>
-									<td style="width: 10%;">
+									<td>
 										<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
 											<button class="btn btn-default btn-xs"
 													onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
