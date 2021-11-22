@@ -112,7 +112,14 @@ function insertComment() {
 			$('#appendArea').before('<tr data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></tr>' +
 				'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'" style="text-align: left;">' +
 				'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
-				'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
+				
+				/* 새롭게 삽입한 부분 - 회원 등급 아이콘 삽입부분 */
+				'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
+				'</td>' +
+				'<td style="width: 12%; padding: 5px; text-align: left;">' +
+				'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
+				
+				
 				'<td id="td'+ data.addComment.reviewComNo +'" style="width: 66%; padding: 5px;">'+ textarea +'</td>' +
 				'<td id="dateTd'+ data.addComment.reviewComNo +'" style="width: 10%; padding: 5px;">'+ reviewComDate +'</td>' +
 				'<td style="width: 10%; padding: 5px;">' +
@@ -139,17 +146,17 @@ function updateComment(reviewComNo) {
     
 	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "none");
 	$("[data-updateReviewComNo='"+reviewComNo+"']").append('<td style="width: 4%;"></td>' +
-			'<td style="width: 10%;"></td>' +
-			'<td style="width: 66%;">' +
-			'<div class="form-inline text-center">' +
-			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
-			'<textarea rows="2" cols="60" class="form-control" id="reviewComUpdateContent'+ reviewComNo +'">'+ reviewText +'</textarea>' +
-			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ reviewComNo +');">수정</button>　' +
-			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
-			'</div>' +
-			'</td>' +
-			'<td style="width: 10%;"></td>' +
-			'<td style="width: 10%;"></td>');
+		'<td style="width: 10%;"></td>' +
+		'<td style="width: 66%;">' +
+		'<div class="form-inline text-center">' +
+		'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
+		'<textarea rows="2" cols="60" class="form-control" id="reviewComUpdateContent'+ reviewComNo +'">'+ reviewText +'</textarea>' +
+		'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ reviewComNo +');">수정</button>　' +
+		'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
+		'</div>' +
+		'</td>' +
+		'<td style="width: 10%;"></td>' +
+		'<td style="width: 10%;"></td>');
 }
 
 function updateCom(reviewComNo) {
@@ -214,11 +221,20 @@ function deleteComment(reviewComNo) {
 </script>
 
 <style type="text/css">
-// Class
+#reviewTable {
+	
+}
+
 #item .center-block {
 /*   display: block; */
   margin-left: auto;
   margin-right: auto;
+}
+
+#itemImg {
+	width: 800px;
+    height: 800px;
+    object-fit: scale-down;
 }
 </style>
 
@@ -241,9 +257,9 @@ function deleteComment(reviewComNo) {
 	<button id="scrap">스크랩</button>
 	<button id="report" class="popupOpen1">신고</button>
 </c:if>
-<span style="float: right;">신고 | 조회 ${review.REVIEW_HIT } | 댓글</span>
+<%--  | 조회 ${review.REVIEW_HIT } | 댓글 <span id="reviewComCount">${review.REVIEW_COM_COUNT }</span> --%>
 
-<table class="table table-striped table-hover">
+<table name="reviewTable" class="table table-striped table-hover">
 	<thead>
 		<tr>
 			<th style="width: 33%;">브랜드</th>
@@ -275,9 +291,9 @@ function deleteComment(reviewComNo) {
 <tr>
 	<th style="width: 4%;"></th>
 	<th style="width: 10%;">작성자</th>
-	<th style="width: 66%;">댓글</th>
-	<th style="width: 10%;">작성일</th>
-	<th style="width: 10%;"></th>
+	<th style="width: 62%;">댓글</th>
+	<th style="width: 12%;">작성일</th>
+	<th style="width: 12%;"></th>
 </tr>
 </thead>
 
@@ -285,12 +301,21 @@ function deleteComment(reviewComNo) {
 	<c:forEach items="${commentList }" var="reviewComment">
 		<tr data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></tr>
 		<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-			<td style="width: 4%;"></td>	
-			<td style="width: 10%;">${reviewComment.USER_NICK }</td>
+			<td style="width: 4%;"></td>
+
+			<c:if test="${review.USER_NICK eq null }">
+				<td>탈퇴한 회원</td>
+			</c:if>
+			<c:if test="${review.USER_NICK ne null }">
+				<td style="text-align: left;">
+					<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;"> ${reviewComment.USER_NICK }
+				</td>
+			</c:if>
+			
 			<td id="td${reviewComment.REVIEW_COM_NO }" style="width: 66%;">${reviewComment.REVIEW_COM_CONTENT }</td>
 			<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
 				<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
-			</td>			
+			</td>
 			<td style="width: 10%;">
 				<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
 					<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>

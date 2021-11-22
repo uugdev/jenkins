@@ -25,23 +25,6 @@ public class ReviewCommentController {
 	private static final Logger logger = LoggerFactory.getLogger(ReviewCommentController.class);
 	
 	@Autowired private ReviewService reviewService;	
-	
-	//후기 게시글 댓글 작성
-//	@RequestMapping(value = "/comment/write", method = RequestMethod.POST)
-//	public String write(int reviewNo, ReviewComment reviewComment, Model model, HttpSession session) {	
-//		logger.info("/comment/write [POST]");
-//		
-//		int userNo = (Integer) session.getAttribute("userNo");
-//		reviewComment.setUserNo(userNo);
-//		reviewComment.setReviewNo(reviewNo);
-//		reviewService.setReviewCommentWrite(reviewComment);
-//		
-//		logger.info("userNo {}", userNo);
-//		logger.info("reviewNo {}", reviewNo);
-//		logger.info("reviewComment {}", reviewComment);
-//		
-//		return "redirect:/review/detail?reviewNo=" + reviewComment.getReviewNo();
-//	}
 
 	//후기 게시글 댓글 작성
 	@RequestMapping(value = "/comment/write", method = RequestMethod.POST)
@@ -52,6 +35,7 @@ public class ReviewCommentController {
 		reviewService.setReviewCommentWrite(reviewComment);
 		ReviewComment addComment = reviewService.getReviewCommentWriteByUserNo(userNo);
 		String userNick = reviewService.getUserNickByUserNo(reviewComment.getUserNo());
+		String gradeUrl = reviewService.getGradeUrlByUserNo(reviewComment.getUserNo());
 		
 		logger.info("userNo {}", userNo);
 		logger.info("userNick - {}", userNick);
@@ -65,6 +49,7 @@ public class ReviewCommentController {
 		}
 		
 		mav.addObject("userNick", userNick);
+		mav.addObject("gradeUrl", gradeUrl);
 		mav.addObject("success", success);
 		mav.addObject("addComment", addComment);
 		mav.setViewName("jsonView");

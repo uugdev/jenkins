@@ -142,6 +142,14 @@ public interface ReviewService {
 	 * @return
 	 */
 	public String getUserNickByUserNo(int userNo);
+
+	/**
+	 * userNo으로 gradeUrl 조회
+	 * 
+	 * @param userNo - 댓글 입력한 userNo
+	 * @return gradeUrl
+	 */
+	public String getGradeUrlByUserNo(int userNo);
 	/**
 	 * 입력받은 후기 댓글로 후기 게시글 댓글 수정
 	 * 
@@ -202,6 +210,7 @@ public interface ReviewService {
 	 * @return
 	 */
 	public Review getReviewByReviewNo(int reviewNo);
+
 
 
 	

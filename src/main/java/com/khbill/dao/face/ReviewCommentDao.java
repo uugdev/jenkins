@@ -23,9 +23,19 @@ public interface ReviewCommentDao {
 	 */
 	public void insertReviewComment(ReviewComment reviewComment);
 	
+	
 	public ReviewComment selectReviewCommentByUserNo(int userNo);
 	
+	
 	public String selectUserNickByUserNo(int userNo);
+	
+	/**
+	 * userNo로 gradeUrl 조회
+	 * 
+	 * @param userNo - 댓글 입력한 userNo
+	 * @return gradeUrl
+	 */
+	public String selectGradeUrlByUserNo(int userNo);
 	
 	/**
 	 * 댓글 수정
@@ -57,8 +67,5 @@ public interface ReviewCommentDao {
 	 * @return 댓글 개수
 	 */
 	public int selectCountComment(ReviewComment reviewComment);
-
-
-
 
 }

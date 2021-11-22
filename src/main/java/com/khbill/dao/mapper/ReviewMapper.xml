@@ -213,7 +213,7 @@
 	
 	<select id="selectCntReviewReportCheck" parameterType="com.khbill.dto.ReviewReport" resultType="int" >
 	 	SELECT count(*) FROM zreview_report
-		WHERE review_no = #{reviewNo } 
+		WHERE review_no = #{reviewNo }
 			AND reporter_no = #{reporterNo }
 	</select>
 	

@@ -10,12 +10,14 @@
 		SELECT * FROM (
 		    SELECT rownum rnum, C.* FROM (
 		        SELECT
-		             review_com_no,  U.user_no, user_nick, review_no
-		            , review_com_content, review_com_date, review_com_like, review_com_hate
+		             review_com_no, U.user_no, user_nick, review_no
+		            , review_com_content, review_com_date, review_com_like, review_com_hate, W.grade_url
 		        FROM ZREVIEW_COMMENT C
-		        INNER JOIN zuser U
+		        LEFT OUTER JOIN zuser U
 		            ON U.user_no = C.user_no
-	            WHERE review_no = #{reviewNo }
+		        LEFT OUTER JOIN USERWITHURL W
+		            ON U.user_no = W.user_no
+		        WHERE review_no = #{reviewNo }
 		        ORDER BY review_com_date
 		    ) C
 		) ZREVIEW_COMMENT
@@ -42,6 +44,12 @@
         WHERE user_no = #{userNo }
 	</select>
 	
+	<select id="selectGradeUrlByUserNo" parameterType="int" resultType="String">
+        SELECT grade_url
+        FROM USERWITHURL
+        WHERE user_no = #{userNo }
+	</select>
+
 	<update id="updateReviewComment" parameterType="com.khbill.dto.ReviewComment">
 		UPDATE ZREVIEW_COMMENT
 			SET review_com_content = #{reviewComContent }, review_com_date = SYSDATE

@@ -21,7 +21,6 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
-import com.khbill.dto.TradeComment;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -79,12 +78,6 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return reviewDao.selectFileByFile(fileNo);
 	}
-
-//	@Override
-//	public void setReviewCommentWrite(ReviewComment reviewComment) {	
-//		
-//		reviewCommentDao.insertReviewComment(reviewComment);
-//	}
 	
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
@@ -245,7 +238,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 
-
 	@Override
 	public boolean scrap(ReviewScrap reviewScrap) {
 		if( isScrap(reviewScrap) ) { //스크랩을 한 상태
@@ -309,6 +301,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public String getUserNickByUserNo(int userNo) {
 		
 		return reviewCommentDao.selectUserNickByUserNo(userNo);
+	}
+	
+	@Override
+	public String getGradeUrlByUserNo(int userNo) {
+		return reviewCommentDao.selectGradeUrlByUserNo(userNo);
 	}
 
 	@Override

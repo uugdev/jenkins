@@ -117,9 +117,7 @@ td:nth-child(2) {
 				<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
 				
 					<c:if test="${review.USER_NICK eq null }">
-						<td>
-							탈퇴한 회원
-						</td>
+						<td>탈퇴한 회원</td>
 					</c:if>
 					<c:if test="${review.USER_NICK ne null }">
 						<td style="text-align: left;">
