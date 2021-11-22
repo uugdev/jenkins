@@ -50,6 +50,40 @@ public class AskController {
 		
 
 	}// list
+	
+	
+	@RequestMapping(value = "/list/hit")
+	public String askHitList( Model model, Paging paramData ) {
+		logger.info("/ask/list/hit");
+		
+		Paging paging = askService.getPaging(paramData);
+		List<Ask> list = askService.getAskHitList(paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		model.addAttribute("res",true);
+		
+		
+		return "ask/ajaxlist";
+		
+	}// list
+	
+	//거래 게시판 조회수 기준 목록
+	@RequestMapping(value = "/list/latest")
+	public String askLatestList( Model model, Paging paramData ) {
+		
+		Paging paging = askService.getPaging(paramData);
+		List<Ask> list = askService.getAskList(paging);
+
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		model.addAttribute("res", true);
+		
+		return "ask/ajaxlist";
+	}
+	
+	
+	
 
 //	@RequestMapping(value = "/voteList")
 //	public void getAskListVote(Paging paramData, Model model, HttpServletRequest req) {
@@ -67,17 +101,6 @@ public class AskController {
 //	
 //	}//list
 
-	@RequestMapping(value = "/hitlist")
-	public void getAskHitList(Paging paramData, Model model, HttpServletRequest req) {
-		logger.info("/ask/votenum/list [GET]");
-
-		Paging paging = askService.getPaging(paramData);
-		List<Ask> list = askService.getAskHitList(paging);
-
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-
-	}// list
 
 	
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
@@ -226,6 +249,7 @@ public class AskController {
 		askService.setAskCommentWrite(askComment);
 		AskComment addComment = askService.getAskCommentWriteByUserNo(userNo);
 		String userNick = askService.getUserNickByUserNo(addComment.getUserNo());
+		String gradeUrl = askService.getGradeUrlByUserNo(addComment.getUserNo());
 
 		logger.info("userNo {}", userNo);
 		logger.info("userNick - {}", userNick);
@@ -240,6 +264,7 @@ public class AskController {
 		mav.addObject("userNick", userNick);
 		mav.addObject("success", success);
 		mav.addObject("addComment", addComment);
+		mav.addObject("gradeUrl", gradeUrl);
 		mav.setViewName("jsonView");
 
 		return mav;

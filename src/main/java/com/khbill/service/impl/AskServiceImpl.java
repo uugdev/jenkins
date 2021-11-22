@@ -462,5 +462,11 @@ public class AskServiceImpl implements AskService {
 		return askDao.selectUserWithGrade();
 	}
 	
+	@Override
+	public String getGradeUrlByUserNo(int userNo) {
+		return askDao.selectGradeUrlByUserNo(userNo);
+	}
+	
+	
 	
 }// class

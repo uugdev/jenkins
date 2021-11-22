@@ -28,7 +28,47 @@
 			}
 		});
 
+	$("#hitList").click(function () {
+		console.log("#ajax clicked")
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/list/hit"
+			, data: {}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				
+				$("#ajaxArea").html( res )
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
 	})
+	
+	$("#latestList").click(function () {
+		console.log("#ajax clicked")
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/list/latest"
+			, data: {}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				
+				$("#ajaxArea").html( res )
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	})
+	
+});
 </script>
 
 <style type="text/css">
@@ -53,39 +93,43 @@ td:nth-child(2) {
 		<h1>게시판 최신순</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
-			<a href="/ask/list">최신순</a> <a href="/ask/hitlist">조회순</a>
+			<a id="latestList">최신순</a>
+			<a id="hitList">조회순</a>
+		</div>
+		<div id="ajaxArea">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th style="width: 10%; text-align: left;">글번호</th>
+						<th style="width: 45%; text-align: left;">제목</th>
+						<th style="width: 12%; text-align: left;">작성자</th>
+						<th style="width: 10%; text-align: left;">조회수</th>
+						<th style="width: 15%; text-align: left;">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${list }" var="ask">
+						<tr>
+							<td>${ask.ASK_NO }</td>
+							<td><a href="/ask/detail?askNo=${ask.ASK_NO }">${ask.ASK_TITLE }</a></td>
+							<c:if test="${ask.USER_NICK eq null}">
+								<td>탈퇴한 회원입니다</td>
+							</c:if>
+							<c:if test="${ask.USER_NICK ne null }">
+								<td style="text-align: left;"><img alt="#"
+									src="${ask.GRADE_URL}" style="width: 30px; height: 30px;">
+									${ask.USER_NICK }</td>
+							</c:if>
+							<td>${ask.ASK_HIT }</td>
+							<td><fmt:formatDate value="${ask.ASK_DATE }"
+									pattern="yy-MM-dd HH:mm:ss" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div>
 
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th style="width: 10%; text-align: left;">글번호</th>
-					<th style="width: 45%; text-align: left;">제목</th>
-					<th style="width: 12%; text-align: left;">작성자</th>
-					<th style="width: 10%; text-align: left;">조회수</th>
-					<th style="width: 15%; text-align: left;">작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${list }" var="ask">
-					<tr>
-						<td>${ask.ASK_NO }</td>
-						<td><a href="/ask/detail?askNo=${ask.ASK_NO }">${ask.ASK_TITLE }</a></td>
-						<c:if test="${ask.USER_NICK eq null}">
-							<td>탈퇴한 회원입니다</td>
-						</c:if>
-						<c:if test="${ask.USER_NICK ne null }">
-							<td style="text-align: left;"><img alt="#"
-								src="${ask.GRADE_URL}" style="width: 30px; height: 30px;">
-								${ask.USER_NICK }</td>
-						</c:if>
-						<td>${ask.ASK_HIT }</td>
-						<td><fmt:formatDate value="${ask.ASK_DATE }"
-								pattern="yy-MM-dd HH:mm:ss" /></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+
 		<c:if test="${login }">
 			<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
 		</c:if>

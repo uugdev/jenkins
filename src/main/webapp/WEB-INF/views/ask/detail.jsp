@@ -249,8 +249,9 @@ function insertComment() {
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
-					'<td></td>' +
-					'<td>'+ data.userNick +'</td>' +
+					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
+					'<td style="width: 12%; padding: 5px; text-align: left;">' +
+					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'">'+ data.addComment.askComContent +'</td>' +
 					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
 					'<td>' +
@@ -278,8 +279,8 @@ function updateComment(askComNo) {
     
 	$("[data-askComNo='"+askComNo+"']").css("display", "none");
 	$("[data-updateAskComNo='"+askComNo+"']").append('<td></td>' +
-			'<td></td>' +
-			'<td>' +
+			'<td style="width: 12%;"></td>' +
+			'<td style="width: 62%;">' +
 			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
 			'<textarea rows="2" cols="60" class="form-control" id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
@@ -287,8 +288,8 @@ function updateComment(askComNo) {
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
 			'</td>' +
-			'<td></td>' +
-			'<td></td>');
+			'<td style="width: 12%;"></td>' +
+			'<td style="width: 10%;"></td>');
 }
 
 function updateCom(askComNo) {
@@ -367,8 +368,8 @@ table, th {
 }
 
 #item {
-	width: 300px;
-	height: 300px;
+	width: 500px;
+	height: 500px;
 	margin: 0 auto;
 	margin-top: 100px;
 	margin-bottom: 100px;
@@ -389,8 +390,9 @@ table, th {
 }
 
 #itemImg {
-	width: 100%;
-	height: 100%;
+	width: 500px;
+	height: 500px;
+	object-fit: scale-down;
 }
 
 .vote {
