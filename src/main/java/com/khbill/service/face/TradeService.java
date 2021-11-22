@@ -162,5 +162,13 @@ public interface TradeService {
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<Trade> getTradeHitList(Paging paging);
+	
+	/**
+	 * userNo으로 gradeUrl 조회
+	 * 
+	 * @param userNo - 댓글 입력한 userNo
+	 * @return gradeUrl
+	 */
+	public String getGradeUrlByUserNo(int userNo);
 
 }

@@ -60,7 +60,7 @@ $(document).ready(function() {
 		var category = $("#reportCategory").val();
 		if( content == ""  ) {
 			
-			action_popup.alert("신고 사유를 입력해주세요!");
+			alert("신고 사유를 입력해주세요!");
 			return;
 			
 		} else {
@@ -80,6 +80,12 @@ $(document).ready(function() {
 						} else {
 							action_popup.alert("이미 신고한 게시글입니다.");
 						}
+						
+						/* 닫는 창으로 꼭 필요함 */
+					    $(".modal_close").on("click", function () {
+					        action_popup.close(this);
+					    });
+						
 				}
 				, error: function() {
 					console.log("실패");
@@ -130,9 +136,11 @@ function insertComment() {
 							'<td style="width: 4%; text-align: center; padding: 5px;">' +
 							'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
 							'</td>' +
-							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
-							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="width: 12%; padding: 5px; text-align: left;">' +
+							'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' +
+							data.userNick +'</td>' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 62%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 12%; padding: 5px;">'+ tradeComDate +'</td>' +
 							'<td style="width: 10%; padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
@@ -144,9 +152,11 @@ function insertComment() {
 					$('#appendArea').before('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
 							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
 							'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
-							'<td style="width: 10%; padding: 5px;">'+ data.userNick +'</td>' +
-							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 66%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 10%; padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="width: 12%; padding: 5px; text-align: left;">' +
+							'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' +
+							data.userNick +'</td>' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 62%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 12%; padding: 5px;">'+ tradeComDate +'</td>' +
 							'<td style="width: 10%; padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
@@ -173,8 +183,8 @@ function updateComment(tradeComNo) {
     
 	$("[data-tradeComNo='"+tradeComNo+"']").css("display", "none");
 	$("[data-updateTradeComNo='"+tradeComNo+"']").append('<td style="width: 4%;"></td>' +
-			'<td style="width: 10%;"></td>' +
-			'<td style="width: 66%;">' +
+			'<td style="width: 12%;"></td>' +
+			'<td style="width: 62%;">' +
 			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/> ' +
 			'<textarea rows="2" cols="60" class="form-control" id="tradeComUpdateContent'+ tradeComNo +'">'+ tdText +'</textarea>' +
@@ -182,7 +192,7 @@ function updateComment(tradeComNo) {
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ tradeComNo +');">취소</button>' +
 			'</div>' +
 			'</td>' +
-			'<td style="width: 10%;"></td>' +
+			'<td style="width: 12%;"></td>' +
 			'<td style="width: 10%;"></td>');
 }
 
@@ -226,27 +236,44 @@ function cancelCom(tradeComNo) {
 
 
 function deleteComment(tradeComNo) {
-	$.ajax({
-		type: "post"
-		, url: "/trade/comment/delete"
-		, dataType: "json"
-		, data: {
-			tradeComNo: tradeComNo
-		}
-		, success: function(data){
-			if(data.success) {
-				
-				$("#tradeComCount").html(--tradeComCount, tradeComCount);
-				$("[data-tradeComNo='"+tradeComNo+"']").remove();
-				
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
+	
+	action_popup.confirm("댓글을 삭제하시겠습니까?", function (res) {
+        if (res) {
+        	
+        	/* ----------------------------------------- */
+        	
+			$.ajax({
+				type: "post"
+				, url: "/trade/comment/delete"
+				, dataType: "json"
+				, data: {
+					tradeComNo: tradeComNo
+				}
+				, success: function(data){
+					if(data.success) {
+						
+						$("#tradeComCount").html(--tradeComCount, tradeComCount);
+						$("[data-tradeComNo='"+tradeComNo+"']").remove();
+						
+					} else {
+						alert("댓글 삭제 실패");
+					}
+				}
+				, error: function() {
+					console.log("error");
+				}
+			});
+        	
+        	/* ----------------------------------------- */
+           
+        }
+    })
+    
+	/* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+	
 }
 
 function sendMessage() {
@@ -256,7 +283,28 @@ function sendMessage() {
         	
         	/* ----------------------------------------- */
         	
-        	return "<%=request.getContextPath() %>/message/write?userNick=${tradeDetail.USER_NICK }"
+        	window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+        	
+        	/* ----------------------------------------- */
+           
+        }
+    })
+    
+	/* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+	
+}
+
+function tradeDelete() {
+	
+    action_popup.confirm("게시글을 삭제하시겠습니까?", function (res) {
+        if (res) {
+        	
+        	/* ----------------------------------------- */
+        	
+        	location.href='/trade/delete?tradeNo=${tradeDetail.TRADE_NO}';
         	
         	/* ----------------------------------------- */
            
@@ -329,8 +377,8 @@ function sendMessage() {
 					<tr>
 						<th style="width: 4%;"></th>
 						<th style="width: 12%;">작성자</th>
-						<th style="width: 64%;">댓글</th>
-						<th style="width: 10%;">작성일</th>
+						<th style="width: 62%;">댓글</th>
+						<th style="width: 12%;">작성일</th>
 						<th style="width: 10%;"></th>
 					</tr>
 				</thead>
@@ -437,7 +485,7 @@ function sendMessage() {
 				<button style="float: left;" type="button" onclick="location.href='/trade/list';" >목록으로</button>
 				<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
 					<button type="button" onclick="location.href='/trade/update?tradeNo=${tradeDetail.TRADE_NO}';" >수정</button>
-					<button type="button" onclick="location.href='/trade/delete?tradeNo=${tradeDetail.TRADE_NO}';">삭제</button>
+					<button type="button" onclick='tradeDelete();'>삭제</button>
 				</c:if>
 			</div>
 			
@@ -445,26 +493,26 @@ function sendMessage() {
 	
 	</div><!-- .container end -->
 </div><!-- .wrap end -->
+<div class="popupWrap1 hide1">
+		<div class="popup1">
+			<div class="title">
+				<p>신고 하기</p>
+				<span class="close1">❌</span>
+			</div>
+			<select id="reportCategory" name="reportCategory" class="select">
+				<option value="A">부적절한 홍보 게시글</option>
+				<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
+				<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
+				<option value="D">기타</option>
+			</select>	
+			<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
+			<div class="btnWrap1">
+				<button id="setReport">보내기</button>
+			</div>
+		</div>
+</div>
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 
-			<div class="popupWrap1 hide1">
-					<div class="popup1">
-						<div class="title">
-							<p>신고 하기</p>
-							<span class="close1">❌</span>
-						</div>
-						<select id="reportCategory" name="reportCategory" class="select">
-							<option value="A">부적절한 홍보 게시글</option>
-							<option value="B">음란성 또는 청소년에게 부적합한 내용</option>
-							<option value="C">명예훼손/사생활 침해 및 저작권침해등</option>
-							<option value="D">기타</option>
-						</select>	
-						<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea>
-						<div class="btnWrap1">
-							<button id="setReport">보내기</button>
-						</div>
-					</div>
-			</div>
 
 

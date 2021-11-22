@@ -434,7 +434,10 @@ public class AskServiceImpl implements AskService {
 	
 	@Override
 	public AskComment getAskCommentWriteByUserNo(int userNo) {
-		return askDao.selectAskCommentByUserNo(userNo);
+	
+		AskComment addComment = askDao.selectAskCommentByUserNo(userNo);
+		
+		return addComment;
 	}
 	
 	@Override

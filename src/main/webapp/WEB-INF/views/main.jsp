@@ -192,7 +192,7 @@
 	            </div>
                 <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
                 
-                <div style="width: auto; height: 300px; overflow: auto;">
+                <div style="width: auto; height: 310px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
                         <p style="text-align: left;">
@@ -228,22 +228,25 @@
 			<img alt="good" src="https://i.imgur.com/jGvv25B.png" width="30px;" height="30px;"> 너가 최고야!
 		</p>
 		<div class="col-lg-4">
+		<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="픽셀 부처">픽셀 부처</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 			<img class="img-circle"
-				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+				src="https://i.imgur.com/VoScoul.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>1등</h2>
 			<p>${userTen[0].userNick }</p>
 		</div>
+		<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="픽셀 부처">픽셀 부처</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		<div class="col-lg-4">
 			<img class="img-circle"
-				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+				src="https://i.imgur.com/4XpO6Tc.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>2등</h2>
 			<p>${userTen[1].userNick }</p>
 		</div>
+		<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		<div class="col-lg-4">
 			<img class="img-circle"
-				src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+				src="https://i.imgur.com/mIveggd.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>3등</h2>
 			<p>${userTen[2].userNick }</p>

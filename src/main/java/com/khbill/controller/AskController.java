@@ -154,6 +154,8 @@ public class AskController {
 		// 댓글리스트 전달
 		List<HashMap<String, String>> askComment = askService.getAskComList(askNo);
 		model.addAttribute("askComment", askComment);
+		
+		logger.info("askComment: {}", askComment);
 
 		// 스크랩 상태 조회
 		AskScrap askScrap = new AskScrap();
@@ -227,7 +229,6 @@ public class AskController {
 
 		logger.info("userNo {}", userNo);
 		logger.info("userNick - {}", userNick);
-		logger.info("askComment {}", askComment);
 		logger.info("addComment {}", addComment);
 
 		boolean success = false;
