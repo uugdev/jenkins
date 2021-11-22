@@ -35,7 +35,10 @@
 	<select id="selectItemListCheckStatusByUserNo" resultType="int" parameterType="int">
 		SELECT nvl(SUM(item_price), 0)
 		FROM zitem
-		WHERE item_status = 'y' AND user_no = #{userNo }
+		WHERE 1=1
+		AND item_status = 'y'
+		AND user_no = #{userNo }
+		AND TO_CHAR(sysdate, 'MM') = TO_CHAR(item_date, 'MM')
 	</select>
 	
 	<select id="selectMainment" resultType="String" parameterType="integer">
@@ -80,7 +83,7 @@
             AND i.user_no = u.user_no
             AND i.file_no = f.file_no
             AND i.user_no = #{userNo }
-            AND TO_CHAR(sysdate, 'MM') = TO_CHAR(v.vote_end, 'MM')
+            AND TO_CHAR(sysdate, 'MM') = TO_CHAR(i.item_date, 'MM')
             AND i.item_status = 'y'
         ORDER BY v.vote_end DESC
     </select>

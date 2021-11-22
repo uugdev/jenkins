@@ -233,6 +233,7 @@ function deleteComment(tradeComNo) {
 		, success: function(data){
 			if(data.success) {
 				
+				$("#tradeComCount").html(--tradeComCount, tradeComCount);
 				$("[data-tradeComNo='"+tradeComNo+"']").remove();
 				
 			} else {
@@ -262,6 +263,9 @@ function deleteComment(tradeComNo) {
 			${tradeDetail.TRADE_TITLE }
 		</h1>
 		<span style="float: left;">
+		<c:if test="${tradeDetail.USER_NO eq null }">
+			탈퇴(된)한 회원
+		</c:if>
 		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
 			${tradeDetail.USER_NICK }
 		</c:if>
@@ -273,9 +277,11 @@ function deleteComment(tradeComNo) {
 		</span>
 		<span style="float: right;">
 		
-			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo}">
+			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
 				<button id="scrap">스크랩</button>
-				<button id="report" class="popupOpen1">신고</button>
+				<c:if test="${tradeDetail.USER_NO ne null }">
+					<button id="report" class="popupOpen1">신고</button>
+				</c:if>
 			</c:if>
 			 | 조회 ${tradeDetail.TRADE_HIT } | 댓글 <span id="tradeComCount">${tradeDetail.TRADE_COM_COUNT }</span>
 		</span>

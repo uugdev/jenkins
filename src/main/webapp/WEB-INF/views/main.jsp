@@ -195,8 +195,8 @@
                 <div style="width: auto; height: 300px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
-                        <p>
-                            <span style="float: left;">
+                        <p style="text-align: left;">
+                            <span>
                                 [${mainBill.VOTE_END }] ${mainBill.ITEM_NAME }
                             </span>
                             <span style="float: right;">

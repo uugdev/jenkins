@@ -11,7 +11,7 @@
         	, trade_title, trade_date, trade_hit
         FROM ztrade T
         INNER JOIN zuser U
-        ON U.user_no = T.user_no
+        ON U.user_no(+) = T.user_no
 	</sql>
 
 	<sql id="whereTitleSearch">
@@ -24,12 +24,12 @@
             SELECT trade_no, U.user_no, user_nick, trade_category, trade_title, trade_date, trade_hit
             FROM ztrade T, zuser U
             WHERE 1=1
-            AND U.user_no = T.user_no 
+            AND U.user_no(+) = T.user_no 
             AND trade_title LIKE '%' || #{search} || '%'
             ORDER BY trade_no DESC
         ) T
         WHERE 1=1
-        AND U.user_no = T.user_no
+        AND U.user_no(+) = T.user_no
         AND rownum BETWEEN #{startNo } AND #{endNo }
 		ORDER BY T.trade_no DESC
 	</select>
@@ -50,7 +50,7 @@
         ) trade_com_count
 	    FROM ztrade t, zuser u, zfile f
 	    WHERE 1=1
-	    AND t.user_no = u.user_no
+	    AND t.user_no = u.user_no (+)
 	    AND t.file_no = f.file_no (+)
 	
 	    AND t.trade_no = #{tradeNo }
@@ -210,8 +210,8 @@
 	</delete>
 	
 	<insert id="insertTradeScrap" parameterType="com.khbill.dto.TradeScrap">
-		INSERT INTO ztrade_scrap
-		VALUES ( ztrade_scrap_seq.nextval, #{userNo }, #{tradeNo } )
+		INSERT INTO ztrade_scrap ( scrap_no, trade_no, user_no )
+		VALUES ( ztrade_scrap_seq.nextval, #{tradeNo }, #{userNo } )
 	</insert>
 	
 	<select id="selectTradeHitList" parameterType="com.khbill.util.Paging" resultType="HashMap">
@@ -220,12 +220,12 @@
             SELECT trade_no, U.user_no, user_nick, trade_category, trade_title, trade_date, trade_hit
             FROM ztrade T, zuser U
             WHERE 1=1
-            AND U.user_no = T.user_no 
+            AND U.user_no(+) = T.user_no 
             AND trade_title LIKE '%' || #{search} || '%'
             ORDER BY trade_no DESC
         ) T
         WHERE 1=1
-        AND U.user_no = T.user_no
+        AND U.user_no(+) = T.user_no
         AND rownum BETWEEN #{startNo } AND #{endNo }
 		ORDER BY T.trade_hit DESC
 	</select>

@@ -28,9 +28,16 @@
 						${board.TRADE_TITLE }
 					</a>
 				</td>
-				<td style="text-align: left;">
-				<img alt="#" src="${board.GRADE_URL}" style="width: 30px; height: 30px;"> ${board.USER_NICK }
-				</td>
+				<c:if test="${board.USER_NICK eq null }">
+					<td>
+						탈퇴(된)한 회원
+					</td>
+				</c:if>
+				<c:if test="${board.USER_NICK ne null }">
+					<td style="text-align: left;">
+						<img alt="#" src="${board.GRADE_URL}" style="width: 30px; height: 30px;"> ${board.USER_NICK }
+					</td>
+				</c:if>
 				<td>${board.TRADE_HIT }</td>
 				<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
 			</tr>
