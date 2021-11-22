@@ -263,7 +263,8 @@ public class AskController {
 		}
 
 		mav.addObject("success", success);
-		mav.addObject("askComment", askComment);
+		mav.addObject("askComment", resultAskComment);
+		
 		mav.setViewName("jsonView");
 
 		return mav;

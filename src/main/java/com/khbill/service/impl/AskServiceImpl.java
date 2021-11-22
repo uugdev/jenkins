@@ -448,6 +448,8 @@ public class AskServiceImpl implements AskService {
 		
 		AskComment resultCom = askDao.selectOneAskCommentByAskNo(askComment.getAskComNo());
 		
+		System.out.println("resultCom : " + resultCom);
+		
 		return resultCom;
 	}
 	

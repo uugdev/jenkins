@@ -245,14 +245,14 @@ function insertComment() {
 			if(data.success) {
 				
 			var userNo = '<%=session.getAttribute("userNo")%>';
-			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD HH:mm:ss");
+			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD hh:mm:ss");
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
 					'<td></td>' +
 					'<td>'+ data.userNick +'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'">'+ data.addComment.askComContent +'</td>' +
-					'<td>'+ askComDate +'</td>' +
+					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
 					'<td>' +
 					'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.askComNo +');">삭제</button> ' +
 					'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.askComNo +');">수정</button>' +
@@ -281,7 +281,6 @@ function updateComment(askComNo) {
 			'<td></td>' +
 			'<td>' +
 			'<div class="form-inline text-center">' +
-			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
 			'<textarea rows="2" cols="60" class="form-control" id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
 			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ askComNo +');">수정</button>　' +
@@ -306,8 +305,13 @@ function updateCom(askComNo) {
 		}
 		, success: function(data){
 			if(data.success) {
+				var askComDate = moment(data.askComment.askComDate).format("YY-MM-DD HH:mm:ss");
+				
+				console.log(data.askComment.askComDate);
+				
 				$("[data-askComNo='"+askComNo+"']").css("display", "table-row");
 				$("#td"+askComNo).html(data.askComment.askComContent);
+				$("#dateTd"+askComNo).html(askComDate);
 				$("[data-updateAskComNo='"+askComNo+"']").html('');
 			} else {
 				alert("댓글 수정 실패");
@@ -562,8 +566,8 @@ table, th {
 						<td></td>
 						<td>${askComment.USER_NICK }</td>
 						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
-						<td><fmt:formatDate
-								value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
+							<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
 						<td><c:if
 								test="${userNo eq askComment.USER_NO }">
 								<button class="btn btn-default btn-xs"
