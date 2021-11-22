@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.khbill.dao.face.AdminReviewReportDao">
+
+	<sql id="selectReviewReport">
+        SELECT 
+            X.report_no, X.report_category, X.report_content, X.respondent_no, R.review_no, U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
+        FROM zreview R
+        INNER JOIN zuser U
+            ON U.user_no = R.user_no
+        INNER JOIN zreview_report X
+            ON X.review_no = R.review_no
+	</sql>
+	
+	<sql id="whereReviewReportTitleSearch">
+		WHERE review_title LIKE '%' || #{search} || '%'
+	</sql>
+
+	<select id="selectReviewReportList" parameterType="com.khbill.util.Paging" resultType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (   
+		    	<include refid="selectReviewReport"/>   
+		    	<include refid="whereReviewReportTitleSearch"/>   
+		        ORDER BY report_no DESC
+		    ) R
+		) ZREVIEW
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectReviewReport"/>
+			<include refid="whereReviewReportTitleSearch"/>
+		)
+	</select>
+
+</mapper>
