@@ -447,6 +447,15 @@ public interface AskDao {
 	 * @return
 	 */
 	public List<HashMap<String, Object>> selectUserWithGrade();
+
+
+	/**
+	 * 유저번호로 유저의 등급 조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public String selectGradeUrlByUserNo(int userNo);
 	
 	
 	

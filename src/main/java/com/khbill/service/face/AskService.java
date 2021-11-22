@@ -333,5 +333,14 @@ public interface AskService {
 	 */
 	public List<HashMap<String, Object>> getUserGrade();
 
+	/**
+	 * 
+	 * 유저등급조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public String getGradeUrlByUserNo(int userNo);
+
 
 }

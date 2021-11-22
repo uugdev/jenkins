@@ -322,5 +322,11 @@
 	</select>
 
 
+	<select id="selectGradeUrlByUserNo" parameterType="int" resultType="String">
+        SELECT grade_url
+        FROM USERWITHURL
+        WHERE user_no = #{userNo }
+	</select>
+
 
 </mapper>
