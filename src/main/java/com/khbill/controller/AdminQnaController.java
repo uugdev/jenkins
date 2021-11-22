@@ -90,36 +90,26 @@ public class AdminQnaController {
 		return "redirect:/admin/qna/detail?qnaNo="+qnaNo;
 	}
 	
-//	@RequestMapping(value="/admin/qna/list/orderByNo")
-//	public String orderByNo(Paging paramData, Model model){
-//		Paging paging = adminQnaService.getPaging(paramData);
-//		List<Qna> list = adminQnaService.getQnaList(paging);
-//		
-//		model.addAttribute("paging", paging);
-//		model.addAttribute("list", list);
-//		
-//		return "admin/qna/orderByNo";
-//	}
-//
-//	@RequestMapping(value="/admin/qna/list/orderByStatus")
-//	public String orderByStatus(Paging paramData, Model model){
-//		Paging paging = adminQnaService.getPaging(paramData);
-//		List<Qna> list = adminQnaService.getQnaStatusList(paging);
-//		
-//		model.addAttribute("paging", paging);
-//		model.addAttribute("list", list);
-//		
-//		return "admin/qna/orderByStatus";
-//	}
-	
+	@RequestMapping(value="/admin/qna/list/orderByNo")
+	public String orderByNo(Paging paramData, Model model){
+		Paging paging = adminQnaService.getPaging(paramData);
+		List<Qna> list = adminQnaService.getQnaList(paging);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		
+		return "admin/qna/orderByNo";
+	}
+
 	@RequestMapping(value="/admin/qna/list/orderByStatus")
-	public ModelAndView orderByStatus(ModelAndView mav, Paging paramData) {
+	public String orderByStatus(Paging paramData, Model model){
 		Paging paging = adminQnaService.getPaging(paramData);
 		List<Qna> list = adminQnaService.getQnaStatusList(paging);
-		mav.addObject("list", list);
-		mav.addObject("paging", paging);
-		mav.setViewName("jsonView");
 		
-		return mav;
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		
+		return "admin/qna/orderByStatus";
 	}
+	
 }

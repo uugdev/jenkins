@@ -8,6 +8,12 @@
 <!-- header end -->
 
 <script type="text/javascript">
+$(document).ajaxStart(function(){
+	$('html').css("cursor", "wait");
+});
+$(document).ajaxStop(function(){
+	$('html').css("cursor", "auto");
+});
 $(document).ready(function(){
 	$("#btnBack").click(function(){
 		history.go(-1);

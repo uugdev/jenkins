@@ -25,6 +25,21 @@ $(document).ready(function(){
 			return false;
 		}
 	})
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.chk').prop('checked', true);
+	    } else {
+	       $('.chk').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.chk', function() {
+	    if($('input[class=chk]:checked').length==$('.chk').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
 	
 	$("#orderByNo").click(function(){
 		$.ajax({
@@ -60,17 +75,6 @@ $(document).ready(function(){
 		})
 	})
 
-// 	$("#orderByStatus").click(function(){
-// 		$.ajax({
-// 			type: "get",
-// 			url: "/admin/qna/list/orderByStatus",
-// 			data: {},
-// 			dataType: "json",
-// 			success: function(res){
-// 				console.log("Ajax 성공")
-// 			}
-// 		})
-// 	})
 
 })
 </script>
@@ -111,7 +115,7 @@ label {
 <div id="ajax">
 <table class="table table-hover table-condensed">
 <tr>
-	<th>	</th>
+	<th><input type="checkbox" id="selectAll" name="select"/></th>
 	<th>문의 번호</th>
 	<th width="45%">제목</th>
 	<th>답변 여부</th>

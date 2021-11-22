@@ -13,6 +13,7 @@
 		SELECT * FROM (
 			SELECT rownum rnum, U.* FROM (
 				SELECT * FROM zuser
+				WHERE user_nick LIKE '%' || #{search} || '%'
 				ORDER BY user_no DESC
 			) U
 		) zuser

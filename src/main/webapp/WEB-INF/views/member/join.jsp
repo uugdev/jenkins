@@ -208,7 +208,7 @@ function checkMail(){
 
 var authKey;
 function sendMail(){
-	
+
 	var userMail = $("#userMail").val();
 	$.ajax({
 	     url:"/member/sendMail",
