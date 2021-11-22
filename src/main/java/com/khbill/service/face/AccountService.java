@@ -58,5 +58,15 @@ public interface AccountService {
 	 * @return
 	 */
 	public List<Item> getItemListByMon(int userNo);
+
+	
+	/**
+	 * 
+	 * 전달과 이번달 지출액 비교
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public int getCompareItemSum(int userNo);
 	
 }

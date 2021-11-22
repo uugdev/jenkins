@@ -68,21 +68,33 @@ var myChart2 = new Chart(context2, {
                 
                 backgroundColor: [
                     //색상
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    //경계선 색상
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
+                    'rgba(153, 102, 255,1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255,1)',
                     'rgba(255, 159, 64, 1)'
+                ],
+                borderColor: [
+                    //경계선 색상
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white',
+                    'white'
                 ],
                 borderWidth: 1 //경계선 굵기
             }
@@ -237,6 +249,7 @@ var myChart2 = new Chart(context2, {
 
 	display: flex;
 	margin-bottom: 100px;
+	height: 250px;
 
 }
 
@@ -252,7 +265,11 @@ var myChart2 = new Chart(context2, {
 	flex: 1;
 	margin-left: 26px;
 	border: 1px solid #ccc;
-	border-radius: 5px;s
+	border-radius: 5px;
+	text-align: left;
+	padding-left: 20px;
+	
+	
 
 }
 
@@ -348,9 +365,15 @@ var myChart2 = new Chart(context2, {
 			</div>
 			<div id="ment">
 				<h1>이번 달 지출금액은 지난 달보다 </h1>
-				<h1><span style="color: red">24000원 </span>더 쓰셨네요!</h1>
-				<h1><span style="color: blue">24000원 </span>덜 쓰셨네요!</h1>
+				<c:if test="${monthPrice gt last}">
+				<h1><span style="color: red">${compare}원 </span>더 쓰셨네요!</h1>
+				<img style="width: 200px; height: 120px" src="https://i.imgur.com/OqXy9GH.png" alt="더씀" class="pull-right"/>
+				</c:if>
 				
+				<c:if test="${monthPrice le last}">
+				<h1><span style="color: blue">${compare}원 </span>덜 쓰셨네요!</h1>
+				<img style="width: 200px; height: 120px" src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" class="pull-right"/>
+				</c:if>
 			</div>
 		</div>
 
@@ -418,21 +441,39 @@ function numberFormat(obj) {
 	                            
 	                            backgroundColor: [
 	                                //색상
-	                                'rgba(255, 99, 132, 0.2)',
-	                                'rgba(54, 162, 235, 0.2)',
-	                                'rgba(255, 206, 86, 0.2)',
-	                                'rgba(75, 192, 192, 0.2)',
-	                                'rgba(153, 102, 255, 0.2)',
-	                                'rgba(255, 159, 64, 0.2)'
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+	                                '#4E79A6',
+// 	                            	'rgba(255, 99, 132, 0.8)',
+// 	                                'rgba(54, 162, 235, 0.8)',
+// 	                                'rgba(255, 206, 86, 0.8)',
+// 	                                'rgba(75, 192, 192, 0.8)',
+// 	                                'rgba(153, 102, 255,0.8)',
+// 	                                'rgba(255, 159, 64, 0.8)',
 	                            ],
 	                            borderColor: [
 	                                //경계선 색상
-	                                'rgba(255, 99, 132, 1)',
-	                                'rgba(54, 162, 235, 1)',
-	                                'rgba(255, 206, 86, 1)',
-	                                'rgba(75, 192, 192, 1)',
-	                                'rgba(153, 102, 255, 1)',
-	                                'rgba(255, 159, 64, 1)'
+	                            	'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white',
+	                                'white'
 	                            ],
 	                            borderWidth: 1 //경계선 굵기
 	                        }/* ,

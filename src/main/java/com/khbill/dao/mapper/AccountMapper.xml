@@ -63,5 +63,13 @@
 	</select>
 
 
+	<select id="selectLastMonItemSum" resultType="int" parameterType="int">
+		SELECT nvl(SUM(item_price), 0)
+        FROM zitem
+        WHERE 1=1
+        AND item_status = 'y'
+        AND user_no = #{userNo}
+        AND TO_CHAR(ADD_MONTHS(sysdate,-1), 'MM') = TO_CHAR(item_date, 'MM')
+	</select>
 
 </mapper>

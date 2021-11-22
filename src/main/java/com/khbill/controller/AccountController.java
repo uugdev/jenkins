@@ -52,11 +52,26 @@ public class AccountController {
 		model.addAttribute("monthItemList", monthItemList);
 		model.addAttribute("itemList", itemList);
 		
+		//지난달 지출액
+		int last = accountService.getCompareItemSum(userNo);
+		
+		int compare = last - monthPrice;
+		
+		if(compare < 0) {
+			
+			compare = compare * -1; 
+			
+		}
+		
+		model.addAttribute("compare", compare);
+		model.addAttribute("last", last);
 
 		//올해 아이템체크리스트 총액 (월별)
 		List <HashMap<String,Object>> itemSum = accountService.getUserItemSum(userNo);	
 		
 		model.addAttribute("itemSum",itemSum);
+
+		
 		
 		
 	}

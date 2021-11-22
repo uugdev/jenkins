@@ -66,7 +66,10 @@ public class AccountServiceImpl implements AccountService {
 	}
 	
 	
-	
+	@Override
+	public int getCompareItemSum(int userNo) {
+		return accountDao.selectLastMonItemSum(userNo);
+	}
 	
 	
 }

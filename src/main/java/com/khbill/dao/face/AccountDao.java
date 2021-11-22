@@ -59,4 +59,12 @@ public interface AccountDao {
 	 */
 	public List<Item> selectUserMonItemList(int userNo);
 
+	/**
+	 * 유저의 지난달 총 지출액
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public int selectLastMonItemSum(int userNo);
+
 }
