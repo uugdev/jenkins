@@ -11,8 +11,8 @@
         	review_no, U.user_no, user_nick
         	, review_title, review_date, review_hit
         FROM zreview R
-        INNER JOIN zuser U
-            ON U.user_no = R.user_no
+        LEFT OUTER JOIN zuser U
+            ON U.user_no(+) = R.user_no
 	</sql>
 
 	<sql id="whereReviewTitleSearch">
@@ -22,8 +22,15 @@
 	<select id="selectReviewList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
-		    	<include refid="selectReview"/>
-				<include refid="whereReviewTitleSearch"/>
+		        SELECT
+		            R.review_no, U.user_no, U.user_nick
+		            , R.review_title, R.review_date, R.review_hit, W.grade_url
+		        FROM zreview R
+		        LEFT OUTER JOIN ZUSER U
+		            ON U.user_no(+) = R.user_no
+		        LEFT OUTER JOIN USERWITHURL W
+		            ON U.user_no = W.user_no
+		        <include refid="whereReviewTitleSearch"/>
 		        ORDER BY review_no DESC
 		    ) R
 		) ZREVIEW
@@ -40,7 +47,14 @@
 	<select id="selectReviewHitList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
-		    	<include refid="selectReview"/>
+			    SELECT
+		            R.review_no, U.user_no, U.user_nick
+		            , R.review_title, R.review_date, R.review_hit, W.grade_url
+		        FROM zreview R
+		        LEFT OUTER JOIN ZUSER U
+		            ON U.user_no(+) = R.user_no
+		        LEFT OUTER JOIN USERWITHURL W
+		            ON U.user_no = W.user_no
 				<include refid="whereReviewTitleSearch"/>
 		        ORDER BY review_hit DESC
 		    ) R
@@ -56,13 +70,13 @@
 	
 	<select id="selectReviewByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review">
 		SELECT * FROM (
-		        SELECT 
-		        	review_no, item_no, U.user_no, user_nick, file_no
-		        	, review_title, review_content, review_date, review_hit
-		        FROM zuser U
-		        INNER JOIN zreview R
-		            ON U.user_no = R.user_no
-		        ORDER BY user_no
+	        SELECT 
+	        	review_no, item_no, U.user_no, user_nick, file_no
+	        	, review_title, review_content, review_date, review_hit
+	        FROM zuser U
+	        INNER JOIN zreview R
+	            ON U.user_no = R.user_no
+	        ORDER BY user_no
 		) ZREVIEW
 		WHERE review_no = #{reviewNo } 
 	</select>

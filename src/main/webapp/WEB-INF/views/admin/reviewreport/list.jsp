@@ -96,10 +96,10 @@ label {
 	<th><input type="checkbox" name="select" id="selectAll" /></th>
 	<th>신고글 번호</th>
 	<th>신고사유</th>
+	<th>신고 내용</th>
 	<th>게시글 제목</th>
 	<th>피신고자</th>
 	<th>신고일</th>
-	<th>답변 여부</th>
 </tr>
 <c:forEach items="${reviewReportList }" var="review">
 <tr>
@@ -122,22 +122,21 @@ label {
 			</c:when>
 		</c:choose>
 	</c:if>
+	<td><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></td>
 	
 	<td><label for="${review.REVIEW_NO }"><a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></label></td>
 		
-<%-- 		<c:forEach items="${user }" var="user"> --%>
-<%-- 			<c:if test="${review.userNo ne 0}"> --%>
-<%-- 				<c:if test="${review.USER_NO eq userNo}"> --%>
-	<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
-<%-- 				</c:if> --%>
-<%-- 			</c:if> --%>
-<%-- 		</c:forEach> --%>
-<%-- 			<c:if test="${review.USER_NO eq 0}"> --%>
-<!-- 				<td>탈퇴한 회원입니다</td> -->
-<%-- 			</c:if> --%>
+	<c:if test="${review.USER_NO ne 0}">
+		<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
+	</c:if>
+	<c:if test="${review.USER_NO eq 0}">
+		<td>탈퇴한 회원입니다</td>
+	</c:if>
 			
 	<td><fmt:formatDate value="${review.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
-	<td><label for="${review.USER_NO }">${review.REPORT_STATUS }</label></td>
+	
+<%-- 	<td><label for="${review.USER_NO }">${review.REPORT_STATUS }</label></td> --%>
+	
 </tr>
 </c:forEach>
 
