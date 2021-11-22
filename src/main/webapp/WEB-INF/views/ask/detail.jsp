@@ -271,7 +271,7 @@ function insertComment() {
 	});
 	
 }
-s
+
 function updateComment(askComNo) {
 	
     var askText = $("#td"+askComNo).text();
@@ -551,8 +551,8 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 10%;">작성자</th>
-					<th style="width: 64%;">댓글</th>
+					<th style="width: 12%;">작성자</th>
+					<th style="width: 62%;">댓글</th>
 					<th style="width: 12%;">작성일</th>
 					<th style="width: 10%;"></th>
 				</tr>
@@ -563,8 +563,12 @@ table, th {
 				<c:forEach items="${askComment}" var="askComment">
 					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
+					
+					
 						<td></td>
-						<td>${askComment.USER_NICK }</td>
+						<td style="text-align: left;">
+							<img alt="#" src="${askComment.GRADE_URL }" width="20px;" height="20px;"> ${askComment.USER_NICK }
+						</td>
 						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
 							<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
