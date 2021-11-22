@@ -14,6 +14,7 @@
 
 <script type="text/javascript">
 
+
 $(document).ready(function () {
 	$.datepicker.setDefaults($.datepicker.regional['ko']); 
 	$( "#userBday" ).datepicker({
@@ -29,7 +30,6 @@ $(document).ready(function () {
 	     monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 	     monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 	     dateFormat: "yy-mm-dd"
-	
 	});
 	
 	
@@ -127,7 +127,7 @@ function checkUserPw() {
 	if(result != null){
 	    $(".pw.regex").html("");
 	} else {
-	    $(".pw.regex").html("비밀번호는 영어 대소문자와 숫자 8~16자리로만 사용 가능합니다!");
+	    $(".pw.regex").html("비밀번호는 영어 대소문자와 숫자 8~16자리로만 사용 가능합니다.");
 	    $(".pw.regex").css("color","red");
 	}
 }
@@ -243,29 +243,65 @@ function checkVerifyCode(){
 
 </script>
 
+
+
 <style type="text/css">
 
 .table {
 	text-align: center;
 	width: 700px;
 	margin: 0 auto;
+	margin-bottom: 30px;
 }
 .table>tbody>tr>th {
 	width: 20%;
 	vertical-align: middle !important;
 	border-top: 0px;
 }
+
 .table>tbody>tr>td {
-	vertical-align: middle !important;
 	border-top: 0px;
+	height: 70px;
+	padding: 3px;
+	vertical-align: middle;
 }
+
 label {
 	margin-top: 5px;
 }
 
 input[type=text],input[type=email], input[type=password],input[type=number] {
+	postion: relative;
 	width: 100%;
 	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus, input[type=number]:focus {
+	outline: none;
+}
+
+.title {
+	margin: 60px 0 30px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+body {
+	background: #f2f2f2;
+}
+
+.form {
+	width: 900px;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
 }
 
 .id_ok, .nick_ok, .mail_ok, .verify_ok {
@@ -280,8 +316,34 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 	color: red;
 }
 
-#verifyMail {
+#verifyCode {
 	display: none;
+}
+
+#join {
+	margin: auto;
+	height: 50px;
+	width: 75%;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnSend {
+	height: 35px;
+	width: 13%;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#join:hover, #btnSend:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 
 </style>
@@ -291,64 +353,69 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 <div class="wrap">
 <div class="container">
 
-<h3>회원가입</h3>
-<hr>
+<div class="title">
+	<a href="/main"><img height="100px" alt="KH 영수증" src="https://i.imgur.com/if5laLF.png"></a>
+	<p style="margin-top: 10px;">회원으로 가입하시면 다양한 기능을 이용하실 수 있습니다.</p>
+</div>
 
+<div class="form">
 <form action="/member/join" method="post">
-<table class="table table-hover">
+<table class="table">
 <tr>
 	<th><label for="userId">아이디<span class="required">&nbsp;*</span></label></th>
-	<td><input type="text" id="userId" name="userId" placeholder="아이디를 입력하세요" autocomplete="off" required oninput="checkUserId()" /><br>
+	<td><input type="text" id="userId" name="userId" placeholder="아이디를 입력하세요" autocomplete="off" maxlength="12" required oninput="checkUserId()" /><br>
 	<span class="id_ok">사용 가능한 아이디입니다.</span>
 	<span class="id_already">사용 중인 아이디입니다.</span>
-	<span class="id_check">아이디는 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
+	<span class="id_check">아이디는 영어 대소문자와 숫자 4~12자리로 입력해야 합니다.</span></td>
 </tr>
 <tr>
 	<th><label for="userPw">비밀번호<span class="required">&nbsp;*</span></label></th>
-	<td><input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력하세요" autocomplete="off" required oninput="checkUserPw()"/><br>
+	<td><input type="password" id="userPw" name="userPw" placeholder="비밀번호를 입력하세요" autocomplete="off" maxlength="16" required oninput="checkUserPw()"/><br>
 	<span class="pw regex"></span></td>
 </tr>
 <tr>
 	<th><label for="userPwCheck">비밀번호 확인<span class="required">&nbsp;*</span></label></th>
-	<td><input type="password" id="userPwCheck" name="userPwCheck" placeholder="비밀번호를 입력하세요" autocomplete="off" required onkeyup="checkPwSame()"/><br>
+	<td><input type="password" id="userPwCheck" name="userPwCheck" placeholder="비밀번호를 입력하세요" autocomplete="off" maxlength="16" required onkeyup="checkPwSame()"/><br>
 	<span class="pwchk regex"></span></td>
 </tr>
 <tr>
 	<th><label for="userNick">닉네임<span class="required">&nbsp;*</span></label></th>
-	<td><input type="text" id="userNick" name="userNick" placeholder="닉네임을 입력하세요" autocomplete="off" required oninput="checkUserNick()" /><br>
+	<td><input type="text" id="userNick" name="userNick" placeholder="닉네임을 입력하세요" autocomplete="off" maxlength="12" required oninput="checkUserNick()" /><br>
 	<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 	<span class="nick_already">사용 중인 닉네임입니다.</span>
-	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
+	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다.</span></td>
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
-	<td><input style="width: 86%;" type="email" id="userMail" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><button id="btnSend" type="button" onclick="sendMail()">이메일 인증</button><br>
+	<td><input style="width: 85%;" type="email" id="userMail" class="pull-left" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><button id="btnSend" class="pull-right" type="button" onclick="sendMail()">인증하기</button><br>
 	<span class="mail_ok">사용 가능한 이메일입니다.</span>
 	<span class="mail_already">사용 중인 이메일입니다.</span><br>
-	<div id="verifyMail" style="width: 100%;"><input type="text" maxlength="6" id="verifyCode" name="verifyCode" placeholder="인증문자를 입력하세요" autocomplete="off" required oninput="checkVerifyCode()"/></div><br>
+	
+	<input type="text" maxlength="6" id="verifyCode" name="verifyCode" placeholder="인증문자를 입력하세요" autocomplete="off" required oninput="checkVerifyCode()"/><br>
 	<span class="verify_ok">인증되었습니다.</span>
 	<span class="verify_no">인증문자가 틀렸습니다.</span></td>
 </tr>
 <tr>
-	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label></th>
+	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label><br>
+	<span style="color: #C2BDB9; font-size: 12px; font-weight: lighter;">(단위 : ￦)</span></th>
 	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" value="0"/></td>
 </tr>
 <tr>
 	<th><label for="userBday">생일<span class="required">&nbsp;*</span></label></th>
-	<td><input type="text" id="userBday" name="userBday" style="cursor: default;" placeholder="생일을 입력하세요" autocomplete="off" required readonly/></td>
+	<td><input type="text" id="userBday" name="userBday" style="cursor: default;" placeholder="생일을 입력하세요" autocomplete="off" required/></td>
 </tr>
 <tr>
 	<th>성별</th>
-	<td><input type="radio" name="userGender" value="F"/>&nbsp;여성&nbsp;&nbsp;&nbsp;
-	<input type="radio" name="userGender" value="M" />&nbsp;남성&nbsp;&nbsp;&nbsp;
-	<input type="radio" name="userGender" value="N" checked="checked"/>&nbsp;선택 안함&nbsp;&nbsp;&nbsp;
+	<td><input type="radio" name="userGender" id="female" value="F"/><label for="female">&nbsp;여성</label>&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="userGender" id="male" value="M" /><label for="male">&nbsp;남성</label>&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="userGender" value="N" id="none" checked="checked"/><label for="none">&nbsp;선택 안함</label>&nbsp;&nbsp;&nbsp;
 	</td>
 </tr>
 </table>
 
 <button id="join">회원가입</button>
 </form>
-
+</div><!-- .form end -->
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 

@@ -41,7 +41,7 @@ $(document).ready(function(){
 
 #btnSubmit:hover {
 	border: 1px solid #5b6e7a;
-	background: #fff;
+	background: #f3f3f3;
 	font-size: 19px;
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
