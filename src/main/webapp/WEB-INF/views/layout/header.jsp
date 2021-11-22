@@ -7,8 +7,8 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a href="/main">
-				<img src="https://i.imgur.com/DEHqUdu.png"
-				   alt="huxley" width="250px" height="65px" style="margin: 15px;"></a>
+				<img src="https://i.imgur.com/if5laLF.png"
+				   alt="huxley" width="135px" height="65px" style="margin: 15px; margin-left: 100px;"></a>
 				   
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					    data-target="#myNavbar"style="border: 1px solid black; background: #f2f2f2;">

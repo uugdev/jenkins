@@ -327,6 +327,11 @@ public class TradeServiceImpl implements TradeService {
 	public List<Trade> getTradeHitList(Paging paging) {
 		return tradeDao.selectTradeHitList(paging);
 	}
+
+	@Override
+	public String getGradeUrlByUserNo(int userNo) {
+		return tradeDao.selectGradeUrlByUserNo(userNo);
+	}
 	
 
 }

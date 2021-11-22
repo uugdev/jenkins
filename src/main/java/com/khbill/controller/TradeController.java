@@ -207,6 +207,7 @@ public class TradeController {
 		tradeService.setTradeCommentWrite(tradeComment);
 		TradeComment addComment = tradeService.getTradeCommentWriteByUserNo(userNo);
 		String userNick = tradeService.getUserNickByUserNo(tradeComment.getUserNo());
+		String gradeUrl = tradeService.getGradeUrlByUserNo(tradeComment.getUserNo());
 		
 		logger.info("userNo {}", userNo);
 		logger.info("userNick - {}", userNick);
@@ -222,6 +223,7 @@ public class TradeController {
 		}
 		
 		mav.addObject("userNick", userNick);
+		mav.addObject("gradeUrl", gradeUrl);
 		mav.addObject("success", success);
 		mav.addObject("addComment", addComment);
 		mav.setViewName("jsonView");

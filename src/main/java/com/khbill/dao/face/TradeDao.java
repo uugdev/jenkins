@@ -237,6 +237,14 @@ public interface TradeDao {
 	 * @return 페이징이 적용된 게시글 목록
 	 */
 	public List<Trade> selectTradeHitList(Paging paging);
+	
+	/**
+	 * userNo로 gradeUrl 조회
+	 * 
+	 * @param userNo - 댓글 입력한 userNo
+	 * @return gradeUrl
+	 */
+	public String selectGradeUrlByUserNo(int userNo);
 
 
 
