@@ -24,8 +24,25 @@ $(document).ready(function(){
 			return false;
 		}
 	})
+	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.chk').prop('checked', true);
+	    } else {
+	       $('.chk').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.chk', function() {
+	    if($('input[class=chk]:checked').length==$('.chk').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+	
 	$("#btnSearch").click(function() {
-		location.href="/admin/notice/list?search="+$("#search").val();
+		location.href="/admin/user/list?search="+$("#search").val();
 	});
 	$("#search").keypress(function(event){
 	     if ( event.which == 13 ) {
@@ -69,7 +86,7 @@ label {
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
-	<th>	</th>
+	<th><input type="checkbox" id="selectAll" name="select" /></th>
 	<th>회원번호</th>
 	<th>아이디</th>
 	<th>닉네임</th>

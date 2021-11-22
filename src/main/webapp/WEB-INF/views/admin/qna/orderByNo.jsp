@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <table class="table table-hover table-condensed">
 <tr>
-	<th>	</th>
+	<th><input type="checkbox" id="selectAll" name="select"/></th>
 	<th>문의 번호</th>
 	<th width="45%">제목</th>
 	<th>답변 여부</th>

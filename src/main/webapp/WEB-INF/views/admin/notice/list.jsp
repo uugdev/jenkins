@@ -25,6 +25,22 @@ $(document).ready(function(){
 		}
 	})
 	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.chk').prop('checked', true);
+	    } else {
+	       $('.chk').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.check', function() {
+	    if($('input[class=chk]:checked').length==$('.chk').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+	
 	$("#btnWrite").click(function(){
 		location.href="/admin/notice/write";
 	})
@@ -74,7 +90,7 @@ label {
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
-	<th>	</th>
+	<th><input type="checkbox" id="selectAll" name="select" /></th>
 	<th>공지 번호</th>
 	<th width="45%">제목</th>
 	<th>조회수</th>
@@ -84,8 +100,8 @@ label {
 <tr>
 	<td><input type="checkbox" id="${i.noticeNo }" value="${i.noticeNo }" class="chk" /></td>
 	<td><label for="${i.noticeNo}">${i.noticeNo }</label></td>
-	<td><label for="${i.noticeNo }"><a href="/admin/notice/detail?noticeNo=${i.noticeNo }">${i.noticeTitle }</a></label></td>
-	<td><label for="${i.noticeNo }">${i.noticeHit }</label></td>
+	<td><a href="/admin/notice/detail?noticeNo=${i.noticeNo }">${i.noticeTitle }</a></td>
+	<td>${i.noticeHit }</td>
 	<td><fmt:formatDate value="${i.noticeDate }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
