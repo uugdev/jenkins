@@ -70,13 +70,20 @@
 	
 	<select id="selectReviewByReviewNo" resultType="HashMap" parameterType="com.khbill.dto.Review">
 		SELECT * FROM (
-	        SELECT 
-	        	review_no, item_no, U.user_no, user_nick, file_no
-	        	, review_title, review_content, review_date, review_hit
-	        FROM zuser U
-	        INNER JOIN zreview R
-	            ON U.user_no = R.user_no
-	        ORDER BY user_no
+		    SELECT rownum rnum, R.* FROM (
+		        SELECT
+		            review_no, U.user_no, user_nick, F.file_no, F.file_stored
+		            , i.item_no, i.item_brand, i.item_name, i.item_price
+		            , review_title, review_content, review_date, review_hit
+		        FROM zreview R
+		        LEFT OUTER JOIN zuser U
+		            ON U.user_no = R.user_no    
+		        LEFT OUTER JOIN zfile F
+		            ON R.file_no = F.file_no
+		        LEFT OUTER JOIN zitem I
+		            ON R.item_no = I.item_no
+		        ORDER BY review_no
+		    ) R
 		) ZREVIEW
 		WHERE review_no = #{reviewNo } 
 	</select>

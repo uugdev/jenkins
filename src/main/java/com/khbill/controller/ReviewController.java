@@ -91,8 +91,8 @@ public class ReviewController {
 			return "redirect:/review/list";
 		}
 		
+		//게시글 상세 리스트 전달
 		HashMap<String, Object> reviewMap = reviewService.getReviewDetail(review);
-		logger.info("reviewMap 테스트: {}", reviewMap);
 		
 		//상품 정보 전달
 		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
@@ -114,8 +114,6 @@ public class ReviewController {
 		List<HashMap<String, Object>> commentList = reviewService.getReviewComList(reviewComment);
 		model.addAttribute("commentList", commentList);
 		
-		logger.info("commentList: {}", commentList);
-		
 		
 		//스크랩 상태 조회
 		ReviewScrap reviewScrap = new ReviewScrap();
@@ -128,6 +126,7 @@ public class ReviewController {
 		boolean isScrap = reviewService.isScrap(reviewScrap);
 		model.addAttribute("isScrap", isScrap);
 		
+		logger.info("commentList: {}", commentList);
 		logger.info("reviewScrap{}", reviewScrap);		
 		
 		return "review/detail";
