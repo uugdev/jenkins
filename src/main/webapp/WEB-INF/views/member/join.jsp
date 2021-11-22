@@ -353,5 +353,5 @@ input[type=text],input[type=email], input[type=password],input[type=number] {
 </div><!-- .wrap end -->
 
 <!-- footer start -->
-<%-- <c:import url="/WEB-INF/views/layout/footer.jsp" /> --%>
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 

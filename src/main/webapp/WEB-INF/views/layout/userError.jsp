@@ -25,7 +25,7 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 <div style="width: 500px; height: 500px; margin: 0 auto; padding: 30px;">
-<img width="150px;" height="150px;" alt="금지" src="https://cdn-icons.flaticon.com/png/512/2576/premium/2576762.png?token=exp=1636686797~hmac=096826150cf6d1591f7880545ed7fc60">
+<img width="150px;" height="150px;" alt="금지" src="https://i.imgur.com/OlYEpre.png">
 <h3><strong>부적절한 접근입니다!</strong></h3>
 <hr><br><br>
 <button id="btnMain">메인으로</button>

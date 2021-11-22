@@ -48,9 +48,73 @@ $(document).ready(function(){
 
 <style type="text/css">
 
-input[type=text]{
-	width: 100%;
+.table>tbody>tr>td {
+	border-top: 0px solid #fff;
+	height: 55px;
+	padding: 3px;
+	vertical-align: middle;
 }
+
+#btnSubmit {
+	margin: auto;
+	height: 100%;
+	width: 100%;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	font-size: 19px;
+	color: #f3f3f3;
+}
+
+#btnSubmit:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	font-size: 19px;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+input[type=text], input[type=password] {
+	width: 95%;
+	height: 90%;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #B2B3B7;
+	padding: 5px;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	outline: none;
+}
+
+.title {
+	margin: 60px 0 30px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+body {
+	background: #f2f2f2;
+}
+
+.form {
+	width: 600px;
+	background: #fff;
+	margin: auto;
+	padding: 50px;
+}
+
+i, .text-center > a {
+	color: #5F6062;
+}
+
+a:hover {
+	color: #85969E;
+	text-decoration: none;
+}
+
 
 </style>
 <!-- 개별 영역 끝 -->
@@ -58,26 +122,22 @@ input[type=text]{
 <div class="wrap">
 <div class="container">
 
-<h3>로그인</h3>
-<hr>
+<div class="title">
+	<a href="/main"><img height="100px" alt="KH 영수증" src="https://i.imgur.com/if5laLF.png"></a>
+	<p style="margin-top: 10px;">로그인하시면 다양한 혜택을 이용하실 수 있습니다.</p>
+</div>
 
 <form action="/member/login" method="post" name="login_form">
-<div style="width: 500px; margin: 0 auto;">
-<table class="table table-bordered">
+<div class="form">
+<table class="table">
 <tr>
-	<th><label for="userId">아이디</label></th>
-	<td><input type="text" id="userId" name="userId" placeholder="아이디를 입력하세요" /></td><!-- 추후에 오토컴플릿 추가 예정 -->
+	<td><input type="text" id="userId" name="userId" placeholder="ID" /></td><!-- 추후에 오토컴플릿 추가 예정 -->
+	<td style="width: 30%; vertical-align: middle;" rowspan="2"><button type="submit" id="btnSubmit">로그인</button></td>
 </tr>
 <tr>
-	<th><label for="userPw">비밀번호</label></th>
-	<td><input type="text" id="userPw" name="userPw" placeholder="비밀번호를 입력하세요" /></td><!-- 추후에 타입 변경 예정 -->
+	<td><input type="text" id="userPw" name="userPw" placeholder="PASSWORD" /></td><!-- 추후에 타입 변경 예정 -->
 </tr>
 </table>
-<div class="text-center">
-	<button type="submit">로그인</button>
-	<button type="button" id="btnMain">메인으로</button>
-</div><!-- .text-center end -->
-</div>
 <hr>
 <div class="text-center kakaoLogin">
 	<input type="hidden" id="kakaoEmail" name="kakaoEmail" />
@@ -85,12 +145,12 @@ input[type=text]{
 	<a href="javascript:kakaoLogin();"><img src="/resources/img/kakao_login_medium_wide.png"></a>
 </div>
 
+</div><!-- .form end -->
 </form>
 
-<hr>
-<div class="text-center">
-	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;<a href="/member/findId">아이디</a>&nbsp;/&nbsp;<a href="/member/findPw">비밀번호 찾기</a>
-	&nbsp;&nbsp;|&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;<a href="/member/join">회원가입</a>
+<div class="text-center" style="margin-top: 10px; margin-bottom: 50px;">
+	<i class="fas fa-question-circle"></i>&nbsp;<a href="/member/findId">아이디</a>&nbsp;/&nbsp;<a href="/member/findPw">비밀번호 찾기</a>
+	&nbsp;&nbsp;|&nbsp;&nbsp;<i class="fas fa-user-circle"></i>&nbsp;<a href="/member/join">회원가입</a>
 </div>
 
 
