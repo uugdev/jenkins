@@ -93,6 +93,18 @@ public interface MypageDao {
 
 	public List<HashMap<String, Object>> selectTradeCommentListByUserNo(HashMap<String, Object> map);
 
+	public void deleteAskComByAskComNo(int askComNo);
+
+	public void deleteReviewComByReviewComNo(int reviewComNo);
+
+	public void deleteTradeComByTradeComNo(int tradeComNo);
+
+	public void deleteAskScrapByScrapNo(int scrapNo);
+
+	public void deleteReviewScrapByScrapNo(int scrapNo);
+
+	public void deleteTradeScrapByScrapNo(int scrapNo);
+
 
 
 

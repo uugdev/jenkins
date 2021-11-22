@@ -34,6 +34,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
+	public Paging getMyAskCommentPaging(Paging paramData, int userNo) {
+		
+		int totalCount = mypageDao.selectCntMyAskCommentAll(userNo);
+	
+		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		
+		return paging;
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getMyAskCommentList(HashMap<String, Object> map) {
+		return mypageDao.selectAskCommentListByUserNo(map);
+	}
+
+	@Override
 	public Paging getMyAskScrapPaging(Paging paramData, int userNo) {
 		
 		int totalCount = mypageDao.selectCntMyAskScrapAll(userNo);
@@ -41,7 +56,6 @@ public class MypageServiceImpl implements MypageService {
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		
 		return paging;
-		
 	}
 	
 	@Override
@@ -50,19 +64,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public Paging getMyAskCommentPaging(Paging paramData, int userNo) {
-		
-		int totalCount = mypageDao.selectCntMyAskCommentAll(userNo);
-	
-		Paging paging = new Paging(totalCount, paramData.getCurPage());
-		
-		return paging;
-		 
-	}
-	
-	@Override
-	public List<HashMap<String, Object>> getMyAskCommentList(HashMap<String, Object> map) {
-		return mypageDao.selectAskCommentListByUserNo(map);
+	public void setAskScrapDelete(int askNo) {
+		mypageDao.deleteAskScrapByScrapNo(askNo);
 	}
 	
 	@Override
@@ -73,6 +76,11 @@ public class MypageServiceImpl implements MypageService {
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		
 		return paging;
+	}
+	
+	@Override
+	public void setAskComDelete(int askComNo) {
+		mypageDao.deleteAskComByAskComNo(askComNo);
 	}
 	
 	@Override
@@ -96,6 +104,11 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
+	public void setReviewComDelete(int reviewComNo) {
+		mypageDao.deleteReviewComByReviewComNo(reviewComNo);
+	}
+	
+	@Override
 	public Paging getMyReviewScrapPaging(Paging paramData, int userNo) {
 		
 		int totalCount = mypageDao.selectCntMyReviewScrapAll(userNo);
@@ -108,6 +121,11 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public List<HashMap<String, Object>> getMyReviewScrapList(HashMap<String, Object> map) {
 		return mypageDao.selectReviewScrapListByUserNo(map);
+	}
+	
+	@Override
+	public void setReviewScrapDelete(int scrapNo) {
+		mypageDao.deleteReviewScrapByScrapNo(scrapNo);
 	}
 	
 	@Override
@@ -143,6 +161,12 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
+	public void setTradeComDelete(int tradeComNo) {
+		mypageDao.deleteTradeComByTradeComNo(tradeComNo);
+		
+	}
+	
+	@Override
 	public Paging getMyTradeScrapPaging(Paging paramData, int userNo) {
 
 		int totalCount = mypageDao.selectCntMyTradeScrapAll(userNo);
@@ -158,5 +182,12 @@ public class MypageServiceImpl implements MypageService {
 		return mypageDao.selectTradeScrapListByUserNo(map);
 
 	}
+	
+	@Override
+	public void setTradeScrapDelete(int scrapNo) {
+		mypageDao.deleteTradeScrapByScrapNo(scrapNo);
+	}
+	
+	
 
 }

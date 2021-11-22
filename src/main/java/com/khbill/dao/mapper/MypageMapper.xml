@@ -29,7 +29,7 @@
 	<select id="selectAskCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, A.* FROM (
-				SELECT a.ask_no, za.ask_com_content, za.ask_com_date, a.ask_hit
+				SELECT a.ask_no, za.ask_com_no, za.ask_com_content, za.ask_com_date, a.ask_hit
 				FROM zask a
 				INNER JOIN zask_comment za
 				ON a.ask_no = za.ask_no
@@ -47,7 +47,7 @@
 	<select id="selectAskScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, A.* FROM (
-				SELECT a.ask_no, a.ask_title, a.ask_date, a.ask_hit
+				SELECT a.ask_no, a.ask_title, a.ask_date, a.ask_hit, za.scrap_no
 				FROM zask a
 				INNER JOIN zask_scrap za
 				ON a.ask_no = za.ask_no
@@ -81,7 +81,7 @@
 	<select id="selectReviewCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, V.* FROM (
-				SELECT v.review_no, zr.review_com_content, zr.review_com_date, v.review_hit
+				SELECT v.review_no, zr.review_com_no, zr.review_com_content, zr.review_com_date, v.review_hit
 				FROM zreview v
 				INNER JOIN zreview_comment zr
 				ON v.review_no = zr.review_no
@@ -99,7 +99,7 @@
 	<select id="selectReviewScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, V.* FROM (
-				SELECT v.review_no, v.review_title, v.review_date, v.review_hit
+				SELECT v.review_no, v.review_title, v.review_date, v.review_hit, zr.scrap_no
 				FROM zreview v
 				INNER JOIN zreview_scrap zr
 				ON v.review_no = zr.review_no
@@ -133,7 +133,7 @@
 	<select id="selectTradeCommentListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, T.* FROM (
-				SELECT t.trade_no, zt.trade_com_content, zt.trade_com_date, t.trade_hit
+				SELECT t.trade_no, zt.trade_com_no, zt.trade_com_content, zt.trade_com_date, t.trade_hit
 				FROM ztrade t
 				INNER JOIN ztrade_comment zt
 				ON t.trade_no = zt.trade_no
@@ -151,7 +151,7 @@
 	<select id="selectTradeScrapListByUserNo" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, T.* FROM (
-				SELECT t.trade_no, t.trade_title, t.trade_date, t.trade_hit
+				SELECT t.trade_no, t.trade_title, t.trade_date, t.trade_hit, zt.scrap_no
 				FROM ztrade t
 				INNER JOIN ztrade_scrap zt
 				ON t.trade_no = zt.trade_no
@@ -159,6 +159,39 @@
 			) T
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
-	</select>	
+	</select>
+	
+	<delete id="deleteAskComByAskComNo" parameterType="int">
+		DELETE zask_comment
+		WHERE ask_com_no = #{askComNo }
+	</delete>
+	
+	<delete id="deleteReviewComByReviewComNo" parameterType="int">
+		DELETE zreview_comment
+		WHERE review_com_no = #{reviewComNo }
+	</delete>
+	
+	<delete id="deleteTradeComByTradeComNo" parameterType="int">
+		DELETE ztrade_comment
+		WHERE trade_com_no = #{tradeComNo }
+	</delete>
+	
+	<delete id="deleteAskScrapByScrapNo" parameterType="int">
+		DELETE zask_scrap
+		WHERE scrap_no = #{scrapNo }
+	</delete>
+	
+	<delete id="deleteReviewScrapByScrapNo" parameterType="int">
+		DELETE zreview_scrap
+		WHERE scrap_no = #{scrapNo }
+	</delete>
+	
+	<delete id="deleteTradeScrapByScrapNo" parameterType="int">
+		DELETE ztrade_scrap
+		WHERE scrap_no = #{scrapNo }
+	</delete>
+	
+	
+	
 
 </mapper>

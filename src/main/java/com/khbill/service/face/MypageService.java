@@ -99,6 +99,18 @@ public interface MypageService {
 
 	public List<HashMap<String, Object>> getMyTradeCommentList(HashMap<String, Object> map);
 
+	public void setAskComDelete(int askComNo);
+
+	public void setReviewComDelete(int reviewComNo);
+
+	public void setTradeComDelete(int tradeComNo);
+
+	public void setAskScrapDelete(int scrapNo);
+	
+	public void setReviewScrapDelete(int scrapNo);
+	
+	public void setTradeScrapDelete(int scrapNo);
+
 
 	
 

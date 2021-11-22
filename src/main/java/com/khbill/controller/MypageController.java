@@ -207,6 +207,17 @@ public class MypageController {
 		model.addAttribute("paging", paging);
 	}
 	
+	@RequestMapping(value="/mypage/ask/comment/delete", method=RequestMethod.GET)
+	public String MyAskCommentDelete(int[] askComNo) {
+		logger.info("/mypage/ask/comment/delete [GET]");
+		
+		for(int i=0; i<askComNo.length; i++) {
+			mypageService.setAskComDelete(askComNo[i]);
+		}
+		
+		return "redirect:/mypage/ask/comment/list";
+	}
+	
 	@RequestMapping(value="/mypage/ask/scrap/list", method=RequestMethod.GET)
 	public void myAskScrapList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/mypage/ask/scrap/list [GET]");
@@ -225,6 +236,17 @@ public class MypageController {
 		model.addAttribute("ask", askScrapList);
 		model.addAttribute("paging", paging);
 		
+	}
+	
+	@RequestMapping(value="/mypage/ask/scrap/delete", method=RequestMethod.GET)
+	public String myAskScrapDelete(int[] scrapNo) {
+		logger.info("/mypage/ask/scrap/delete [GET]");
+		
+		for(int i=0; i<scrapNo.length; i++) {
+			mypageService.setAskScrapDelete(scrapNo[i]);
+		}	
+
+		return "redirect:/mypage/ask/scrap/list";
 	}
 	
 	@RequestMapping(value="/mypage/review/list", method=RequestMethod.GET)
@@ -278,8 +300,19 @@ public class MypageController {
 		
 		logger.info("후기글에 작성한 댓글 목록 : {} ", reviewCommentList);
 
-		model.addAttribute("ask", reviewCommentList);
+		model.addAttribute("review", reviewCommentList);
 		model.addAttribute("paging", paging);
+	}
+	
+	@RequestMapping(value="/mypage/review/comment/delete", method=RequestMethod.GET)
+	public String MyReviewCommentDelete(int[] reviewComNo) {
+		logger.info("/mypage/review/comment/delete [GET]");
+		
+		for(int i=0; i<reviewComNo.length; i++) {
+			mypageService.setReviewComDelete(reviewComNo[i]);
+		}
+		
+		return "redirect:/mypage/review/comment/list";
 	}
 	
 	@RequestMapping(value="/mypage/review/scrap/list", method=RequestMethod.GET)
@@ -300,6 +333,17 @@ public class MypageController {
 		model.addAttribute("review", reviewScrapList);
 		model.addAttribute("paging", paging);
 		
+	}
+	
+	@RequestMapping(value="/mypage/review/scrap/delete", method=RequestMethod.GET)
+	public String myReviewScrapDelete(int[] scrapNo) {
+		logger.info("/mypage/review/scrap/delete [GET]");
+		
+		for(int i=0; i<scrapNo.length; i++) {
+			mypageService.setReviewScrapDelete(scrapNo[i]);
+		}	
+
+		return "redirect:/mypage/review/scrap/list";
 	}
 	
 	@RequestMapping(value="/mypage/trade/list", method=RequestMethod.GET)
@@ -352,6 +396,17 @@ public class MypageController {
 		model.addAttribute("paging", paging);
 	}
 	
+	@RequestMapping(value="/mypage/trade/comment/delete", method=RequestMethod.GET)
+	public String MyTradeCommentDelete(int[] tradeComNo) {
+		logger.info("/mypage/trade/comment/delete [GET]");
+		
+		for(int i=0; i<tradeComNo.length; i++) {
+			mypageService.setTradeComDelete(tradeComNo[i]);
+		}
+		
+		return "redirect:/mypage/trade/comment/list";
+	}
+	
 	@RequestMapping(value="/mypage/trade/scrap/list", method=RequestMethod.GET)
 	public void mytradeScrapList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/mypage/trade/scrap/list [GET]");
@@ -370,6 +425,17 @@ public class MypageController {
 		model.addAttribute("trade", tradeScrapList);
 		model.addAttribute("paging", paging);
 		
+	}
+	
+	@RequestMapping(value="/mypage/trade/scrap/delete", method=RequestMethod.GET)
+	public String myTradeScrapDelete(int[] scrapNo) {
+		logger.info("/mypage/trade/scrap/delete [GET]");
+		
+		for(int i=0; i<scrapNo.length; i++) {
+			mypageService.setTradeScrapDelete(scrapNo[i]);
+		}	
+
+		return "redirect:/mypage/trade/scrap/list";
 	}
 	
 	
