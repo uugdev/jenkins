@@ -164,10 +164,6 @@ public class AskController {
 		boolean isScrap = askService.isScrap(askScrap);
 		model.addAttribute("isScrap", isScrap);
 		
-		//유저등급
-//		List<HashMap<String,Object>> userGrade = askService.getUserGrade();
-//		model.addAttribute("userGrade", userGrade);
-		
 
 	}
 

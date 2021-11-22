@@ -207,7 +207,6 @@ var myChart2 = new Chart(context2, {
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	margin-bottom: 10px;
-	
 }
 
 #doughnut {
@@ -228,12 +227,11 @@ var myChart2 = new Chart(context2, {
 	display: flex;
 	border: 1px solid #ccc;
 	border-radius: 5px;
-	box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.12);
+	box-shadow: 2px 2px 2px 2px rgb(0, 0, 0, 0.12);
 }
 
 #updateMoney {
-	
-	box-shadow: 2px 2px 2px 2px rgb(0,0,0,0.12);
+	box-shadow: 2px 2px 2px 2px rgb(0, 0, 0, 0.12);
 	line-height: 30px;
 	font-size: large;
 	width: 150px;
@@ -242,22 +240,18 @@ var myChart2 = new Chart(context2, {
 	border-color: #337ab7;
 	color: white;
 	border-radius: 5px;
-	padding: 0;		
+	padding: 0;
 }
 
 #itemlist {
-
 	display: flex;
 	margin-bottom: 100px;
 	height: 250px;
-
 }
 
 #bill {
-
 	width: 50%;
 	flex: 1;
-
 }
 
 #ment {
@@ -268,11 +262,8 @@ var myChart2 = new Chart(context2, {
 	border-radius: 5px;
 	text-align: left;
 	padding-left: 20px;
-	
-	
-
+	padding-bottom: 20px;
 }
-
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -309,7 +300,7 @@ var myChart2 = new Chart(context2, {
 						<div class="popupWrap1 hide1">
 							<div class="popup1 commaInput">
 								<div class="title">
-									<p> 지출 가능금액을 설정해주세요</p>
+									<p>지출 가능금액을 설정해주세요</p>
 									<span class="close1">❌</span>
 								</div>
 								<input type="text" name="extraMoney" id="extraMoney" value="" />
@@ -364,15 +355,23 @@ var myChart2 = new Chart(context2, {
 				</table>
 			</div>
 			<div id="ment">
-				<h1>이번 달 지출금액은 지난 달보다 </h1>
+				<h2>이번 달 지출금액은 지난 달보다</h2>
 				<c:if test="${monthPrice gt last}">
-				<h1><span style="color: red">${compare}원 </span>더 쓰셨네요!</h1>
-				<img style="width: 200px; height: 120px" src="https://i.imgur.com/OqXy9GH.png" alt="더씀" class="pull-right"/>
+					<span style="color: red; font-size: 32px;">${compare}원 </span>
+					<span style="font-size: 30px;">더 쓰셨네요!</span>
+				<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 30px;"
+						class="pull-right">
+						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
+					</div>
 				</c:if>
-				
+
 				<c:if test="${monthPrice le last}">
-				<h1><span style="color: blue">${compare}원 </span>덜 쓰셨네요!</h1>
-				<img style="width: 200px; height: 120px" src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" class="pull-right"/>
+					<span style="color: blue; font-size: 32px;">${compare}원 </span>
+					<span style="font-size: 30px;">덜 쓰셨네요!</span>
+				<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 30px;"
+						class="pull-right">
+						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
+					</div>
 				</c:if>
 			</div>
 		</div>
