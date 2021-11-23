@@ -71,6 +71,12 @@ $(document).ready(function () {
 			return false;
 		}
 		
+		if($("#agree").prop('checked', false)){
+			alert('개인정보 수집 및 이용에 동의해주세요');
+			$("#agreement").focus();
+			return false;
+		}
+		
 		var answer = confirm("회원가입을 하시겠습니까?");
 		if( answer == true){
 			$("form").submit;			
@@ -193,11 +199,15 @@ function checkMail(){
         	 if(cnt != 1){ 
                  $(".mail_ok").css("display","inline-block"); 
                  $(".mail_already").css("display", "none");
+                 $(".mail_check").css("display", "none");
                  $("#join").prop("disabled", false);
+                 $("#btnSend").prop("disabled", false);
              } else {
                  $(".mail_already").css("display","inline-block");
                  $(".mail_ok").css("display", "none");
+                 $(".mail_check").css("display", "none");
                  $("#join").prop("disabled", true);
+                 $("#btnSend").prop("disabled", true);
              }
         },
         error:function(){
@@ -206,23 +216,46 @@ function checkMail(){
     });
 };
 
+
+function checkMailRegex(){
+	var userMail = $("#userMail").val();
+	var mailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+	if(!mailRegex.test(userMail)){
+        $(".mail_already").css("display","none");
+        $(".mail_ok").css("display", "none");
+        $(".mail_check").css("display", "inline-block");
+        $("#btnSend").prop("disabled", true);
+        return false;		
+	}
+	return checkMail();
+}
+
 var authKey;
 function sendMail(){
 
 	var userMail = $("#userMail").val();
-	$.ajax({
-	     url:"/member/sendMail",
-	     type: "post",
-	     async: false,
-	     data:{userMail:userMail},
-	     success:function(authkey){
-			authKey = authkey;
-			$("#verifyMail").css("display", "inline-block");
-	     },
-	     error:function(){
-	         alert("에러입니다");
-	     }
-	});
+// 	console.log(userMail);
+	if(!userMail){
+		action_popup.alert("이메일을 입력해주세요!");
+	} else {
+		$.ajax({
+		     url:"/member/sendMail",
+		     type: "post",
+		     async: false,
+		     data:{userMail:userMail},
+		     success:function(authkey){
+				authKey = authkey;
+				$("#verifyMail").css("display", "inline-block");
+				$(".mail_ok").css("display", "none");
+		     },
+		     error:function(){
+		         alert("에러입니다");
+		     }
+		});		
+	}
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
 	
 };
 
@@ -308,7 +341,7 @@ body {
 	color:#6A82FB;
 	display: none;
 }
-.id_already, .id_check, .nick_already, .nick_check, .mail_already, .verify_no {
+.id_already, .id_check, .nick_already, .nick_check, .mail_already, .mail_check, .verify_no {
 	color: red;
 	display: none;
 }
@@ -328,6 +361,8 @@ body {
 	border: 0px;
 	background: #5b6e7a;
 	color: #f3f3f3;
+	margin: auto;
+	margin-top: 30px;
 }
 
 #btnSend {
@@ -344,6 +379,15 @@ body {
 	background: #fff;
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
+}
+
+#agreement {
+	border: 1px solid #DBDAD7;
+	background: #fff;
+	overflow: auto;
+	width: 85%;
+	height: 100px;
+	margin: auto;
 }
 
 </style>
@@ -387,9 +431,11 @@ body {
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
-	<td><input style="width: 85%;" type="email" id="userMail" class="pull-left" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMail()"/><button id="btnSend" class="pull-right" type="button" onclick="sendMail()">인증하기</button><br>
+	<td><input style="width: 85%;" type="email" id="userMail" class="pull-left" name="userMail" placeholder="이메일을 입력하세요" autocomplete="off" required oninput="checkMailRegex()"/>
+	<button id="btnSend" class="pull-right" type="button" onclick="sendMail()">인증하기</button><br>
 	<span class="mail_ok">사용 가능한 이메일입니다.</span>
-	<span class="mail_already">사용 중인 이메일입니다.</span><br>
+	<span class="mail_already">사용 중인 이메일입니다.</span>
+	<span class="mail_check">이메일 형식으로 작성해주세요.</span><br>
 	
 	<input type="text" maxlength="6" id="verifyCode" name="verifyCode" placeholder="인증문자를 입력하세요" autocomplete="off" required oninput="checkVerifyCode()"/><br>
 	<span class="verify_ok">인증되었습니다.</span>
@@ -412,6 +458,19 @@ body {
 	</td>
 </tr>
 </table>
+<hr>
+<p style="font-size: 15px; font-weight: bold; margin-left: 70px;" class="pull-left">개인정보 수집 및 이용 동의<span class="required">&nbsp;*</span></p>
+<div id="agreement">
+	<p>「개인정보보호법」 등 관련 법규에 의거하여 KH 영수증은 홈페이지 이용를 위해 개인정보를 수집·이용하고 있으며, 관계법령에 따라 개인정보가 안전하게 관리될 수 있도록 필요한 사항을 처리하고 있습니다.</p>
+	<p>■ 개인정보 수집 및 이용</p>
+	<p>1. 개인정보의 수집·이용 목적 : 홈페이지 운영</p>
+	<p>2. 수집 항목 : 성명, 이메일 주소, 성별, 생일</p>
+	<p>3. 보유·이용 기간 : 영구. 단, 회원 탈퇴 시 개인정보 즉시 파기</p>
+	<p>4. 개인정보 수집·이용을 거부할 권리 및 그에 따른 불이익 사항 : 귀하는 위의 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만, 동의가 없을 경우 홈페이지 이용에 제한이 있을 수 있습니다.</p>
+</div>
+<div class="text-right" style="width: 100%; padding-right: 60px;">
+	<input type="checkbox" id="agree" /><label for="agree">&nbsp;&nbsp;동의합니다.</label>
+</div>
 
 <button id="join">회원가입</button>
 </form>
