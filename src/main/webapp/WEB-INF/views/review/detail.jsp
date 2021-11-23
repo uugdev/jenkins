@@ -303,10 +303,10 @@ function deleteComment(reviewComNo) {
 		<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
 			<td style="width: 4%;"></td>
 
-			<c:if test="${review.USER_NICK eq null }">
+			<c:if test="${reviewComment.USER_NICK eq null }">
 				<td>탈퇴한 회원</td>
 			</c:if>
-			<c:if test="${review.USER_NICK ne null }">
+			<c:if test="${reviewComment.USER_NICK ne null }">
 				<td style="text-align: left;">
 					<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;"> ${reviewComment.USER_NICK }
 				</td>
