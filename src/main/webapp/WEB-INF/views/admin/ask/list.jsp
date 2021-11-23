@@ -104,7 +104,7 @@ label {
 <div class="wrap">
 <div class="container">
 
-<h3>질문게시판 목록</h3>
+<h3 style="margin-top: 100px;">질문게시판 목록</h3>
 <hr>
 <span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">

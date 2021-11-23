@@ -56,75 +56,63 @@ $(document).ready(function() {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-<div class="container">
+	<div class="container">
 
-<%-- 시작 --%>
+		<%-- 시작 --%>
 
-<h1>질문 글쓰기 페이지</h1>
-<hr>
+		<h1>질문 글쓰기 페이지</h1>
+		<hr>
 
-<form action="/ask/write" method="post" enctype="multipart/form-data">
-<div class="form-group">
-	<label for="userNick">작성자</label>
-	<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>
-</div>
-<div class="form-group">
-	<label for="askTitle">제목</label>
-	<input type="text" id="askTitle" name="askTitle" class="form-control" maxlength="33"/>
-</div>
+		<form action="/ask/write" method="post" enctype="multipart/form-data">
+			<div class="form-group">
+				<label for="userNick">작성자</label> <input type="text" id="userNick"
+					value="${userNick }" class="form-control" readonly="readonly" />
+			</div>
+			<div class="form-group">
+				<label for="askTitle">제목</label> <input type="text" id="askTitle"
+					name="askTitle" class="form-control" maxlength="33" />
+			</div>
+			<div class="form-group">
+				<label for="itemBrand">브랜드</label> <input type="text" id="itemBrand"
+					name="itemBrand" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label for="itemName">상품명</label> <input type="text" id="itemName"
+					name="itemName" class="form-control" />
+			</div>
+			<div class="form-group commaInput">
+				<label for="itemPrice">가격</label> <input type="text" id="itemPrice"
+					name="itemPrice" class="form-control" />
+			</div>
 
-<!-- 상품 브랜드명 상품명 가격 사진 구매고민이유가본문  -->
+			<div class="form-group">
+				<label for="file">첨부파일</label> <input type="file" id="file"
+					name="file" />
+			</div>
 
+			<div class="form-group">
+				<label for="askContent">구구절절</label>
+				<textarea rows="10" style="width: 100%;" id="askContent"
+					name="askContent"></textarea>
+			</div>
 
+			<div class="form-group">
+				<h6>투표 기간 설정</h6>
+			</div>
 
+			<div class="form-group">
+				<label><input type="radio" id="voteEnd" name="voteEnd"
+					value="sysdate+1" checked="checked" />24시간</label> <label><input
+					type="radio" id="voteEnd" name="voteEnd" value="sysdate+2" />48시간</label>
+				<label><input type="radio" id="voteEnd" name="voteEnd"
+					value="sysdate+3" />72시간</label>
+			</div>
 
-<div class="form-group">
-	<label for="itemBrand">브랜드</label>
-	<input type="text" id="itemBrand" name="itemBrand" class="form-control"/>
-</div>
-<div class="form-group">
-	<label for="itemName">상품명</label>
-	<input type="text" id="itemName" name="itemName" class="form-control"/>
-</div>
-<div class="form-group commaInput">
-	<label for="itemPrice">가격</label>
-	<input type="text" id="itemPrice" name="itemPrice" class="form-control" />
-</div>
-
-<div class="form-group">
-	<label for="file">첨부파일</label>
-	<input type="file" id="file" name="file" />
-</div>
-
-<div class="form-group">
-	<label for="askContent">구구절절</label>
-	<textarea rows="10" style="width: 100%;" id="askContent" name="askContent"></textarea>
-</div>
-
-<div class="form-group">
-	<h6>투표 기간 설정</h6>
-</div>
-
-<div class="form-group">
-	<label><input type="radio" id="voteEnd" name="voteEnd" value="sysdate+1" checked="checked" />24시간</label>
-	<label><input type="radio" id="voteEnd" name="voteEnd" value="sysdate+2" />48시간</label>
-	<label><input type="radio" id="voteEnd" name="voteEnd" value="sysdate+3" />72시간</label>
-</div>
-
-<div class="text-center">
-	<button type="button" class="btn btn-primary" id="btnWrite">작성</button>
-	<input type="reset" id="cancel" class="btn btn-danger" value="취소"/>
-</div>
-
-
-
-
-</form>
-
-
-
-
-<%-- 끝 --%>
+			<div class="text-center">
+				<button type="button" class="btn btn-primary" id="btnWrite">작성</button>
+				<input type="reset" id="cancel" class="btn btn-danger" value="취소" />
+			</div>
+		</form>
 
 <script type="text/javascript">
 var oEditors = [];
@@ -164,9 +152,10 @@ function numberFormat(obj) {
 
 
 
-</div><!-- .container end -->
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
-</div><!-- .wrap end -->
-
+	</div>
+	<!-- .container end -->
+	<!-- footer start -->
+	<c:import url="/WEB-INF/views/layout/footer.jsp" />
+</div>
+<!-- .wrap end -->
 

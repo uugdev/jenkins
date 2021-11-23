@@ -143,43 +143,42 @@ $("#setReport").click(function() {
 	if(userno != askUserno) {
 		if(result) {
 			if(loginUserVoteState == null || loginUserVoteState == "")  {
-			$("#like").click(function() {
-				
-			action_popup.confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?", function (check) {
-				
-				if(check) {
-				
-					$.ajax({
-						type: "get"
-						, url: "/ask/votelike"
-						, data: { "askNo": '${ask.askNo }' }
-						, dataType: "json"
-						, success: function( data ) {
-							console.log("성공");
-							$("#like")
-							.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote')
-							.addClass('success');
-							
-							//투표수 적용
-							$("#cntY").html(data.cntY);
-							
-							initChart(data.cntY, $("#cntN").html())
-							
-						} //success
-						, error: function() {
-							console.log("실패");
-						} //error
-					}); //ajax end
-				} //check like중복투표확인 if문 end
-				
-			})
+				$("#like").click(function() {
+					
+				action_popup.confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?", function (check) {
+					
+					if(check) {
+					
+						$.ajax({
+							type: "get"
+							, url: "/ask/votelike"
+							, data: { "askNo": '${ask.askNo }' }
+							, dataType: "json"
+							, success: function( data ) {
+								console.log("성공");
+								$("#like")
+								.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote')
+								.addClass('success');
+								
+								//투표수 적용
+								$("#cntY").html(data.cntY);
+								
+								initChart(data.cntY, $("#cntN").html())
+								
+							} //success
+							, error: function() {
+								console.log("실패");
+							} //error
+						}); //ajax end
+					} //check like중복투표확인 if문 end
+				})
 			
-			/* 닫는 창으로 꼭 필요함 */
-		    $(".modal_close").on("click", function () {
-		        action_popup.close(this);
-		    });
+				/* 닫는 창으로 꼭 필요함 */
+			    $(".modal_close").on("click", function () {
+			        action_popup.close(this);
+			    });
 				
-	 		}); //$("#like").click() end
+	 			}); //$("#like").click() end
 			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
@@ -219,15 +218,15 @@ $("#setReport").click(function() {
 					}); //ajax end
 				} //check like중복투표확인 if문 end
 				
-			})
+				})
 			
-			/* 닫는 창으로 꼭 필요함 */
-		    $(".modal_close").on("click", function () {
-		        action_popup.close(this);
-		    });
+				/* 닫는 창으로 꼭 필요함 */
+			    $(".modal_close").on("click", function () {
+			        action_popup.close(this);
+			    });
 			
 			
-	 		}); //$("#hate").click() end
+	 			}); //$("#hate").click() end
 			}//loginUserVoteState 로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
@@ -237,9 +236,9 @@ $("#setReport").click(function() {
 
 		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
 
-		if (result == true) {
-			$(location).attr("href", "/ask/delete?askNo=${ask.askNo }");
-		}
+			if (result == true) {
+				$(location).attr("href", "/ask/delete?askNo=${ask.askNo }");
+			}
 		
 		})
 		
@@ -388,7 +387,18 @@ function deleteComment(askComNo) {
 		, success: function(data){
 			if(data.success) {
 				
-				$("[data-askComNo='"+askComNo+"']").remove();
+				action_popup.confirm("댓글을 삭제하시겠습니까?", function (del) {
+					
+					if(del) {
+						$("[data-askComNo='"+askComNo+"']").remove();
+					}
+				
+				})
+				
+				/* 닫는 창으로 꼭 필요함 */
+			    $(".modal_close").on("click", function () {
+			        action_popup.close(this);
+			    });
 				
 			} else {
 				alert("댓글 삭제 실패");
@@ -469,8 +479,6 @@ table, th {
 
 <div class="wrap">
 	<div class="container">
-
-		<%-- --%>
 
 		<h1 style="text-align: center; margin-top: 50px;">${ask.askTitle }</h1>
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
@@ -628,7 +636,7 @@ table, th {
 								pattern="yy-MM-dd hh:mm:ss" />
 						</td>
 						<td><c:if test="${userNo eq askComment.USER_NO }">
-								<button class="btn btn-default btn-xs"
+								<button class="btn btn-default btn-xs btnDel"
 									onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
 								<button class="btn btn-default btn-xs"
 									onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
@@ -703,11 +711,4 @@ table, th {
 		$(this).parents('.popupWrap1').addClass('hide1');
 		$(this).parents('.popup1').children('textarea').val('');
 	});
-
-// 	$(".btnWrap1").click(function() {
-// 		$(this).parents("form").submit();
-// 	});
 </script>
-<!-- footer start -->
-
-

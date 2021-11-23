@@ -107,8 +107,7 @@ td:nth-child(2) {
 		<h1>게시판 최신순</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
-			<a id="latestList">최신순</a>
-			<a id="hitList">조회순</a>
+			<a id="latestList">최신순</a> <a id="hitList">조회순</a>
 		</div>
 		<div id="ajaxArea">
 			<table class="table table-striped table-hover">
@@ -125,11 +124,9 @@ td:nth-child(2) {
 					<c:forEach items="${list }" var="ask">
 						<tr>
 							<td style="text-align: center">${ask.ASK_NO }</td>
-							<td>
-								<a href="/ask/detail?askNo=${ask.ASK_NO }">
-									<span class="ellipsis2">${ask.ASK_TITLE }</span>
-								</a>
-							</td>
+							<td><a href="/ask/detail?askNo=${ask.ASK_NO }"> <span
+									class="ellipsis2">${ask.ASK_TITLE }</span>
+							</a></td>
 							<c:if test="${ask.USER_NICK eq null}">
 								<td>탈퇴한 회원입니다</td>
 							</c:if>
@@ -167,7 +164,3 @@ td:nth-child(2) {
 	<c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div>
 <!-- .wrap end -->
-
-
-
-
