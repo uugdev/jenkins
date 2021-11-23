@@ -8,6 +8,8 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+
+
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 window.Kakao.init("77e2509024f988b8580ef1eccfcf4e35")
@@ -37,14 +39,6 @@ function kakaoLogin(){
 
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#btnBack").click(function(){
-		location.href = "/main"
-	})
-})
-
-</script>
 
 <style type="text/css">
 
@@ -79,12 +73,11 @@ input[type=text], input[type=password] {
 	height: 90%;
 	border-radius: 0px;
 	border: 1px solid #DBDAD7;
-	color: #B2B3B7;
 	padding: 5px;
 }
 
 input[type=text]:focus, input[type=password]:focus {
-	outline: none;
+	outline: none;	
 }
 
 .title {
@@ -131,11 +124,11 @@ a:hover {
 <div class="form">
 <table class="table">
 <tr>
-	<td><input type="text" id="userId" name="userId" placeholder="ID" /></td><!-- 추후에 오토컴플릿 추가 예정 -->
-	<td style="width: 30%; vertical-align: middle;" rowspan="2"><button type="submit" id="btnSubmit">로그인</button></td>
+	<td><input type="text" id="userId" name="userId" placeholder="ID" tabindex="1" required /></td><!-- 추후에 오토컴플릿 추가 예정 -->
+	<td style="width: 30%; vertical-align: middle;" rowspan="2"><button type="submit" id="btnSubmit" tabindex="3">로그인</button></td>
 </tr>
 <tr>
-	<td><input type="text" id="userPw" name="userPw" placeholder="PASSWORD" /></td><!-- 추후에 타입 변경 예정 -->
+	<td><input type="text" id="userPw" name="userPw" placeholder="PASSWORD" tabindex="2" required /></td><!-- 추후에 타입 변경 예정 -->
 </tr>
 </table>
 <hr>
