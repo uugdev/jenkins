@@ -26,7 +26,8 @@ $(document).ready(function() {
 		
 		var limit = uncomma($('input[name=itemPrice]').val()); //건들지마
 		var price = parseInt(limit); //건들지마
-		var result = confirm("글쓰기 완료 시 상품정보,투표설정은 수정이 불가합니다. 확인버튼을 누르시면 글쓰기가 완료됩니다.");
+		action_popup.confirm("글쓰기 완료 시 상품정보,투표설정은 수정이 불가합니다. 확인버튼을 누르시면 글쓰기가 완료됩니다.",
+				function (result) {
 
 		if (result == true) {
 			$('input[name=itemPrice]').val(price);
@@ -35,6 +36,13 @@ $(document).ready(function() {
 			
 			$("#askContent").focus();
 		}
+		
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
 		
 	})
 	
@@ -62,7 +70,7 @@ $(document).ready(function() {
 </div>
 <div class="form-group">
 	<label for="askTitle">제목</label>
-	<input type="text" id="askTitle" name="askTitle" class="form-control"/>
+	<input type="text" id="askTitle" name="askTitle" class="form-control" maxlength="33"/>
 </div>
 
 <!-- 상품 브랜드명 상품명 가격 사진 구매고민이유가본문  -->

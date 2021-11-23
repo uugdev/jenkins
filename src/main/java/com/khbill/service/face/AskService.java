@@ -342,5 +342,15 @@ public interface AskService {
 	 */
 	public String getGradeUrlByUserNo(int userNo);
 
+	
+	/**
+	 * 
+	 * 글번호로 댓글수 카운트
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public int getAskComCnt(int askNo);
+
 
 }

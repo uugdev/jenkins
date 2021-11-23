@@ -189,6 +189,11 @@ public class AskController {
 		boolean isScrap = askService.isScrap(askScrap);
 		model.addAttribute("isScrap", isScrap);
 		
+		int cntCom = askService.getAskComCnt(askNo);
+		
+		model.addAttribute("cntCom", cntCom);
+		
+		
 
 	}
 
@@ -246,7 +251,9 @@ public class AskController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 		askComment.setUserNo(userNo);
+		logger.info("askComment : {} " , askComment);
 		askService.setAskCommentWrite(askComment);
+		
 		AskComment addComment = askService.getAskCommentWriteByUserNo(userNo);
 		String userNick = askService.getUserNickByUserNo(addComment.getUserNo());
 		String gradeUrl = askService.getGradeUrlByUserNo(addComment.getUserNo());
@@ -266,6 +273,9 @@ public class AskController {
 		mav.addObject("addComment", addComment);
 		mav.addObject("gradeUrl", gradeUrl);
 		mav.setViewName("jsonView");
+		
+		int cntCom = askService.getAskComCnt(askComment.getAskNo());
+		mav.addObject("cntCom", cntCom);
 
 		return mav;
 	}

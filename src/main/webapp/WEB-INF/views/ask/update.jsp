@@ -24,7 +24,7 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
 		
-		var result = confirm("게시글을 수정하시겠습니까?");
+		action_popup.confirm("게시글을 수정하시겠습니까?", function (result) {
 
 		if (result == true) {
 			$("form").submit();
@@ -32,6 +32,13 @@ $(document).ready(function() {
 			
 			$("#askContent").focus();
 		}
+		
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
 		
 	})
 	

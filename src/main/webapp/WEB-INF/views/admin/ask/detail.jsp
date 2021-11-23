@@ -80,11 +80,18 @@ $(document).ready(function() {
 	
 	$("#btnDelete").click(function() {
 
-		var result = confirm("정말 삭제하시겠습니까?");
+		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
 
 		if (result == true) {
 			$(location).attr("href", "/admin/ask/delete?askNo=${ask.askNo }");
 		}
+		
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
 
 	});
 

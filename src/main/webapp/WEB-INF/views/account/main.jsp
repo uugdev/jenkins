@@ -148,9 +148,15 @@ var myChart2 = new Chart(context2, {
 		var limit = uncomma($('input[name=extraMoney]').val()); //건들지마
 
 		if( limit == ""  ) {
-			alert("변경금액을 입력해주세요")
-			return;
+			action_popup.alert("변경금액을 입력해주세요");
+			$(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+			
+// 			return;
 		}
+		
+		
 		
 		var change = parseInt(limit); //건들지마
 
@@ -330,11 +336,11 @@ var myChart2 = new Chart(context2, {
 						<div class="popupWrap1 hide1">
 							<div class="popup1 commaInput">
 								<div class="title">
-									<p>지출 가능금액을 설정해주세요</p>
+									<p>지출 가능 금액 설정</p>
 									<span class="close1">❌</span>
 								</div>
 								<input type="text" name="extraMoney" id="extraMoney" value="" />
-								<span style="font-size: x-large;">원</span>
+								<span style="font-size:24px;">원</span>
 								<div class="btnWrap1">
 									<button id="update">저장</button>
 								</div>
@@ -345,9 +351,6 @@ var myChart2 = new Chart(context2, {
 
 			</div>
 		</div>
-
-
-
 
 		<div id="itemlist">
 			<div id="bill">

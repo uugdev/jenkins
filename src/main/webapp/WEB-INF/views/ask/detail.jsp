@@ -20,15 +20,22 @@
 
 <script type="text/javascript">
 function message () {
-	var answer = confirm('쪽지를 보내시겠습니까?');
+	 action_popup.confirm('쪽지를 보내시겠습니까?', function (answer) {
         
-	if(answer) {
+		if(answer) {
 		
-		window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+			window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
 	
-	} else {
-		return false;
-	}
+		} else {
+			return false;
+		}
+	
+	 })
+	 
+	 /* 닫는 창으로 꼭 필요함 */
+	 $(".modal_close").on("click", function () {
+      action_popup.close(this);
+      });
         	
 }
 
@@ -79,7 +86,13 @@ $("#setReport").click(function() {
 		var category = $("#reportCategory").val();
 		if( content == ""  ) {
 			
-			alert("신고사유를 입력해주세요")
+			action_popup.alert("신고사유를 입력해주세요")
+			
+			/* 닫는 창으로 꼭 필요함 */
+			$(".modal_close").on("click", function () {
+		     action_popup.close(this);
+		    });
+			
 			return;
 			
 		} else {
@@ -96,14 +109,17 @@ $("#setReport").click(function() {
 						
 						if( data.reportCheck ) {
 							
-							alert("신고가 완료되었습니다.");
+							action_popup.alert("신고가 완료되었습니다.");
 							
 						} else {
 							
-							alert("이미 신고한 게시글입니다.");
-							
+							action_popup.alert("이미 신고한 게시글입니다.");
 							
 						}
+						/* 닫는 창으로 꼭 필요함 */
+					    $(".modal_close").on("click", function () {
+					        action_popup.close(this);
+					    });
 						
 				}
 				, error: function() {
@@ -129,7 +145,7 @@ $("#setReport").click(function() {
 			if(loginUserVoteState == null || loginUserVoteState == "")  {
 			$("#like").click(function() {
 				
-				var check = confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?");
+			action_popup.confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?", function (check) {
 				
 				if(check) {
 				
@@ -155,6 +171,14 @@ $("#setReport").click(function() {
 						} //error
 					}); //ajax end
 				} //check like중복투표확인 if문 end
+				
+			})
+			
+			/* 닫는 창으로 꼭 필요함 */
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+				
 	 		}); //$("#like").click() end
 			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
@@ -168,7 +192,7 @@ $("#setReport").click(function() {
 			if(loginUserVoteState == null || loginUserVoteState == "")  {
 			$("#hate").click(function() {
 				
-				var check = confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?");
+			action_popup.confirm("투표하시면 수정이 불가능합니다. 투표하시겠습니까?", function (check) {
 				
 				if(check) {
 				
@@ -194,6 +218,15 @@ $("#setReport").click(function() {
 						} //error
 					}); //ajax end
 				} //check like중복투표확인 if문 end
+				
+			})
+			
+			/* 닫는 창으로 꼭 필요함 */
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+			
+			
 	 		}); //$("#hate").click() end
 			}//loginUserVoteState 로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
@@ -202,11 +235,18 @@ $("#setReport").click(function() {
 	
 	$("#btnDelete").click(function() {
 
-		var result = confirm("정말 삭제하시겠습니까?");
+		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
 
 		if (result == true) {
 			$(location).attr("href", "/ask/delete?askNo=${ask.askNo }");
 		}
+		
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
 
 	});
 
@@ -230,8 +270,11 @@ function initChart(cntY, cntN) {
 } 
 </script>
 <script type="text/javascript">
+var cntCom = ${cntCom};
+
 function insertComment() {
 	var textarea = $("#askComContent").val();
+
 	
 	$.ajax({
 		type: "post"
@@ -244,6 +287,10 @@ function insertComment() {
 		, success: function(data){
 			if(data.success) {
 				
+				console.log(data.cntCom);
+				
+			$('#cntCom').html(++cntCom, cntCom);
+			
 			var userNo = '<%=session.getAttribute("userNo")%>';
 			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD hh:mm:ss");
 				
@@ -444,7 +491,8 @@ table, th {
 				<button id="report" class="popupOpen1">신고</button>
 			</c:if>
 		</c:if>
-		<span class="pull-right">조회수 : ${ask.askHit }</span>
+		<span class="pull-right" >댓글 <span id="cntCom">${cntCom }</span></span>
+		<span class="pull-right">| 조회 ${ask.askHit } |&nbsp;</span>
 
 		<table class="table table-striped table-hover">
 			<thead>

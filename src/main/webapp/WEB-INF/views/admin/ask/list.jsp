@@ -33,7 +33,7 @@ $(document).ready(function(){
 	
 	
 	$("#btnDelete").click(function(){
-		var result = confirm("선택한 게시글을 삭제하시겠습니까?")
+		action_popup.confirm("선택한 게시글을 삭제하시겠습니까?", function (result) {
 		var deleteAsk = [];
    
 	    $('.check:checked').each(function(){
@@ -44,6 +44,14 @@ $(document).ready(function(){
 		} else {
 			return false;
 		}
+		
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
+		
 	})
 	
 	$("#btnSearch").click(function() {
