@@ -202,7 +202,7 @@ table, th {
 
 		<%-- --%>
 
-		<h1 style="text-align: center;">${ask.askTitle }</h1>
+		<h1 style="text-align: center; margin-top: 50px;">${ask.askTitle }</h1>
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
 		<!-- <div class="clearfix"></div> -->
 		<hr>
@@ -291,8 +291,8 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 10%;">작성자</th>
-					<th style="width: 64%;">댓글</th>
+					<th style="width: 12%;">작성자</th>
+					<th style="width: 62%;">댓글</th>
 					<th style="width: 12%;">작성일</th>
 					<th style="width: 10%;"></th>
 				</tr>
@@ -304,17 +304,25 @@ table, th {
 					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
 						<td></td>
-						<td>${askComment.USER_NICK }</td>
-						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
-						<td><fmt:formatDate
-								value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+						<c:if test="${askComment.USER_NICK ne null }">
+							<td style="text-align: left;"><img alt="#"
+								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
+								${askComment.USER_NICK }</td>
+						</c:if>
+						<c:if test="${askComment.USER_NICK eq null}">
+							<td class="pull-left">탈퇴한 회원입니다</td>
+						</c:if>
+						<td id="td${askComment.ASK_COM_NO }" style="text-align: left">${askComment.ASK_COM_CONTENT }</td>
+						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
+							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
+								pattern="yy-MM-dd hh:mm:ss" />
+						</td>
 						<td>
 							<button class="btn btn-default btn-xs"
 								onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
-				<tr id="appendArea"></tr>
 			</tbody>
 		</table>
 		<!-- 댓글 리스트 end -->
@@ -327,7 +335,7 @@ table, th {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center">
+		<div class="text-center" style="margin-bottom: 100px;">
 			<a href="/admin/ask/list"><button class="btn btn-default">목록</button></a>
 			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
 		</div>

@@ -21,16 +21,29 @@
 document.addEventListener('DOMContentLoaded', function() {
 	var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-		initialView: 'dayGridMonth',
+		
+    	headerToolbar: {
+    		
+    		left: 'title',
+    		right: 'dayGridMonth,today prev,next'
+    		
+    	},
+    	
+    	initialView: 'dayGridMonth',
         nowIndicator: true, // 현재 시간 마크
         dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
-    	 
+        editable : true,
+        eventLimit : true,
 		events: [ 
 			<c:forEach items="${itemList}" var="i">
 				{
+					
+					color : "#EEA54C",
+	                textColor : "white",
 					title  : '${i.itemName}',
     	      		start  : '<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />',
     	      		end    : '<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />'
+    	      			
     	    	},
     	    </c:forEach>
 		]
@@ -177,6 +190,23 @@ var myChart2 = new Chart(context2, {
 })
 </script>
 <style type="text/css">
+  /*요일*/
+  .fc-col-header-cell-cushion {
+	color: #000;
+  }
+  .fc-col-header-cell-cushion:hover {
+	text-decoration: none;
+	color:#000;
+  }
+  /*일자*/
+  .fc-daygrid-day-number{
+	color: #000;
+	font-size:1em;
+  }
+.fc-event-title.fc-sticky{
+    white-space: normal;
+}
+
 #calendar {
 	
 }

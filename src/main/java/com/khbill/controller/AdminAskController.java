@@ -82,15 +82,12 @@ public class AdminAskController {
 		String voteStateN = "y"; //투표체크 N
 		int cntY = adminAskService.getVoteStatusTotalCnt(askNo,voteStateN);
 		model.addAttribute("cntY",cntY);
-
 		
+		// 댓글리스트 전달
 		List<HashMap<String, String>> askComment = adminAskService.getAskComList(askNo);
-		
+
 		logger.info("askComment : {}", askComment);
 		model.addAttribute("askComment",askComment);
-		
-		
-		
 		
 	}
 	

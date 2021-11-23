@@ -252,7 +252,7 @@ function insertComment() {
 					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
 					'<td style="width: 12%; padding: 5px; text-align: left;">' +
 					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
-					'<td id="td'+ data.addComment.askComNo +'">'+ data.addComment.askComContent +'</td>' +
+					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
 					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
 					'<td>' +
 					'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.askComNo +');">삭제</button> ' +
@@ -425,7 +425,7 @@ table, th {
 
 		<%-- --%>
 
-		<h1 style="text-align: center;">${ask.askTitle }</h1>
+		<h1 style="text-align: center; margin-top: 50px;">${ask.askTitle }</h1>
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
 		<!-- <div class="clearfix"></div> -->
 		<hr>
@@ -565,17 +565,21 @@ table, th {
 				<c:forEach items="${askComment}" var="askComment">
 					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
-					
-					
 						<td></td>
-						<td style="text-align: left;">
-							<img alt="#" src="${askComment.GRADE_URL }" width="20px;" height="20px;"> ${askComment.USER_NICK }
-						</td>
-						<td id="td${askComment.ASK_COM_NO }">${askComment.ASK_COM_CONTENT }</td>
+						<c:if test="${askComment.USER_NICK ne null }">
+							<td style="text-align: left;"><img alt="#"
+								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
+								${askComment.USER_NICK }</td>
+						</c:if>
+						<c:if test="${askComment.USER_NICK eq null}">
+							<td class ="pull-left">탈퇴한 회원입니다</td>
+						</c:if>
+						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
-							<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
-						<td><c:if
-								test="${userNo eq askComment.USER_NO }">
+							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
+								pattern="yy-MM-dd hh:mm:ss" />
+						</td>
+						<td><c:if test="${userNo eq askComment.USER_NO }">
 								<button class="btn btn-default btn-xs"
 									onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
 								<button class="btn btn-default btn-xs"
@@ -606,7 +610,7 @@ table, th {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center" style="margin-bottom: 100px;">
+		<div class="text-center" style="margin-bottom: 100px; margin-top: 50px;">
 			<a href="/ask/list"><button class="btn btn-default">목록</button></a>
 			<c:if test="${userNo eq ask.userNo }">
 				<a href="/ask/update?askNo=${ask.askNo }"><button

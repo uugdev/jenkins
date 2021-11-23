@@ -163,15 +163,20 @@
 	</insert>
 	
 	<select id="selectAskComByAskNo" resultType="HashMap" parameterType="int">
-        SELECT C.*, U.grade_url
-        FROM USERWITHURL U, (
-            SELECT u.user_nick, c.user_no, c.ask_com_no, c.ask_no, c.ask_com_content, c.ask_com_date
-            FROM zask_comment c, zuser u
-            WHERE 1=1
-            AND c.user_no = u.user_no
-            AND ask_no = #{askNo }
-            ORDER BY ask_com_date ) C
-        WHERE U.user_no = C.user_no
+        SELECT * FROM (
+            SELECT rownum rnum, C.* FROM (
+                SELECT
+                     ask_com_no, U.user_no, user_nick, ask_no
+                    , ask_com_content, ask_com_date, ask_com_like, ask_com_hate, W.grade_url
+                FROM ZASK_COMMENT C
+                LEFT OUTER JOIN zuser U
+                    ON U.user_no = C.user_no
+                LEFT OUTER JOIN USERWITHURL W
+                    ON U.user_no = W.user_no
+                WHERE ask_no = #{askNo}
+                ORDER BY ask_com_no
+            ) C
+        ) ZASK_COMMENT
 	</select>
 	
 	

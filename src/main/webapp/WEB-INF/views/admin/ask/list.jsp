@@ -75,6 +75,20 @@ label {
 	font-weight: normal !important;
 }
 
+.ellipsis2 {
+ 	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+/* 	line-height: 1.2em; */
+/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 300px;
+}
+
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -92,12 +106,12 @@ label {
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
-	<th><input type="checkbox" name="select" id="selectAll" /></th>
-	<th>질문글 번호</th>
-	<th width="45%">제목</th>
-	<th>닉네임</th>
-	<th>조회수</th>
-	<th>작성일</th>
+	<th style="text-align: center; width: 6%;"><input type="checkbox" name="select" id="selectAll" /></th>
+	<th style="width: 8%;">글번호</th>
+	<th style="text-align: left; width: 46%;">제목</th>
+	<th style="text-align: left; width: 12%;">닉네임</th>
+	<th style="text-align: center; width: 10%;">조회수</th>
+	<th style="text-align: center; width: 12%;">작성일</th>
 </tr>
 <c:forEach items="${list }" var="askList">
 <tr>
@@ -107,22 +121,24 @@ label {
 	<td>
 		<label for="${askList.ASK_NO}">${askList.ASK_NO }</label>
 	</td>
-	<td>
+	<td style="text-align: left;">
 		<label for="${askList.ASK_NO }">
-			<a href="/admin/ask/detail?askNo=${askList.ASK_NO }">${askList.ASK_TITLE }</a>
+			<a href="/admin/ask/detail?askNo=${askList.ASK_NO }">
+				<span class="ellipsis2">${askList.ASK_TITLE }</span>
+			</a>
 		</label>
 	</td>
 	<c:if test="${askList.USER_NICK ne null}">
 		<td style="text-align: left;">
 			<label for="${askList.ASK_NO }">
-				<img alt="#" src="${askList.GRADE_URL}" style="width: 30px; height: 30px;" />
+				<img alt="#" src="${askList.GRADE_URL}" style="width: 20px; height: 20px;" />
 				${askList.USER_NICK }
 			</label>
 		</td>
 	</c:if>
 	
 	<c:if test="${askList.USER_NICK eq null}">
-		<td>탈퇴한 회원입니다</td>
+		<td style="text-align: left;">탈퇴한 회원입니다</td>
 	</c:if>
 	<td>
 		<label for="${askList.ASK_NO }">${askList.ASK_HIT }</label>
