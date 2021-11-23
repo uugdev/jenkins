@@ -81,7 +81,7 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
-		
+
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 

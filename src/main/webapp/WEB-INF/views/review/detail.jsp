@@ -88,6 +88,8 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
+var reviewComCount = ${review.REVIEW_COM_COUNT }
+
 function insertComment() {
 	var textarea = $("#reviewComContent").val();
 	
@@ -104,6 +106,8 @@ function insertComment() {
 		, success: function(data){
 			if(data.success) {
 			
+			$("#reviewComCount").html(++reviewComCount, reviewComCount);	
+				
 			console.log("안녕!")
 			
 			var userNo = '<%=session.getAttribute("userNo")%>';
@@ -207,6 +211,7 @@ function deleteComment(reviewComNo) {
 		, success: function(data){
 			if(data.success) {
 				
+				$("#reviewComCount").html(--reviewComCount, reviewComCount);
 				$("[data-reviewComNo='"+reviewComNo+"']").remove();
 				
 			} else {
@@ -257,7 +262,7 @@ function deleteComment(reviewComNo) {
 	<button id="scrap">스크랩</button>
 	<button id="report" class="popupOpen1">신고</button>
 </c:if>
-<%--  | 조회 ${review.REVIEW_HIT } | 댓글 <span id="reviewComCount">${review.REVIEW_COM_COUNT }</span> --%>
+ | 조회 ${review.REVIEW_HIT } | 댓글 <span id="reviewComCount">${review.REVIEW_COM_COUNT }</span>
 
 <table name="reviewTable" class="table table-striped table-hover">
 	<thead>

@@ -75,6 +75,10 @@
 		            review_no, U.user_no, user_nick, F.file_no, F.file_stored
 		            , i.item_no, i.item_brand, i.item_name, i.item_price
 		            , review_title, review_content, review_date, review_hit
+		            , ( SELECT count (review_com_no)
+		            FROM ZREVIEW_COMMENT
+		            WHERE review_no = 1
+		            ) review_com_count
 		        FROM zreview R
 		        LEFT OUTER JOIN zuser U
 		            ON U.user_no = R.user_no    
