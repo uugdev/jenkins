@@ -49,3 +49,39 @@ html {
     min-height: 100%;
     margin: 0;
 }
+
+@media (max-width: 850px) {
+	.nav>li>a {
+		margin-left: 0px;
+	}
+	#logo {
+		margin-left: 5px !important;
+	}
+	div#boardNav.blockNav a:nth-child(1) {
+	margin-left: 155px !important;
+	}
+}
+
+@media (min-width: 850px) {
+	.nav>li>a {
+		margin: 7px 0 0 30px;
+	}
+}
+
+@media (max-width: 750px) {
+	div#boardNav.blockNav {
+		display: none !important;
+	}
+}
+
+#boardA {
+    cursor:pointer;
+}
+
+div#boardNav.blockNav a {
+	color: white;
+	font-size: 20px;
+	font-weight: lighter;
+	text-decoration-line: none;
+	padding-right: 25px;
+}
