@@ -60,6 +60,11 @@ td {
 	vertical-align: center;
 }
 
+.titlearea {
+	margin: 50px 0 30px 0;
+}
+
+
 </style>
 <!-- 개별 영역 끝 -->
 <!-- 카카오 로그인 확인 절차 -->

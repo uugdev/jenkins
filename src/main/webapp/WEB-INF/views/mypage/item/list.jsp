@@ -53,6 +53,12 @@ $(document).ready(function(){
 })
 </script>
 
+<style>
+.titlearea {
+	margin: 50px 0 30px 0;
+}
+</style>
+
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -62,8 +68,9 @@ $(document).ready(function(){
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 <div class="col-md-9" style="height: 500px;">
-
-<h1>결제 체크 리스트</h1>
+<div class="titlearea">
+	<h3>결제 체크 리스트</h3>
+</div>
 <table class="table table-hover">
 	<tr>
 		<th style="width:9%"><strong>번호</strong></th>

@@ -44,6 +44,12 @@ $(document).ready(function(){
 })
 </script>
 
+<style>
+.titlearea {
+	margin: 50px 0 30px 0;
+}
+</style>
+
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -52,8 +58,9 @@ $(document).ready(function(){
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 <div class="col-md-9" style="height: 500px;">
-
-<h3>질문게시판에 작성한 댓글</h3>
+<div class="titlearea">
+	<h3>질문게시판에 작성한 댓글</h3>
+</div>
 <table class="table table-striped table-hover">
 <thead>
 	<tr>

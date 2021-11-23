@@ -45,13 +45,23 @@ $(document).ready(function(){
 })
 </script>
 
+<style>
+.titlearea {
+	margin: 50px 0 30px 0;
+}
+</style>
+
+
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
+<div class="titlearea">
 <h3>스크랩한 질문글</h3>
+</div>
+
 <div class="col-md-9" style="height: 500px;">
 
 <table class="table table-striped table-hover">

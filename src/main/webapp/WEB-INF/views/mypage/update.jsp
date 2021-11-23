@@ -211,7 +211,7 @@ input[type=password]{
 }
 
 .titlearea {
-	margin: 0 0 30px 0;
+	margin: 50px 0 30px 0;
 }
 
 </style>
