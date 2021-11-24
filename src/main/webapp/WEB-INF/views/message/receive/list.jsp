@@ -53,6 +53,44 @@ $(document).ready(function(){
 			return false;
 		}
 	})
+	
+	$("#unreadList").click(function () {
+		
+		$.ajax({
+			type: "get"
+			, url: "/message/receive/unread/list"
+			, data: {}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				
+				$("#resultArea").html( res )
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	})
+	
+	$("#entireList").click(function () {
+		
+		$.ajax({
+			type: "get"
+			, url: "/message/receive/entire/list"
+			, data: {}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				
+				$("#resultArea").html( res )
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	})
 
 })
 </script>
@@ -60,11 +98,15 @@ $(document).ready(function(){
 <style>
 
 #messageWrite {
-    margin: 0 0 0 60px;
+    margin: 0 0 0 45px;
 }
 
 #btnDelete {
     margin: 0 0 100px 60px;
+}
+
+.listArea {
+	margin : 0 0 0 900px;
 }
 
 </style>
@@ -74,40 +116,45 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 <div style="height: 30px;"></div>
-<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button>
-
+<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button><br>
 
 <div style="height:10px;"></div>
 
 <h3>받은 쪽지함</h3>
 
+<div class="listArea">
+<a id="entireList">전체 쪽지 보기</a>&nbsp;|&nbsp;<a id="unreadList">안읽은 쪽지 보기</a>
+</div>
+
 <div style="height: 30px;"></div>
 
-<table class="table table-hover">
-	<thead>
-	<tr>
-		<th style="width:10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width:10%">보낸 사람</th>
-		<th style="width:30%">제목</th>
-		<th style="width:10%">상태</th>
-		<th style="width:10%">받은 날짜</th>
-	</tr>
-	</thead>
-	<tbody>
-	<c:forEach items="${resultMapList }" var="map">
-	<tr>
-		<td><input type="checkbox" name="select" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
-		<td>${map.USER_NICK }</td>
-		<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
-		<td>
-			<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
-			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
-		</td>
-		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
-	</tr>
-	</c:forEach>
-	</tbody>
-</table>
+<div id="resultArea">
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th style="width:10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+			<th style="width:10%">보낸 사람</th>
+			<th style="width:30%">제목</th>
+			<th style="width:10%">상태</th>
+			<th style="width:10%">받은 날짜</th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${resultMapList }" var="map">
+		<tr>
+			<td><input type="checkbox" name="select" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
+			<td>${map.USER_NICK }</td>
+			<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
+			<td>
+				<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
+				<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
+			</td>
+			<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
+		</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+</div> <!-- #resultArea end -->
 <button id="btnDelete" class="pull-left">삭제</button>
 
 <div style="height:50px;"></div>
@@ -119,6 +166,7 @@ $(document).ready(function(){
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
+
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

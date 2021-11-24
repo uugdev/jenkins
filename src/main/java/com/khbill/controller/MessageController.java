@@ -143,7 +143,53 @@ public class MessageController {
 		model.addAttribute("resultMapList", resultMapList);
 		model.addAttribute("paging", paging);		
 	}
+	
+	//안읽은 메시지 날짜순
+	@RequestMapping(value="/message/receive/unread/list")
+	public String msgReceiveUnreadList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/meesage/receive/unread/list [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		String where = "receive";
 
+		Paging paging = messageService.getPaging(paramData, userNo, where);
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+
+		List<HashMap<String, Object>> resultMapList = messageService.getRcvdUnreadMsgList(map);
+
+		model.addAttribute("resultMapList", resultMapList);
+		model.addAttribute("paging", paging);
+		model.addAttribute("res",true);
+		
+		return "message/receive/ajaxlist";
+	}
+
+	//전체 메시지(날짜순)
+	@RequestMapping(value="/message/receive/entire/list")
+	public String msgReceiveEntireList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/meesage/receive/entire/list [GET]");
+		
+		int userNo = (int)session.getAttribute("userNo");
+		String where = "receive";
+
+		Paging paging = messageService.getPaging(paramData, userNo, where);
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userNo", userNo);
+		map.put("paging", paging);
+
+		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(map);
+
+		model.addAttribute("resultMapList", resultMapList);
+		model.addAttribute("paging", paging);		
+		model.addAttribute("res",true);
+		
+		return "message/receive/ajaxlist";
+	}
+	
 	@RequestMapping(value="/message/send/list")
 	public void msgSendList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/message/send/list [GET]");
@@ -166,12 +212,12 @@ public class MessageController {
 	}
 
 	@RequestMapping(value="/message/receive/detail")
-	public String rcvdMsgDetail(Message msg, Model model, HttpSession session) {
+	public String rcvdMsgDetail(int msgNo, Model model, HttpSession session) {
 		logger.info("/message/receive/detail [GET]");
 
 		int userNo = (int)session.getAttribute("userNo");
 
-		Message viewMsg = messageService.getMsgByMsgNo(msg);
+		Message viewMsg = messageService.getMsgByMsgNo(msgNo);
 
 		int msgUserNo = viewMsg.getSenderNo();
 		String senderNick = memberService.getUserNickByUserNo(msgUserNo);
@@ -194,12 +240,12 @@ public class MessageController {
 	}
 
 	@RequestMapping(value="/message/send/detail")
-	public String sendMsgDetail(Message msg, Model model, HttpSession session) {
+	public String sendMsgDetail(int msgNo, Model model, HttpSession session) {
 		logger.info("/message/send/detail [GET]");
 
 		int userNo = (int)session.getAttribute("userNo");
 
-		Message viewMsg = messageService.getMsgByMsgNo(msg);
+		Message viewMsg = messageService.getMsgByMsgNo(msgNo);
 
 		int msgUserNo = viewMsg.getReceiverNo();
 		String receiverNick = memberService.getUserNickByUserNo(msgUserNo);

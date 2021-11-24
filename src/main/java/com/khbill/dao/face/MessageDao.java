@@ -77,6 +77,8 @@ public interface MessageDao {
 
 	public Message selectMsgByMsgNo(Message msg);
 
+	public List<HashMap<String, Object>> selectRcvdMsgByState(HashMap<String, Object> map);
+
 	
 	
 

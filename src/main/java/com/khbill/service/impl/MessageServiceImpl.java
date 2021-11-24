@@ -90,4 +90,9 @@ public class MessageServiceImpl implements MessageService {
 		return messageDao.selectMsgByMsgNo(msg);
 
 	}
+	
+	@Override
+	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map) {
+		return messageDao.selectRcvdMsgByState(map);
+	}
 }

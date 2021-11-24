@@ -65,6 +65,14 @@ public interface MessageService {
 	public Message getMsgByMsgNo(int msgNo);
 
 	public Message getMsgByMsgNo(Message msg);
+	
+	/**
+	 * 읽지 않은 메세지만 가져오기
+	 * 
+	 * @param map
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map);
 
 
 

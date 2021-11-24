@@ -66,6 +66,20 @@
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	
 	</select>
 	
+	<select id="selectRcvdMsgByState" resultType="HashMap" parameterType="Hashmap">
+		SELECT * FROM (
+			SELECT rownum rnum, M.* FROM (
+				SELECT m.msg_no, m.sender_no, m.receiver_no
+				, m.msg_title, m.msg_content, m.msg_date, m.msg_check, u.user_nick
+				FROM ZMESSAGE m
+				INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
+				WHERE receiver_no = #{userNo } AND receiver_show = 'y' AND msg_check ='n'
+				ORDER BY msg_date DESC
+			) M
+		) R
+		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	
+	</select>
+	
 	<select id="selectSendMsgList" resultType="HashMap" parameterType="HashMap">
 		SELECT * FROM (
 			SELECT rownum rnum, M.* FROM (
