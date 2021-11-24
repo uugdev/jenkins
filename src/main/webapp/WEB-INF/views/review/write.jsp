@@ -54,7 +54,7 @@ $(document).ready(function() {
 </div>
 <div class="form-group">
 	<label for="reviewTitle">제목</label>
-	<input type="text" id="reviewTitle" name="reviewTitle" class="form-control"/>
+	<input type="text" id="reviewTitle" name="reviewTitle" class="form-control" maxlength="33"/>
 </div>
 
 
