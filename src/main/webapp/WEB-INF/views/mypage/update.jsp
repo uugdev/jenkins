@@ -17,20 +17,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	
-	$("#btnUpdate").click(function() {
-		var answer = confirm("회원정보를 수정하시겠습니까?")
-		
-		if(answer == true) {
-			$("form").submit();
-		} else {
-			return false;
-		}
-		
-		
-		$("form").submit();
-	})
-	
 	$("#btnCancel").click(function() {
 		history.go(-1);
 	})
@@ -66,7 +52,7 @@ $(document).ready(function() {
 	var bMonth = BdayArray[1];
 	var bDate = BdayArray[2];
 	
-	 $('#userBday').datepicker("setDate", bYear + "-" + bMonth + "-" + bDate); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+	$('#userBday').datepicker("setDate", bYear + "-" + bMonth + "-" + bDate); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	
 
 	$("#btnUpdate").click(function() {
@@ -95,6 +81,14 @@ $(document).ready(function() {
 		if(nickregex == null){
 			alert("닉네임을 다시 확인해주세요");
 			$("#userNick").focus();
+			return false;
+		}
+		
+		var answer = confirm("회원정보를 수정하시겠습니까?")
+		
+		if(answer == true) {
+			$("form").submit();
+		} else {
 			return false;
 		}
 	
@@ -231,7 +225,7 @@ input[type=password]{
 			<div class="titlearea"> 
 				<h3>회원정보 수정</h3>
 			</div>			
-		<form action="/mypage/update" method="post">
+		<form action="/mypage/update" method="post" id="update">
 		<input type="hidden" name="userNo" value="${user.userNo }" />
 		<input type="hidden" name="userId" value="${user.userId }" />
 		<input type="hidden" name="userMail" value="${user.userMail }" />
@@ -309,12 +303,12 @@ input[type=password]{
 			<tr>
 		</table>
 
+		</form>
 		<div class="buttonarea" style="width:200px; margin: 0 auto;">
-			<button class="btn" id="btnUpdate">수정하기</button>
-			<button class="btn" id="btnCancel">이전으로</button>
+			<button class="btn" id="btnUpdate" type="button">수정하기</button>
+			<button class="btn" id="btnCancel" type="button">이전으로</button>
 		</div> <!-- .buttonarea end -->
 
-		</form>
 		</div> <!-- .col-md-9 end -->
 	</div><!-- .one end -->
 
