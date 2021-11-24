@@ -67,6 +67,27 @@
 			}
 		})
 	})
+
+	
+	$("#itemList").click(function () {
+		console.log("#ajax clicked")
+		
+		$.ajax({
+			type: "get"
+			, url: "/ask/list/item"
+			, data: {}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				
+				$("#ajaxArea").html( res )
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	})
 	
 });
 </script>
@@ -104,10 +125,12 @@ td:nth-child(2) {
 <div class="wrap">
 	<div class="container">
 
-		<h1>게시판 최신순</h1>
+		<h1>나를막아조!</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
-			<a id="latestList">최신순</a> <a id="hitList">조회순</a>
+			<a id="latestList">최신순</a>
+			<a id="hitList">조회순</a>
+			<a id="itemList">사진</a>
 		</div>
 		<div id="ajaxArea">
 			<table class="table table-striped table-hover">
@@ -124,9 +147,18 @@ td:nth-child(2) {
 					<c:forEach items="${list }" var="ask">
 						<tr>
 							<td style="text-align: center">${ask.ASK_NO }</td>
-							<td><a href="/ask/detail?askNo=${ask.ASK_NO }"> <span
-									class="ellipsis2">${ask.ASK_TITLE }</span>
-							</a></td>
+							<td>
+								<a href="/ask/detail?askNo=${ask.ASK_NO }">
+									<span>${ask.ASK_TITLE }</span>
+								</a>
+							
+							<c:forEach items="${comCnt}" var="com">
+								<c:if test="${ask.ASK_NO eq com.ASK_NO}">
+									<strong><span>[${com.CNT}]</span></strong>
+								</c:if>
+							</c:forEach>
+							
+							</td>
 							<c:if test="${ask.USER_NICK eq null}">
 								<td>탈퇴한 회원입니다</td>
 							</c:if>

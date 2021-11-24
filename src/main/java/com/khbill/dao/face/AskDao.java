@@ -456,6 +456,24 @@ public interface AskDao {
 	 * @return
 	 */
 	public String selectGradeUrlByUserNo(int userNo);
+
+
+	/**
+	 * 사진리스트 조회
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectAskItemList(Paging paging);
+
+
+	/**
+	 * 
+	 * 전체 게시글당 댓글수 조회
+	 * 
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectAskComCntList();
 	
 	
 	

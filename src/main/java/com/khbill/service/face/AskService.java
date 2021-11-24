@@ -352,5 +352,23 @@ public interface AskService {
 	 */
 	public int getAskComCnt(int askNo);
 
+	/**
+	 * 
+	 * 사진리스트 조회
+	 * 
+	 * @param paging
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getAskitemList(Paging paging);
+
+	
+	/**
+	 * 
+	 * 게시글당 댓글 수 조회
+	 * 
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getAskComCntList();
+
 
 }

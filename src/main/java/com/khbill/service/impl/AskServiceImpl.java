@@ -219,7 +219,7 @@ public class AskServiceImpl implements AskService {
 		askDao.deleteReport(askNo);
 		askDao.deleteScrap(askNo);
 		askDao.deleteAsk(askNo);
-		askDao.deleteItem(itemNo);
+//		askDao.deleteItem(itemNo);
 		askDao.deleteFile(fileNo);
 
 	}
@@ -473,5 +473,15 @@ public class AskServiceImpl implements AskService {
 	}
 	
 	
+	@Override
+	public List<HashMap<String, Object>> getAskitemList(Paging paging) {
+		return askDao.selectAskItemList(paging);
+	}
+	
+	
+	@Override
+	public List<HashMap<String, Object>> getAskComCntList() {
+		return askDao.selectAskComCntList();
+	}
 	
 }// class

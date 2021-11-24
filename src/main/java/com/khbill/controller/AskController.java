@@ -43,8 +43,14 @@ public class AskController {
 		logger.info("/ask/list [GET]");
 
 		Paging paging = askService.getPaging(paramData);
+		
+		
+		logger.info("paging: {}", paging);
 		List<Ask> list = askService.getAskList(paging);
 
+		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+		model.addAttribute("comCnt", comCnt);
+		
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
 		
@@ -58,7 +64,9 @@ public class AskController {
 		
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskHitList(paging);
+		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
 		
+		model.addAttribute("comCnt", comCnt);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
 		model.addAttribute("res",true);
@@ -74,13 +82,36 @@ public class AskController {
 		
 		Paging paging = askService.getPaging(paramData);
 		List<Ask> list = askService.getAskList(paging);
-
+		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+		
+		model.addAttribute("comCnt", comCnt);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
 		model.addAttribute("res", true);
 		
 		return "ask/ajaxlist";
 	}
+	
+	@RequestMapping(value = "/list/item")
+	public String askItemList( Model model, Paging paramData ) {
+		logger.info("/ask/list/item");
+		
+		Paging paging = askService.getPaging(paramData);
+		List<HashMap<String, Object>> list = askService.getAskitemList(paging);
+		
+		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+		
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
+		model.addAttribute("comCnt", comCnt);
+		model.addAttribute("res",true);
+		
+		
+		return "ask/itemlist";
+		
+	}// list
+	
 	
 	
 	
@@ -427,8 +458,5 @@ public class AskController {
 		return mav;
 	}
 
-
-	
-	
 	
 }// class

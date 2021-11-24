@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:import url="/WEB-INF/views/layout/head.jsp" />
-<c:import url="/WEB-INF/views/layout/header.jsp" />
-<!-- header end -->
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -23,8 +20,13 @@
 				<td style="text-align: center">${ask.ASK_NO }</td>
 				<td>
 					<a href="/ask/detail?askNo=${ask.ASK_NO }">
-						<span class="ellipsis2">${ask.ASK_TITLE }</span>
+						<span>${ask.ASK_TITLE }</span>
 					</a>
+					<c:forEach items="${comCnt}" var="com">
+						<c:if test="${ask.ASK_NO eq com.ASK_NO}">
+							<strong><span>[${com.CNT}]</span></strong>
+						</c:if>
+					</c:forEach>
 				</td>
 				<c:if test="${ask.USER_NICK eq null}">
 					<td>탈퇴한 회원입니다</td>
