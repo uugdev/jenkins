@@ -54,14 +54,14 @@ public class MemberController {
 				
 				User userInfo = memberService.getUserInfo(user);
 				
-				int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
+//				int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
 				
-				logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+//				logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
 				
 				session.setAttribute("login", true);
 				session.setAttribute("userNick", userInfo.getUserNick());
 				session.setAttribute("userNo", userInfo.getUserNo());
-				session.setAttribute("unreadMsg", unreadMsg);
+//				session.setAttribute("unreadMsg", unreadMsg);
 				
 				return "redirect:/main";
 			} else {
@@ -95,14 +95,14 @@ public class MemberController {
 				if(kuser.getUserId().split("-")[0].equals("kakao")) {
 					logger.info("kakao로 시작하는 아이디가 맞음!");
 					
-					int unreadMsg = messageService.getUnreadMsgCnt(kuser.getUserNo());
+//					int unreadMsg = messageService.getUnreadMsgCnt(kuser.getUserNo());
 					
-					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+//					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
 					
 					session.setAttribute("login", true);
 					session.setAttribute("userNick", kuser.getUserNick());
 					session.setAttribute("userNo", kuser.getUserNo());
-					session.setAttribute("unreadMsg", unreadMsg);
+//					session.setAttribute("unreadMsg", unreadMsg);
 					
 					return "redirect:/main";
 				} else {

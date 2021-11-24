@@ -235,10 +235,6 @@ public class MessageController {
 		model.addAttribute("userNick", senderNick);
 		model.addAttribute("senderNo", viewMsg.getSenderNo());
 		
-        int unreadMsg = messageService.getUnreadMsgCnt(userNo);
-		
-		session.setAttribute("unreadMsg", unreadMsg);
-		
 		return "message/receive/detail";
 
 	}

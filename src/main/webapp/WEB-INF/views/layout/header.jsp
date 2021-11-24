@@ -5,6 +5,28 @@
 <script>
 
 $(document).ready(function() {
+		
+	var uid = '<%=session.getAttribute("userNo")%>';
+
+    if( uid!="null" ) {
+        $.ajax({
+            type: "post"
+            , url: "/main/message"
+            , data: {}
+            , dataType: "json"
+            , success: function ( data ) {
+                
+            	$("#test").html('MESSAGE('+ data.unreadMsg +')');
+
+            }
+            , error: function () {
+                console.log("AJAX 실패")
+            }
+        })
+    } else {
+        console.log("실패")
+    }
+
 	
     $('#boardA').hover(function() {
     	$(".blockNav").slideDown();
@@ -14,7 +36,10 @@ $(document).ready(function() {
     	$(".blockNav").slideUp();
     });
     
+
 });
+
+
 
 </script>
 
@@ -49,7 +74,7 @@ $(document).ready(function() {
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${login }">
-							<li><a href="/message/receive/list" style="padding: 3px; margin: 12px 0 0 0;">MESSAGE(${unreadMsg })</a></li>
+							<li><a href="/message/receive/list" style="padding: 3px; margin: 12px 0 0 0;"><span id="test">MESSAGE(${unreadMsg })</span></a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
 							<li><a href="/member/logout" style="padding: 3px; margin: 12px 34px 0 0;">LOGOUT</a></li>
 						</c:when>

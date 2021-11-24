@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.khbill.dto.Notice;
 import com.khbill.dto.User;
 import com.khbill.service.face.MainService;
+import com.khbill.service.face.MessageService;
 
 @Controller
 public class MainController {
@@ -22,6 +24,7 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@Autowired MainService mainService;
+	@Autowired MessageService messageService;
 	
 	@RequestMapping(value = "/")
 	public String defaultMain() {
@@ -61,6 +64,29 @@ public class MainController {
 		model.addAttribute("mainment", mainment);
         model.addAttribute("popularBoard", popularBoard);
         model.addAttribute("mainBill", mainBill);
+	}
+	
+	@RequestMapping(value="/main/message")
+	public ModelAndView mainMsg(HttpSession session, User user, ModelAndView mav) {
+		
+		if(session.getAttribute("userNo") != null) {
+			int userNo = (int)session.getAttribute("userNo");
+		
+			int unreadMsg = messageService.getUnreadMsgCnt(userNo);
+
+			mav.addObject("success", true);
+			mav.addObject("unreadMsg", unreadMsg);
+			mav.setViewName("jsonView");
+			
+			return mav;
+		
+		}
+		
+		mav.addObject("success", false);
+		mav.setViewName("jsonView");
+		
+		return mav;
+		
 	}
 	
 }
