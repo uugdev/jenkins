@@ -110,13 +110,38 @@ td:nth-child(2) {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
-/* 	line-height: 1.2em; */
+/* 	line-height: 24px; */
 /* 	max-height: 1.2em; */
 	word-wrap: break-word;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
-	width: 300px;
+	width: 162px;
 }
+
+#photoList {
+	display: flex;
+	margin: 0px;
+	padding: 0px;
+/* 	justify-content: space-between; */
+	flex-wrap: wrap;
+	width: 100%;
+	margin-top: 50px;
+	
+}
+
+#photoList li {
+  margin-right: 46px;
+    display: inline-block;
+    width: 250px;
+    margin-bottom: 50px;
+    border-radius: 1px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+#photoList li:nth-child(4n+0) {
+  margin-right: 0;
+} 
 
 </style>
 
