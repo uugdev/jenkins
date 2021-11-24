@@ -65,12 +65,12 @@ $(document).ready(function(){
 <table class="table table-striped table-hover">
 <thead>
 	<tr>
-		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 10%;">글번호</th>
+		<th style="width: 12%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+		<th style="width: 8%;">글번호</th>
 		<th style="width: 10%;">카테고리</th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 15%;">작성일</th>
+		<th style="width: 36%;">제목</th>
+		<th style="width: 8%;">조회수</th>
+		<th style="width: 16%;">작성일</th>
 	</tr>
 </thead>
 <tbody>

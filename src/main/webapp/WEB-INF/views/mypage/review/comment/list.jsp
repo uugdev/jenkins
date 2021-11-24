@@ -66,7 +66,7 @@ $(document).ready(function(){
 <table class="table table-striped table-hover">
 <thead>
 	<tr>
-		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+		<th style="width: 10%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
 		<th style="width: 10%;">글번호</th>
 		<th style="width: 45%;">댓글</th>
 		<th style="width: 15%;">작성일</th>

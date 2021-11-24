@@ -16,6 +16,7 @@
 .M01 {
     margin-left: 20px;
     width: 100px;
+    
 }
 
 .M01>li, .M02>li {
@@ -41,10 +42,6 @@
     left: -9999px;
 }
 
-.M02>li:hover .M03 {
-    left: 100px;
-}
-
 .M02>li a:hover {
     display: block;
 }
@@ -58,6 +55,14 @@ li {
 	font-weight: bold;
 }
 
+a {
+	color: #5F6062;
+}
+
+a:hover {
+    color: #85969E;
+    text-decoration: none;
+}
 
 
 
@@ -68,30 +73,30 @@ li {
 			<li><h4><strong>마이페이지</strong></h4></li>
 			<li><a>회원정보</a>
 				<ul class="M02">
-					<li><a href="/mypage/info">내 정보 조회</a></li>
-					<li><a href="/mypage/update">내 정보 수정</a></li>
+					<li><a href="/mypage/info">>&nbsp;&nbsp;&nbsp;&nbsp; 내 정보 조회</a></li>
+					<li><a href="/mypage/update">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 내 정보 수정</a></li>
 				</ul>
 			</li>
 			<li><a href="/mypage/item/list">결제 체크하기</a>
 			<li><a>작성한 글</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/list">질문 게시판</a></li>
-					<li><a href="/mypage/review/list">후기 게시판</a></li>
-					<li><a href="/mypage/trade/list">거래 게시판</a></li>
+					<li><a href="/mypage/ask/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
+					<li><a href="/mypage/review/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
+					<li><a href="/mypage/trade/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
 				</ul>
 			</li>
 			<li><a>작성한 댓글</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/comment/list">질문 게시판</a></li>
-					<li><a href="/mypage/review/comment/list">후기 게시판</a></li>
-					<li><a href="/mypage/trade/comment/list">거래 게시판</a></li>
+					<li><a href="/mypage/ask/comment/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
+					<li><a href="/mypage/review/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
+					<li><a href="/mypage/trade/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
 				</ul>
 			</li>
 			<li><a>스크랩</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/scrap/list">질문 게시판</a></li>
-					<li><a href="/mypage/review/scrap/list">후기 게시판</a></li>
-					<li><a href="/mypage/trade/scrap/list">거래 게시판</a></li>
+					<li><a href="/mypage/ask/scrap/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
+					<li><a href="/mypage/review/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
+					<li><a href="/mypage/trade/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
 				</ul>
 			</li>
 		</ul>

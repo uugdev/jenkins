@@ -57,6 +57,11 @@ $(document).ready(function(){
 .titlearea {
 	margin: 50px 0 30px 0;
 }
+
+body {
+	background-color: #f2f2f2;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -79,7 +84,7 @@ $(document).ready(function(){
 		<th style="width:8%"><strong>조회수</strong></th>
 		<th style="width:12%"><strong>작성일</strong></th>
 		<th style="width:12%"><strong>투표 마감일</strong></th>
-		<th style="width:15%"><strong>상태</strong></th>
+		<th style="width:27%"><strong>상태</strong></th>
 	</tr>
 	
 	<c:forEach items="${list }" var="list" varStatus="status">

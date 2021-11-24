@@ -49,6 +49,10 @@ $(document).ready(function(){
 .titlearea {
 	margin: 50px 0 30px 0;
 }
+
+body {
+	background-color: #f2f2f2;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
