@@ -117,6 +117,14 @@
 		SET sender_show = 'n'
 		WHERE msg_no = #{msgNo }
 	</update>
+	
+	<select id="selectUnreadMsgCntAll" resultType="int" parameterType="int">
+		SELECT COUNT(*)
+		FROM zmessage
+		WHERE receiver_no = #{userNo }
+		AND receiver_show = 'y'
+		AND msg_check = 'n'
+	</select>
 
 
 </mapper>

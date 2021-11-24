@@ -63,7 +63,13 @@ public interface MessageService {
 	 * @return db에서 조회한 메세지 객체
 	 */
 	public Message getMsgByMsgNo(int msgNo);
-
+	
+	/**
+	 * 전달받은 msg정보 조회하기
+	 * 
+	 * @param msg - 파라미터로 전달받은 msg
+	 * @return 조회한 메시지 객체
+	 */
 	public Message getMsgByMsgNo(Message msg);
 	
 	/**
@@ -73,6 +79,14 @@ public interface MessageService {
 	 * @return
 	 */
 	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map);
+
+	/**
+	 * 메인에 표시해줄 안읽은 메세지 개수 구하기
+	 * dk
+	 * @param userNo - 세션에 저장되어있는 유저 번호
+	 * @return 메시지 개수
+	 */
+	public int getUnreadMsgCnt(int userNo);
 
 
 

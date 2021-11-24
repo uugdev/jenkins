@@ -34,6 +34,8 @@ public class MessageServiceImpl implements MessageService {
 				
 		if(where.equals("receive")) {
 			totalCount = messageDao.selectRcvdCntAll(userNo);
+		} else if(where.equals("unread")) {
+			totalCount = messageDao.selectUnreadMsgCntAll(userNo);
 		} else {
 			totalCount = messageDao.selectSendCntAll(userNo);
 		}
@@ -59,6 +61,7 @@ public class MessageServiceImpl implements MessageService {
 
 		if(userNo == msg.getReceiverNo()) { //세션에 저장된 유저번호와 메시지의 receiver_no가 일치할 때 msg_check 를 y로 변경한다
 			messageDao.updateMsgCheckToY(msg);
+			
 			return messageDao.selectMsgByMsgNo(msg);
 		}
 		
@@ -95,4 +98,11 @@ public class MessageServiceImpl implements MessageService {
 	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map) {
 		return messageDao.selectRcvdMsgByState(map);
 	}
+	
+	@Override
+	public int getUnreadMsgCnt(int userNo) {
+		return messageDao.selectUnreadMsgCntAll(userNo);
+	}
+	
+	
 }

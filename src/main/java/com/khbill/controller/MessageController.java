@@ -150,7 +150,7 @@ public class MessageController {
 		logger.info("/meesage/receive/unread/list [GET]");
 		
 		int userNo = (int)session.getAttribute("userNo");
-		String where = "receive";
+		String where = "unread";
 
 		Paging paging = messageService.getPaging(paramData, userNo, where);
 
@@ -234,7 +234,11 @@ public class MessageController {
 		model.addAttribute("msg", viewMsg);
 		model.addAttribute("userNick", senderNick);
 		model.addAttribute("senderNo", viewMsg.getSenderNo());
-
+		
+        int unreadMsg = messageService.getUnreadMsgCnt(userNo);
+		
+		session.setAttribute("unreadMsg", unreadMsg);
+		
 		return "message/receive/detail";
 
 	}

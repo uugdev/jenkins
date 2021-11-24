@@ -75,9 +75,29 @@ public interface MessageDao {
 	 */
 	public int selectSendCntAll(int userNo);
 
+	/**
+	 * msg로 세부 쪽지내용 조회하기
+	 * 
+	 * @param msg
+	 * @return msg객체
+	 */
 	public Message selectMsgByMsgNo(Message msg);
 
+	/**
+	 * 수신한 쪽지 중에 아직 읽지 않은 쪽지만 리스트로 조회한다
+	 * 
+	 * @param map
+	 * @return mgs_check 가 'n'인 쪽지만 조회한다
+	 */
 	public List<HashMap<String, Object>> selectRcvdMsgByState(HashMap<String, Object> map);
+
+	/**
+	 * 수신한 쪽지 중에 아직 읽지 않은 쪽지의 개수를 조회한다
+	 * 
+	 * @param userNo - 세션에 저장된 유저 번호
+	 * @return 유저번호로 조회한 쪽지 개수
+	 */
+	public int selectUnreadMsgCntAll(int userNo);
 
 	
 	

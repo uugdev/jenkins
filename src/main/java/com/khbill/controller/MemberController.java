@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khbill.dto.User;
 import com.khbill.service.face.MemberService;
+import com.khbill.service.face.MessageService;
 
 
 @Controller
@@ -32,6 +33,7 @@ public class MemberController {
 	
 	@Autowired MemberService memberService;
 	@Autowired JavaMailSender mailSender;
+	@Autowired MessageService messageService;
 	
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
@@ -51,9 +53,15 @@ public class MemberController {
 				logger.info("Login Successed");
 				
 				User userInfo = memberService.getUserInfo(user);
+				
+				int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
+				
+				logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+				
 				session.setAttribute("login", true);
 				session.setAttribute("userNick", userInfo.getUserNick());
 				session.setAttribute("userNo", userInfo.getUserNo());
+				session.setAttribute("unreadMsg", unreadMsg);
 				
 				return "redirect:/main";
 			} else {
@@ -86,9 +94,15 @@ public class MemberController {
 				
 				if(kuser.getUserId().split("-")[0].equals("kakao")) {
 					logger.info("kakao로 시작하는 아이디가 맞음!");
+					
+					int unreadMsg = messageService.getUnreadMsgCnt(kuser.getUserNo());
+					
+					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+					
 					session.setAttribute("login", true);
 					session.setAttribute("userNick", kuser.getUserNick());
 					session.setAttribute("userNo", kuser.getUserNo());
+					session.setAttribute("unreadMsg", unreadMsg);
 					
 					return "redirect:/main";
 				} else {
