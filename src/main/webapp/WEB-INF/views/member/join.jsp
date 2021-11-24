@@ -71,7 +71,7 @@ $(document).ready(function () {
 			return false;
 		}
 		
-		if($("#agree").prop('checked', false)){
+		if($("input:checkbox[name=agree]").is(":checked") == false){
 			alert('개인정보 수집 및 이용에 동의해주세요');
 			$("#agreement").focus();
 			return false;
@@ -245,7 +245,7 @@ function sendMail(){
 		     data:{userMail:userMail},
 		     success:function(authkey){
 				authKey = authkey;
-				$("#verifyMail").css("display", "inline-block");
+				$("#verifyCode").css("display", "inline-block");
 				$(".mail_ok").css("display", "none");
 		     },
 		     error:function(){
@@ -282,7 +282,7 @@ function checkVerifyCode(){
 
 .table {
 	text-align: center;
-	width: 700px;
+	width: 750px;
 	margin: 0 auto;
 	margin-bottom: 30px;
 }
@@ -469,7 +469,7 @@ body {
 	<p>4. 개인정보 수집·이용을 거부할 권리 및 그에 따른 불이익 사항 : 귀하는 위의 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 다만, 동의가 없을 경우 홈페이지 이용에 제한이 있을 수 있습니다.</p>
 </div>
 <div class="text-right" style="width: 100%; padding-right: 60px;">
-	<input type="checkbox" id="agree" /><label for="agree">&nbsp;&nbsp;동의합니다.</label>
+	<input type="checkbox" id="agree" name="agree"/><label for="agree">&nbsp;&nbsp;동의합니다.</label>
 </div>
 
 <button id="join">회원가입</button>
