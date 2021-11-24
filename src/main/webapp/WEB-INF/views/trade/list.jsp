@@ -13,9 +13,9 @@
 
 <script type="text/javascript">
 
+	var ajaxCurPage = ${param.curPage };
+
 	$(document).ready(function() {
-		
-		console.log(${param.curPage });
 		
 		$("#btnWrite").click(function() {
 			$(location).attr("href", "/trade/write");
@@ -26,13 +26,15 @@
 			location.href = "/trade/list?search=" + $("#search").val();
 		});
 		
-		$("#hitList").click(function () {
+		$("#hitList").click(function (ajaxCurPage) {
 			console.log("#ajax clicked")
 			
 			$.ajax({
 				type: "get"
 				, url: "/trade/list/hit"
-				, data: {}
+				, data: {
+					"curPage": ajaxCurPage
+				}
 				, dataType: "html"
 				, success: function ( res ) {
 					console.log("AJAX 성공")
@@ -52,7 +54,9 @@
 			$.ajax({
 				type: "get"
 				, url: "/trade/list/latest"
-				, data: {}
+				, data: {
+					"curPage": ajaxCurPage
+				}
 				, dataType: "html"
 				, success: function ( res ) {
 					console.log("AJAX 성공")
@@ -84,7 +88,7 @@ td:nth-child(2) {
 <div class="wrap">
 	<div class="container">
 	
-		<h1>거래</h1>
+		<h1>거래</h1> paramData : ${param.curPage }
 		<hr>
 		
 		<div class="pull-right" style="margin-bottom: 10px;">

@@ -39,7 +39,7 @@ $(document).ready(function() {
 		var result = confirm("정말 삭제하시겠습니까?");
 
 		if (result == true) {
-			$(location).attr("href", "/admin/trade/delete?tradeNo=${trade.TRADE_NO }");
+			$(location).attr("href", "/admin/trade/delete?tradeNo=${tradeDetail.TRADE_NO }");
 		}
 
 	});	//$("#btnDelete").click() end
@@ -49,7 +49,7 @@ $(document).ready(function() {
 function deleteComment(tradeComNo) {
 	$.ajax({
 		type: "post"
-		, url: "/admin/trade/comment/delete"
+		, url: "/trade/comment/delete"
 		, dataType: "json"
 		, data: {
 			tradeComNo: tradeComNo
@@ -114,9 +114,9 @@ function deleteComment(tradeComNo) {
 				<thead>
 					<tr>
 						<th style="width: 4%;"></th>
-						<th style="width: 10%;">작성자</th>
-						<th style="width: 66%;">댓글</th>
-						<th style="width: 10%;">작성일</th>
+						<th style="width: 12%;">작성자</th>
+						<th style="width: 62%;">댓글</th>
+						<th style="width: 12%;">작성일</th>
 						<th style="width: 10%;"></th>
 					</tr>
 				</thead>
