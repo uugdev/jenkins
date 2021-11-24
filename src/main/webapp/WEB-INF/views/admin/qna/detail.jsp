@@ -68,7 +68,7 @@ th{
 <div class="wrap">
 <div class="container">
 
-<h4>${qna.qnaTitle }</h4>
+<h3>${qna.qnaTitle }</h3>
 <hr>
 <table class="table table-condensed">
 <tr>

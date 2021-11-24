@@ -65,8 +65,11 @@ public class AdminNoticeController {
 	}
 	
 	@RequestMapping(value="/admin/notice/delete")
-	public String noticeDelete(int noticeNo) {
-		adminNoticeService.setNoticeDelete(noticeNo);
-		return "redirect:/admin/notice/list";
+	public String noticeDelete(int[] noticeNo) {
+		int size = noticeNo.length;
+		for(int i=0 ; i<size ; i++) {
+			adminNoticeService.setNoticeDelete(noticeNo[i]);
+		}
+			return "redirect:/admin/notice/list";
 	}
 }

@@ -59,6 +59,9 @@ public class AdminQnaController {
 	@RequestMapping(value="/admin/qna/com/write", method=RequestMethod.GET)
 	public void qnaComWrite(int qnaNo, Model model) {
 		Qna qna = adminQnaService.getQnaDetail(qnaNo);
+		String nick = adminQnaService.getNickByUserNo(qna.getUserNo());
+
+		model.addAttribute("nick", nick);
 		model.addAttribute("qna", qna);
 	}
 	
@@ -73,7 +76,9 @@ public class AdminQnaController {
 	public void qnaComUpdate(int qnaNo, Model model) {
 		Qna qna = adminQnaService.getQnaDetail(qnaNo);
 		QnaComment qnaComment = adminQnaService.getQnaComment(qnaNo);
-		
+		String nick = adminQnaService.getNickByUserNo(qna.getUserNo());
+
+		model.addAttribute("nick", nick);		
 		model.addAttribute("qna", qna);
 		model.addAttribute("qnaComment", qnaComment);
 	}

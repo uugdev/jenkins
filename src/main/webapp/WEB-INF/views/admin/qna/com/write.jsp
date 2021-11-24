@@ -61,7 +61,7 @@ th{
 <div class="wrap">
 <div class="container">
 
-<h4>${qna.qnaTitle }</h4>
+<h3>${qna.qnaTitle }</h3>
 <hr>
 <form action="/admin/qna/com/write" method="post">
 <input type="hidden" name="qnaNo" value="${qna.qnaNo }" />

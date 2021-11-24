@@ -304,7 +304,6 @@ label {
 }
 
 input[type=text],input[type=email], input[type=password],input[type=number] {
-	postion: relative;
 	width: 100%;
 	text-align: center;
 	height: 35px;
