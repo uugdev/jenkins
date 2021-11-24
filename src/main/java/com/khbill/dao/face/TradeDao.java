@@ -246,6 +246,4 @@ public interface TradeDao {
 	 */
 	public String selectGradeUrlByUserNo(int userNo);
 
-
-
 }

@@ -46,10 +46,7 @@
 .menu_msg {
 	font-size: 21px;
 	font-weight: 500;
-}
-
-.enroll_box p {
-	padding-bottom: 56px;
+	height: 60px;
 }
 
 .gray_btn {
@@ -69,4 +66,8 @@
 	transition: 0.5s;
 	font-size: 17px;
 	border: none;
+}
+
+.enroll_btn {
+	margin-top: 35px;
 }

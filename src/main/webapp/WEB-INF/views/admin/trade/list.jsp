@@ -125,7 +125,7 @@ label {
 					</td>
 				</c:if>
 				<c:if test="${trade.USER_NICK ne null }">
-					<td style="text-align: left;">
+					<td>
 						<label for="${trade.TRADE_NO }">${trade.USER_NICK }</label>
 					</td>
 				</c:if>

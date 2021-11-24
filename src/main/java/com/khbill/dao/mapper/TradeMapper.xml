@@ -19,19 +19,20 @@
 	</sql>
 
 	<select id="selectTradeList" resultType="HashMap" parameterType="com.khbill.util.Paging">
-		SELECT T.trade_no, U.user_no, T.user_nick, T.trade_category, T.trade_title, T.trade_date, T.trade_hit, u.grade_url
-		FROM USERWITHURL U, (
-            SELECT trade_no, U.user_no, user_nick, trade_category, trade_title, trade_date, trade_hit
-            FROM ztrade T, zuser U
-            WHERE 1=1
-            AND U.user_no(+) = T.user_no 
-            AND trade_title LIKE '%' || #{search} || '%'
-            ORDER BY trade_no DESC
-        ) T
-        WHERE 1=1
-        AND U.user_no(+) = T.user_no
-        AND rownum BETWEEN #{startNo } AND #{endNo }
-		ORDER BY T.trade_no DESC
+		SELECT * FROM (
+		    SELECT rownum rnum, sub.* FROM (
+		        SELECT DISTINCT T.trade_no, U.user_no, U.user_nick, T.trade_category, T.trade_title, T.trade_date, T.trade_hit
+		        , UW.grade_url, nvl(R.report_status, 'n') report_status
+		        FROM ztrade T, zuser U, ztrade_report R, USERWITHURL UW
+		        WHERE 1=1
+		        AND U.user_no(+) = T.user_no
+		        AND R.trade_no(+) = T.trade_no
+		        AND UW.user_no(+) = U.user_no
+		        AND trade_title LIKE '%' || #{search} || '%'
+		        ORDER BY trade_no DESC
+		        ) sub
+		    ) ZTRADE
+		    WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 	<select id="selectCntAll" resultType="int">
@@ -57,15 +58,13 @@
 	</select>
 	
 	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
-        SELECT C.*, U.grade_url
-        FROM USERWITHURL U, (
-            SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret
-            FROM ztrade_comment c, zuser u
-            WHERE 1=1
-            AND c.user_no = u.user_no
-            AND trade_no = #{tradeNo }
-            ORDER BY trade_com_date ) C
-        WHERE U.user_no = C.user_no
+		SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret, w.grade_url
+		FROM ztrade_comment c, zuser u, USERWITHURL w
+		WHERE 1=1
+		AND u.user_no(+) = c.user_no
+		AND w.user_no(+) = u.user_no 
+		AND trade_no = #{tradeNo }
+		ORDER BY trade_com_date
 	</select>
 	
 	<insert id="insertFile" parameterType="com.khbill.dto.File">

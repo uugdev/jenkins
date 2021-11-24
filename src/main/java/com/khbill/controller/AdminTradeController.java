@@ -1,5 +1,7 @@
 package com.khbill.controller;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.khbill.dto.ReviewComment;
 import com.khbill.dto.Trade;
 import com.khbill.dto.TradeScrap;
 import com.khbill.service.face.AdminTradeService;
@@ -26,6 +29,7 @@ public class AdminTradeController {
 	@Autowired private AdminTradeService adminTradeService;
 	@Autowired private TradeService tradeService;
 	
+	//거래 게시글 리스트
 	@RequestMapping(value = "/admin/trade/list")
 	public void adminTradeList(
 				Model model
@@ -57,6 +61,20 @@ public class AdminTradeController {
 		model.addAttribute("tradeDetail", tradeDetail);
 		model.addAttribute("tradeComment", tradeComment);
 		
+	}
+	
+	//거래 게시글 삭제
+	@RequestMapping(value = "/admin/trade/delete")
+	public String adminTradeDelete(int[] tradeNo) {
+		
+		int size = tradeNo.length;
+		for(int i=0; i<size; i++) {
+			
+			tradeService.setTradeDelete(tradeNo[i]);
+			
+		}
+		
+		return "redirect:/admin/trade/list";
 	}
 	
 	

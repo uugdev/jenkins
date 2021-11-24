@@ -170,5 +170,5 @@ public interface TradeService {
 	 * @return gradeUrl
 	 */
 	public String getGradeUrlByUserNo(int userNo);
-
+	
 }

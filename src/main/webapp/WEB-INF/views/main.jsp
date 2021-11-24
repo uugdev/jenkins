@@ -21,8 +21,8 @@
 
 <div class="wrap">
     <div class="container-fluid" style="background-image: url(https://i.imgur.com/yJFIiNB.png)">
-        <div class="container" style="padding: 0; margin-bottom: 25px;">
-            <div class="col-md-8" style="margin-top: 25px;">
+        <div class="container" style="padding: 0; margin-bottom: 25px; margin-top: 20px;">
+            <div class="col-md-8" style="margin-top: 25px; padding-left: 0;">
             	<div>
 	                <div>
 			           	<!-- 인기 게시글 -->
@@ -33,126 +33,143 @@
                             <c:set var="setDate" value="<%= date %>" />
                             <c:set var="fmtDate" value="<%= fmtDate %>" />
                             <table class="table" id="popular_table">
-                                <tr>
-                                    <td><img alt="#" src="/upload/${popularBoard[0].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[0].ASK_NO }">
-                                            <c:if test="${popularBoard[0].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[0].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[0].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[0].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[0].USER_NICK } / 
-                                                <c:if test="${popularBoard[0].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[0].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                    <td><img alt="#" src="/upload/${popularBoard[1].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[1].ASK_NO }">
-                                            <c:if test="${popularBoard[1].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[1].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[1].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[1].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[1].USER_NICK } / 
-                                                <c:if test="${popularBoard[1].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[1].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img alt="#" src="/upload/${popularBoard[2].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[2].ASK_NO }">
-                                            <c:if test="${popularBoard[2].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[2].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[2].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[2].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[2].USER_NICK } / 
-                                                <c:if test="${popularBoard[2].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[2].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                    <td><img alt="#" src="/upload/${popularBoard[3].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[3].ASK_NO }">
-                                            <c:if test="${popularBoard[3].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[3].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[3].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[3].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[3].USER_NICK } / 
-                                                <c:if test="${popularBoard[3].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[3].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img alt="#" src="/upload/${popularBoard[4].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[4].ASK_NO }">
-                                            <c:if test="${popularBoard[4].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[4].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[4].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[4].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[4].USER_NICK } / 
-                                                <c:if test="${popularBoard[4].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[4].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                    <td><img alt="#" src="/upload/${popularBoard[5].FILE_STORED }"></td>
-                                    <td>
-                                        <a href="/ask/detail?askNo=${popularBoard[5].ASK_NO }">
-                                            <c:if test="${popularBoard[5].VOTE_END gt setDate }">
-                                                [진행] ${popularBoard[5].ASK_TITLE }
-                                            </c:if>
-                                            <c:if test="${popularBoard[5].VOTE_END lt setDate }">
-                                                [종료] ${popularBoard[5].ASK_TITLE }
-                                            </c:if>
-                                            <p>${popularBoard[5].USER_NICK } / 
-                                                <c:if test="${popularBoard[5].MMDDASK_DATE eq fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:ss"/>
-                                                </c:if>
-                                                <c:if test="${popularBoard[5].MMDDASK_DATE ne fmtDate }">
-                                                    <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="MM-dd"/>
-                                                </c:if>
-                                            </p>
-                                        </a>
-                                    </td>
-                                </tr>
+                            	
+                            	<tr>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[0].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
+	                                    <c:if test="${popularBoard[0].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[0].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[0].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[0].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[1].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
+	                                    <c:if test="${popularBoard[1].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[1].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[1].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[1].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            	</tr>
+                            	<tr>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
+	                                    ${popularBoard[0].USER_NICK } /
+                                        <c:if test="${popularBoard[0].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[0].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
+	                                    ${popularBoard[1].USER_NICK } / 
+                                        <c:if test="${popularBoard[1].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[1].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            	</tr>
+                            	
+                            	<tr>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[2].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
+	                                    <c:if test="${popularBoard[2].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[2].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[2].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[2].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[3].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
+	                                    <c:if test="${popularBoard[3].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[3].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[3].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[3].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            	</tr>
+                            	<tr>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
+	                                    ${popularBoard[2].USER_NICK } / 
+                                        <c:if test="${popularBoard[2].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[2].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
+	                                    ${popularBoard[3].USER_NICK } / 
+                                        <c:if test="${popularBoard[3].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[3].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            	</tr>
+                            	
+                            	<tr>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[4].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
+	                                    <c:if test="${popularBoard[4].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[4].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[4].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[4].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[5].FILE_STORED }"></th>
+                            		<td style="cursor: pointer; text-align: left; width: 200px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
+	                                    <c:if test="${popularBoard[5].VOTE_END gt setDate }">
+	                                        [진행]<br> ${popularBoard[5].ASK_TITLE }
+	                                    </c:if>
+	                                    <c:if test="${popularBoard[5].VOTE_END lt setDate }">
+	                                        [종료]<br> ${popularBoard[5].ASK_TITLE }
+	                                    </c:if>
+                            		</td>
+                            	</tr>
+                            	<tr>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
+	                                    ${popularBoard[4].USER_NICK } / 
+                                        <c:if test="${popularBoard[4].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[4].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
+	                                    ${popularBoard[5].USER_NICK } / 
+                                        <c:if test="${popularBoard[5].MMDDASK_DATE eq fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:ss"/>
+                                        </c:if>
+                                        <c:if test="${popularBoard[5].MMDDASK_DATE ne fmtDate }">
+                                            <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="MM-dd"/>
+                                        </c:if>
+                            		</td>
+                            	</tr>
+                            	
+                            	
                             </table>
 						</div>
 					</div>
@@ -164,7 +181,8 @@
 		                	<p style="font-size: 35px;">원하는 물건의 구매의사를 확인하세요!</p>
                 		</c:if>
                 		<c:if test="${mainment ne null }">
-		                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 ${moneyAndPercent.saveMoney } 원입니다.</p>
+		                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 
+		                	<fmt:formatNumber type="number" maxFractionDigits="3" value="${moneyAndPercent.saveMoney }" /> 원입니다.</p>
 		                	<p style="font-size: 25px;">아낀 돈으로 무엇을 할 수 있나요?</p>
 		                	<p style="font-size: 35px;">${mainment }</p>
                 		</c:if>
@@ -175,7 +193,7 @@
             <div class="col-md-1"></div>
             
             <!-- 영수증 -->
-            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 25px;">
+            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 24px;">
                 <p>[주문(대기)번호]</p>
                 <div>
 	                <c:choose>
@@ -190,16 +208,16 @@
                 <div style="text-align: left;">
 		            <span>주문내역</span>
 	            </div>
-                <hr style="border: 3px solid black; margin: 0 10px 10px 0;">
+                <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 350px;">
                 
-                <div style="width: auto; height: 310px; overflow: auto;">
+                <div style="width: auto; height: 457px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
-                        <p style="text-align: left;">
-                            <span>
-                                [${mainBill.VOTE_END }] ${mainBill.ITEM_NAME }
+                    	<p style="display: flex;">
+                            <span class="ellipsis2" style="text-align: left;">
+                                [${mainBill.ITEM_END }] ${mainBill.ITEM_NAME }
                             </span>
-                            <span style="float: right;">
+                            <span class="pull-right">
                                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${mainBill.ITEM_PRICE }" /> 원
                             </span>
                         </p>

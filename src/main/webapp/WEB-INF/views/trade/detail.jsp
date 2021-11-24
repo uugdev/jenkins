@@ -60,7 +60,12 @@ $(document).ready(function() {
 		var category = $("#reportCategory").val();
 		if( content == ""  ) {
 			
-			alert("신고 사유를 입력해주세요!");
+			action_popup.alert("경고");
+			
+			/* 닫는 창으로 꼭 필요함 */
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
 			return;
 			
 		} else {
@@ -404,12 +409,20 @@ function tradeDelete() {
 									
 									<!-- 게시글 유저와 비밀글쓴이일 경우 -->
 			                		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO or sessionScope.userNo eq tradeComment.USER_NO }">
-										<td style="text-align: center;">
-											<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
-										</td>
-										<td style="text-align: left;">
-											<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
-										</td>
+			                			<c:if test="${tradeComment.USER_NICK eq null }">
+											<td style="text-align: center;">
+												<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
+											</td>
+											<td>탈퇴(된)한 회원</td>
+			                			</c:if>
+			                			<c:if test="${tradeComment.USER_NICK ne null }">
+											<td style="text-align: center;">
+												<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
+											</td>
+											<td style="text-align: left;">
+												<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
+											</td>
+			                			</c:if>
 										<td id="td${tradeComment.TRADE_COM_NO }">${tradeComment.TRADE_COM_CONTENT }</td>
 										<td id="dateTd${tradeComment.TRADE_COM_NO }">
 											<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
@@ -432,9 +445,14 @@ function tradeDelete() {
 			                	<c:when test="${tradeComment.TRADE_COM_SECRET eq 'n' }">
 								<!-- 비밀글이 아닐 경우 -->
 									<td></td>
-									<td style="text-align: left;">
-										<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
-									</td>
+									<c:if test="${tradeComment.USER_NICK eq null }">
+										<td>탈퇴(된)한 회원</td>
+									</c:if>
+									<c:if test="${tradeComment.USER_NICK ne null }">
+										<td style="text-align: left;">
+											<img alt="#" src="${tradeComment.GRADE_URL }" width="20px;" height="20px;"> ${tradeComment.USER_NICK }
+										</td>
+									</c:if>
 									<td id="td${tradeComment.TRADE_COM_NO }">${tradeComment.TRADE_COM_CONTENT }</td>
 									<td id="dateTd${tradeComment.TRADE_COM_NO }">
 										<fmt:formatDate value="${tradeComment.TRADE_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />

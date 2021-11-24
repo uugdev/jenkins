@@ -332,6 +332,6 @@ public class TradeServiceImpl implements TradeService {
 	public String getGradeUrlByUserNo(int userNo) {
 		return tradeDao.selectGradeUrlByUserNo(userNo);
 	}
-	
+
 
 }

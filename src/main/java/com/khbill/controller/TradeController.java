@@ -68,7 +68,7 @@ public class TradeController {
 		return "trade/ajaxlist";
 	}
 	
-	//거래 게시판 조회수 기준 목록
+	//거래 게시판 최신순 기준 목록
 	@RequestMapping(value = "/trade/list/latest")
 	public String tradeLatestList(
 				Model model
@@ -88,11 +88,15 @@ public class TradeController {
 	
 	//거래 게시글 상세보기
 	@RequestMapping(value = "/trade/detail")
-	public void tradeDetail(
+	public String tradeDetail(
 				Model model
 				, HttpSession session
 				, int tradeNo
 			) {
+		
+		if( tradeNo < 1 ) {
+			return "redirect:/trade/list";
+		}
 		
 		HashMap<String, String> tradeDetail = tradeService.getTradeDetail(tradeNo);
 		List<HashMap<String, String>> tradeComment = tradeService.getTradeCommentDetail(tradeNo);
@@ -114,6 +118,8 @@ public class TradeController {
 		model.addAttribute("isScrap", isScrap);
 		model.addAttribute("tradeDetail", tradeDetail);
 		model.addAttribute("tradeComment", tradeComment);
+		
+		return "trade/detail";
 		
 	}
 	
