@@ -109,9 +109,11 @@ function statusToY(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-// 				$(".btnStatusN"+reviewNo).html('완료');
-				$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
-				$(".btnStatusN"+reviewNo).attr("value", "완료");				
+				$(".btnStatusN"+reviewNo).before('<button class="btnStatusY'+ reviewNo +'" onclick="statusToN('+ reviewNo +');">완료</button>');
+				$(".btnStatusN"+reviewNo).remove();
+				
+// 				$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
+// 				$(".btnStatusN"+reviewNo).attr("class", "statusToY"+ reviewNo);
 				
 				console.log("완료로 바껴라")
 				
@@ -137,10 +139,12 @@ function statusToN(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-// 				$(".btnStatusY"+reviewNo).html('미완료');
-				$(".btnStatusY"+reviewNo).attr("onclick", "statusToY("+ reviewNo + ")");
-				$(".btnStatusY"+reviewNo).attr("value", "미완료");				
+				$(".btnStatusY"+reviewNo).before('<button class="btnStatusN'+ reviewNo +'" onclick="statusToY('+ reviewNo +');" >미완료</button>');
+				$(".btnStatusY"+reviewNo).remove();
+// 				$(".btnStatusY"+reviewNo).attr("onclick", "statusToY("+ reviewNo + ")");
+// 				$(".btnStatusY"+reviewNo).attr("class", "statusToN"+ reviewNo);
 				
+				console.log(".btnStatusY"+reviewNo);
 				console.log("미완료로 바껴라")
 				
 			} else {
@@ -235,7 +239,7 @@ label {
 <%-- 	<td><label for="${review.USER_NO }">${review.REPORT_STATUS }</label></td> --%>
 	
 	<c:if test="${review.REPORT_STATUS == 'n' }">
-		<td><button class="btnStatusN${review.REVIEW_NO }" onclick="statusToY(${review.REVIEW_NO});">미완료</button></td>
+		<td><button class="btnStatusN${review.REVIEW_NO }" onclick="statusToY(${review.REVIEW_NO});" >미완료</button></td>
 	</c:if>
 	<c:if test="${review.REPORT_STATUS == 'y' }">
 		<td><button class="btnStatusY${review.REVIEW_NO }" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
