@@ -7,7 +7,8 @@
 
 	<sql id="selectReviewReport">
         SELECT 
-            X.report_no, X.report_category, X.report_content, X.respondent_no, R.review_no, U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
+            X.report_no, X.report_category, X.report_content, X.respondent_no
+            , R.review_no, U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
         FROM zreview R
         INNER JOIN zuser U
             ON U.user_no = R.user_no
@@ -36,5 +37,27 @@
 			<include refid="whereReviewReportTitleSearch"/>
 		)
 	</select>
+	
+	<update id="updateReviewReportByStatusY" parameterType="com.khbill.dto.ReviewReport">
+		UPDATE zreview_report
+		SET report_status = 'y'
+		WHERE review_no = #{reviewNo }
+	</update>
+	
+	<select id="selectCntReviewReportByStatusY" parameterType="com.khbill.dto.ReviewReport" resultType="int">
+		SELECT count(*) FROM zreview_report
+		WHERE review_no = #{reviewNo } AND report_status = 'y'
+	</select>
+	
+	<update id="updateReviewReportByStatusN" parameterType="com.khbill.dto.ReviewReport">
+		UPDATE zreview_report
+		SET report_status = 'n'
+		WHERE review_no = #{reviewNo }
+	</update>
+	
+	<select id="selectCntReviewReportByStatusN" parameterType="com.khbill.dto.ReviewReport" resultType="int">
+		SELECT count(*) FROM zreview_report
+		WHERE review_no = #{reviewNo } AND report_status = 'n'
+	</select>	
 
 </mapper>

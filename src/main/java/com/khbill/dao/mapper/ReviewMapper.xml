@@ -22,14 +22,15 @@
 	<select id="selectReviewList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
-		        SELECT
+		        SELECT DISTINCT
 		            R.review_no, U.user_no, U.user_nick
-		            , R.review_title, R.review_date, R.review_hit, W.grade_url
+		            , R.review_title, R.review_date, R.review_hit, W.grade_url, nvl(P.report_status, 'n') AS report_status
 		        FROM zreview R
 		        LEFT OUTER JOIN ZUSER U
 		            ON U.user_no(+) = R.user_no
 		        LEFT OUTER JOIN USERWITHURL W
 		            ON U.user_no = W.user_no
+		        LEFT OUTER JOIN zreview_report P ON R.review_no = P.review_no
 		        <include refid="whereReviewTitleSearch"/>
 		        ORDER BY review_no DESC
 		    ) R
@@ -75,17 +76,12 @@
 		            review_no, U.user_no, user_nick, F.file_no, F.file_stored
 		            , i.item_no, i.item_brand, i.item_name, i.item_price
 		            , review_title, review_content, review_date, review_hit
-		            , ( SELECT count (review_com_no)
-		            FROM ZREVIEW_COMMENT
-		            WHERE review_no = 1
-		            ) review_com_count
+		            , ( SELECT count (review_com_no) FROM ZREVIEW_COMMENT
+		            WHERE review_no = 1 ) review_com_count
 		        FROM zreview R
-		        LEFT OUTER JOIN zuser U
-		            ON U.user_no = R.user_no    
-		        LEFT OUTER JOIN zfile F
-		            ON R.file_no = F.file_no
-		        LEFT OUTER JOIN zitem I
-		            ON R.item_no = I.item_no
+		        LEFT OUTER JOIN zuser U ON U.user_no = R.user_no    
+		        LEFT OUTER JOIN zfile F ON R.file_no = F.file_no
+		        LEFT OUTER JOIN zitem I ON R.item_no = I.item_no
 		        ORDER BY review_no
 		    ) R
 		) ZREVIEW
@@ -224,6 +220,13 @@
 	<select id="selectDeleteReviewByReviewNo" parameterType="int" resultType="com.khbill.dto.Review">
 		SELECT * FROM zreview
 		WHERE review_no = #{reviewNo }	
+	</select>
+	
+	<select id="selectReviewReportByReviewNo" parameterType="com.khbill.dto.Review" resultType="String">
+		SELECT report_status
+		FROM ZREVIEW_REPORT
+		WHERE review_no = #{reviewNo }
+		AND rownum = 1
 	</select>
 	
 </mapper>

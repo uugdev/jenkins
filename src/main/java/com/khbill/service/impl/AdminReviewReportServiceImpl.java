@@ -34,4 +34,27 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 		return adminReviewReportDao.selectReviewReportList(paging);
 	}
 
+	@Override
+	public boolean ReviewStatusToY(ReviewReport reviewReport) {
+	
+		adminReviewReportDao.updateReviewReportByStatusY(reviewReport);
+		
+		if( adminReviewReportDao.selectCntReviewReportByStatusY(reviewReport) > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean ReviewStatusToN(ReviewReport reviewReport) {
+		
+		adminReviewReportDao.updateReviewReportByStatusN(reviewReport);
+		
+		if( adminReviewReportDao.selectCntReviewReportByStatusN(reviewReport) > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

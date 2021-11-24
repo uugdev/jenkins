@@ -67,6 +67,16 @@ $(document).ready(function() {
 	})
 	
 })
+
+function reportStatusY() {
+	
+        action_popup.alert("신고된 게시물로 접근이 불가합니다"); 
+        
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+}
+
 </script>
 
 <style type="text/css">
@@ -100,6 +110,7 @@ td:nth-child(2) {
 	<br>
 	
 	<div id="ajaxArea">
+		${reviewStatus }
 		<table class="table table-striped table-hover">
 		<thead>
 			<tr>
@@ -114,8 +125,14 @@ td:nth-child(2) {
 		<c:forEach items="${reviewList }" var="review">
 			<tr>
 				<td>${review.REVIEW_NO }</td>
-				<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
-				
+				<td>
+					<c:if test="${review.REPORT_STATUS eq 'n' }">				
+						<a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+					</c:if>
+					<c:if test="${review.REPORT_STATUS eq 'y' }">				
+						<a onclick="reportStatusY()">${review.REVIEW_TITLE }</a>
+					</c:if>
+				</td>
 					<c:if test="${review.USER_NICK eq null }">
 						<td>탈퇴한 회원</td>
 					</c:if>

@@ -10,4 +10,14 @@ public interface AdminReviewReportDao {
 	public List<ReviewReport> selectReviewReportList(Paging paging);
 
 	public int selectCntAll(Paging paramData);
+
+	public void updateReviewReportByStatusY(ReviewReport reviewReport);
+
+	public int selectCntReviewReportByStatusY(ReviewReport reviewReport);
+
+	public void updateReviewReportByStatusN(ReviewReport reviewReport);
+
+	public int selectCntReviewReportByStatusN(ReviewReport reviewReport);
+
+
 }

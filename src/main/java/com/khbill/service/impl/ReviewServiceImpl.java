@@ -318,4 +318,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return resultComment;
 	}
 
+	@Override
+	public String getReviewReportByReviewNo(Review review) {
+
+		return reviewDao.selectReviewReportByReviewNo(review);
+	}
+
+
 }

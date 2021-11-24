@@ -27,10 +27,7 @@ $(document).ready(function(){
 	       $('#selectAll').prop('checked', false);
 	    }
 	});
-	
-	
-	
-	
+
 	
 	$("#btnDelete").click(function(){
 		var result = confirm("선택한 게시글을 삭제하시겠습니까?")
@@ -56,8 +53,107 @@ $(document).ready(function(){
 	     }
 	});
 
+	$("#btnSearch").click(function() {
+		location.href="/admin/review/list?search="+$("#search").val();
+	});
+	$("#search").keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $("#btnSearch").click();
+	         return false;
+	     }
+	});
+	
+// 	function statusToY(reviewNo) {
+		
+		
+		
+// 		$.ajax({
+// 			type: "post"
+// 			, url: "/admin/reviewreport/list/statustoy"
+// 			, dataType: "json"
+// 			, data: {
+// 				reviewNo: reviewNo
+// 			}
+// 			, success: function(data){
+// 				if(data.changeStatus) {
+					
+// 					$(".btnStatusN"+reviewNo).html('완료');
+// 					$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
+					
+// 					console.log("바껴라")
+					
+// 				} else {
+// 					alert("신고 처리 완료 실패");
+// 				}
+// 			}
+// 			, error: function() {
+// 				console.log("error");
+// 			}
+// 		});
+// 	}
 })
 </script>
+
+<script type="text/javascript">
+function statusToY(reviewNo) {
+		
+	console.log("ajax 처리 전")
+	
+	$.ajax({
+		type: "post"
+		, url: "/admin/reviewreport/list/statustoy"
+		, dataType: "json"
+		, data: {
+			reviewNo: reviewNo
+		}
+		, success: function(data){
+			if(data.changeStatus) {
+				
+// 				$(".btnStatusN"+reviewNo).html('완료');
+				$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
+				$(".btnStatusN"+reviewNo).attr("value", "완료");				
+				
+				console.log("완료로 바껴라")
+				
+			} else {
+				alert("신고 처리 완료 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+	
+function statusToN(reviewNo) {
+	
+	$.ajax({
+		type: "post"
+		, url: "/admin/reviewreport/list/statuston"
+		, dataType: "json"
+		, data: {
+			reviewNo: reviewNo
+		}
+		, success: function(data){
+			if(data.changeStatus) {
+				
+// 				$(".btnStatusY"+reviewNo).html('미완료');
+				$(".btnStatusY"+reviewNo).attr("onclick", "statusToY("+ reviewNo + ")");
+				$(".btnStatusY"+reviewNo).attr("value", "미완료");				
+				
+				console.log("미완료로 바껴라")
+				
+			} else {
+				alert("신고 처리 미완료 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+</script>
+
 
 <style type="text/css">
 
@@ -100,6 +196,7 @@ label {
 	<th>게시글 제목</th>
 	<th>피신고자</th>
 	<th>신고일</th>
+	<th>처리여부</th>
 </tr>
 <c:forEach items="${reviewReportList }" var="review">
 <tr>
@@ -136,6 +233,14 @@ label {
 	<td><fmt:formatDate value="${review.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
 	
 <%-- 	<td><label for="${review.USER_NO }">${review.REPORT_STATUS }</label></td> --%>
+	
+	<c:if test="${review.REPORT_STATUS == 'n' }">
+		<td><button class="btnStatusN${review.REVIEW_NO }" onclick="statusToY(${review.REVIEW_NO});">미완료</button></td>
+	</c:if>
+	<c:if test="${review.REPORT_STATUS == 'y' }">
+		<td><button class="btnStatusY${review.REVIEW_NO }" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
+	</c:if>
+
 	
 </tr>
 </c:forEach>

@@ -7,8 +7,12 @@ import com.khbill.util.Paging;
 
 public interface AdminReviewReportService {
 
-	Paging getPaging(Paging paramData);
+	public Paging getPaging(Paging paramData);
 
-	List<ReviewReport> getReviewReportList(Paging paging);
+	public List<ReviewReport> getReviewReportList(Paging paging);
+
+	public boolean ReviewStatusToY(ReviewReport reviewReport);
+
+	public boolean ReviewStatusToN(ReviewReport reviewReport);
 
 }

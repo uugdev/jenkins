@@ -341,7 +341,7 @@ function deleteComment(reviewComNo) {
 	<button onclick='location.href="/member/login";'>로그인</button>
 	<button onclick='location.href="/member/join";'>회원가입</button>
 </c:if>
-	
+
 <!-- 로그인상태 -->
 <c:if test="${login }">
 <!-- 댓글 입력 -->
