@@ -81,4 +81,14 @@ public interface AdminReviewReportService {
 	 */
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
 
+
+	/**
+	 * 허위 신고된 허위 신고번호로 삭제한다
+	 * 
+	 * @param reportNo
+	 */
+	public void setReviewReportDelete(int reportNo);
+	
+	
+
 }

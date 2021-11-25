@@ -91,20 +91,9 @@
 		WHERE file_no = #{fileNo }
 	</select>
 	
-<!-- 	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="HashMap"> -->
-<!-- 		SELECT * FROM ( -->
-<!-- 		    SELECT rownum rnum, C.* FROM ( -->
-<!-- 		        SELECT DISTINCT -->
-<!-- 		             review_com_no, U.user_no, user_nick, C.review_no -->
-<!-- 		            , review_com_content, review_com_date, review_com_like, review_com_hate, W.grade_url -->
-<!-- 		        FROM ZREVIEW_COMMENT C -->
-<!-- 		        LEFT OUTER JOIN zuser U  ON U.user_no = C.user_no -->
-<!-- 		        LEFT OUTER JOIN USERWITHURL W ON U.user_no = W.user_no -->
-<!-- 		        LEFT OUTER JOIN zreview R ON C.review_no = C.review_no -->
-<!-- 		        WHERE C.review_no = #{reviewNo } -->
-<!-- 		        ORDER BY review_com_no -->
-<!-- 		     ) C -->
-<!-- 		) ZREVIEW_COMMENT -->
-<!-- 	</select> -->
+	<delete id="deleteReviewReportByReportNo" parameterType="int">
+		DELETE zreview_report
+		WHERE report_no = #{reportNo }
+	</delete>
 	
 </mapper>

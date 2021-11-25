@@ -65,17 +65,17 @@ public interface AdminReviewService {
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
 
 	/**
-	 * 게시글 번호로 댓글 조회
+	 * 게시글 번호로 댓글 삭제하기
 	 * 
-	 * @param askNo
+	 * @param reviewNo
 	 * @return
 	 */
 	public void setReviewDelete(int reviewNo);
 
 	/**
-	 * ask댓글 삭제하기
+	 * review댓글 삭제하기
 	 * 
-	 * @param askNo
+	 * @param reviewNo
 	 */
 	public void setReviewCommentDelete(int reviewNo);
 

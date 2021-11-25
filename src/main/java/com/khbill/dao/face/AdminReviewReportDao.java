@@ -101,5 +101,11 @@ public interface AdminReviewReportDao {
 	 */
 	public List<HashMap<String, Object>> selectReviewCommentByReview(ReviewComment reviewComment);
 
-	
+	/**
+	 * 허위로 신고된 신고글을 삭제한다
+	 * 
+	 * @param reviewReport
+	 */
+	public void deleteReviewReportByReportNo(ReviewReport reviewReport);
+
 }

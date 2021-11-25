@@ -88,6 +88,13 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
-	
-	
+
+	@Override
+	public void setReviewReportDelete(int i) {
+
+		ReviewReport reviewReport = new ReviewReport();
+		
+		reviewReport.setReportNo(i);
+		adminReviewReportDao.deleteReviewReportByReportNo(reviewReport);
+	}
 }

@@ -71,6 +71,7 @@ public interface AdminReviewDao {
 
 	public void deleteReviewCommentByReviewNo(Review review);
 
+	
 	public void deleteReviewComment(ReviewComment reviewComment);
 
 	public int selectCountComment(ReviewComment reviewComment);

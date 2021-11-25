@@ -71,6 +71,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		return mav;
 	}
 	
+	//신고된 후기 게시글 상세
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String adminReviewReportDetail(
 			Review review, ReviewReport reviewReport, ReviewComment reviewComment
@@ -106,6 +107,20 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		return "admin/report/review/detail";
 	}
 	
+	//허위 신고 : 신고테이블에서 데이터 삭제
+	@RequestMapping(value = "/delete")
+	public String delete(int[] reportNo) {
+		logger.info("/admin/review/delete");
+		
+		int size = reportNo.length;
+		for(int i=0; i<size; i++) {
+
+			adminReviewReportService.setReviewReportDelete(reportNo[i]);
+		}
+		logger.info("reportNo{}", reportNo);
+		
+		return "redirect:/admin/report/review/list";
+	}
 }
 
 
