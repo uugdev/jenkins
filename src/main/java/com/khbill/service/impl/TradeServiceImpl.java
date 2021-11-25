@@ -38,12 +38,13 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public Paging getPaging(Paging paramData) {
 		
-		//trade 테이블의 총 게시글 수를 조회한다
+		//총 게시글 수 조회
 		int totalCount = tradeDao.selectCntAll(paramData);
 		
-		//Paging객체 생성
+		//페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		paging.setSearch(paramData.getSearch());
+		paging.setTarget(paramData.getTarget());
 		
 		return paging;
 	}

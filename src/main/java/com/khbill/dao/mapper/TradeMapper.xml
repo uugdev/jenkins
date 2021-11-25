@@ -19,17 +19,33 @@
 	</sql>
 
 	<select id="selectTradeList" resultType="HashMap" parameterType="com.khbill.util.Paging">
-		SELECT * FROM (
+       	SELECT * FROM (
 		    SELECT rownum rnum, sub.* FROM (
 		        SELECT DISTINCT T.trade_no, U.user_no, U.user_nick, T.trade_category, T.trade_title, T.trade_date, T.trade_hit
-		        , UW.grade_url, nvl(R.report_status, 'n') report_status
-		        FROM ztrade T, zuser U, ztrade_report R, USERWITHURL UW
+		        , f.file_stored, UW.grade_url, nvl(R.report_status, 'n') report_status, cnt.trade_com_cnt
+		        FROM ztrade T, zuser U, ztrade_report R, USERWITHURL UW, zfile f, (
+                    SELECT count(trade_com_no) trade_com_cnt, trade_no
+                    FROM ztrade_comment
+                    group by trade_no
+                ) cnt
 		        WHERE 1=1
 		        AND U.user_no(+) = T.user_no
 		        AND R.trade_no(+) = T.trade_no
 		        AND UW.user_no(+) = U.user_no
-		        AND trade_title LIKE '%' || #{search} || '%'
+                AND cnt.trade_no(+) = T.trade_no
+                AND F.file_no(+) = T.file_no
+		        AND trade_title LIKE '%' || #{search } || '%'
+     		    <choose>
+		        <when test="target == 1">
+		        ORDER BY trade_hit DESC
+		        </when>
+		        <when test="target == 2">
 		        ORDER BY trade_no DESC
+		        </when>
+				<otherwise>
+		        ORDER BY trade_no DESC
+		        </otherwise>
+		        </choose>
 		        ) sub
 		    ) ZTRADE
 		    WHERE rnum BETWEEN #{startNo } AND #{endNo }

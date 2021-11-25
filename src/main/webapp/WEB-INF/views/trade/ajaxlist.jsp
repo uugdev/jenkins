@@ -44,3 +44,16 @@
 		</c:forEach>
 	</tbody>
 </table>
+
+<c:if test="${login }">
+	<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+</c:if>
+<span class="pull-right">total : ${paging.totalCount }</span>
+<div class="clearfix"></div>
+
+<div class="form-inline text-center">
+	<input class="form-control" type="text" id="search"
+		value="${param.search }" />
+	<button id="btnSearch" class="btn">검색</button>
+</div>
+<c:import url="/WEB-INF/views/review/paging.jsp" />

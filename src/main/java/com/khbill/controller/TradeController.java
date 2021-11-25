@@ -39,31 +39,30 @@ public class TradeController {
 				, Paging paramData
 			) {
 		
-		logger.info("curPage {}", paramData);
+	}
+	
+	//거래 게시판 조회수 기준 목록
+	@RequestMapping(value = "/trade/list/ajax")
+	public String tradeHitList(
+				Model model
+				, Paging paramData
+			) {
+		
+		logger.info("param {}", paramData);
 		
 		Paging paging = tradeService.getPaging(paramData);
+		logger.info("paging.target : {}",paging.getTarget());
 		
 		List<Trade> tradeList = tradeService.getTradeList(paging);
 		
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("paging", paging);
 		
-	}
-	
-	//거래 게시판 조회수 기준 목록
-	@RequestMapping(value = "/trade/list/hit")
-	public String tradeHitList(
-				Model model
-				, Paging paramData
-			) {
-		
-		Paging paging = tradeService.getPaging(paramData);
-		
-		List<Trade> tradeList = tradeService.getTradeHitList(paging);
-		
-		model.addAttribute("tradeList", tradeList);
-		model.addAttribute("paging", paging);
-		model.addAttribute("res", true);
+		if(paging.getTarget() != null) {
+			if(paging.getTarget().equals("3")) { //사진
+				return "trade/ajaxpiclist";
+			}
+		}
 		
 		return "trade/ajaxlist";
 	}

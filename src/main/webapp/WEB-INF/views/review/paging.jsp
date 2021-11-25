@@ -11,7 +11,22 @@
 <%-- 첫 페이지로 이동 --%>
 <c:if test="${paging.curPage ne 1 }">
 <%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }${searchParam }">첫 페이지로 &laquo;</a></li> --%>
-	<li><span onclick="loadCurPage(1, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="1,${paging.target },${param.search }"/>첫 페이지로</span></li>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(1, ${paging.target })"><input name ="curP" type="hidden" value="1,${paging.target }"/>첫 페이지로</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(1, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="1,${paging.target },${param.search }"/>첫 페이지로</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(1, null, ${param.search })"><input name ="curP" type="hidden" value="1, null, ${param.search }"/>첫 페이지로</span></li>
+	</c:if>
+	
 </c:if>
 
 <%-- 이전 페이징 리스트로 이동 --%>
@@ -32,6 +47,7 @@
 <%-- 페이징 리스트 --%>
 <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 
+<!-- 검색 안했을 때 -->
 <c:if test="${empty param.search }">
 	<c:if test="${paging.curPage eq i }">
 		<li><span onclick="loadCurPage(${i }, ${paging.target })"><input name ="curP" type="hidden" value="${i },${paging.target }"/>${i }</span></li>
@@ -41,6 +57,7 @@
 	</c:if>
 </c:if>
 
+<!-- 검색 했을 때, 타겟 설정했을 때 -->
 <c:if test="${not empty param.search and not empty paging.target }">
 	<c:if test="${paging.curPage eq i }">
 		<li><span onclick="loadCurPage(${i }, ${paging.target }, '${paging.search }')"><input name ="curP" type="hidden" value="${i },${paging.target }, '${paging.search }'"/>${i }</span></li>
@@ -50,6 +67,7 @@
 	</c:if>
 </c:if>
 
+<!-- 검색 했을 때, 타겟 설정안했을 때 -->
 <c:if test="${not empty param.search and empty paging.target }">
 	<c:if test="${paging.curPage eq i }">
 		<li><span onclick="loadCurPage(${i }, null, '${paging.search }')"><input name ="curP" type="hidden" value="${i }, null, '${paging.search }'"/>${i }</span></li>
@@ -79,8 +97,22 @@
 <%-- 끝 페이지로 이동 --%>
 <c:if test="${paging.curPage ne paging.totalPage }">
 <%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.totalPage }${searchParam }">마지막 페이지로 &raquo;</a></li> --%>
-	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.totalPage }${searchParam }">마지막 페이지로 &raquo;</a></li>
-	<li><span onclick="loadCurPage(1, ${paging.target })"><input name ="curP" type="hidden" value="1,${paging.target }"/>첫 페이지로</span></li>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(${paging.totalPage }, ${paging.target })"><input name ="curP" type="hidden" value="${paging.totalPage }, ${paging.target }"/>마지막 페이지로</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.totalPage }, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="${paging.totalPage }, ${paging.target }, ${param.search }"/>마지막 페이지로</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.totalPage }, null, ${param.search })"><input name ="curP" type="hidden" value="${paging.totalPage }, null, ${param.search }"/>마지막 페이지로</span></li>
+	</c:if>
+	
 </c:if>
 
 </ul>
