@@ -323,6 +323,7 @@ var myChart2 = new Chart(context2, {
 
 	margin-top: 21px;
 	color: red;
+	font-size: 10px;
 
 }
 
