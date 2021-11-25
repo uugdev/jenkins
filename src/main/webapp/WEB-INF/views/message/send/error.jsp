@@ -22,7 +22,7 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 <div style="width: 500px; height: 500px; margin: 0 auto; padding: 30px;">
-<img width="150px;" height="150px;" alt="금지" src="https://cdn-icons.flaticon.com/png/512/2576/premium/2576762.png?token=exp=1636686797~hmac=096826150cf6d1591f7880545ed7fc60">
+<img width="150px;" height="150px;" alt="금지" src="https://i.imgur.com/OlYEpre.png">
 <h3><strong>존재하지 않는 닉네임입니다. 닉네임을 다시 확인해주세요!</strong></h3>
 <hr><br><br>
 <button id="btnBack">이전으로</button>
