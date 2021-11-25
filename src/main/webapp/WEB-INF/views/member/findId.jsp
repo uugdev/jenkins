@@ -28,36 +28,36 @@ $(document).ready(function(){
 	        $(".mail_regex").css("display","inline-block");
 	        return false;
 		} else {
-		$.ajax({
-			url: "/member/findId",
-			type:"post",
-			data:{mailAdr:mailAdr},
-	        success:function(data){
-// 	        	 console.log(data);
-				if(data=='noUserId'){
-			        $(".mail_regex").css("display","none");
-					$("#result").css("display", "flex");
-					$("#resultText").html('<p>입력하신 이메일과 일치하는 회원이 존재하지 않습니다.</p><p>이메일을 다시 확인하거나 회원가입을 진행해주세요.</p>');
-					$("#btnLogin").css("display", "inline-block");
-					$("#btnJoin").css("display", "inline-block");
-				} else if(data=='kakaoMember'){
-			        $(".mail_regex").css("display","none");
-					$("#result").css("display", "flex");
-					$("#resultText").html('<p>카카오 소셜 로그인 회원입니다.</p><p>카카오 로그인을 이용해주세요.</p>');
-					$("#btnLogin").css("display", "inline-block");					
-					$("#btnJoin").css("display", "none");
-				} else {
-			        $(".mail_regex").css("display","none");
-					$("#result").css("display", "flex");
-					$("#resultText").html('<p>아이디 : <strong>' + data + '</strong></p>');								
-					$("#btnLogin").css("display", "inline-block");					
-					$("#btnJoin").css("display", "none");
-				}
-	        },
-	        error:function(){
-	            alert("에러입니다");
-	        }
-		})
+			$.ajax({
+				url: "/member/findId",
+				type:"post",
+				data:{mailAdr:mailAdr},
+		        success:function(data){
+	// 	        	 console.log(data);
+					if(data=='noUserId'){
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>입력하신 이메일과 일치하는 회원이 존재하지 않습니다.</p><p>이메일을 다시 확인하거나 회원가입을 진행해주세요.</p>');
+						$("#btnLogin").css("display", "inline-block");
+						$("#btnJoin").css("display", "inline-block");
+					} else if(data=='kakaoMember'){
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>카카오 소셜 로그인 회원입니다.</p><p>카카오 로그인을 이용해주세요.</p>');
+						$("#btnLogin").css("display", "inline-block");					
+						$("#btnJoin").css("display", "none");
+					} else {
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>아이디 : <strong>' + data + '</strong></p>');								
+						$("#btnLogin").css("display", "inline-block");					
+						$("#btnJoin").css("display", "none");
+					}
+		        },
+		        error:function(){
+		            alert("에러입니다");
+		        }
+			})
 			
 		}
 	})/* #btnFind click end */
