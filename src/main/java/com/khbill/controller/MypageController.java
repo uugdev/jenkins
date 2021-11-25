@@ -90,6 +90,19 @@ public class MypageController {
 		
 	}
 	
+	@RequestMapping(value="/mypage/item/cancel")
+	public String itemCancel(Item item) {
+		logger.info("/mypage/item/cancel [GET]");
+		
+		int askNo = itemService.getAskNoByItemNo(item);
+		
+		//아이템 결제 상태를 되돌리기
+		itemService.setItemStatusCancel(askNo);
+		
+		return "redirect:/mypage/item/list";
+		
+	}
+	
 	@RequestMapping(value="/mypage/info")
 	public void userInfo(User user, HttpSession session, Model model) {
 		logger.info("/mypage/info [GET]");
