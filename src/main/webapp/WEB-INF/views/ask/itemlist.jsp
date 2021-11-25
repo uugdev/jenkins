@@ -9,7 +9,7 @@
 		<li>
 			<div style="width: 100%; height: 250px;">
 				<a href="/ask/detail?askNo=${list.ASK_NO}">
-					<img style="width: 100%; height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
+					<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
 				</a>
 			</div>
 			<div style="border: 1px solid #ccc; border-top: none; box-sizing: border-box; padding: 0 5px 10px; ">

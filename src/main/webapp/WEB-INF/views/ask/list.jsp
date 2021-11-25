@@ -130,16 +130,16 @@ td:nth-child(2) {
 }
 
 #photoList li {
-  margin-right: 46px;
+  margin-right: 15px;
     display: inline-block;
-    width: 250px;
-    margin-bottom: 50px;
+    width: 330px;
+    margin-bottom: 35px;
     border-radius: 1px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-#photoList li:nth-child(4n+0) {
+#photoList li:nth-child(3n+0) {
   margin-right: 0;
 } 
 

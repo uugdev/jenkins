@@ -66,8 +66,8 @@ private int curPage;	//현재 페이지 번호
 		
 		//기본값 설정
 		if(curPage == 0)	setCurPage(1);	//첫 페이지를 기본 페이지로 설정한다
-		if(listCount == 0)	setListCount(10);	//화면에 보여질 게시글 수를 기본 10개로 설정한다
-		if(pageCount == 0)	setPageCount(10);	//화면에 보여질 페이지 수를 기본 10페이지로 설정한다
+		if(listCount == 0)	setListCount(12);	//화면에 보여질 게시글 수를 기본 12개로 설정한다
+		if(pageCount == 0)	setPageCount(12);	//화면에 보여질 페이지 수를 기본 12페이지로 설정한다
 		
 		//총 페이지 수 계산
 		totalPage = totalCount / listCount;
