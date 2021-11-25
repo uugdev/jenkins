@@ -222,13 +222,6 @@
 		WHERE review_no = #{reviewNo }	
 	</select>
 	
-	<select id="selectReviewReportByReviewNo" parameterType="com.khbill.dto.Review" resultType="String">
-		SELECT report_status
-		FROM ZREVIEW_REPORT
-		WHERE review_no = #{reviewNo }
-		AND rownum = 1
-	</select>
-	
 </mapper>
 
 

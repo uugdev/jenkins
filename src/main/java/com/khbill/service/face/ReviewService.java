@@ -211,16 +211,6 @@ public interface ReviewService {
 	 */
 	public Review getReviewByReviewNo(int reviewNo);
 
-	/**
-	 * reviewNo으로 신고 처리 여부 조회
-	 * 
-	 * @param review 조회할 reviewNo
-	 * @return reviewNo에 해당하는 신고처리여부
-	 */
-	public String getReviewReportByReviewNo(Review review);
-
-
-
 	
 
 }

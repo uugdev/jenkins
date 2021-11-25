@@ -240,12 +240,5 @@ public interface ReviewDao {
 	 */
 	public Review selectDeleteReviewByReviewNo(int reviewNo);
 
-	/**
-	 * reviewNo으로 신고처리여부 조회
-	 * 
-	 * @param review - 조회한 reviewNo 
-	 * @return 신고처리여부
-	 */
-	public String selectReviewReportByReviewNo(Review review);
 
 }
