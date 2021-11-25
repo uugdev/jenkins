@@ -71,7 +71,50 @@ public interface ItemDao {
 	 */
 	public List<User> selectCorrectUser(Vote vote);
 
+	/**
+	 * 정답을 맞춘 회원들에게 점수를 부여
+	 * 
+	 * @param u
+	 */
 	public void updateUserPoint(User u);
+
+	/**
+	 * 아이템의 상태를 n으로 만든다.
+	 * 
+	 * @param askNo
+	 */
+	public void updateItemStatusToN(int askNo);
+	
+	/**
+	 * 점수를 받았던 user들 list받아오기
+	 * 
+	 * @param askNo
+	 * @return list
+	 */
+	public List<User> selectUserList(int askNo);
+
+	/**
+	 * 정답 맞춘 회원들에게 줬던 점수를 다시 차감
+	 * 
+	 * @param u
+	 */
+	public void updateUserPointToBefore(User u);
+
+	/**
+	 * 아이템의 상태를 y로 바꾼다
+	 * 
+	 * @param itemNo
+	 */
+	public void updateItemStatusToY(int itemNo);
+
+	/**
+	 * 아이템의 상태를 다시 n으로 만들고 아이템 date도 null로 변경한다
+	 * 
+	 * @param askNo
+	 */
+	public void updateItemStatusCancel(int askNo);
+	
+	
 
 	
 }

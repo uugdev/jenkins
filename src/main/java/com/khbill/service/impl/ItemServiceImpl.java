@@ -39,19 +39,22 @@ public class ItemServiceImpl implements ItemService {
 			
 			int itemNo = itemDao.selectItemNoByAskNo(askNo);
 			
-			Item item = new Item();
-			item.setItemNo(itemNo);
-			item.setItemStatus(status);
-			
-			itemDao.updateItemStatus(item);
+			if(status.equals("y")) {
+				itemDao.updateItemStatusToY(itemNo);
+			} else {
+				itemDao.updateItemStatusToN(itemNo);
+			}
+
 			
 		} else { //투표가 끝났음
 			
 			int itemNo = itemDao.selectItemNoByAskNo(askNo);
 			
-			Item item = new Item();
-			item.setItemNo(itemNo);
-			item.setItemStatus(status);
+			if(status.equals("y")) {
+				itemDao.updateItemStatusToY(itemNo);
+			} else {
+				itemDao.updateItemStatusToN(itemNo);
+			}
 			
 		}
 		
@@ -67,6 +70,19 @@ public class ItemServiceImpl implements ItemService {
 			itemDao.updateUserPoint(u);
 		}
 		
+	}
+	
+	@Override
+	public void setItemStatusCancel(int askNo) {
+				
+		itemDao.updateItemStatusCancel(askNo);
+		List<User> list = itemDao.selectUserList(askNo);
+		
+		for(User u : list) {
+			itemDao.updateUserPointToBefore(u);
+		}
+		
+
 	}
 	
 	@Override

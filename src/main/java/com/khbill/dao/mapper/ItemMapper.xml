@@ -70,6 +70,39 @@
 		SET user_point = user_point + 100
 		WHERE user_no = #{userNo }
 	</update>
+		
+	<update id="updateItemStatusCancel" parameterType="com.khbill.dto.Item">
+		UPDATE zitem
+		SET item_status = 'n',
+			item_date = null
+		WHERE item_no = #{itemNo }
+	</update>
+	
+	<update id="updateItemStatusToY" parameterType="com.khbill.dto.Item">
+		UPDATE zitem
+		SET item_status = 'y',
+			item_date = sysdate
+		WHERE item_no = #{itemNo }
+	</update>
+	
+	<update id="updateItemStatusToN" parameterType="com.khbill.dto.Item">
+		UPDATE zitem
+		SET item_status = 'n',
+			item_date = sysdate
+		WHERE item_no = #{itemNo }
+	</update>
+	
+	<select id="selectUserList" parameterType="com.khbill.dto.Vote" resultType="com.khbill.dto.User">
+		SELECT user_no FROM zvote
+		WHERE ask_no = #{askNo }
+		AND vote_state = 'y'
+	</select>
+	
+	<update id="updateUserPointToBefore" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+		SET user_point = user_point - 100
+		WHERE user_no = #{userNo }
+	</update>
 
 
 </mapper>

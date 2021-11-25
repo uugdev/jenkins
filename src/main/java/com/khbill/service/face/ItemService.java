@@ -40,4 +40,11 @@ public interface ItemService {
 	 */
 	public Paging getPaging(Paging paramData, int userNo);
 
+	/**
+	 * 구매 철회
+	 * 
+	 * @param askNo
+	 */
+	public void setItemStatusCancel(int askNo);
+
 }
