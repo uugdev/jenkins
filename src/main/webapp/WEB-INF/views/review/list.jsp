@@ -25,8 +25,14 @@ $(document).ready(function() {
 	})
 	
 	//검색 버튼 클릭
-	$("#btnSearch").click(function() {
-		location.href="/review/list?search="+$("#search").val();
+// 	$("#btnSearch").click(function() {
+// 		location.href="/review/list?search="+$("#search").val();
+// 	});
+	
+	$(document).on("click", "#btnSearch", function(){
+		search = $("#search").val();
+		console.log(search)
+		loadList()
 	});
 	
 	//조회순으로 정렬 처리
@@ -83,6 +89,7 @@ $(document).ready(function() {
 	//<otherwise>태그로 로드하는 부분
 	var target = null;
 	var curPage = 1;
+	var search = null;
 	
 	function loadList() {
 		$.ajax({
@@ -91,11 +98,12 @@ $(document).ready(function() {
 			, data: {
 			curPage: curPage
 			, target: target
+			, search: search
 			}
 			, dataType: "html"
 			, success: function(res){
 				console.log("AJAX 성공")
-				result.innerHTML += res;
+				result.innerHTML = res;
 //	 			$("#result").html( $("#result").html() + res );
 			}
 			, error: function(){
@@ -108,12 +116,14 @@ $(document).ready(function() {
 });
 
 //페이지가 증가되야하는 부분 (+1)
-function loadCurPage(i, t){
+function loadCurPage(i, t, s){
     var curPage =  i ;
 	var target = t;
+	var search = s;
     
 	console.log("curP : "+ curPage);
     console.log("tg : " + target);
+    console.log("sc : " + search);
     
        $.ajax({
           type: "post"
@@ -121,6 +131,7 @@ function loadCurPage(i, t){
           , data: { 
              curPage: curPage
              ,target: target
+             ,search: search
           }
           , dataType: "html"
           , success: function(data){
