@@ -443,7 +443,7 @@ body {
 <tr>
 	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label><br>
 	<span style="color: #C2BDB9; font-size: 12px; font-weight: lighter;">(단위 : ￦)</span></th>
-	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" value="0"/></td>
+	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" required value="0" min="0" step="1000"/></td>
 </tr>
 <tr>
 	<th><label for="userBday">생일<span class="required">&nbsp;*</span></label></th>

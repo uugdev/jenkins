@@ -19,45 +19,143 @@ $(document).ready(function(){
 		history.go(-1);
 	})
 	
-	$("#findPw").click(function(){
-		var mailAdr = $("#mailAdr").val();
-		$.ajax({
-			url: "/member/findPw",
-			type:"post",
-			data:{mailAdr:mailAdr},
-	        success:function(data){
-// 	        	 console.log(data);
-				if(data=='noUserInfo'){
-					$("#result").css("display", "inline-block");
-					$("#resultText").html('입력하신 이메일과 일치하는 회원이 존재하지 않습니다. 회원가입을 진행해주세요.');
-				} else if(data=='kakaoMember'){
-					$("#result").css("display", "inline-block");
-					$("#resultText").html('카카오 소셜 로그인 회원입니다. 비밀번호 찾기는 카카오에서 진행해주세요.');	
-				} else {
-					$("#result").css("display", "inline-block");
-					$("#resultText").html('입력하신 이메일로 임시 비밀번호를 보내드렸습니다. 임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!');								
-				}
-	        },
-	        error:function(){
-	            alert("에러입니다");
-	        }
-		})
+	$("#btnLogin").click(function(){
+		location.href="/member/login";
 	})
+	
+	$("#btnJoin").click(function(){
+		location.href="/member/join";
+	})
+	
+	$("#btnFind").click(function(){
+		var mailAdr = $("#mailAdr").val();
+		var mailRegex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+		if(!mailRegex.test(mailAdr)){
+	        $(".mail_regex").css("display","inline-block");
+	        return false;
+		} else {
+			$.ajax({
+				url: "/member/findPw",
+				type:"post",
+				data:{mailAdr:mailAdr},
+		        success:function(data){
+		        	 console.log(data);
+					if(data=='noUserInfo'){
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>입력하신 이메일과 일치하는 회원이 존재하지 않습니다.</p><p>회원가입을 진행해주세요.</p>');
+						$("#btnLogin").css("display", "inline-block");
+						$("#btnJoin").css("display", "inline-block");
+					} else if(data=='kakaoMember'){
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>카카오 소셜 로그인 회원입니다.</p><p>비밀번호 찾기는 카카오에서 진행해주세요.</p>');
+						$("#btnLogin").css("display", "inline-block");					
+						$("#btnJoin").css("display", "none");
+					} else {
+				        $(".mail_regex").css("display","none");
+						$("#result").css("display", "flex");
+						$("#resultText").html('<p>입력하신 이메일로 임시 비밀번호를 보내드렸습니다.</p><p>임시 비밀번호로 로그인 후 비밀번호를 변경해주세요!</p>');
+						$("#btnLogin").css("display", "inline-block");					
+						$("#btnJoin").css("display", "none");
+					
+					}
+		        },
+		        error:function(){
+		            alert("에러입니다");
+		        }
+			})
+		}
+	})/* #btnFind click end */
 })
 
 </script>
 
 <style type="text/css">
 
-input[type=text]{
-	width: 100%;
+body {
+	background: #f2f2f2;
+}
+
+.title {
+	margin: 60px 0 30px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+
+#findPw {
+	width: 700px;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+}
+
+input[type=email]{
+	width: 77%;
+	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
+}
+
+input[type=email]:focus, #btnFind:focus {
+	outline: none;
+}
+
+#btnFind {
+	height: 35px;
+ 	width:17%;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnLogin, #btnJoin {
+	display: none;
+	height: 35px;
+ 	width: 13%;
+	border-radius: 0px;
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+}
+
+#btnFind:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+#btnLogin:hover, #btnJoin:hover {
+	background: #5b6e7a;
+	color: #f3f3f3;
+	transition: all .2s ease-in-out;
 }
 
 #result {
-	background: #ccc;
+	border: 2px solid #f3f3f3;
 	height: 100px;
-	margin: 20px auto;
-	width: 500px;
+	margin: auto;
+	margin-top: 50px;
+	width: 100%;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	padding-top: 10px;
+}
+
+.buttons {
+	margin-top: 20px;
+}
+
+.mail_regex {
 	display: none;
 }
 
@@ -67,14 +165,24 @@ input[type=text]{
 <div class="wrap">
 <div class="container">
 
-<h3>비밀번호 찾기</h3>
-<hr>
-<h4>가입하신 이메일을 입력해주세요.</h4>
+<div class="title">
+	<h2>비밀번호 찾기</h2>
+	<p>잊어버린 비밀번호를 재설정해드립니다.</p>
+</div><!-- .title end -->
 
-<input type="email" id="mailAdr" name="mailAdr" autocomplete="off"/>
-<button id="findPw">비밀번호 찾기</button>
-<br>
-<div id="result"><span id="resultText"></span></div>
+<div id="findPw">
+	<p>회원가입 시 입력하신 이메일을 입력해주세요.</p>
+	<input type="email" id="mailAdr" name="mailAdr" autocomplete="off"/>
+	<button id="btnFind">비밀번호 찾기</button>
+	<span class="mail_regex" style="color: red;">이메일 형식으로 입력해주세요.</span>
+
+	<div id="result"><span id="resultText"></span></div>
+	<div class="buttons">
+		<button type="button" id="btnLogin">로그인</button>
+		<button type="button" id="btnJoin">회원가입</button>
+	</div>
+</div><!-- #findPw end -->
+
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
