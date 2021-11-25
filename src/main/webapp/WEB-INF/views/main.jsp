@@ -193,7 +193,7 @@
             <div class="col-md-1"></div>
             
             <!-- 영수증 -->
-            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 24px;">
+            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 24px; padding-bottom: 15px;">
                 <p>[주문(대기)번호]</p>
                 <div>
 	                <c:choose>
@@ -207,8 +207,8 @@
                 </div>
                 <div style="text-align: left;">
 		            <span>주문내역</span>
+                <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 98%;">
 	            </div>
-                <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 350px;">
                 
                 <div style="width: auto; height: 457px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
@@ -217,7 +217,7 @@
                             <span class="ellipsis2" style="text-align: left;">
                                 [${mainBill.ITEM_END }] ${mainBill.ITEM_NAME }
                             </span>
-                            <span class="pull-right">
+                            <span class="pull-right" style="text-align: right; width: 30%">
                                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${mainBill.ITEM_PRICE }" /> 원
                             </span>
                         </p>
@@ -225,7 +225,7 @@
                     </c:forEach>
                 </div>
                 
-                <hr style="border: 2px dashed black; margin: 0 10px 10px 0;">
+                <hr style="border: 2px dashed black; margin: 0 10px 10px 0; width: 98%;">
                 <span style="float: left;">총 주문금액</span>
                 <span style="float: right;">
                     <fmt:formatNumber type="number" maxFractionDigits="3" value="${sum }" /> 원

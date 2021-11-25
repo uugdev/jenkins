@@ -38,6 +38,7 @@ body {
 
 .container {
 	text-align: center;
+	width: 1050px;
 }
 
 .container table th {
