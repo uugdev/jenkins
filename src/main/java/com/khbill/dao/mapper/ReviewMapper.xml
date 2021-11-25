@@ -42,8 +42,7 @@
 				<otherwise>
 		        ORDER BY review_no DESC
 		        </otherwise>
-		        </choose>
-		        
+		        </choose>        
 		    ) R
 		) ZREVIEW
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }

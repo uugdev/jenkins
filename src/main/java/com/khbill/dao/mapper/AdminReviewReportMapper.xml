@@ -26,7 +26,7 @@
 		    	<include refid="selectReviewReport"/>   
 		    	<include refid="whereReviewReportTitleSearch"/>   
 		        ORDER BY report_no DESC
-		   ) R
+		    ) R
 		) ZREVIEW
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
