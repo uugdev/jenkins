@@ -11,7 +11,28 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- header end -->
 
+<script type="text/javascript">
+function message () {
+	 action_popup.confirm('쪽지를 보내시겠습니까?', function (answer) {
+        
+		if(answer) {
+		
+			window.open('/message/write?userNick=${review.USER_NICK }', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+	
+		} else {
+			return false;
+		}
+	
+	 })
+	 
+	 /* 닫는 창으로 꼭 필요함 */
+	 $(".modal_close").on("click", function () {
+      action_popup.close(this);
+      });
+        	
+}
 
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -253,8 +274,7 @@ function deleteComment(reviewComNo) {
 	<span>작성자 ${review.USER_NICK }</span>
 </c:if>
 <c:if test="${userNo ne review.USER_NO }">
-<a href="<%=request.getContextPath() %>/message/write?userNick=${review.USER_NICK }" 
-	onclick="return confirm('쪽지를 보내시겠습니까?');">작성자 ${review.USER_NICK }</a>
+<a class="confirmation" onclick="message();">작성자 ${review.USER_NICK }</a>
 </c:if>
 <fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/>
 </span>
