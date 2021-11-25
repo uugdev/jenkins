@@ -68,5 +68,14 @@ public interface AccountService {
 	 * @return
 	 */
 	public int getCompareItemSum(int userNo);
+
+	
+	
+	
+	
+	public String AddDate(String strDate, int year);
+
+	
+	
 	
 }

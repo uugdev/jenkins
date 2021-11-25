@@ -35,6 +35,22 @@ document.addEventListener('DOMContentLoaded', function() {
         editable : true,
         eventLimit : true,
 		events: [ 
+			
+			<c:forEach items="${bDay}" var="b">
+			{
+             
+				display: 'background',
+                backgroundColor: 'rgb(253, 166, 195)',
+                backgroundColor: '#FFFFFF',
+                title  : 'MyBirthDay',
+	      		start  : '<fmt:formatDate value="${b}" pattern="YYYY-MM-dd" />',
+	      		end  : '<fmt:formatDate value="${b}" pattern="YYYY-MM-dd" />',
+	    	},
+	    	
+	    	
+	    	</c:forEach>
+	    	
+	    	
 			<c:forEach items="${itemList}" var="i">
 				{
 					
@@ -46,7 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
     	      			
     	    	},
     	    </c:forEach>
+    	    	
 		]
+        
 	});
 	calendar.render();
 });
@@ -300,6 +318,14 @@ var myChart2 = new Chart(context2, {
 	padding-left: 20px;
 	padding-bottom: 20px;
 }
+
+.fc .fc-bg-event .fc-event-title {
+
+	margin-top: 21px;
+	color: red;
+
+}
+
 </style>
 <!-- 개별 영역 끝 -->
 

@@ -38,6 +38,47 @@ public class AskController {
 	@Autowired
 	AskService askService;
 
+	
+	// 기본 list, hit list, latest list 처리  통합 컨트롤러 메소드
+//	@RequestMapping(value = "/list")
+//	public void getAskList(String mode, Paging paramData, Model model, HttpServletRequest req) {
+//		logger.info("/ask/list [GET]");
+//
+//		
+//		if( mode == null || "".equals(mode) ) {
+//			//기본 list
+//		} else if( "hit".equals(mode) ) {
+//			//조회수 list
+//			List<Ask> list = askService.getAskList(paging, "hit");
+//
+//		} else if( "latest".equals(mode) ) {
+//			//최근 list
+//
+//			List<Ask> list = askService.getAskList(paging);
+//		}
+//			
+//		
+//		Paging paging = askService.getPaging(paramData);
+//		
+//		
+//		logger.info("paging: {}", paging);
+//		List<Ask> list = askService.getAskList(paging);
+//
+//		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+//		model.addAttribute("comCnt", comCnt);
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//		
+//
+//	}// list
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value = "/list")
 	public void getAskList(Paging paramData, Model model, HttpServletRequest req) {
 		logger.info("/ask/list [GET]");
