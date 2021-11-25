@@ -62,7 +62,7 @@ $(document).ready(function(){
 
 
 #messageWrite {
-	margin: 0 0 0 100px;
+	margin: 0 0 0 45px;
 }
 
 #btnDelete {
@@ -79,7 +79,9 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 <div style="height: 30px;"></div>
-<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button>
+<div class=pull-left>
+	<a id="messageWrite" onclick="message()">쪽지 보내기</a>&nbsp;|&nbsp;<a href="/message/receive/list">받은 쪽지함</a><br>
+</div>
 
 <div style="height:10px;"></div>
 

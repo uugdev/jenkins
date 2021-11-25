@@ -24,6 +24,8 @@ function message () {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	loadList();
+	
 	$(document).on('click', '#selectAll', function() {
 	    if($('#selectAll').is(':checked')){
 	       $('.chk').prop('checked', true);
@@ -106,7 +108,7 @@ $(document).ready(function(){
 }
 
 .listArea {
-	margin : 0 0 0 900px;
+	margin : 0 0 0 800px;
 }
 
 </style>
@@ -116,14 +118,15 @@ $(document).ready(function(){
 <div class="wrap">
 <div class="container">
 <div style="height: 30px;"></div>
-<button class="pull-left" id="messageWrite" onclick="message()">쪽지 보내기</button><br>
-
+<div class=pull-left>
+	<a id="messageWrite" onclick="message()">쪽지 보내기</a>&nbsp;|&nbsp;<a href="/message/send/list">보낸 쪽지함</a><br>
+</div>
 <div style="height:10px;"></div>
 
 <h3>받은 쪽지함</h3>
 
 <div class="listArea">
-<a id="entireList">전체 쪽지 보기</a>&nbsp;|&nbsp;<a id="unreadList">안읽은 쪽지 보기</a>
+	<a id="entireList">전체 쪽지 보기</a>&nbsp;|&nbsp;<a id="unreadList">안읽은 쪽지 보기</a>
 </div>
 
 <div style="height: 30px;"></div>
