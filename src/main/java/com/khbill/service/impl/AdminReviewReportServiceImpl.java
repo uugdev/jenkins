@@ -1,21 +1,25 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.khbill.controller.AdminReviewReportService;
 import com.khbill.dao.face.AdminReviewReportDao;
 import com.khbill.dao.face.ReviewCommentDao;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
+import com.khbill.dto.Review;
+import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
+import com.khbill.service.face.AdminReviewReportService;
 import com.khbill.util.Paging;
 
 @Service
 public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 
 	@Autowired AdminReviewReportDao adminReviewReportDao;
-	@Autowired ReviewCommentDao reviewCommentDao;
 	
 	@Override
 	public Paging getPaging(Paging paramData) {
@@ -27,7 +31,7 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 		paging.setSearch(paramData.getSearch());
 		
 		return paging;
-}
+	}
 
 	@Override
 	public List<ReviewReport> getReviewReportList(Paging paging) {
@@ -57,4 +61,32 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 			return false;
 		}
 	}
+
+	@Override
+	public HashMap<String, Object> getReviewDetail(ReviewReport reviewReport) {
+		
+//		adminReviewReportDao.updatehit(reviewReport); //조회수 증가
+		
+		return adminReviewReportDao.selectReviewByReviewNo(reviewReport);
+	}
+
+	@Override
+	public Item getReviewItem(int itemNo) {
+
+		return adminReviewReportDao.selectItemByItemNo(itemNo);
+	}
+
+	@Override
+	public File getReviewFile(int fileNo) {
+		
+		return adminReviewReportDao.selectFileByFile(fileNo);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
+
+		return adminReviewReportDao.selectReviewCommentByReview(reviewComment);
+	}
+	
+	
 }
