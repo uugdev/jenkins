@@ -46,8 +46,8 @@
 		        <when test="target == 2">
 		        ORDER BY review_no DESC
 		        </when>
-		         <when test="target == 3">
-		        ORDER BY file_no DESC
+		        <when test="target == 3">
+		        ORDER BY review_no DESC
 		        </when>
 				<otherwise>
 		        ORDER BY review_no DESC

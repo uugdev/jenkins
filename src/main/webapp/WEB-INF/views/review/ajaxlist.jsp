@@ -18,7 +18,14 @@
 	<c:forEach items="${reviewList }" var="review">
 		<tr>
 			<td>${review.REVIEW_NO }</td>
-			<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
+			<td>
+				<a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+				
+<!-- 				title 옆 comment count 처리 -->
+<%-- 				<c:if test="${review.REVIEW_NO }"> --%>
+<%-- 					<strong><span> [${review.REVIEW_COM_NO }]</span></strong> --%>
+<%-- 				</c:if> --%>
+			</td>
 				
 				<c:if test="${review.USER_NICK eq null }">
 					<td>

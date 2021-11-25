@@ -56,21 +56,13 @@ public class ReviewController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("paging", paging);
 		
+		if(paging.getTarget() != null) {
+			if(paging.getTarget().equals("3")) {
+				return "review/itemlist";
+			}
+		}
 		return "review/ajaxlist";
 	}
-	
-//	//거래 게시판 조회수 기준 목록
-//	@RequestMapping(value = "/list/latest")
-//	public String getReviewLatestList(Model model, Paging paramData) {
-//		
-//		Paging paging = reviewService.getPaging(paramData);
-//		List<Review> reviewList = reviewService.getReviewList(paging);
-//		
-//		model.addAttribute("reviewList", reviewList);
-//		model.addAttribute("paging", paging);
-//		
-//		return "review/ajaxlist";
-//	}
 	
 	//후기 게시글 상세
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)

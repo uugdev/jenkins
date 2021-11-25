@@ -86,6 +86,32 @@ $(document).ready(function() {
 		})
 	})
 	
+	//사진순으로 정렬 처리
+	$("#itemList").click(function () {
+// 		console.log("#ajax clicked")
+		
+		target = 3;
+		var curPage = 1;
+		$.ajax({
+			type: "get"
+			, url: "/review/list/hit"
+			, data: {
+				curPage: curPage
+				, target: target
+			}
+			, dataType: "html"
+			, success: function ( res ) {
+				console.log("AJAX 성공")
+				result.innerHTML = res;
+				/* $("#ajaxArea").html( res ) */
+				
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	})
+	
 	//<otherwise>태그로 로드하는 부분
 	var target = null;
 	var curPage = 1;
@@ -112,7 +138,7 @@ $(document).ready(function() {
 		})
 		$("#cur").html(curPage)
 	};
- 
+	
 });
 
 //페이지가 증가되야하는 부분 (+1)
@@ -186,6 +212,7 @@ td:nth-child(2) {
 	<div class="pull-right" style="margin-bottom: 20px;">
 		<a id="hitList">조회순</a>
 		<a id="latestList">최신순</a>
+		<a id="itemList">이미지순</a>
 	</div>
 	<br>
 	
