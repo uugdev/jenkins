@@ -32,7 +32,23 @@
 <%-- 이전 페이징 리스트로 이동 --%>
 <c:choose>
 <c:when test="${paging.startPage ne 1 }">
-	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.startPage - paging.pageCount }${searchParam }"> &lt; </a></li>
+<%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.startPage - paging.pageCount }${searchParam }"> &lt; </a></li> --%>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(${paging.startPage - paging.pageCount }, ${paging.target })"><input name ="curP" type="hidden" value="${paging.startPage - paging.pageCount }, ${paging.target }"/> &lt; </span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.startPage - paging.pageCount }, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="${paging.startPage - paging.pageCount }, ${paging.target }, ${param.search }"/> &lt; </span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.startPage - paging.pageCount }, null, ${param.search })"><input name ="curP" type="hidden" value="${paging.startPage - paging.pageCount }, null, ${param.search }"/> &lt; </span></li>
+	</c:if>
+	
 </c:when>
 <c:when test="${paging.startPage eq 1 }">
 	<li class="disabled"><a>&lt;</a>
@@ -41,7 +57,23 @@
 
 <%-- 이전 페이지로 가기 --%>
 <c:if test="${paging.curPage > 1 }">
-	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.curPage - 1 }${searchParam }">&larr;</a></li>
+<%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.curPage - 1 }${searchParam }">&larr;</a></li> --%>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(${paging.curPage - 1 }, ${paging.target })"><input name ="curP" type="hidden" value="${paging.curPage - 1 }, ${paging.target }"/>&larr;</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.curPage - 1 }, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="${paging.curPage - 1 }, ${paging.target }, ${param.search }"/>&larr;</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.curPage - 1 }, null, ${param.search })"><input name ="curP" type="hidden" value="${paging.curPage - 1 }, null, ${param.search }"/>&larr;</span></li>
+	</c:if>
+	
 </c:if>
 
 <%-- 페이징 리스트 --%>
@@ -81,13 +113,45 @@
 
 <%-- 다음 페이지로 가기 --%>
 <c:if test="${paging.curPage < paging.totalPage }">
-	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.curPage + 1 }${searchParam }">&rarr;</a></li>
+<%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.curPage + 1 }${searchParam }">&rarr;</a></li> --%>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(${paging.curPage + 1 }, ${paging.target })"><input name ="curP" type="hidden" value="${paging.curPage + 1 }, ${paging.target }"/>&rarr;</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.curPage + 1 }, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="${paging.curPage + 1 }, ${paging.target }, ${param.search }"/>&rarr;</span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.curPage + 1 }, null, ${param.search })"><input name ="curP" type="hidden" value="${paging.curPage + 1 }, null, ${param.search }"/>&rarr;</span></li>
+	</c:if>
+	
 </c:if>
 
 <%-- 다음 페이징 리스트로 이동 --%>
 <c:choose>
 <c:when test="${paging.endPage ne paging.totalPage }">
-	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.startPage + paging.pageCount }${searchParam }"> &gt; </a></li>
+<%-- 	<li><a href="<%=request.getContextPath() %>${linkUrl }?curPage=${paging.startPage + paging.pageCount }${searchParam }"> &gt; </a></li> --%>
+	
+	<!-- 검색 안했을 때 -->
+	<c:if test="${empty param.search }">
+		<li><span onclick="loadCurPage(${paging.startPage + paging.pageCount }, ${paging.target })"><input name ="curP" type="hidden" value="${paging.startPage + paging.pageCount }, ${paging.target }"/> &gt; </span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정했을 때 -->
+	<c:if test="${not empty param.search and not empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.startPage + paging.pageCount }, ${paging.target }, ${param.search })"><input name ="curP" type="hidden" value="${paging.startPage + paging.pageCount }, ${paging.target }, ${param.search }"/> &gt; </span></li>
+	</c:if>
+	
+	<!-- 검색 했을 때, 타겟 설정안했을 때 -->
+	<c:if test="${not empty param.search and empty paging.target }">
+		<li><span onclick="loadCurPage(${paging.startPage + paging.pageCount }, null, ${param.search })"><input name ="curP" type="hidden" value="${paging.startPage + paging.pageCount }, null, ${param.search }"/> &gt; </span></li>
+	</c:if>
+	
 </c:when>
 <c:when test="${paging.endPage eq paging.totalPage }">
 	<li class="disabled"><a>&gt;</a>

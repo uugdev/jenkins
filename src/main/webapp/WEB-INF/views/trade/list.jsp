@@ -17,7 +17,7 @@
 		
 		loadList()
 		
-		$("#btnWrite").click(function() {
+		$(document).on("click", "#btnWrite", function(){
 			$(location).attr("href", "/trade/write");
 		})
 
