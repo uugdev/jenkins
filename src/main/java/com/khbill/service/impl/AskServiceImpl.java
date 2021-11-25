@@ -44,7 +44,8 @@ public class AskServiceImpl implements AskService {
 		// 페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		paging.setSearch(paramData.getSearch());
-
+		paging.setTarget(paramData.getTarget());
+		
 		return paging;
 	}
 

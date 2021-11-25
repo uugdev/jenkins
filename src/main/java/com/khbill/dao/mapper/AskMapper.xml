@@ -20,24 +20,24 @@
 			WHERE ask_title LIKE '%' || #{search} || '%'
 	</sql>
 	
-	<select id="selectAskList" resultType="HashMap" parameterType="com.khbill.util.Paging">
-		SELECT * FROM (
-            SELECT rownum rnum, A.* FROM (
-                SELECT DISTINCT
-                    A.ask_no, U.user_no, U.user_nick
-                    , A.ask_title, A.ask_date, A.ask_hit, W.grade_url, nvl(P.report_status, 'n') AS report_status
-                FROM zask A
-                LEFT OUTER JOIN ZUSER U
-                    ON U.user_no(+) = A.user_no
-                LEFT OUTER JOIN USERWITHURL W
-                    ON U.user_no = W.user_no
-                LEFT OUTER JOIN zask_report P ON A.ask_no = P.ask_no
-                <include refid="whereTitleSearch"/>
-                ORDER BY ask_no DESC
-            ) A
-        ) ZASK
-        WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+<!-- 	<select id="selectAskList" resultType="HashMap" parameterType="com.khbill.util.Paging"> -->
+<!-- 		SELECT * FROM ( -->
+<!--             SELECT rownum rnum, A.* FROM ( -->
+<!--                 SELECT DISTINCT -->
+<!--                     A.ask_no, U.user_no, U.user_nick -->
+<!--                     , A.ask_title, A.ask_date, A.ask_hit, W.grade_url, nvl(P.report_status, 'n') AS report_status -->
+<!--                 FROM zask A -->
+<!--                 LEFT OUTER JOIN ZUSER U -->
+<!--                     ON U.user_no(+) = A.user_no -->
+<!--                 LEFT OUTER JOIN USERWITHURL W -->
+<!--                     ON U.user_no = W.user_no -->
+<!--                 LEFT OUTER JOIN zask_report P ON A.ask_no = P.ask_no -->
+<!--                 <include refid="whereTitleSearch"/> -->
+<!--                 ORDER BY ask_no DESC -->
+<!--             ) A -->
+<!--         ) ZASK -->
+<!--         WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
 	
 	<select id="selectCntAll" resultType="int">
 		SELECT COUNT(*) FROM (
@@ -340,13 +340,14 @@
 	</select>
 
 
-	<select id="selectAskItemList" resultType="hashmap" parameterType="com.khbill.util.Paging">
+	<select id="selectAskList" resultType="hashmap" parameterType="com.khbill.util.Paging">
 		SELECT * FROM (
 		    SELECT rownum rnum, A.* FROM (
 		        SELECT DISTINCT
 		            A.ask_no, U.user_no, user_nick, F.file_no, F.file_stored
 		            , I.item_no, I.item_brand, I.item_name, I.item_price
-		            , A.ask_title, A.ask_content, A.ask_date, A.ask_hit, W.grade_url
+		            , A.ask_title, A.ask_content, A.ask_date, A.ask_hit, W.grade_url, nvl(P.report_status, 'n') AS report_status
+		        	, cnt.ask_com_cnt
 		        FROM zask A
 		        LEFT OUTER JOIN zuser U
 		            ON U.user_no = A.user_no
@@ -358,11 +359,33 @@
 		            ON I.file_no = F.file_no
 		        LEFT OUTER JOIN USERWITHURL W 
 		            ON U.user_no = W.user_no
+		        LEFT OUTER JOIN zask_report P 
+		        	ON A.ask_no = P.ask_no
+				LEFT OUTER JOIN 
+	                ( 
+	                    SELECT count (ask_com_no) ask_com_cnt, ask_no
+	                    FROM ZASK_COMMENT
+	                    GROUP BY ask_no
+	                ) cnt
+	                ON cnt.ask_no = A.ask_no
 		        <include refid="whereTitleSearch"/>
-		         ORDER BY ask_no DESC 
+     		    <choose>
+		        <when test="target == 1">
+		        ORDER BY ask_hit DESC
+		        </when>
+		        <when test="target == 2">
+		        ORDER BY ask_no DESC
+		        </when>
+		        <when test="target == 3">
+		        ORDER BY ask_no DESC
+		        </when>
+				<otherwise>
+		        ORDER BY ask_no DESC
+		        </otherwise>
+		        </choose>        
 		    ) A
 		) ZASK
-		WHERE rownum BETWEEN #{startNo } AND #{endNo }
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 
 

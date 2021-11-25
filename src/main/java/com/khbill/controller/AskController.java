@@ -80,21 +80,8 @@ public class AskController {
 	
 	
 	@RequestMapping(value = "/list")
-	public void getAskList(Paging paramData, Model model, HttpServletRequest req) {
+	public void getAskList(Paging paramData, Model model) {
 		logger.info("/ask/list [GET]");
-
-		Paging paging = askService.getPaging(paramData);
-		
-		
-		logger.info("paging: {}", paging);
-		List<Ask> list = askService.getAskList(paging);
-
-		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
-		model.addAttribute("comCnt", comCnt);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		
 
 	}// list
 	
@@ -102,57 +89,63 @@ public class AskController {
 	@RequestMapping(value = "/list/hit")
 	public String askHitList( Model model, Paging paramData ) {
 		logger.info("/ask/list/hit");
+		logger.info("param {}", paramData);
+		
 		
 		Paging paging = askService.getPaging(paramData);
-		List<Ask> list = askService.getAskHitList(paging);
-		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
-		
-		model.addAttribute("comCnt", comCnt);
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		model.addAttribute("res",true);
-		
-		
-		return "ask/ajaxlist";
-		
-	}// list
-	
-	//거래 게시판 조회수 기준 목록
-	@RequestMapping(value = "/list/latest")
-	public String askLatestList( Model model, Paging paramData ) {
-		
-		Paging paging = askService.getPaging(paramData);
+		logger.info("paging.target : {}",paging.getTarget());
 		List<Ask> list = askService.getAskList(paging);
 		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
 		
 		model.addAttribute("comCnt", comCnt);
 		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
-		model.addAttribute("res", true);
-		
+
+		if(paging.getTarget() != null) {
+			if(paging.getTarget().equals("3")) {
+				return "ask/itemlist";
+			}
+		}
 		return "ask/ajaxlist";
-	}
-	
-	@RequestMapping(value = "/list/item")
-	public String askItemList( Model model, Paging paramData ) {
-		logger.info("/ask/list/item");
-		
-		Paging paging = askService.getPaging(paramData);
-		List<HashMap<String, Object>> list = askService.getAskitemList(paging);
-		
-		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
-		
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		model.addAttribute("comCnt", comCnt);
-		model.addAttribute("res",true);
-		
-		
-		return "ask/itemlist";
 		
 	}// list
 	
+//	//거래 게시판 조회수 기준 목록
+//	@RequestMapping(value = "/list/latest")
+//	public String askLatestList( Model model, Paging paramData ) {
+//		
+//		Paging paging = askService.getPaging(paramData);
+//		List<Ask> list = askService.getAskList(paging);
+//		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+//		
+//		model.addAttribute("comCnt", comCnt);
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//		model.addAttribute("res", true);
+//		
+//		return "ask/ajaxlist";
+//	}
+	
+//	@RequestMapping(value = "/list/item")
+//	public String askItemList( Model model, Paging paramData ) {
+//		logger.info("/ask/list/item");
+//		
+//		Paging paging = askService.getPaging(paramData);
+//		List<Ask> list = askService.getAskList(paging);
+//		
+////		List<HashMap<String, Object>> comCnt = askService.getAskComCntList();
+//		
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+////		model.addAttribute("comCnt", comCnt);
+//		model.addAttribute("res",true);
+//		
+//		
+//		return "ask/itemlist";
+//		
+//	}// list
+//	
 	
 	
 	
