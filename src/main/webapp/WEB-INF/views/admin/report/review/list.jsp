@@ -30,14 +30,14 @@ $(document).ready(function(){
 
 	
 	$("#btnDelete").click(function(){
-		var result = confirm("선택한 게시글을 삭제하시겠습니까?")
+		var result = confirm("허위 신고글을 삭제하시겠습니까?")
 		var deleteReview = [];
    
 	    $('.check:checked').each(function(){
 	    	deleteReview.push($(this).val());
 	    });
 		if( result == true ){
-			location.href="/admin/report/review/delete?reviewNo="+deleteReview;
+			location.href="/admin/report/review/delete?reportNo="+deleteReview;
 		} else {
 			return false;
 		}
@@ -242,7 +242,6 @@ label {
 	<c:if test="${review.REPORT_STATUS == 'y' }">
 		<td><button class="btnStatusY${review.REVIEW_NO }" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
 	</c:if>
-
 	
 </tr>
 </c:forEach>
