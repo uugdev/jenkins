@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
 		//페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		paging.setSearch(paramData.getSearch());
-		
+		paging.setTarget(paramData.getTarget());
 		return paging;
 	}
 
@@ -318,11 +318,6 @@ public class ReviewServiceImpl implements ReviewService {
 		return resultComment;
 	}
 
-	@Override
-	public String getReviewReportByReviewNo(Review review) {
-
-		return reviewDao.selectReviewReportByReviewNo(review);
-	}
 
 
 }

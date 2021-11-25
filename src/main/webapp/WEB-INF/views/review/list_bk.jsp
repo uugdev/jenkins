@@ -16,9 +16,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	loadList();
-	
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "/mypage/item/list");
 // 		location.href = "/review/write";
@@ -29,23 +26,18 @@ $(document).ready(function() {
 		location.href="/review/list?search="+$("#search").val();
 	});
 	
-	//조회순으로 정렬 처리
 	$("#hitList").click(function () {
-// 		console.log("#ajax clicked")
-		target = 1;
-		var curPage = 1;
+		console.log("#ajax clicked")
+	
 		$.ajax({
 			type: "get"
 			, url: "/review/list/hit"
-			, data: {
-				curPage: curPage
-				, target: target
-			}
+			, data: {}
 			, dataType: "html"
 			, success: function ( res ) {
 				console.log("AJAX 성공")
-				result.innerHTML = res;
-				/* $("#ajaxArea").html( res ) */
+				
+				$("#ajaxArea").html( res )
 				
 			}
 			, error: function () {
@@ -54,24 +46,18 @@ $(document).ready(function() {
 		})
 	})
 	
-	//최신순으로 정렬 처리
 	$("#latestList").click(function () {
-// 		console.log("#ajax clicked")
+		console.log("#ajax clicked")
 		
-		target = 2;
-		var curPage = 1;
 		$.ajax({
 			type: "get"
-			, url: "/review/list/hit"
-			, data: {
-				curPage: curPage
-				, target: target
-			}
+			, url: "/review/list/latest"
+			, data: {}
 			, dataType: "html"
 			, success: function ( res ) {
 				console.log("AJAX 성공")
-				result.innerHTML = res;
-				/* $("#ajaxArea").html( res ) */
+				
+				$("#ajaxArea").html( res )
 				
 			}
 			, error: function () {
@@ -80,62 +66,7 @@ $(document).ready(function() {
 		})
 	})
 	
-	//<otherwise>태그로 로드하는 부분
-	var target = null;
-	var curPage = 1;
-	
-	function loadList() {
-		$.ajax({
-			type: "get"
-			, url: "/review/list/hit"
-			, data: {
-			curPage: curPage
-			, target: target
-			}
-			, dataType: "html"
-			, success: function(res){
-				console.log("AJAX 성공")
-				result.innerHTML += res;
-//	 			$("#result").html( $("#result").html() + res );
-			}
-			, error: function(){
-				console.log("AJAX 실패")
-			}
-		})
-		$("#cur").html(curPage)
-	};
- 
-});
-
-//페이지가 증가되야하는 부분 (+1)
-function loadCurPage(i, t){
-    var curPage =  i ;
-	var target = t;
-    
-	console.log("curP : "+ curPage);
-    console.log("tg : " + target);
-    
-       $.ajax({
-          type: "post"
-          , url: "/review/list/hit"
-          , data: { 
-             curPage: curPage
-             ,target: target
-          }
-          , dataType: "html"
-          , success: function(data){
-             console.log("AJAX 성공")
-             console.log(data)
-             result.innerHTML = data;
- //             $("#result").html( $("#result").html() + res );
-
-          }
-          , error: function(){
-             console.log("AJAX 실패")
-          }
-       })
-       $("#cur").html(curPage)
- }
+})
 
 function reportStatusY() {
 	
@@ -173,12 +104,12 @@ td:nth-child(2) {
 	<div class="clearfix"></div>
 	
 	<div class="pull-right" style="margin-bottom: 20px;">
-		<a id="hitList">조회순</a>
 		<a id="latestList">최신순</a>
+		<a id="hitList">조회순</a>
 	</div>
 	<br>
 	
-<%-- 	<div id="ajaxArea">
+	<div id="ajaxArea">
 		${reviewStatus }
 		<table class="table table-striped table-hover">
 		<thead>
@@ -227,10 +158,8 @@ td:nth-child(2) {
 		<input class="form-control" type="text" id="search" value="${param.search }" />
 		<button id="btnSearch" class="btn">검색</button>
 	</div>
-	<c:import url="/WEB-INF/views/review/paging.jsp" /> --%>
-		<div id="result">
-		
-		</div>
+	<c:import url="/WEB-INF/views/layout/paging.jsp" />
+	
 	</div><!-- .container -->
 </div><!-- .wrap end -->
 

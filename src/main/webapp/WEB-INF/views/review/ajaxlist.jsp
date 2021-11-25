@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
+<!-- <div> -->
+<!-- <div id="ajaxArea"> -->
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -35,3 +37,15 @@
 	</c:forEach>
 	</tbody>
 </table>
+<%-- 	<c:if test="${login }"> --%>
+<!-- 		<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button> -->
+<%-- 	</c:if> --%>
+	
+	<div class="form-inline text-center">
+		<input class="form-control" type="text" id="search" value="${param.search }" />
+		<button id="btnSearch" class="btn">검색</button>
+	</div>
+	<c:import url="/WEB-INF/views/review/paging.jsp" />
+	
+<!-- 	</div>.container -->
+<!-- </div>.wrap end -->
