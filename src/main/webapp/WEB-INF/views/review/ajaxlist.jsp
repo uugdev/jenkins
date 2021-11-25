@@ -44,9 +44,12 @@
 	</c:forEach>
 	</tbody>
 </table>
-<%-- 	<c:if test="${login }"> --%>
-<!-- 		<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button> -->
-<%-- 	</c:if> --%>
+
+	<c:if test="${login }">
+		<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+	</c:if>
+	<span class="pull-left">총게시글수  ${paging.totalCount }</span>
+	<div class="clearfix"></div>
 	
 	<div class="form-inline text-center">
 		<input class="form-control" type="text" id="search" value="${param.search }" />

@@ -18,11 +18,16 @@
 $(document).ready(function() {
 	
 	loadList();
+
+	$(document).on("click", "#btnWrite", function(){
+		$(location).attr("href", "/mypage/item/list");	
+	});
+
 	
-	$("#btnWrite").click(function() {
-		$(location).attr("href", "/mypage/item/list");
-// 		location.href = "/review/write";
-	})
+// 	$("#btnWrite").click(function() {
+// 		$(location).attr("href", "/mypage/item/list");
+// // 		location.href = "/review/write";
+// 	})
 	
 	//검색 버튼 클릭
 // 	$("#btnSearch").click(function() {
@@ -205,10 +210,7 @@ td:nth-child(2) {
 	
 	<h1 style="text-align: center;">후기</h1>
 	<hr>
-	<!-- 구분선 삭제 예정 -->
-	<span class="pull-left">총게시글수  ${paging.totalCount }</span>
-	<div class="clearfix"></div>
-	
+	<!-- 구분선 삭제 예정 -->	
 	<div class="pull-right" style="margin-bottom: 20px;">
 		<a id="hitList">조회순</a>
 		<a id="latestList">최신순</a>
@@ -257,9 +259,6 @@ td:nth-child(2) {
 		</table>
 	</div>
 	
-	<c:if test="${login }">
-		<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
-	</c:if>
 	
 	<div class="form-inline text-center">
 		<input class="form-control" type="text" id="search" value="${param.search }" />
