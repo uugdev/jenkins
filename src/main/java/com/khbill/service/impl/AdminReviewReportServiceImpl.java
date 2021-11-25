@@ -20,6 +20,7 @@ import com.khbill.util.Paging;
 public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 
 	@Autowired AdminReviewReportDao adminReviewReportDao;
+	@Autowired ReviewCommentDao reviewCommentDao;
 	
 	@Override
 	public Paging getPaging(Paging paramData) {
@@ -63,11 +64,11 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	}
 
 	@Override
-	public HashMap<String, Object> getReviewDetail(ReviewReport reviewReport) {
+	public HashMap<String, Object> getReviewDetail(Review review) {
 		
 //		adminReviewReportDao.updatehit(reviewReport); //조회수 증가
 		
-		return adminReviewReportDao.selectReviewByReviewNo(reviewReport);
+		return adminReviewReportDao.selectReviewByReviewNo(review);
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
 
-		return adminReviewReportDao.selectReviewCommentByReview(reviewComment);
+		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 	
 	

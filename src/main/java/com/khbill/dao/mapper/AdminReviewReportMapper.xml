@@ -66,19 +66,17 @@
 		WHERE review_no = #{reviewNo }
 	</update>
 	
-	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.ReviewReport" resultType="HashMap">
+	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.Review" resultType="HashMap">
 		SELECT * FROM (
-	        SELECT DISTINCT
-	            X.report_no, X.review_no, X.report_category, X.report_content, X.respondent_no
-      		   , I.item_no, I.item_brand, I.item_price, R.file_no, F.file_stored
-     		   , U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
-	        FROM zreview_report X
-	        INNER JOIN zuser U    ON U.user_no = x.respondent_no
-	        INNER JOIN zreview R  ON X.review_no = R.review_no
-	        INNER JOIN zitem I    ON I.item_no = R.item_no
-	        INNER JOIN zfile F    ON F.file_no = R.file_no
-		) ZREVIEW_REPORT
-		WHERE report_no = #{reportNo }
+	        SELECT 
+	        	review_no, item_no, U.user_no, user_nick, file_no
+	        	, review_title, review_content, review_date, review_hit
+	        FROM zuser U
+	        INNER JOIN zreview R
+	            ON U.user_no = R.user_no
+	        ORDER BY user_no
+		) ZREVIEW
+		WHERE review_no = #{reviewNo } 
 	</select>
 	 
 	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
@@ -93,21 +91,20 @@
 		WHERE file_no = #{fileNo }
 	</select>
 	
-	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="HashMap">
-		SELECT * FROM (
-		    SELECT rownum rnum, C.* FROM (
-		        SELECT DISTINCT
-		             review_com_no, U.user_no, user_nick, C.review_no
-		            , review_com_content, review_com_date, review_com_like, review_com_hate, W.grade_url
-		        FROM ZREVIEW_COMMENT C
-		        LEFT OUTER JOIN zuser U  ON U.user_no = C.user_no
-		        LEFT OUTER JOIN USERWITHURL W ON U.user_no = W.user_no
-		        LEFT OUTER JOIN zreview R ON C.review_no = C.review_no
-		        --LEFT OUTER JOIN zreview_report X ON X.review_no = C.review_no
-		        WHERE C.review_no = #{reviewNo }
-		        ORDER BY review_com_no
-		     ) C
-		) ZREVIEW_COMMENT
-	</select>
+<!-- 	<select id="selectReviewCommentByReview" parameterType="com.khbill.dto.ReviewComment" resultType="HashMap"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 		    SELECT rownum rnum, C.* FROM ( -->
+<!-- 		        SELECT DISTINCT -->
+<!-- 		             review_com_no, U.user_no, user_nick, C.review_no -->
+<!-- 		            , review_com_content, review_com_date, review_com_like, review_com_hate, W.grade_url -->
+<!-- 		        FROM ZREVIEW_COMMENT C -->
+<!-- 		        LEFT OUTER JOIN zuser U  ON U.user_no = C.user_no -->
+<!-- 		        LEFT OUTER JOIN USERWITHURL W ON U.user_no = W.user_no -->
+<!-- 		        LEFT OUTER JOIN zreview R ON C.review_no = C.review_no -->
+<!-- 		        WHERE C.review_no = #{reviewNo } -->
+<!-- 		        ORDER BY review_com_no -->
+<!-- 		     ) C -->
+<!-- 		) ZREVIEW_COMMENT -->
+<!-- 	</select> -->
 	
 </mapper>

@@ -75,7 +75,7 @@ public interface AdminReviewReportDao {
 	 * @param review - 조회하려는 게시글의 글 번호 객체
 	 * @return 조회된 게시글 정보
 	 */
-	public HashMap<String, Object> selectReviewByReviewNo(ReviewReport reviewReport);
+	public HashMap<String, Object> selectReviewByReviewNo(Review review);
 
 	/**
 	 * 상품번호로 상품조회

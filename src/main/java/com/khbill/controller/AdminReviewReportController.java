@@ -78,7 +78,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		) {
 		logger.info("/admin/report/review/detail");
 		
-		HashMap<String, Object> reviewMap = adminReviewReportService.getReviewDetail(reviewReport);
+		HashMap<String, Object> reviewMap = adminReviewReportService.getReviewDetail(review);
 		boolean adminLogin = (boolean) session.getAttribute("adminLogin");
 		
 		//상품 정보 전달
@@ -93,7 +93,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		
 		//모델값 전달
 		model.addAttribute("adminLogin", adminLogin);
-		model.addAttribute("reviewReport", reviewMap);
+		model.addAttribute("review", reviewMap);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
 		
