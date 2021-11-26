@@ -24,6 +24,7 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		int totalCount = adminQnaDao.selectCntAll();
 		
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
+		paging.setTarget(paramData.getTarget());
 		
 		return paging;
 	}
@@ -70,10 +71,6 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 		adminQnaDao.updateQnaStatusToN(qnaNo);
 	}
 
-	@Override
-	public List<Qna> getQnaStatusList(Paging paging) {
-		return adminQnaDao.selectQnaListStatus(paging);
-	}
 
 
 }

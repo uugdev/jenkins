@@ -26,13 +26,35 @@ public class AdminQnaController {
 	@Autowired AdminQnaService adminQnaService;
 
 	@RequestMapping(value="/admin/qna/list")
-	public void qnaList(Paging paramData, Model model) {
+	public void qnaList(Paging paramData, Model model) {		
+	}
+	
+//	@RequestMapping(value="/admin/qna/list/orderByNo")
+//	public String orderByNo(Paging paramData, Model model){
+//		Paging paging = adminQnaService.getPaging(paramData);
+//		List<Qna> list = adminQnaService.getQnaList(paging);
+//		
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("list", list);
+//		
+//		return "admin/qna/orderByNo";
+//	}
+	
+	@RequestMapping(value="/admin/qna/list/orderedList")
+	public String orderList(Paging paramData, Model model){
+		
+		logger.info("param : {}", paramData);
+		
 		Paging paging = adminQnaService.getPaging(paramData);
+		logger.info("paging.target : {}", paging.getTarget());
+		
 		List<Qna> list = adminQnaService.getQnaList(paging);
+		logger.info("list : {}", list);
 		
-		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		model.addAttribute("list", list);
 		
+		return "admin/qna/orderedList";
 	}
 	
 	@RequestMapping(value="/admin/qna/detail")
@@ -93,28 +115,6 @@ public class AdminQnaController {
 	public String qnaComDelete(int qnaNo) {
 		adminQnaService.setQnaCommentDelete(qnaNo);
 		return "redirect:/admin/qna/detail?qnaNo="+qnaNo;
-	}
-	
-	@RequestMapping(value="/admin/qna/list/orderByNo")
-	public String orderByNo(Paging paramData, Model model){
-		Paging paging = adminQnaService.getPaging(paramData);
-		List<Qna> list = adminQnaService.getQnaList(paging);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		
-		return "admin/qna/orderByNo";
-	}
-
-	@RequestMapping(value="/admin/qna/list/orderByStatus")
-	public String orderByStatus(Paging paramData, Model model){
-		Paging paging = adminQnaService.getPaging(paramData);
-		List<Qna> list = adminQnaService.getQnaStatusList(paging);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("list", list);
-		
-		return "admin/qna/orderByStatus";
 	}
 	
 }
