@@ -9,9 +9,12 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	loadList();
+	
 	$("#btnDelete").click(function(){
 		var answer = confirm("선택한 문의글을 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
 		var delchk = [];
@@ -42,15 +45,20 @@ $(document).ready(function(){
 	});
 	
 	$("#orderByNo").click(function(){
+		target = 1;
+		var curPage = 1;
 		$.ajax({
 			type: "get",
-			url: "/admin/qna/list/orderByNo",
-			data: {},
+			url: "/admin/qna/list/orderedList",
+			data: {
+				curPage: curPage,
+				target: target
+			},
 			dataType: "html",
 			success: function(res){
 				console.log("AJAX 성공")
 				
-				$("#ajax").html(res);
+				result.innerHTML = res;
 			},
 			error: function(){
 				console.log("AJAX 실패")
@@ -59,15 +67,19 @@ $(document).ready(function(){
 	})
 
 	$("#orderByStatus").click(function(){
+		target = 2;
+		var curPage = 1;
 		$.ajax({
 			type: "get",
-			url: "/admin/qna/list/orderByStatus",
-			data: {},
+			url: "/admin/qna/list/orderedList",
+			data: {
+				curPage: curPage,
+				target: target
+			},
 			dataType: "html",
 			success: function(res){
 				console.log("AJAX 성공")
-				
-				$("#ajax").html(res);
+				result.innerHTML = res;
 			},
 			error: function(){
 				console.log("AJAX 실패")
@@ -75,8 +87,60 @@ $(document).ready(function(){
 		})
 	})
 
+	/* otherwise로 로드하는 부분 */
+	var target = null;
+	var curPage = 1;
+	
+	function loadList(){
+		$.ajax({
+			type: "get",
+			url: "/admin/qna/list/orderedList",
+			data: {
+				curPage: curPage,
+				target: target				
+			},
+			dataType: "html",
+			success: function(res){
+				console.log("AJAX 성공")
+// 				console.log(res)
+				result.innerHTML = res;
+			},
+			error: function(){
+				console.log("AJAX 실패")
+			}
+		})
+		$("#cur").html(curPage)
+	};
 
-})
+});
+	
+/* 페이지가 증가되어야 하는 부분 (+1) */
+function loadCurPage(i, t){
+    var curPage =  i ;
+	var target = t;
+    
+	console.log("curP : "+ curPage);
+    console.log("tg : " + target);
+    
+       $.ajax({
+          type: "post"
+          , url: "/admin/qna/list/orderedList"
+          , data: { 
+             curPage: curPage
+             ,target: target
+          }
+          , dataType: "html"
+          , success: function(data){
+             console.log("AJAX 성공")
+             console.log(data)
+             result.innerHTML = data;
+          }
+          , error: function(){
+             console.log("AJAX 실패")
+          }
+       })
+       $("#cur").html(curPage)
+ };
 </script>
 
 <style type="text/css">
@@ -107,38 +171,13 @@ label {
 
 <h3>문의 목록</h3>
 <hr>
-<span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right">
-	<span id="orderByNo" style="cursor: pointer;">최신순</span>&nbsp;&nbsp;|&nbsp;&nbsp;<span id="orderByStatus" style="cursor: pointer;">미답변순</span>
+	<a id="orderByNo">최신순</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a id="orderByStatus">미답변순</a>
 </div>
 <div class="clearfix"></div>
-<div id="ajax">
-<table class="table table-hover table-condensed">
-<tr>
-	<th><input type="checkbox" id="selectAll" name="select"/></th>
-	<th>문의 번호</th>
-	<th width="45%">제목</th>
-	<th>답변 여부</th>
-	<th>작성일</th>
-</tr>
-<c:forEach items="${list }" var="i">
-<tr>
-	<td><input type="checkbox" id="${i.qnaNo }" value="${i.qnaNo }" class="chk" /></td>
-	<td><label for="${i.qnaNo}">${i.qnaNo }</label></td>
-	<td><label for="${i.qnaNo }"><a href="/admin/qna/detail?qnaNo=${i.qnaNo }">${i.qnaTitle }</a></label></td>
-	<td>
-		<c:if test="${i.qnaStatus == 'y' }">답변 완료</c:if>
-		<c:if test="${i.qnaStatus == 'n' }">답변 대기중</c:if>
-	</td>
-	<td><fmt:formatDate value="${i.qnaDate }" pattern="yyyy-MM-dd"/></td>
-</tr>
-</c:forEach>
-</table>
-<button id="btnDelete" class="pull-left">삭제</button>
-<div class="clearfix"></div>
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-</div>
+<div id="result"></div>
+
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 

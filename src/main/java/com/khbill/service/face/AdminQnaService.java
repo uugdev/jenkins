@@ -76,6 +76,5 @@ public interface AdminQnaService {
 	 */
 	public void setQnaCommentDelete(int qnaNo);
 
-	public List<Qna> getQnaStatusList(Paging paging);
 
 }

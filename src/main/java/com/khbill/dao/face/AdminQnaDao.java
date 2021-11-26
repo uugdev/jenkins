@@ -87,7 +87,6 @@ public interface AdminQnaDao {
 	 */
 	public void updateQnaStatusToN(int qnaNo);
 
-	public List<Qna> selectQnaListStatus(Paging paging);
 
 
 }
