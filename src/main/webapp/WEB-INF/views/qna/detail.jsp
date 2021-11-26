@@ -136,12 +136,12 @@ body {
 	<td id="content">${qna.qnaContent }</td>
 </tr>
 <tr>
-	<td style="height: 200px;">
+	<td>
 	<c:if test="${not empty qnaComment }">
-		<div class="answer"><span>${qnaComment.qnaComContent }</span></div>
+		<div class="answer" style="height: 200px;"><span>${qnaComment.qnaComContent }</span></div>
 	</c:if>
 	<c:if test="${empty qnaComment }">
-		<div class="answer"><span>아직 작성된 답변이 없습니다.</span></div>
+		<div class="noAnswer"><span>아직 작성된 답변이 없습니다.</span></div>
 	</c:if>
 	</td>
 </tr>

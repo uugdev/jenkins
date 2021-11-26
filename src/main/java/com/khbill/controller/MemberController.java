@@ -2,6 +2,8 @@ package com.khbill.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -35,7 +37,6 @@ public class MemberController {
 	@Autowired JavaMailSender mailSender;
 	@Autowired MessageService messageService;
 	
-	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login( ) {	}
 	
@@ -53,17 +54,40 @@ public class MemberController {
 				logger.info("Login Successed");
 				
 				User userInfo = memberService.getUserInfo(user);
+				Date now = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				
-//				int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
+				String today = format.format(now);
 				
-//				logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+				if(userInfo.getUnablePeriod() == null || format.format(userInfo.getUnablePeriod()).compareTo(today) < 0) {
+					
+//					int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
+					
+//					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+					
+					session.setAttribute("login", true);
+					session.setAttribute("userNick", userInfo.getUserNick());
+					session.setAttribute("userNo", userInfo.getUserNo());
+//					session.setAttribute("unreadMsg", unreadMsg);
+					
+					return "redirect:/main";
+				} else {
+					logger.info("Reported Member - Login Failed until {}", userInfo.getUnablePeriod());
+					session.invalidate();
+
+					resp.setHeader("Content-Type", "text/html;charset=UTF-8");
+					try {
+						PrintWriter out = resp.getWriter();
+						out.append("<script>");
+						out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(userInfo.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/main';");
+						out.append("</script>");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return null;
+				}
 				
-				session.setAttribute("login", true);
-				session.setAttribute("userNick", userInfo.getUserNick());
-				session.setAttribute("userNo", userInfo.getUserNo());
-//				session.setAttribute("unreadMsg", unreadMsg);
 				
-				return "redirect:/main";
 			} else {
 				logger.info("Login Failed");
 				session.invalidate();
@@ -94,17 +118,37 @@ public class MemberController {
 				
 				if(kuser.getUserId().split("-")[0].equals("kakao")) {
 					logger.info("kakao로 시작하는 아이디가 맞음!");
+					Date now = new Date();
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					
-//					int unreadMsg = messageService.getUnreadMsgCnt(kuser.getUserNo());
-					
-//					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
-					
-					session.setAttribute("login", true);
-					session.setAttribute("userNick", kuser.getUserNick());
-					session.setAttribute("userNo", kuser.getUserNo());
-//					session.setAttribute("unreadMsg", unreadMsg);
-					
-					return "redirect:/main";
+					String today = format.format(now);
+					if(kuser.getUnablePeriod() == null || format.format(kuser.getUnablePeriod()).compareTo(today) < 0) {
+						
+//						int unreadMsg = messageService.getUnreadMsgCnt(kuser.getUserNo());
+						
+//						logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
+						
+						session.setAttribute("login", true);
+						session.setAttribute("userNick", kuser.getUserNick());
+						session.setAttribute("userNo", kuser.getUserNo());
+//						session.setAttribute("unreadMsg", unreadMsg);
+						
+						return "redirect:/main";
+					} else {
+						logger.info("Reported Member - Login Failed until {}", kuser.getUnablePeriod());
+						session.invalidate();
+
+						resp.setHeader("Content-Type", "text/html;charset=UTF-8");
+						try {
+							PrintWriter out = resp.getWriter();
+							out.append("<script>");
+							out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(kuser.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/main';");
+							out.append("</script>");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						return null;
+					}
 				} else {
 					logger.info("kakao로 시작하는 아이디가 아님!");
 					resp.setHeader("Content-Type", "text/html;charset=UTF-8");

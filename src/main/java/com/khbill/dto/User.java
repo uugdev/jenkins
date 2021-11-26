@@ -15,14 +15,14 @@ public class User {
 	private String userBday;
 	private String userGender;
 	private int userPoint;
-	
+	private Date unablePeriod;
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userMail=" + userMail + ", joinDate=" + joinDate + ", extraMoney=" + extraMoney + ", userBday="
-				+ userBday + ", userGender=" + userGender + ", userPoint=" + userPoint + "]";
+				+ userBday + ", userGender=" + userGender + ", userPoint=" + userPoint + ", unablePeriod="
+				+ unablePeriod + "]";
 	}
-	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -83,6 +83,13 @@ public class User {
 	public void setUserPoint(int userPoint) {
 		this.userPoint = userPoint;
 	}
+	public Date getUnablePeriod() {
+		return unablePeriod;
+	}
+	public void setUnablePeriod(Date unablePeriod) {
+		this.unablePeriod = unablePeriod;
+	}
+	
 	
 	
 	

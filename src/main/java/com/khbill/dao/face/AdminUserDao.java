@@ -1,5 +1,6 @@
 package com.khbill.dao.face;
 
+import java.util.Date;
 import java.util.List;
 
 import com.khbill.dto.User;
@@ -28,5 +29,28 @@ public interface AdminUserDao {
 	 * @param i - 회원번호
 	 */
 	public void deleteUser(int i);
+
+	/**
+	 * 지정한 일수만큼 로그인 불가 설정
+	 * 
+	 * @param userNo - 회원 번호
+	 * @param days - 일
+	 */
+	public void updateUnablePeriod(int param2, int param1);
+
+	/**
+	 * 로그인 불가 날 조회
+	 * 
+	 * @param userNo - 회원번호
+	 * @return
+	 */
+	public Date selectUnablePeriod(int userNo);
+
+	/**
+	 * 로그인 불가 취소
+	 * 
+	 * @param userNo - 회원 번호
+	 */
+	public void updateUnablePeriodNull(int userNo);
 
 }

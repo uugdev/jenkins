@@ -51,6 +51,67 @@ $(document).ready(function(){
 	     }
 	});
 })
+
+function setUnablePeriod(clicked_id){
+	var input = prompt('로그인을 차단할 일수를 입력하세요.');
+	var userNo = clicked_id;
+// 	console.log(userNo);
+// 	console.log(days)
+	if(input == null){
+		return false;
+	} else {
+		var days = parseInt(input);
+		if(isNaN(days)) {
+			alert('숫자만 입력해주세요!');
+			return false;
+		} else{
+			$.ajax({
+				type: "get"
+				, url: "/admin/user/unable"
+				, data: {
+					days: days
+					, userNo: userNo
+				}
+				, success: function ( res ) {
+					alert(userNo+'번 회원의 로그인이 '+res+'까지 차단되었습니다.');
+					location.href="/admin/user/list";
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		}
+	}
+}
+
+function setUnablePeriodNull(clicked_id){
+	var userNo = clicked_id;
+	var answer = confirm(userNo+'번 회원의 로그인 차단을 취소하시겠습니까?');
+
+	if(answer == true) {
+		$.ajax({
+			type: "get"
+			, url: "/admin/user/able"
+			, data: {
+				userNo: userNo
+			}
+			, success: function (res) {
+				if(res == 'success'){
+					alert(userNo+'번 회원의 로그인 차단이 취소되었습니다.');
+					location.href="/admin/user/list";										
+				} else {
+					alert('로그인 차단이 정상적으로 처리되지 않았습니다.');
+					location.href="/admin/user/list";
+				}
+			}
+			, error: function () {
+				console.log("AJAX 실패")
+			}
+		})
+	} else {
+		return false;
+	}
+}
 </script>
 
 <style type="text/css">
@@ -88,7 +149,6 @@ label {
 <tr>
 	<th><input type="checkbox" id="selectAll" name="select" /></th>
 	<th>회원번호</th>
-	<th>아이디</th>
 	<th>닉네임</th>
 	<th>이메일</th>
 	<th>가입일</th>
@@ -96,19 +156,33 @@ label {
 	<th>생일</th>
 	<th>성별</th>
 	<th>포인트</th>
+	<th>최근 차단 이력</th>
+	<th> </th>
+	<th> </th>
+	
 </tr>
 <c:forEach items="${userList }" var="i">
 <tr>
 	<td><input type="checkbox" id="${i.userNo }" class="chk" value="${i.userNo }" /></td>
 	<td><label for="${i.userNo}">${i.userNo }</label></td>
-	<td><label for="${i.userNo }">${i.userId }</label></td>
 	<td><label for="${i.userNo }">${i.userNick }</label></td>
 	<td><label for="${i.userNo }">${i.userMail }</label></td>
 	<td><label for="${i.userNo }"><fmt:formatDate value="${i.joinDate }" pattern="yyyy-MM-dd"/></label></td>
 	<td><label for="${i.userNo }">${i.extraMoney }</label></td>
 	<td><label for="${i.userNo }">${i.userBday }</label></td>
-	<td><label for="${i.userNo }">${i.userGender }</label></td>
+	<td>
+		<label for="${i.userNo }">
+			<c:if test="${i.userGender == 'F'}">여</c:if>
+			<c:if test="${i.userGender == 'M'}">남</c:if>
+		</label>
+	</td>
 	<td><label for="${i.userNo }">${i.userPoint }</label></td>
+	<td>
+		<c:if test="${empty i.unablePeriod }">없음</c:if>
+		<c:if test="${not empty i.unablePeriod }">~<fmt:formatDate value="${i.unablePeriod }" pattern="yyyy-MM-dd"/></c:if>
+	</td>
+	<td><button id="${i.userNo }" onclick="setUnablePeriod(this.id)">차단하기</button></td>
+	<td><button id="${i.userNo }" onclick="setUnablePeriodNull(this.id)">차단취소</button></td>
 </tr>
 </c:forEach>
 </table>

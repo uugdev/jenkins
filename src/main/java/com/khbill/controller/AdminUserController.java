@@ -1,5 +1,7 @@
 package com.khbill.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khbill.dto.User;
 import com.khbill.service.face.AdminUserService;
@@ -43,5 +46,28 @@ public class AdminUserController {
 			adminUserService.setUserDelete(userNo[i]);
 		}
 		return "redirect:/admin/user/list";
+	}
+	
+	@RequestMapping(value="/admin/user/unable")
+	@ResponseBody
+	public String unablePeriod(int userNo, int days) {
+//		logger.info("params : userNo = {}, days = {}", userNo, days);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date period = adminUserService.setUnablePeriod(userNo, days);
+		String res = format.format(period);
+//		logger.info(res);
+		
+		return res;
+	}
+
+	@RequestMapping(value="/admin/user/able")
+	@ResponseBody
+	public String unablePeriodNull(int userNo) {
+		String res = adminUserService.setUnablePeriodNull(userNo);
+		if( res == "isNull") {
+			return "success";
+		} else {
+			return "fail";
+		}
 	}
 }

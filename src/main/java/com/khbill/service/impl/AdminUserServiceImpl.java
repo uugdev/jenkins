@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -39,4 +40,29 @@ public class AdminUserServiceImpl implements AdminUserService {
 		adminUserDao.deleteUser(i);
 	}
 
+	@Override
+	public Date setUnablePeriod(int userNo, int days) {
+//		logger.info("parameters : userNo={}, days={}", userNo, days);
+		int param1 = days;
+		int param2 = userNo;
+		adminUserDao.updateUnablePeriod(param1, param2);
+		Date date = adminUserDao.selectUnablePeriod(userNo);
+		logger.info("date: {}", date);
+		return date;
+	}
+
+	@Override
+	public String setUnablePeriodNull(int userNo) {
+		adminUserDao.updateUnablePeriodNull(userNo);
+		
+		Date check = adminUserDao.selectUnablePeriod(userNo);
+		if(check == null) {
+//			logger.info("isNull");
+			return "isNull";
+		} else {
+//			logger.info("isNotNull : {}", check);
+			return "isNotNull";
+		}
+	}
+	
 }

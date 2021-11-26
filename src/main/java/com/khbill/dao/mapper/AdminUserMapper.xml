@@ -25,4 +25,21 @@
 		WHERE user_no = #{userNo}
 	</delete>
 	
+	<update id="updateUnablePeriod" parameterType="int">
+		UPDATE zuser
+		SET unable_period = sysdate + ${param1}
+		WHERE user_no = ${param2}
+	</update>
+	
+	<select id="selectUnablePeriod" parameterType="int" resultType="java.util.Date">
+		SELECT unable_period FROM zuser
+		WHERE user_no = ${userNo}
+	</select>
+	
+	<update id="updateUnablePeriodNull" parameterType="int">
+		UPDATE zuser
+		SET unable_period = null
+		WHERE user_no = ${userNo}
+	</update>
+	
 </mapper>
