@@ -123,14 +123,35 @@ public class MessageController {
 
 	}
 
+	
 	@RequestMapping(value="/message/receive/list")
-	public void msgReceiveList(Paging paramData, HttpSession session, Model model) {
-		logger.info("/message/receive/list [GET]");
-
+	public void msgList(Paging paramData, Model model) {
+	
+	}
+	
+	
+	@RequestMapping(value="/message/receive/list/ajax")
+	public String msgReceiveList(Paging paramData, HttpSession session, Model model) {
+		logger.info("/message/receive/list/ajax [GET]");
+		logger.info("paramData : {}", paramData);
+		
+		String where = null;
+		if(paramData.getTarget() != null) {
+			
+			if (paramData.getTarget().equals("1")) {
+				where = "unread";
+			} else {
+				where ="receive";
+			}
+		} else {
+			
+			where = "receive";
+		}
+		
 		int userNo = (int)session.getAttribute("userNo");
-		String where = "receive";
-
 		Paging paging = messageService.getPaging(paramData, userNo, where);
+		
+		logger.info("페이징 : {}", paging);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("userNo", userNo);
@@ -141,55 +162,57 @@ public class MessageController {
 		//		logger.info("resultMapList 정보 : {}", resultMapList);
 
 		model.addAttribute("resultMapList", resultMapList);
-		model.addAttribute("paging", paging);		
+		model.addAttribute("paging", paging);	
+		
+		return "message/receive/ajaxlist";
 	}
+	
+	//전체 메시지(날짜순)
+//	@RequestMapping(value="/message/receive/entire/list")
+//	public String msgReceiveEntireList(Paging paramData, HttpSession session, Model model) {
+//		logger.info("/meesage/receive/entire/list [GET]");
+//		
+//		int userNo = (int)session.getAttribute("userNo");
+//		String where = "receive";
+//		
+//		Paging paging = messageService.getPaging(paramData, userNo, where);
+//		
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("userNo", userNo);
+//		map.put("paging", paging);
+//		
+//		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(map);
+//		
+//		model.addAttribute("resultMapList", resultMapList);
+//		model.addAttribute("paging", paging);		
+//		model.addAttribute("res",true);
+//		
+//		return "message/receive/ajaxlist";
+//	}
 	
 	//안읽은 메시지 날짜순
-	@RequestMapping(value="/message/receive/unread/list")
-	public String msgReceiveUnreadList(Paging paramData, HttpSession session, Model model) {
-		logger.info("/meesage/receive/unread/list [GET]");
-		
-		int userNo = (int)session.getAttribute("userNo");
-		String where = "unread";
+//	@RequestMapping(value="/message/receive/unread/list")
+//	public String msgReceiveUnreadList(Paging paramData, HttpSession session, Model model) {
+//		logger.info("/meesage/receive/unread/list [GET]");
+//		
+//		int userNo = (int)session.getAttribute("userNo");
+//		String where = "unread";
+//
+//		Paging paging = messageService.getPaging(paramData, userNo, where);
+//
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("userNo", userNo);
+//		map.put("paging", paging);
+//
+//		List<HashMap<String, Object>> resultMapList = messageService.getRcvdUnreadMsgList(map);
+//
+//		model.addAttribute("resultMapList", resultMapList);
+//		model.addAttribute("paging", paging);
+//		model.addAttribute("res",true);
+//		
+//		return "message/receive/ajaxlist";
+//	}
 
-		Paging paging = messageService.getPaging(paramData, userNo, where);
-
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("userNo", userNo);
-		map.put("paging", paging);
-
-		List<HashMap<String, Object>> resultMapList = messageService.getRcvdUnreadMsgList(map);
-
-		model.addAttribute("resultMapList", resultMapList);
-		model.addAttribute("paging", paging);
-		model.addAttribute("res",true);
-		
-		return "message/receive/ajaxlist";
-	}
-
-	//전체 메시지(날짜순)
-	@RequestMapping(value="/message/receive/entire/list")
-	public String msgReceiveEntireList(Paging paramData, HttpSession session, Model model) {
-		logger.info("/meesage/receive/entire/list [GET]");
-		
-		int userNo = (int)session.getAttribute("userNo");
-		String where = "receive";
-
-		Paging paging = messageService.getPaging(paramData, userNo, where);
-
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("userNo", userNo);
-		map.put("paging", paging);
-
-		List<HashMap<String, Object>> resultMapList = messageService.getRcvdMsgList(map);
-
-		model.addAttribute("resultMapList", resultMapList);
-		model.addAttribute("paging", paging);		
-		model.addAttribute("res",true);
-		
-		return "message/receive/ajaxlist";
-	}
-	
 	@RequestMapping(value="/message/send/list")
 	public void msgSendList(Paging paramData, HttpSession session, Model model) {
 		logger.info("/message/send/list [GET]");

@@ -24,7 +24,7 @@ public class MessageServiceImpl implements MessageService {
 		}
 		
 		messageDao.insertMessage(msg);
-	}
+	}  
 	
 	@Override
 	public Paging getPaging(Paging paramData, int userNo, String where) {
@@ -42,6 +42,8 @@ public class MessageServiceImpl implements MessageService {
 		
 		//페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
+	
+		paging.setTarget(paramData.getTarget());
 		
 		return paging;
 	}
@@ -94,10 +96,10 @@ public class MessageServiceImpl implements MessageService {
 
 	}
 	
-	@Override
-	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map) {
-		return messageDao.selectRcvdMsgByState(map);
-	}
+//	@Override
+//	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map) {
+//		return messageDao.selectRcvdMsgByState(map);
+//	}
 	
 	@Override
 	public int getUnreadMsgCnt(int userNo) {

@@ -60,7 +60,12 @@
 				FROM ZMESSAGE m
 				INNER JOIN ZUSER u ON(m.sender_no = u.user_no)
 				WHERE receiver_no = #{userNo } AND receiver_show = 'y'
-				ORDER BY msg_date DESC
+				<choose>
+				<when test="paging.target == 1">
+                AND msg_check ='n'
+                </when>
+                </choose>
+                ORDER BY msg_date DESC
 			) M
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }	

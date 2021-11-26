@@ -72,13 +72,13 @@ public interface MessageService {
 	 */
 	public Message getMsgByMsgNo(Message msg);
 	
-	/**
-	 * 읽지 않은 메세지만 가져오기
-	 * 
-	 * @param map
-	 * @return
-	 */
-	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map);
+//	/**
+//	 * 읽지 않은 메세지만 가져오기
+//	 * 
+//	 * @param map
+//	 * @return
+//	 */
+//	public List<HashMap<String, Object>> getRcvdUnreadMsgList(HashMap<String, Object> map);
 
 	/**
 	 * 메인에 표시해줄 안읽은 메세지 개수 구하기

@@ -21,10 +21,123 @@ function message () {
 }
 
 </script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		loadList();
+		
+		//안읽은 쪽지 리스트
+		$("#unreadList").click(function () {
+//	 		console.log("#ajax clicked")
+			target = 1;
+			var curPage = 1;
+			$.ajax({
+				type: "get"
+				, url: "/message/receive/list/ajax"
+				, data: {
+					curPage: curPage
+					, target: target
+				}
+				, dataType: "html"
+				, success: function ( res ) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+		
+		//전체 쪽지
+		$("#entireList").click(function () {
+//	 		console.log("#ajax clicked")
+			
+			target = 2;
+			var curPage = 1;
+			$.ajax({
+				type: "get"
+				, url: "/message/receive/list/ajax"
+				, data: {
+					curPage: curPage
+					, target: target
+				}
+				, dataType: "html"
+				, success: function ( res ) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+		
+		//<otherwise>태그로 로드하는 부분
+		var target = null;
+		var curPage = 1;
+		
+		function loadList() {
+			$.ajax({
+				type: "get"
+				, url: "/message/receive/list/ajax"
+				, data: {
+				curPage: curPage
+				, target: target
+				}
+				, dataType: "html"
+				, success: function(res){
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+				}
+			})
+			$("#cur").html(curPage)
+		};
+	 
+	});
+
+	//페이지가 증가되야하는 부분 (+1)
+	function loadCurPage(i, t){
+	    var curPage =  i ;
+		var target = t;
+	    
+		console.log("curP : "+ curPage);
+	    console.log("tg : " + target);
+	    
+	       $.ajax({
+	          type: "post"
+	          , url: "/message/receive/list/ajax"
+	          , data: { 
+	             curPage: curPage
+	             ,target: target
+	          }
+	          , dataType: "html"
+	          , success: function(data){
+	             console.log("AJAX 성공")
+	             console.log(data)
+	             result.innerHTML = data;
+	 //             $("#result").html( $("#result").html() + res );
+
+	          }
+	          , error: function(){
+	             console.log("AJAX 실패")
+	          }
+	       })
+	       $("#cur").html(curPage)
+	 }
+		
+
+    
+
+</script>
+
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	loadList();
 	
 	$(document).on('click', '#selectAll', function() {
 	    if($('#selectAll').is(':checked')){
@@ -56,43 +169,43 @@ $(document).ready(function(){
 		}
 	})
 	
-	$("#unreadList").click(function () {
+// 	$("#unreadList").click(function () {
 		
-		$.ajax({
-			type: "get"
-			, url: "/message/receive/unread/list"
-			, data: {}
-			, dataType: "html"
-			, success: function ( res ) {
-				console.log("AJAX 성공")
+// 		$.ajax({
+// 			type: "get"
+// 			, url: "/message/receive/unread/list"
+// 			, data: {}
+// 			, dataType: "html"
+// 			, success: function ( res ) {
+// 				console.log("AJAX 성공")
 				
-				$("#resultArea").html( res )
+// 				$("#resultArea").html( res )
 				
-			}
-			, error: function () {
-				console.log("AJAX 실패")
-			}
-		})
-	})
+// 			}
+// 			, error: function () {
+// 				console.log("AJAX 실패")
+// 			}
+// 		})
+// 	})
 	
-	$("#entireList").click(function () {
+// 	$("#entireList").click(function () {
 		
-		$.ajax({
-			type: "get"
-			, url: "/message/receive/entire/list"
-			, data: {}
-			, dataType: "html"
-			, success: function ( res ) {
-				console.log("AJAX 성공")
+// 		$.ajax({
+// 			type: "get"
+// 			, url: "/message/receive/entire/list"
+// 			, data: {}
+// 			, dataType: "html"
+// 			, success: function ( res ) {
+// 				console.log("AJAX 성공")
 				
-				$("#resultArea").html( res )
+// 				$("#resultArea").html( res )
 				
-			}
-			, error: function () {
-				console.log("AJAX 실패")
-			}
-		})
-	})
+// 			}
+// 			, error: function () {
+// 				console.log("AJAX 실패")
+// 			}
+// 		})
+// 	})
 
 })
 </script>
@@ -131,41 +244,41 @@ $(document).ready(function(){
 
 <div style="height: 30px;"></div>
 
-<div id="resultArea">
-	<table class="table table-hover">
-		<thead>
-		<tr>
-			<th style="width:10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-			<th style="width:10%">보낸 사람</th>
-			<th style="width:30%">제목</th>
-			<th style="width:10%">상태</th>
-			<th style="width:10%">받은 날짜</th>
-		</tr>
-		</thead>
-		<tbody>
-		<c:forEach items="${resultMapList }" var="map">
-		<tr>
-			<td><input type="checkbox" name="select" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
-			<td>${map.USER_NICK }</td>
-			<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
-			<td>
-				<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
-				<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
-			</td>
-			<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
-		</tr>
-		</c:forEach>
-		</tbody>
-	</table>
-</div> <!-- #resultArea end -->
-<button id="btnDelete" class="pull-left">삭제</button>
+<!-- 	<table class="table table-hover"> -->
+<!-- 		<thead> -->
+<!-- 		<tr> -->
+<!-- 			<th style="width:10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th> -->
+<!-- 			<th style="width:10%">보낸 사람</th> -->
+<!-- 			<th style="width:30%">제목</th> -->
+<!-- 			<th style="width:10%">상태</th> -->
+<!-- 			<th style="width:10%">받은 날짜</th> -->
+<!-- 		</tr> -->
+<!-- 		</thead> -->
+<!-- 		<tbody> -->
+<%-- 		<c:forEach items="${resultMapList }" var="map"> --%>
+<!-- 		<tr> -->
+<%-- 			<td><input type="checkbox" name="select" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td> --%>
+<%-- 			<td>${map.USER_NICK }</td> --%>
+<%-- 			<td><a href="<%=request.getContextPath() %>/message/receive/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td> --%>
+<!-- 			<td> -->
+<%-- 				<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if> --%>
+<%-- 				<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if> --%>
+<!-- 			</td> -->
+<%-- 			<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td> --%>
+<!-- 		</tr> -->
+<%-- 		</c:forEach> --%>
+<!-- 		</tbody> -->
+<!-- 	</table> -->
+<!-- <button id="btnDelete" class="pull-left">삭제</button> -->
 
-<div style="height:50px;"></div>
+<!-- <div style="height:50px;"></div> -->
 
 
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
-<div class="clearfix"></div>
+<%-- <c:import url="/WEB-INF/views/message/paging.jsp" /> --%>
+<!-- <div class="clearfix"></div> -->
+<div id="result">
 
+</div> <!-- #result end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

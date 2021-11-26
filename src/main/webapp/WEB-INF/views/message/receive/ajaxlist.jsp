@@ -28,4 +28,10 @@
 	</c:forEach>
 	</tbody>
 </table>
+<button id="btnDelete" class="pull-left">삭제</button>
+
+<div style="height:50px;"></div>
+
+<c:import url="/WEB-INF/views/message/receive/paging.jsp" />
+<div class="clearfix"></div>
 
