@@ -104,7 +104,10 @@ public class ReviewController {
 		ReviewScrap reviewScrap = new ReviewScrap();
 		reviewScrap.setReviewNo(review.getReviewNo());
 		
-		int userNo = (Integer) session.getAttribute("userNo");
+		int userNo = 0;
+		if(session.getAttribute("userNo") != null ){
+			userNo = (Integer) session.getAttribute("userNo");
+		}
 		reviewScrap.setUserNo(userNo);
 		
 		//스크랩 상태 전달

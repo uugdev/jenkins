@@ -78,7 +78,13 @@ $(document).ready(function() {
 		var category = $("#reportCategory").val();
 		if(content == "") {
 			
-			alert("신고사유를 입력해주세요")
+// 			alert("신고사유를 입력해주세요")
+			action_popup.alert("신고사유를 입력해주세요")
+			
+			/* 닫는 창으로 꼭 필요함 */
+			$(".modal_close").on("click", function () {
+		     action_popup.close(this);
+		    });
 			return;
 			
 		} else {
@@ -93,10 +99,14 @@ $(document).ready(function() {
 					$('#reportContent').val('');
 					
 					if(data.reportCheck) {
-						alert("신고가 완료되었습니다.");
+						action_popup.alert("신고가 완료되었습니다.");
 					} else {
-						alert("이미 신고한 게시글입니다.");
+						action_popup.alert("이미 신고한 게시글입니다.");
 					}
+					/* 닫는 창으로 꼭 필요함 */
+				    $(".modal_close").on("click", function () {
+				        action_popup.close(this);
+				    });
 				}
 				, error: function() {
 					console.log("실패");
@@ -129,7 +139,7 @@ function insertComment() {
 			
 			$("#reviewComCount").html(++reviewComCount, reviewComCount);	
 				
-			console.log("안녕!")
+// 			console.log("안녕!")
 			
 			var userNo = '<%=session.getAttribute("userNo")%>';
 			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
@@ -271,14 +281,18 @@ function deleteComment(reviewComNo) {
 <hr>
 <span style="float: left;">
 <c:if test="${userNo eq review.USER_NO }">
-	<span>작성자 ${review.USER_NICK }</span>
+	<span> ${review.USER_NICK }</span>
 </c:if>
-<c:if test="${userNo ne review.USER_NO }">
-<a class="confirmation" onclick="message();">작성자 ${review.USER_NICK }</a>
+<c:if test="${sessionScope.userNo eq review.USER_NO || empty sessionScope.userNo }">
+	<span class="confirmation"> ${review.USER_NICK }</span>
 </c:if>
+<c:if test="${sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
+	<a class="confirmation" onclick="message();">${review.USER_NICK }</a>
+</c:if>
+	
 <fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/>
 </span>
-<c:if test="${review.USER_NO ne userNo }">
+<c:if test="${review.USER_NO ne userNo and !empty sessionScope.userNo }">
 	<button id="scrap">스크랩</button>
 	<button id="report" class="popupOpen1">신고</button>
 </c:if>
