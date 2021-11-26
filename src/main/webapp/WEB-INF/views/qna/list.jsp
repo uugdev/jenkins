@@ -11,11 +11,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#btnBack").click(function(){
-		history.go(-1);
-	})
-	
-	$("#qnaWrite").click(function(){
+
+	$("#btnWrite").click(function(){
 		location.href="/qna/write";
 	})
 })
@@ -23,12 +20,51 @@ $(document).ready(function(){
 
 <style type="text/css">
 
-table {
-	text-align: center;
+body {
+	background: #f2f2f2;
 }
 
-th, td {
+.title {
+	margin: 50px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+.table {
 	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+	padding-bottom: 20px;
+}
+
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 50px;
+	vertical-align: middle;
+}
+
+#btnWrite {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnWrite:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 
 </style>
@@ -38,13 +74,16 @@ th, td {
 <div class="wrap">
 <div class="container">
 
-<h3>나의 문의 목록</h3>
-<hr>
+<div class="title">
+	<h1>나의 문의 목록</h1>
+	<p>질문을 남겨주시면 신속한 답변 드리겠습니다.</p>
+</div>
 
-<table class="table table-hover table-condensed">
+<div class="table">
+<table class="table table-hover">
 <tr>
 	<th>문의번호</th>
-	<th width="45%">제목</th>
+	<th width="60%">제목</th>
 	<th>답변여부</th>
 	<th>작성일</th>
 </tr>
@@ -58,13 +97,14 @@ th, td {
 </tr>
 </c:forEach>
 </table>
-<button id="qnaWrite" class="pull-right">글쓰기</button>
-
+<button id="btnWrite" class="pull-right">글쓰기</button>
 <div class="clearfix"></div>
-
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-<button id="btnBack">뒤로가기</button>
+</div><!-- .table end -->
+
+
+
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

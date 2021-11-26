@@ -20,45 +20,92 @@ function submitContents(elClickedObj) {
 	} catch(e) {}
 }
 
-$(document).ready(function() {
-	$("#btnUpdate").click(function() {
-		
-		var answer = confirm("문의글을 수정하시겠습니까?");
-		
-		if( answer == true ){
-			submitContents($("#btnUpdate"));
-			
-			$("form").submit();
-		} else {
-			return false;
-		}
-	})
+$(function(){
 	
-	$("#btnCancel").click(function() {
+	$(document).on("click", "#btnCancel", function(){
 		history.go(-1);
-	})
-})
+	});
+
+	$(document).on("click", "#btnUpdate", function(){
+		submitContents($("#btnUpdate"));
+		
+		$("form").submit();
+	});
+
+})/* $(function(){}) end */
+
 </script>
 
 <style type="text/css">
+body {
+	background: #f2f2f2;
+}
 
-table {
-	width: 1000px;
+.title {
+	margin: 50px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+
+.formTable {
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+}
+
+
+.table {
+	text-align: center;
+	width: 100%;
 	margin: 0 auto;
+	margin-bottom: 30px;
+}
+.table>tbody>tr>th {
+	width: 10%;
+	vertical-align: middle !important;
+	border-top: 0px;
 }
 
-th, td {
-	height: 35px;
-	padding: 5px;
+.table>tbody>tr>td {
+	border-top: 0px;
+	height: 70px;
+	padding: 3px;
+	vertical-align: middle;
 }
 
-th {
-	width: 100px;
-}
 
 input[type=text], select, option {
-	width: 95%;
-	height: 30px;
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
+}
+
+input[type=text]:focus, select:focus, option:focus {
+	outline: none;
+}
+
+#btnUpdate, #btnCancel {
+	background: #808080;
+	border-radius: 0px;
+	height: 35px;
+	border: 1px solid #808080;
+	color: #fff;
+	padding: 0 15px;
+}
+
+#btnUpdate:hover, #btnCancel:hover {
+	border: 1px solid #808080;
+	background: #fff;
+	color: #808080;
+	transition: all .2s ease-in-out;
 }
 
 </style>
@@ -67,29 +114,29 @@ input[type=text], select, option {
 <div class="wrap">
 <div class="container">
 
-<h3>문의하기</h3>
-<hr>
+<div class="title">
+	<h1>문의하기</h1>
+	<p>질문을 남겨주시면 신속한 답변 드리겠습니다.</p>
+</div>
 
+<div class="formTable">
 <form action="/qna/update" method="post">
 <input type="hidden" name="userNo" value="${userNo }"/>
 <input type="hidden" name="qnaNo" value="${qna.qnaNo }"/>
-<table>
+<table class="table">
 
 <tr>
 	<th>작성자</th>
-	<td><input type="text" name="userNick" value="${userNick }" readonly="readonly" style="background: #f2f2f2;" /></td>
+	<td><input type="text" name="userNick" value="${userNick }" readonly="readonly" style="background: #f3f3f3;" /></td>
 	<th>문의 유형</th>
 	<td>
-		<div class="selectBox">
-		  <select name="qnaCategory">
-		    <option value="가입 관련 문의" <c:if test="${qna.qnaCategory == '가입 관련 문의' }">selected</c:if>>가입 관련 문의</option>
-		    <option value="거래 관련 문의" <c:if test="${qna.qnaCategory == '거래 관련 문의' }">selected</c:if>>거래 관련 문의</option>
-		    <option value="이벤트 관련 문의" <c:if test="${qna.qnaCategory == '이벤트 관련 문의' }">selected</c:if>>이벤트 관련 문의</option>
-		    <option value="후기 관련 문의" <c:if test="${qna.qnaCategory == '후기 관련 문의' }">selected</c:if>>후기 관련 문의</option>
-		    <option value="투표 관련 문의" <c:if test="${qna.qnaCategory == '투표 관련 문의' }">selected</c:if>>투표 관련 문의</option>
-		  </select>
-		  <span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt=""></span>
-		</div>
+		<select name="qnaCategory">
+		  <option value="가입 관련 문의" <c:if test="${qna.qnaCategory == '가입 관련 문의' }">selected</c:if>>가입 관련 문의</option>
+		  <option value="거래 관련 문의" <c:if test="${qna.qnaCategory == '거래 관련 문의' }">selected</c:if>>거래 관련 문의</option>
+		  <option value="이벤트 관련 문의" <c:if test="${qna.qnaCategory == '이벤트 관련 문의' }">selected</c:if>>이벤트 관련 문의</option>
+		  <option value="후기 관련 문의" <c:if test="${qna.qnaCategory == '후기 관련 문의' }">selected</c:if>>후기 관련 문의</option>
+		  <option value="투표 관련 문의" <c:if test="${qna.qnaCategory == '투표 관련 문의' }">selected</c:if>>투표 관련 문의</option>
+		</select>
 	</td>
 </tr>
 <tr>
@@ -98,7 +145,7 @@ input[type=text], select, option {
 </tr>
 <tr>
 	<th>내용</th>
-	<td colspan="3"><textarea id="qnaContent" name="qnaContent" style="width: 100%; height: 200px;">${qna.qnaContent }</textarea></td>
+	<td colspan="3"><textarea id="qnaContent" name="qnaContent" style="width: 100%; height: 300px;">${qna.qnaContent }</textarea></td>
 </tr>
 </table>
 <div>
@@ -107,7 +154,7 @@ input[type=text], select, option {
 </div>
 </form>
 
-
+</div><!-- .formTable end -->
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 
