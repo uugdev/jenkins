@@ -24,6 +24,28 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
 		
+		
+		var nullCheck = ["askTitle","itemBrand","itemName","itemPrice","file","askContent"];
+		
+		//입력 값 널 체크
+		for(var i=0;i<nullCheck.length;i++){
+			//alert(arr[i]);
+			if($.trim($('#'+nullCheck[i]).val()) == ''){
+				action_popup.alert('빈 칸을 모두 입력해 주세요.');
+				$('#'+nullCheck[i]).focus();
+				
+				/* 닫는 창으로 꼭 필요함 */
+		    	$(".modal_close").on("click", function () {
+	    	    action_popup.close(this);
+	    		});
+				
+				return;
+
+			}//if end
+		
+		}//for end
+		
+		
 		var limit = uncomma($('input[name=itemPrice]').val()); //건들지마
 		var price = parseInt(limit); //건들지마
 		action_popup.confirm("글쓰기 완료 시 상품정보,투표설정은 수정이 불가합니다. 확인버튼을 누르시면 글쓰기가 완료됩니다.",
@@ -63,7 +85,7 @@ $(document).ready(function() {
 		<h1>질문 글쓰기 페이지</h1>
 		<hr>
 
-		<form action="/ask/write" method="post" enctype="multipart/form-data">
+		<form action="/ask/write" method="post" enctype="multipart/form-data" id="nullCheck">
 			<div class="form-group">
 				<label for="userNick">작성자</label> <input type="text" id="userNick"
 					value="${userNick }" class="form-control" readonly="readonly" />

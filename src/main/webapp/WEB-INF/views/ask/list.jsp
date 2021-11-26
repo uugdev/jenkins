@@ -34,7 +34,6 @@ $(document).ready(function() {
 	
 	//조회순으로 정렬 처리
 	$("#hitList").click(function () {
-// 		console.log("#ajax clicked")
 		target = 1;
 		var curPage = 1;
 		$.ajax({
@@ -48,7 +47,6 @@ $(document).ready(function() {
 			, success: function ( res ) {
 				console.log("AJAX 성공")
 				result.innerHTML = res;
-				/* $("#ajaxArea").html( res ) */
 				
 			}
 			, error: function () {
@@ -59,7 +57,6 @@ $(document).ready(function() {
 	
 	//최신순으로 정렬 처리
 	$("#latestList").click(function () {
-// 		console.log("#ajax clicked")
 		
 		target = 2;
 		var curPage = 1;
@@ -74,7 +71,6 @@ $(document).ready(function() {
 			, success: function ( res ) {
 				console.log("AJAX 성공")
 				result.innerHTML = res;
-				/* $("#ajaxArea").html( res ) */
 				
 			}
 			, error: function () {
@@ -85,7 +81,6 @@ $(document).ready(function() {
 	
 	//사진순으로 정렬 처리
 	$("#itemList").click(function () {
-// 		console.log("#ajax clicked")
 		
 		target = 3;
 		var curPage = 1;
@@ -100,7 +95,6 @@ $(document).ready(function() {
 			, success: function ( res ) {
 				console.log("AJAX 성공")
 				result.innerHTML = res;
-				/* $("#ajaxArea").html( res ) */
 				
 			}
 			, error: function () {
@@ -127,7 +121,6 @@ $(document).ready(function() {
 			, success: function(res){
 				console.log("AJAX 성공")
 				result.innerHTML = res;
-//	 			$("#result").html( $("#result").html() + res );
 			}
 			, error: function(){
 				console.log("AJAX 실패")
@@ -161,7 +154,6 @@ function loadCurPage(i, t, s){
              console.log("AJAX 성공")
              console.log(data)
              result.innerHTML = data;
- //             $("#result").html( $("#result").html() + res );
 
           }
           , error: function(){
@@ -218,72 +210,14 @@ td:nth-child(2) {
 		<h1>질문</h1>
 		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
-			<a id="hitList">조회순</a>
 			<a id="latestList">최신순</a>
+			<a id="hitList">조회순</a>
 			<a id="itemList">이미지순</a>
 		</div>
 		<br>
-		
-<%-- 		<div id="ajaxArea">
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th style="width: 10%; text-align: center;">글번호</th>
-						<th style="width: 45%; text-align: left;">제목</th>
-						<th style="width: 12%; text-align: left;">작성자</th>
-						<th style="width: 10%; text-align: center;">조회수</th>
-						<th style="width: 15%; text-align: left;">작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${list }" var="ask">
-						<tr>
-							<td style="text-align: center">${ask.ASK_NO }</td>
-							<td>
-								<a href="/ask/detail?askNo=${ask.ASK_NO }">
-									<span>${ask.ASK_TITLE }</span>
-								</a>
-							
-							<c:forEach items="${comCnt}" var="com">
-								<c:if test="${ask.ASK_NO eq com.ASK_NO}">
-									<strong><span>[${com.CNT}]</span></strong>
-								</c:if>
-							</c:forEach>
-							
-							</td>
-							<c:if test="${ask.USER_NICK eq null}">
-								<td>탈퇴한 회원입니다</td>
-							</c:if>
-							<c:if test="${ask.USER_NICK ne null }">
-								<td style="text-align: left;"><img alt="#"
-									src="${ask.GRADE_URL}" style="width: 20px; height: 20px;">
-									${ask.USER_NICK }</td>
-							</c:if>
-							<td style="text-align: center">${ask.ASK_HIT }</td>
-							<td><fmt:formatDate value="${ask.ASK_DATE }"
-									pattern="yy-MM-dd HH:mm:ss" /></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
 
-
-		<c:if test="${login }">
-			<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
-		</c:if>
-		<span class="pull-right">total : ${paging.totalCount }</span>
-		<div class="clearfix"></div>
-
-		<div class="form-inline text-center">
-			<input class="form-control" type="text" id="search"
-				value="${param.search }" />
-			<button id="btnSearch" class="btn">검색</button>
-		</div>
---%>
-		<div id="result">
-		
-		</div>
+		<div id="result"></div>
+	
 	</div><!-- .container -->
 </div><!-- .wrap end -->
 

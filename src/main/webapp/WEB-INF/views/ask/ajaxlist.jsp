@@ -24,11 +24,9 @@
 					<a href="/ask/detail?askNo=${ask.ASK_NO }">
 						<span>${ask.ASK_TITLE }</span>
 					</a>
-					<c:forEach items="${comCnt}" var="com">
-						<c:if test="${ask.ASK_NO eq com.ASK_NO}">
-							<strong><span>[${com.CNT}]</span></strong>
-						</c:if>
-					</c:forEach>
+					<c:if test="${not empty ask.ASK_COM_CNT }">
+						<strong><span>[${ask.ASK_COM_CNT}]</span></strong>
+					</c:if>		
 				</td>
 				<c:if test="${ask.USER_NICK eq null}">
 					<td>탈퇴한 회원입니다</td>
