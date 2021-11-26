@@ -134,13 +134,13 @@ $("#setReport").click(function() {
 	
 	
 	
-	
+	var nonLogin =  ${!empty sessionScope.userNo};
 	var userno = "<c:out value='${userNo}' />";
 	var askUserno = "<c:out value='${ask.userNo}' />";
 	var result = "<c:out value='${result}' />";
 	var loginUserVoteState = "<c:out value='${status.voteState}' />";
 	
-	if(userno != askUserno) {
+	if(userno != askUserno && nonLogin) {
 		if(result) {
 			if(loginUserVoteState == null || loginUserVoteState == "")  {
 				$("#like").click(function() {
@@ -186,7 +186,7 @@ $("#setReport").click(function() {
 	
 	
 	
-	if(userno != askUserno) {
+	if(userno != askUserno && nonLogin) {
 		if(result) {
 			if(loginUserVoteState == null || loginUserVoteState == "")  {
 			$("#hate").click(function() {
@@ -314,7 +314,7 @@ function insertComment() {
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
 					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
-					'<td style="width: 12%; padding: 5px; text-align: left;">' +
+					'<td style="width: 15%; padding: 5px; text-align: left;">' +
 					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
 					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
@@ -343,8 +343,8 @@ function updateComment(askComNo) {
     
 	$("[data-askComNo='"+askComNo+"']").css("display", "none");
 	$("[data-updateAskComNo='"+askComNo+"']").append('<td></td>' +
-			'<td style="width: 12%;"></td>' +
-			'<td style="width: 62%;">' +
+			'<td style="width: 15%;"></td>' +
+			'<td style="width: 58%;">' +
 			'<div class="form-inline text-center">' +
 			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
 			'<textarea rows="2" cols="60" class="form-control" id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
@@ -352,7 +352,7 @@ function updateComment(askComNo) {
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
 			'</td>' +
-			'<td style="width: 12%;"></td>' +
+			'<td style="width: 13%;"></td>' +
 			'<td style="width: 10%;"></td>');
 }
 
@@ -502,20 +502,23 @@ table, th {
 		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
 		<!-- <div class="clearfix"></div> -->
 		<hr>
-		<c:if test="${userNo eq ask.userNo }">
-			<span>작성자 : ${user.userNick }</span>
+		<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
+			<span class="confirmation">작성자 :
+				${user.userNick }</span>
 		</c:if>
-		<c:if test="${userNo ne ask.userNo }">
+		<c:if test="${userNo eq ask.userNo and empty sessionScope.userNo }">
+			<span class="confirmation">작성자 :
+				${user.userNick }</span>
+		</c:if>
+		<c:if test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
 			<span class="confirmation" onclick="message();">작성자 :
 				${user.userNick }</span>
 		</c:if>
 		| <span><fmt:formatDate value="${ask.askDate }"
 				pattern="yy-MM-dd HH:mm" /></span>
-		<c:if test="${ask.userNo ne userNo }">
-			<c:if test="${ask.userNo ne 0 }">
+		<c:if test="${ask.userNo ne userNo and !empty sessionScope.userNo  }">
 				<button id="scrap">스크랩</button>
 				<button id="report" class="popupOpen1">신고</button>
-			</c:if>
 		</c:if>
 		<span class="pull-right" >댓글 <span id="cntCom">${cntCom }</span></span>
 		<span class="pull-right">| 조회 ${ask.askHit } |&nbsp;</span>
@@ -627,9 +630,9 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 12%;">작성자</th>
-					<th style="width: 62%;">댓글</th>
-					<th style="width: 12%;">작성일</th>
+					<th style="width: 15%;">작성자</th>
+					<th style="width: 58%;">댓글</th>
+					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>
 				</tr>
 			</thead>

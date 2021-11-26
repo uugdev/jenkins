@@ -102,8 +102,12 @@ public class AskController {
 		logger.info("/ask/detail [GET]");
 
 		Ask ask = askService.getAskDetail(askNo);
-		int userNo = (Integer) session.getAttribute("userNo");
-
+		
+		int userNo = 0;
+        if(session.getAttribute("userNo") != null ){
+            userNo = (Integer) session.getAttribute("userNo");
+        }
+		
 		Vote status = askService.getLoginUserVoteState(userNo, askNo);
 		boolean result = askService.getVoteState(askNo, userNo);
 

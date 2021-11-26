@@ -99,18 +99,18 @@ var myChart2 = new Chart(context2, {
                 
                 backgroundColor: [
                     //색상
-                    'rgba(255, 99, 132, 1)',
+                    '#DE92C6',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)',
                     'rgba(153, 102, 255,1)',
                     'rgba(255, 159, 64, 1)',
                     'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255,1)',
-                    'rgba(255, 159, 64, 1)'
+                    '#6AC28B',
+                    '#C10D25',
+                    '#847E8C',
+                    '#BCB84A',
+                    '#035100'
                 ],
                 borderColor: [
                     //경계선 색상
@@ -300,7 +300,6 @@ var myChart2 = new Chart(context2, {
 #itemlist {
 	display: flex;
 	margin-bottom: 100px;
-	height: 250px;
 }
 
 #bill {
@@ -310,6 +309,7 @@ var myChart2 = new Chart(context2, {
 
 #ment {
 	width: 50%;
+	height: 250px;
 	flex: 1;
 	margin-left: 26px;
 	border: 1px solid #ccc;
