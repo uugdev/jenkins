@@ -328,7 +328,7 @@ body {
 	background: #f2f2f2;
 }
 
-.form {
+.formTable {
 	width: 900px;
 	background: #fff;
 	margin: auto;
@@ -401,7 +401,7 @@ body {
 	<p style="margin-top: 10px;">회원으로 가입하시면 다양한 기능을 이용하실 수 있습니다.</p>
 </div>
 
-<div class="form">
+<div class="formTable">
 <form action="/member/join" method="post">
 <table class="table">
 <tr>
