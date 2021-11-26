@@ -272,8 +272,26 @@ function initChart(cntY, cntN) {
 var cntCom = ${cntCom};
 
 function insertComment() {
+	
+	
 	var textarea = $("#askComContent").val();
 
+	if(textarea == '') {
+		
+		
+		action_popup.alert('댓글을 입력해주세요.');
+		$("#askComContent").focus();
+		
+		/* 닫는 창으로 꼭 필요함 */
+    	$(".modal_close").on("click", function () {
+	    action_popup.close(this);
+		});
+		
+		return;
+		
+	}
+	
+	
 	
 	$.ajax({
 		type: "post"
