@@ -428,6 +428,33 @@ function deleteComment(askComNo) {
 	});
 }
 </script>
+
+<script>
+
+$(document).ready(function() {
+
+	$('.layerpopup').click(function(e) {
+		var divTop = e.clientY - 20;
+		var divLeft = e.clientX - 70;
+		
+		$('#layer').css({
+			"top": divTop
+			, "left": divLeft
+			, "position": "absolute"
+			
+		}).show();
+	});
+	
+	$('#layerClose').click(function() {
+		$('#layer').css('display', 'none');
+	});
+
+
+})
+
+</script>
+
+
 <style type="text/css">
 .wrap {
 
@@ -689,7 +716,7 @@ table, th {
 					</c:if>
 					<c:if
 						test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
-						<span class="confirmation username" onclick="message();">작성자
+						<span class="confirmation username layerpopup">작성자
 							: ${user.userNick }</span>
 					</c:if>
 					<span class="bar">|</span> 
@@ -931,6 +958,13 @@ table, th {
 		</div>
 	</div>
 </div>
+
+<div id="layer">
+	<a href="<%=request.getContextPath() %>/member/detail?userNick=${user.userNick }">회원정보 보기</a><br>
+	<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }">쪽지 보내기</a><br>
+	<span id="layerClose">닫기</span>
+</div>
+
 
 <script>
 	$('.popupOpen1').on('click', function() {
