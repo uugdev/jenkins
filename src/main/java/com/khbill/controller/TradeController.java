@@ -41,7 +41,7 @@ public class TradeController {
 		
 	}
 	
-	//거래 게시판 조회수 기준 목록
+	//거래 게시판 목록 ajax
 	@RequestMapping(value = "/trade/list/ajax")
 	public String tradeHitList(
 				Model model
@@ -67,24 +67,6 @@ public class TradeController {
 		return "trade/ajaxlist";
 	}
 	
-	//거래 게시판 최신순 기준 목록
-	@RequestMapping(value = "/trade/list/latest")
-	public String tradeLatestList(
-				Model model
-				, Paging paramData
-			) {
-		
-		Paging paging = tradeService.getPaging(paramData);
-		
-		List<Trade> tradeList = tradeService.getTradeList(paging);
-		
-		model.addAttribute("tradeList", tradeList);
-		model.addAttribute("paging", paging);
-		model.addAttribute("res", true);
-		
-		return "trade/ajaxlist";
-	}
-	
 	//거래 게시글 상세보기
 	@RequestMapping(value = "/trade/detail")
 	public String tradeDetail(
@@ -104,7 +86,11 @@ public class TradeController {
 		TradeScrap tradeScrap = new TradeScrap();
 		tradeScrap.setTradeNo(tradeNo);
 		
-		int userNo = (Integer) session.getAttribute("userNo");
+		int userNo = 0;
+		if(session.getAttribute("userNo") != null) {
+			userNo = (Integer) session.getAttribute("userNo");
+		}
+		
 		tradeScrap.setUserNo(userNo);
 		
 		//스크랩 상태 전달

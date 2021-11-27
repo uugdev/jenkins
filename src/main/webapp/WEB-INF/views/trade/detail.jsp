@@ -343,10 +343,10 @@ function tradeDelete() {
 		<c:if test="${tradeDetail.USER_NO eq null }">
 			탈퇴(된)한 회원
 		</c:if>
-		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
+		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO || empty sessionScope.userNo  }">
 			${tradeDetail.USER_NICK }
 		</c:if>
-		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO }">
+		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
 			<a onclick='sendMessage()'>${tradeDetail.USER_NICK }</a>
 		</c:if>
 			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
