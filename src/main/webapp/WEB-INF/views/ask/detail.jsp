@@ -429,6 +429,11 @@ function deleteComment(askComNo) {
 }
 </script>
 <style type="text/css">
+.wrap {
+
+	background:#f2f2f2; 
+}
+
 table {
 	table-layout: fixed;
 }
@@ -443,11 +448,9 @@ table, th {
 }
 
 #item {
-	width: 500px;
-	height: 500px;
-	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin: 10px auto 30px;
+	padding-top: 50px;
+	border-top: 1px solid #000;
 }
 
 #votedate {
@@ -465,8 +468,7 @@ table, th {
 }
 
 #itemImg {
-	width: 500px;
-	height: 500px;
+	max-width: 500px;
 	object-fit: scale-down;
 }
 
@@ -490,67 +492,272 @@ table, th {
 
 .item-percentage {
 	line-height: 30px;
+	color: #f2f2f2 !important;
 }
+
+.recipeWrap {
+/*  	width: 700px; */
+	width: 1050px;
+	margin: 30px auto 0;
+	padding: 15px;
+	background: #fff;
+	padding: 15px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.logo {
+	margin: 25px 0 15px;
+	text-align: center;
+}
+
+.logo img {
+	width: 150px;
+}
+
+.title p:nth-child(1) {
+	font-size: 32px;
+	font-weight: 500;
+}
+
+.title .bar {
+	display: inline-block;
+	margin: 0 2px;
+	color: #777777;
+}
+
+.title .username {
+	cursor: pointer;
+}
+
+.btnWrap {
+	text-align: right;
+}
+
+.btnWrap button {
+	width: 83px;
+	height: 35px;
+	background: transparent;
+	border: 1px solid #333;
+	font-weight: 600;
+}
+
+
+.lineInfo {
+	margin-top: 20px;
+	border-bottom: 3px solid #585858;
+	border-top: 3px solid #585858;
+}
+
+.lineInfo ul {
+	padding: 10px 0;
+	margin: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+.lineInfo li {
+	float: left;
+	line-height: 30px;
+}
+
+.lineInfo li+li {
+	position: relative;
+}
+
+.lineInfo li+li:after {
+	position: absolute;
+/* 	top: 6px; */
+ 	top: 1px; 
+	left: 0;
+	content: '';
+	clear: both;
+	display: inline-block;
+	width: 1px;
+/* 	height: 15px; */
+ 	height: 28px; 
+	background: #333;
+}
+
+.lineInfo li:nth-child(1) {
+	width: 20%;
+}
+
+.lineInfo li:nth-child(2) {
+	width: 40%;
+}
+
+.lineInfo li:nth-child(3) {
+	width: 40%;
+}
+
+.lineInfo li dl {
+	margin: 0;
+	padding: 5px 0;
+}
+
+.lineInfo li dl dt, .lineInfo li dl dd {
+	float: left;
+}
+
+.lineInfo li dl dt {
+	width: 80px;
+}
+
+.lineInfo li dl dd {
+	text-align: left;
+	width: calc(100% - 80px);
+	word-break: break-all;
+}
+
+.barcode {
+	position: relative;
+	margin: 0 auto;
+	background: #fff;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	/* 	border-bottom-left-radius: 6px; */
+	/* 	border-bottom-right-radius: 6px; */
+/* 	width: 700px; */
+	width: 1050px;
+	padding: 20px 25px;
+}
+
+.barcode:before {
+	position: absolute;
+	top: 0;
+	left: 16px;
+	content: '';
+	clear: both;
+	display: inline-block;
+/* 	width: 665px; */
+	width: 1050px;
+	border-top: 3px dashed #f2f2f2;
+	content: '';
+}
+
+.barcode img {
+	width: 100%;
+}
+
+.bottom {
+	position: absolute;
+	bottom: -18px;
+	left: -1px;
+	width: 100%;
+	height: 21px;
+	background-image: url("/resources/img/bottom.png");
+	background-repeat: repeat;
+	background-repeat-y: no-repeat;
+}
+
+.priceWrap {
+	display: flex;
+	justify-content: space-between;
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.priceText {
+	text-align: left;
+	margin-left: 20px;
+}
+
+.price {
+	text-align: right;
+	margin-right: 20px;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-	<div class="container">
+	<div class="container" style="background: #f2f2f2;">
+		<div class="recipeWrap">
+			<div class="logo">
+				<img alt="#" src="https://i.imgur.com/if5laLF.png">
+			</div>
+			<div class="title">
+				<p style="text-align: center;">${ask.askTitle }</p>
+				<p>
+					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
+						<span class="confirmation username">작성자 : ${user.userNick }</span>
+					</c:if>
+					<c:if test="${userNo eq ask.userNo and empty sessionScope.userNo }">
+						<span class="confirmation username">작성자 : ${user.userNick }</span>
+					</c:if>
+					<c:if
+						test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
+						<span class="confirmation username" onclick="message();">작성자
+							: ${user.userNick }</span>
+					</c:if>
+					<span class="bar">|</span> 
+					<span>
+						<fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
+					</span> 
+					<span class="bar">|</span>
+					<span>조회 <span id="cntCom">${ask.askHit }</span>
+					</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
+				</p>
+				<div class="btnWrap">
+					<c:if
+						test="${ask.userNo ne userNo and !empty sessionScope.userNo  }">
+						<button id="scrap">스크랩</button>
+						<button id="report" class="popupOpen1">신고</button>
+					</c:if>
+				</div>
 
-		<h1 style="text-align: center; margin-top: 50px;">${ask.askTitle }</h1>
-		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
-		<!-- <div class="clearfix"></div> -->
-		<hr>
-		<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
-			<span class="confirmation">작성자 :
-				${user.userNick }</span>
-		</c:if>
-		<c:if test="${userNo eq ask.userNo and empty sessionScope.userNo }">
-			<span class="confirmation">작성자 :
-				${user.userNick }</span>
-		</c:if>
-		<c:if test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
-			<span class="confirmation" onclick="message();">작성자 :
-				${user.userNick }</span>
-		</c:if>
-		| <span><fmt:formatDate value="${ask.askDate }"
-				pattern="yy-MM-dd HH:mm" /></span>
-		<c:if test="${ask.userNo ne userNo and !empty sessionScope.userNo  }">
-				<button id="scrap">스크랩</button>
-				<button id="report" class="popupOpen1">신고</button>
-		</c:if>
-		<span class="pull-right" >댓글 <span id="cntCom">${cntCom }</span></span>
-		<span class="pull-right">| 조회 ${ask.askHit } |&nbsp;</span>
+			</div>
+			<div class="lineInfo">
+				<ul>
+					<li>
+						<dl class="clearfix">
+							<dt>NO</dt>
+							<dd>${ask.askNo }</dd>
+						</dl>
+					</li>
+					<li>
+						<dl class="clearfix">
+							<dt>BRAND</dt>
+							<dd>${item.itemBrand}</dd>
+						</dl>
+					</li>
+					<li>
+						<dl class="clearfix">
+							<dt>NAME</dt>
+							<dd>${item.itemName }</dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
 
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th style="width: 33%;">브랜드</th>
-					<th style="width: 33%;">상품명</th>
-					<th style="width: 33%;">가격</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>${item.itemBrand }</td>
-					<td>${item.itemName }</td>
-					<td><fmt:formatNumber type="number" maxFractionDigits="3"
-							value="${item.itemPrice }" />원</td>
-				</tr>
-			</tbody>
-		</table>
+			<div id="item">
+				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
+			</div>
 
-		<div id="item">
-			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
+
+			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div>
+			<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">	
+				<p class="priceText">PRICE</p>
+				<p class="price">
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${item.itemPrice }"/>
+				</p>
+			</div>
+
+
+
+		</div>
+		<div class="barcode">
+			<img alt="#" src="/resources/img/askBarcode.png">
+
+			<div class="bottom"></div>
 		</div>
 
 
-		<div style="text-align: center;">${ask.askContent }</div>
 
 		<hr>
-
-
 
 		<div id="votedate">
 			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
@@ -649,7 +856,7 @@ table, th {
 								${askComment.USER_NICK }</td>
 						</c:if>
 						<c:if test="${askComment.USER_NICK eq null}">
-							<td class ="pull-left">탈퇴한 회원입니다</td>
+							<td class="pull-left">탈퇴한 회원입니다</td>
 						</c:if>
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
@@ -687,7 +894,8 @@ table, th {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center" style="margin-bottom: 100px; margin-top: 50px;">
+		<div class="text-center"
+			style="margin-bottom: 100px; margin-top: 50px;">
 			<a href="/ask/list"><button class="btn btn-default">목록</button></a>
 			<c:if test="${userNo eq ask.userNo }">
 				<a href="/ask/update?askNo=${ask.askNo }"><button
