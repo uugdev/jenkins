@@ -6,14 +6,14 @@
 <mapper namespace="com.khbill.dao.face.AdminReviewReportDao">
 
 	<sql id="selectReviewReport">
-		SELECT 
+        SELECT 
             X.report_no, X.report_category, X.report_content, X.respondent_no
             , R.review_no, U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
-        FROM zreview R
-        INNER JOIN zuser U 
-        	ON U.user_no = R.user_no
-        INNER JOIN zreview_report X 
-        	ON X.review_no = R.review_no
+        FROM zreview_report X 
+        INNER JOIN zreview R
+            ON X.review_no = R.review_no
+        INNER JOIN zuser U
+            ON U.user_no = R.user_no
 	</sql>
 	
 	<sql id="whereReviewReportTitleSearch">
@@ -22,12 +22,12 @@
 
 	<select id="selectReviewReportList" parameterType="com.khbill.util.Paging" resultType="HashMap">
 		SELECT * FROM (
-			SELECT rownum rnum, R.* FROM (
+			SELECT rownum rnum, X.* FROM (
 		    	<include refid="selectReviewReport"/>   
 		    	<include refid="whereReviewReportTitleSearch"/>   
 		        ORDER BY report_no DESC
-		    ) R
-		) ZREVIEW
+		    ) X
+		) zreview_report
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 

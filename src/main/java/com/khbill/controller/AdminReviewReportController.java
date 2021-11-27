@@ -110,14 +110,14 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 	//허위 신고 : 신고테이블에서 데이터 삭제
 	@RequestMapping(value = "/delete")
 	public String delete(int[] reportNo) {
-		logger.info("/admin/review/delete");
+		logger.info("/admin/report/review/delete");
 		
 		int size = reportNo.length;
 		for(int i=0; i<size; i++) {
 
 			adminReviewReportService.setReviewReportDelete(reportNo[i]);
 		}
-		logger.info("reportNo{}", reportNo);
+		logger.info("신고 번호: {}", reportNo);
 		
 		return "redirect:/admin/report/review/list";
 	}

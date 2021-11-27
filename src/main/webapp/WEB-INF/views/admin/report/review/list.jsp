@@ -28,69 +28,33 @@ $(document).ready(function(){
 	    }
 	});
 
+		
 	
 	$("#btnDelete").click(function(){
-		var result = confirm("허위 신고글을 삭제하시겠습니까?")
+		var result = confirm("허위 신고글을 삭제하시겠습니까??????")
 		var deleteReview = [];
    
-	    $('.check:checked').each(function(){
-	    	deleteReview.push($(this).val());
+		$('.check:checked').each(function(){
+			deleteReview.push($(this).val());
 	    });
+	    
 		if( result == true ){
 			location.href="/admin/report/review/delete?reportNo="+deleteReview;
 		} else {
 			return false;
 		}
 	})
-	
-	$("#btnSearch").click(function() {
-		location.href="/admin/report/review/list?search="+$("#search").val();
-	});
-	$("#search").keypress(function(event){
-	     if ( event.which == 13 ) {
-	         $("#btnSearch").click();
-	         return false;
-	     }
-	});
 
 	$("#btnSearch").click(function() {
 		location.href="/admin/report/review/list?search="+$("#search").val();
 	});
+	
 	$("#search").keypress(function(event){
 	     if ( event.which == 13 ) {
 	         $("#btnSearch").click();
 	         return false;
 	     }
 	});
-	
-// 	function statusToY(reviewNo) {
-		
-		
-		
-// 		$.ajax({
-// 			type: "post"
-// 			, url: "/admin/review/report/list/statustoy"
-// 			, dataType: "json"
-// 			, data: {
-// 				reviewNo: reviewNo
-// 			}
-// 			, success: function(data){
-// 				if(data.changeStatus) {
-					
-// 					$(".btnStatusN"+reviewNo).html('완료');
-// 					$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
-					
-// 					console.log("바껴라")
-					
-// 				} else {
-// 					alert("신고 처리 완료 실패");
-// 				}
-// 			}
-// 			, error: function() {
-// 				console.log("error");
-// 			}
-// 		});
-// 	}
 })
 </script>
 
@@ -175,6 +139,18 @@ label {
 	font-weight: normal !important;
 }
 
+.ellipsis2 {
+ 	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+/* 	line-height: 1.2em; */
+/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 100px;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -204,7 +180,7 @@ label {
 </tr>
 <c:forEach items="${reviewReportList }" var="review">
 <tr>
-	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
+	<td><input type="checkbox" name="select" id="${review.REPORT_NO }" value="${review.REPORT_NO }" class="check" /></td>
 	<td><label for="${review.REPORT_NO}">${review.REPORT_NO }</label></td>
 	
 	<c:if test="${review.USER_NO eq review.RESPONDENT_NO }">
@@ -223,9 +199,9 @@ label {
 			</c:when>
 		</c:choose>
 	</c:if>
-	<td><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></td>
+	<td><label for="${review.REPORT_NO }" class="ellipsis2">${review.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></label></td>
+	<td><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reviewNo=${review.REVIEW_NO }" class="ellipsis2">${review.REVIEW_TITLE }</a></label></td>
 		
 	<c:if test="${review.USER_NO ne 0}">
 		<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
@@ -255,6 +231,25 @@ label {
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
+
+<!-- <!-- 신고 처리 코드 영역 --> -->
+<!-- <div class="popupWrap1 hide1"> -->
+<!-- 	<div class="popup1"> -->
+<!-- 		<div class="title"> -->
+<!-- 			<p>신고 내용</p><span class="close1">❌</span> -->
+<!-- 		</div> -->
+<!-- 		<select id="reportCategory" name="reportCategory" class="select"> -->
+<!-- 			<option value="A">부적절한 홍보 게시글</option> -->
+<!-- 			<option value="B">음란성 또는 청소년에게 부적합한 내용</option> -->
+<!-- 			<option value="C">명예훼손/사생활 침해 및 저작권침해등</option> -->
+<!-- 			<option value="D">기타</option> -->
+<!-- 		</select>	 -->
+<!-- 		<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea> -->
+<!-- 		<div class="btnWrap1"> -->
+<!-- 			<button id="setReport">보내기</button> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
