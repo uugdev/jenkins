@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.khbill.dao.face.AdminAskReportDao">
+
+	<sql id="selectAskReport">
+		SELECT 
+            X.report_no, X.report_category, X.report_content, X.respondent_no
+            , A.ask_no, U.user_no, U.user_nick, A.ask_title, X.report_date, X.report_status
+        FROM zask_report X 
+        INNER JOIN zask A
+            ON X.ask_no = A.ask_no
+        INNER JOIN zuser U
+            ON U.user_no = A.user_no
+	</sql>
+	
+	<sql id="whereAskReportTitleSearch">
+		WHERE ask_title LIKE '%' || #{search} || '%'
+	</sql>
+	
+	<select id="selectAskReportList" parameterType="com.khbill.util.Paging" resultType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, X.* FROM (
+		    	<include refid="selectAskReport"/>   
+		    	<include refid="whereAskReportTitleSearch"/>   
+		        ORDER BY report_no DESC
+			    ) X
+			) zask_report
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectAskReport"/>
+			<include refid="whereAskReportTitleSearch"/>
+		)
+	</select>
+	
+	<update id="updateAskReportByStatusY" parameterType="com.khbill.dto.AskReport">
+		UPDATE zask_report
+		SET report_status = 'y'
+		WHERE ask_no = #{askNo }
+	</update>
+	
+	<select id="selectCntAskReportByStatusY" parameterType="com.khbill.dto.AskReport" resultType="int">
+		SELECT count(*) FROM zask_report
+		WHERE ask_no = #{askNo } AND report_status = 'y'
+	</select>
+	
+	<update id="updateAskReportByStatusN" parameterType="com.khbill.dto.AskReport">
+		UPDATE zask_report
+		SET report_status = 'n'
+		WHERE ask_no = #{askNo }
+	</update>
+	
+	<select id="selectCntAskReportByStatusN" parameterType="com.khbill.dto.AskReport" resultType="int">
+		SELECT count(*) FROM zask_report
+		WHERE ask_no = #{askNo } AND report_status = 'n'
+	</select>	
+	
+	<delete id="deleteAskReportByReportNo" parameterType="int">
+		DELETE zask_report
+		WHERE report_no = #{reportNo }
+	</delete>
+
+</mapper>

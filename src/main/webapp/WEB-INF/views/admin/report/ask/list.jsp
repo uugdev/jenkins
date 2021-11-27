@@ -1,0 +1,231 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:import url="/WEB-INF/views/layout/head.jsp" />
+<c:import url="/WEB-INF/views/layout/adminheader.jsp" />
+<!-- header end -->
+
+<!-- 개별 스타일 및 스크립트 영역 -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$(document).on('click', '#selectAll', function() {
+	    if($('#selectAll').is(':checked')){
+	       $('.check').prop('checked', true);
+	    } else {
+	       $('.check').prop('checked', false);
+	    }
+	});
+	
+	$(document).on('click', '.check', function() {
+	    if($('input[class=check]:checked').length==$('.check').length){
+	        $('#selectAll').prop('checked', true);
+	    }else{
+	       $('#selectAll').prop('checked', false);
+	    }
+	});
+
+		
+	
+	$("#btnDelete").click(function(){
+		var result = confirm("허위 신고글을 삭제하시겠습니까?")
+		var deleteAsk = [];
+   
+		$('.check:checked').each(function(){
+			deleteAsk.push($(this).val());
+	    });
+	    
+		if( result == true ){
+			location.href="/admin/report/ask/delete?reportNo="+deleteAsk;
+		} else {
+			return false;
+		}
+	})
+
+	$("#btnSearch").click(function() {
+		location.href="/admin/report/ask/list?search="+$("#search").val();
+	});
+	
+	$("#search").keypress(function(event){
+	     if ( event.which == 13 ) {
+	         $("#btnSearch").click();
+	         return false;
+	     }
+	});
+})
+</script>
+
+<script type="text/javascript">
+function statusToY(askNo) {
+		
+	console.log("ajax 처리 전")
+	
+	$.ajax({
+		type: "post"
+		, url: "/admin/report/ask/list/statustoy"
+		, dataType: "json"
+		, data: {
+			askNo: askNo
+		}
+		, success: function(data){
+			if(data.changeStatus) {
+				
+				$(".btnStatusN"+askNo).before('<button class="btnStatusY'+ askNo +'" onclick="statusToN('+ askNo +');">완료</button>');
+				$(".btnStatusN"+askNo).remove();
+				
+				console.log("완료로 바껴라")
+				
+			} else {
+				alert("신고 처리 완료 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+	
+function statusToN(askNo) {
+	
+	$.ajax({
+		type: "post"
+		, url: "/admin/report/ask/list/statuston"
+		, dataType: "json"
+		, data: {
+			askNo: askNo
+		}
+		, success: function(data){
+			if(data.changeStatus) {
+				
+				$(".btnStatusY"+askNo).before('<button class="btnStatusN'+ askNo +'" onclick="statusToY('+ askNo +');" >미완료</button>');
+				$(".btnStatusY"+askNo).remove();
+				
+				console.log(".btnStatusY"+askNo);
+				console.log("미완료로 바껴라")
+				
+			} else {
+				alert("신고 처리 미완료 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+</script>
+
+
+<style type="text/css">
+
+table {
+	text-align: center;
+	margin: auto;
+	margin-top: 10px;
+}
+
+th, td {
+	text-align: center;
+}
+
+label {
+	font-weight: normal !important;
+}
+
+.ellipsis2 {
+ 	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+/* 	line-height: 1.2em; */
+/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 100px;
+}
+</style>
+
+<!-- 개별 영역 끝 -->
+
+
+<div class="wrap">
+<div class="container">
+
+<h3>질문 신고게시판 목록</h3>
+<hr>
+<span class="pull-left">총 ${paging.totalCount }개</span>
+<div class="pull-right" style="width: 300px; margin: 0 auto;">
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
+	<button id="btnSearch" class="pull-right btn">검색</button>
+</div>
+<div class="clearfix"></div>
+<table class="table table-hover table-condensed">
+<tr>
+	<th><input type="checkbox" name="select" id="selectAll" /></th>
+	<th>신고글 번호</th>
+	<th>신고사유</th>
+	<th>신고 내용</th>
+	<th>게시글 제목</th>
+	<th>피신고자</th>
+	<th>신고일</th>
+	<th>처리여부</th>
+</tr>
+<c:forEach items="${askReportList }" var="ask">
+<tr>
+	<td><input type="checkbox" name="select" id="${ask.REPORT_NO }" value="${ask.REPORT_NO }" class="check" /></td>
+	<td><label for="${ask.REPORT_NO}">${ask.REPORT_NO }</label></td>
+	
+	<c:if test="${ask.USER_NO eq ask.RESPONDENT_NO }">
+		<c:choose>
+			<c:when test="${ask.REPORT_CATEGORY eq 'A' }">
+				<td>부적절한 홍보 게시글</td>
+			</c:when>
+			<c:when test="${ask.REPORT_CATEGORY eq 'B' }">
+				<td>음란성 또는 청소년에게 부적합한 내용</td>
+			</c:when>
+			<c:when test="${ask.REPORT_CATEGORY eq 'C' }">
+				<td>명예훼손/사생활 침해 및 저작권침해등</td>
+			</c:when>
+			<c:when test="${ask.REPORT_CATEGORY eq 'D' }">
+				<td>기타</td>
+			</c:when>
+		</c:choose>
+	</c:if>
+	<td><label for="${ask.REPORT_NO }" class="ellipsis2">${ask.REPORT_CONTENT }</label></td>
+	
+	<td><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
+		
+	<c:if test="${ask.USER_NO ne 0}">
+		<td><label for="${ask.ASK_NO }">${ask.USER_NICK }</label></td>
+	</c:if>
+	<c:if test="${ask.USER_NO eq 0}">
+		<td>탈퇴한 회원입니다</td>
+	</c:if>
+			
+	<td><fmt:formatDate value="${ask.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
+	
+	<c:if test="${ask.REPORT_STATUS == 'n' }">
+		<td><button class="btnStatusN${ask.ASK_NO }" onclick="statusToY(${ask.ASK_NO});" >미완료</button></td>
+	</c:if>
+	<c:if test="${ask.REPORT_STATUS == 'y' }">
+		<td><button class="btnStatusY${ask.ASK_NO }" onclick="statusToN(${ask.ASK_NO});">완료</button></td>
+	</c:if>
+	
+</tr>
+</c:forEach>
+
+</table>
+<button id="btnDelete" class="pull-left">삭제</button>
+
+<div class="clearfix"></div>
+
+<c:import url="/WEB-INF/views/layout/paging.jsp" />
+
+</div><!-- .container end -->
+</div><!-- .wrap end -->
+
+<!-- footer start -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
