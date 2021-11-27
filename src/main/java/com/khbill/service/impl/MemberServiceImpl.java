@@ -111,6 +111,11 @@ public class MemberServiceImpl implements MemberService {
 	public void setUserTempPwUpdate(User tempUser) {
 		memberDao.updateUserTempPw(tempUser);
 	}
+	
+	@Override
+	public User getUserByUserNick(String userNick) {
+		return memberDao.selectUserByUserNick(userNick);
+	}
 
 	
 }

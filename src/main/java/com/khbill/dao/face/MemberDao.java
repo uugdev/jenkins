@@ -119,5 +119,13 @@ public interface MemberDao {
 	 */
 	public void updateUserTempPw(User tempUser);
 
+	/**
+	 * 유저 닉네임으로 유저 정보를 받아온다
+	 * 
+	 * @param userNick
+	 * @return 유저 정보
+	 */
+	public User selectUserByUserNick(String userNick);
+
 
 }

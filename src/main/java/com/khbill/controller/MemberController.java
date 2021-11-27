@@ -324,4 +324,14 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping(value="/member/detail")
+	public void memberInfo(@RequestParam(value="userNick") String userNick, Model model) {
+		
+		User user = memberService.getUserByUserNick(userNick);
+		
+		logger.info("user정보 : {}", user);
+		model.addAttribute("user", user);
+		
+	}
+	
 }

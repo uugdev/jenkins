@@ -119,6 +119,14 @@ public interface MemberService {
 	 */
 	public void setUserTempPwUpdate(User tempUser);
 
+	/**
+	 * 유저 닉네임으로 유저 정보 조회
+	 * 
+	 * @param userNick
+	 * @return 유저 정보
+	 */
+	public User getUserByUserNick(String userNick);
+
 
 
 }

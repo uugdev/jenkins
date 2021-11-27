@@ -82,6 +82,12 @@
 		WHERE user_no = #{userNo}
 	</update>
 	
+	<select id="selectUserByUserNick" parameterType="String" resultType="com.khbill.dto.User">
+		SELECT user_nick, join_date, user_point
+		FROM zuser
+		WHERE user_nick = #{userNick }
+	</select>
+	
 	
 	
 </mapper>
