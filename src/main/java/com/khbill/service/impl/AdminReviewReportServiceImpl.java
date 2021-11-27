@@ -66,8 +66,6 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	@Override
 	public HashMap<String, Object> getReviewDetail(Review review) {
 		
-//		adminReviewReportDao.updatehit(reviewReport); //조회수 증가
-		
 		return adminReviewReportDao.selectReviewByReviewNo(review);
 	}
 

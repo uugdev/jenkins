@@ -16,10 +16,36 @@
   margin-left: auto;
   margin-right: auto;
 }
+.container {
+	padding-top: 50px;
+}
 </style>
+
 
 <div class="wrap">
 <div class="container">
+
+<div class="list-group">
+  <div class="list-group-item list-group-item-danger">
+		<c:if test="${review.REPORT_NO eq review.RESPONDENT_NO }">
+			<c:choose>
+				<c:when test="${review.REPORT_CATEGORY eq 'A' }">
+					<td>부적절한 홍보 게시글</td>
+				</c:when>
+				<c:when test="${review.REPORT_CATEGORY eq 'B' }">
+					<td>음란성 또는 청소년에게 부적합한 내용</td>
+				</c:when>
+				<c:when test="${review.REPORT_CATEGORY eq 'C' }">
+					<td>명예훼손/사생활 침해 및 저작권침해등</td>
+				</c:when>
+				<c:when test="${review.REPORT_CATEGORY eq 'D' }">
+					<td>기타</td>
+				</c:when>
+			</c:choose>
+		</c:if>
+  </div>
+  <div class="list-group-item"><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></div>
+</div> 
 
 <h1 style="text-align: center;">${review.REVIEW_TITLE }</h1>
 <hr>
@@ -29,6 +55,20 @@
 <span><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
 
 <span class="pull-right">조회수 ${review.REVIEW_HIT }</span>
+<br>
+
+
+<!-- <table class="table table-hover"> -->
+<!-- 	<tr> -->
+<!-- 		<th>신고 사유</th> -->
+<!-- 		<td> -->
+<!-- 		</td> -->
+<!-- 	</tr> -->
+<!-- 	<tr> -->
+<!-- 		<th>신고 내용</th> -->
+<%-- 		<td><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></td> --%>
+<!-- 	</tr> -->
+<!-- </table> -->
 
 <table class="table table-striped table-hover">
 	<thead>

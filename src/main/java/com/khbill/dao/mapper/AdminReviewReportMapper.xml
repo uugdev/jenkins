@@ -59,22 +59,19 @@
 		SELECT count(*) FROM zreview_report
 		WHERE review_no = #{reviewNo } AND report_status = 'n'
 	</select>	
-
-	<update id="updatehit" parameterType="com.khbill.dto.Review">
-		UPDATE ZREVIEW
-		SET review_hit = review_hit + 1
-		WHERE review_no = #{reviewNo }
-	</update>
 	
 	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.Review" resultType="HashMap">
 		SELECT * FROM (
-	        SELECT 
-	        	review_no, item_no, U.user_no, user_nick, file_no
-	        	, review_title, review_content, review_date, review_hit
-	        FROM zuser U
-	        INNER JOIN zreview R
-	            ON U.user_no = R.user_no
-	        ORDER BY user_no
+		    SELECT 
+		        R.review_no, item_no, U.user_no, user_nick, file_no
+		        , review_title, review_content, review_date, review_hit
+		        , X.report_category, X.report_content
+		    FROM zuser U
+		    INNER JOIN zreview R
+		        ON U.user_no = R.user_no
+		    INNER JOIN zreview_report X
+		       ON R.review_no = X.review_no
+		    ORDER BY user_no
 		) ZREVIEW
 		WHERE review_no = #{reviewNo } 
 	</select>
