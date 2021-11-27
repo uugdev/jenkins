@@ -33,9 +33,26 @@ $(document).ready(function(){
 
 <style type="text/css">
 
+.detail {
+	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: 50px auto;
+}
+
+.info {
+	display: flex;
+	justify-content: space-between;
+	font-size: 15px;
+	width: 50%;
+	margin: auto;
+	color: #5F6062;
+}
+
 #content {
 	vertical-align: middle;
 	height: 400px;
+	background: #f2f2f2;
 }
 
 td, th {
@@ -53,23 +70,29 @@ th{
 <div class="wrap">
 <div class="container">
 
-<h4>${notice.noticeTitle }</h4>
-<hr>
-<span class="pull-left">번호  ${notice.noticeNo } | 작성자  ${adminNick }</span>
-<span class="pull-right">조회수  ${notice.noticeHit } | 작성일  <fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd HH:mm:s"/></span>
-<div class="clearfix"></div>
-<table class="table table-striped">
+<div class="detail">
+<h2 style="margin-bottom: 40px;">${notice.noticeTitle }</h2>
+
+<div class="info">
+<span>번호  ${notice.noticeNo }</span>|
+<span>작성자  ${adminNick }</span>|
+<span>조회수  ${notice.noticeHit }</span>|
+<span>작성일  <fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd HH:mm:s"/></span>
+</div><!-- .info end -->
+
+<table class="table">
 <tr>
 	<td id="content">${notice.noticeContent }</td>
 </tr>
 
 </table>
 <div class="text-center">
-	<button id="btnUpdate">수정</button>
-	<button id="btnDelete">삭제</button>
-	<button id="btnList">목록으로</button>
+	<button id="btnUpdate" class="btn">수정</button>
+	<button id="btnDelete" class="btn">삭제</button>
+	<button id="btnList" class="btn">목록으로</button>
 </div><!-- .text-center end -->
 
+</div><!-- .detail end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

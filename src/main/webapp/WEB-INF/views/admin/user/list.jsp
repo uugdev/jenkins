@@ -116,18 +116,39 @@ function setUnablePeriodNull(clicked_id){
 
 <style type="text/css">
 
-table {
+.title {
+	margin: 50px 0 30px 0;
+}
+
+.tableList {
 	text-align: center;
+	width: 100%;
+	background: #fff;
 	margin: auto;
+	margin-bottom: 50px;
+	padding-bottom: 20px;
+}
+
+.table {
 	margin-top: 10px;
 }
 
-th, td {
-	text-align: center;
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 50px;
+	vertical-align: middle;
 }
 
 label {
 	font-weight: normal !important;
+}
+
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
 }
 
 </style>
@@ -137,8 +158,11 @@ label {
 <div class="wrap">
 <div class="container">
 
-<h3>회원 목록</h3>
-<hr>
+<div class="title">
+	<h1>회원 목록</h1>
+</div>
+
+<div class="tableList">
 <span class="pull-left">총 ${paging.totalCount }명</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
 	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" placeholder="닉네임을 검색하세요" style="width: 80%;"/>
@@ -181,16 +205,16 @@ label {
 		<c:if test="${empty i.unablePeriod }">없음</c:if>
 		<c:if test="${not empty i.unablePeriod }">~<fmt:formatDate value="${i.unablePeriod }" pattern="yyyy-MM-dd"/></c:if>
 	</td>
-	<td><button id="${i.userNo }" onclick="setUnablePeriod(this.id)">차단하기</button></td>
-	<td><button id="${i.userNo }" onclick="setUnablePeriodNull(this.id)">차단취소</button></td>
+	<td><button id="${i.userNo }" class="btn" onclick="setUnablePeriod(this.id)">차단하기</button></td>
+	<td><button id="${i.userNo }" class="btn" onclick="setUnablePeriodNull(this.id)">차단취소</button></td>
 </tr>
 </c:forEach>
 </table>
-<button id="btnDelete" class="pull-left">삭제</button>
+<button id="btnDelete" class="pull-left btn">삭제</button>
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
-
+</div><!-- .table end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->
