@@ -123,9 +123,9 @@ public class TradeController {
 		logger.info("file - {}", file);
 		logger.info("trade - {}", trade);
 		
-		tradeService.setTradeWrite(session, file, trade);
+		String tradeNo = tradeService.setTradeWrite(session, file, trade);
 		
-		return "redirect:/trade/list";
+		return "redirect:/trade/detail?tradeNo=" + tradeNo;
 	}
 	
 	//거래 게시글 업데이트.GET

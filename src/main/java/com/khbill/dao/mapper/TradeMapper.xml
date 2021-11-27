@@ -254,4 +254,12 @@
         WHERE user_no = #{userNo }
 	</select>
 	
+	<select id="selectTradeNoByUserNo" parameterType="int" resultType="String">
+		SELECT trade_no
+		FROM ztrade
+		WHERE user_no = #{userNo }
+        AND rownum = 1
+        ORDER BY trade_no DESC
+	</select>
+	
 </mapper>

@@ -71,7 +71,7 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public void setTradeWrite(HttpSession session, MultipartFile file, Trade trade) {
+	public String setTradeWrite(HttpSession session, MultipartFile file, Trade trade) {
 		
 		int userNo = (int) session.getAttribute("userNo");
 		trade.setUserNo(userNo);
@@ -82,7 +82,8 @@ public class TradeServiceImpl implements TradeService {
 			trade.setFileNo(null);
 			
 			tradeDao.insertTrade(trade);
-			return;
+			
+			return tradeDao.selectTradeNoByUserNo(userNo);
 		}
 		
 		//파일이 저장될 경로(RealPath)
@@ -129,6 +130,8 @@ public class TradeServiceImpl implements TradeService {
 		trade.setFileNo(fileNo);
 		
 		tradeDao.insertTrade(trade);
+		
+		return tradeDao.selectTradeNoByUserNo(userNo);
 		
 	}
 

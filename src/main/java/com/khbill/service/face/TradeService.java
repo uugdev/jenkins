@@ -59,8 +59,9 @@ public interface TradeService {
 	 * @param session - 유저 넘버가 저장되어 있는 세션
 	 * @param file - 전송된 file
 	 * @param trade - 전송받은 title, content
+	 * @return tradeNo
 	 */
-	public void setTradeWrite(HttpSession session, MultipartFile file, Trade trade);
+	public String setTradeWrite(HttpSession session, MultipartFile file, Trade trade);
 	
 	/**
 	 * 입력받은 데이터로 거래 게시글 댓글 작성
