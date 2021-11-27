@@ -1,11 +1,7 @@
 package com.khbill.controller;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.khbill.dto.ReviewComment;
 import com.khbill.dto.Trade;
-import com.khbill.dto.TradeScrap;
 import com.khbill.service.face.AdminTradeService;
 import com.khbill.service.face.TradeService;
 import com.khbill.util.Paging;
@@ -36,9 +30,9 @@ public class AdminTradeController {
 				, Paging paramData
 			) {
 		
-		Paging paging = tradeService.getPaging(paramData);
+		Paging paging = adminTradeService.getPaging(paramData);
 		
-		List<Trade> tradeList = tradeService.getTradeList(paging);
+		List<Trade> tradeList = adminTradeService.getTradeList(paging);
 		
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("paging", paging);

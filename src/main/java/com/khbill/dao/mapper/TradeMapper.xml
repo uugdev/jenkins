@@ -36,10 +36,10 @@
                 AND F.file_no(+) = T.file_no
 		        AND trade_title LIKE '%' || #{search } || '%'
      		    <choose>
-		        <when test="target == 1">
+		        <when test="target == 0">
 		        ORDER BY trade_hit DESC
 		        </when>
-		        <when test="target == 2">
+		        <when test="target == 1">
 		        ORDER BY trade_no DESC
 		        </when>
 				<otherwise>
@@ -55,6 +55,14 @@
 		SELECT count(*) FROM (
 			<include refid="selectTrade"/>
 			<include refid="whereTitleSearch"/>
+   		    <choose>
+	        <when test="target == 0">
+	        	AND trade_category = 0
+	        </when>
+	        <when test="target == 1">
+	        	AND trade_category = 1
+	        </when>
+	        </choose>
 		)
 	</select>
 	
