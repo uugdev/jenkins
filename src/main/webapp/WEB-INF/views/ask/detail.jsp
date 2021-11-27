@@ -159,6 +159,8 @@ $("#setReport").click(function() {
 								$("#like")
 								.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote')
 								.addClass('success');
+								$("#like").off("click");
+								$("#hate").off("click");
 								
 								//투표수 적용
 								$("#cntY").html(data.cntY);
@@ -205,6 +207,8 @@ $("#setReport").click(function() {
 							$("#hate")
 							.attr("src", "https://i.imgur.com/C4qO9bG.png").removeClass('vote')
 							.addClass('success');
+							$("#hate").off("click");
+							$("#like").off("click");
 						
 							//투표수 적용
 							$("#cntN").html(data.cntN);
