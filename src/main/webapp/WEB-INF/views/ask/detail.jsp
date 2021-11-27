@@ -457,7 +457,7 @@ $(document).ready(function() {
 
 <style type="text/css">
 .wrap {
-
+	margin-bottom: 50px;
 	background:#f2f2f2; 
 }
 
@@ -470,38 +470,39 @@ table, th {
 }
 
 .success {
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 }
 
 #item {
-	margin: 10px auto 30px;
-	padding-top: 50px;
+	margin: 15px auto 15px;
+	padding: 50px 0;
 	border-top: 1px solid #000;
+	display: flex;
 }
 
 #votedate {
 	text-align: center;
+	font-size: 20px
 }
 
 .check {
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
-	width: 500px;
+	width: 600px;
 	margin: 0 auto;
-	width: 500px;
 	text-align: center;
 }
 
 #itemImg {
-	max-width: 500px;
+	
 	object-fit: scale-down;
 }
 
 .vote {
-	width: 45px;
-	height: 45px;
+	width: 60px;
+	height: 60px;
 }
 
 .cnt {
@@ -511,6 +512,7 @@ table, th {
 
 #chartBox {
 	width: 300px;
+	margin: 15px;
 }
 
 .item-wrapper {
@@ -525,10 +527,10 @@ table, th {
 .recipeWrap {
 /*  	width: 700px; */
 	width: 1050px;
-	margin: 30px auto 0;
+	margin: 50px auto 0;
 	padding: 15px;
 	background: #fff;
-	padding: 15px;
+	padding: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
 }
@@ -539,17 +541,18 @@ table, th {
 }
 
 .logo img {
-	width: 150px;
+	width: 200px;
 }
 
 .title p:nth-child(1) {
 	font-size: 32px;
 	font-weight: 500;
+	margin: 30px 0;
 }
 
 .title .bar {
 	display: inline-block;
-	margin: 0 2px;
+	margin: 0 15px;
 	color: #777777;
 }
 
@@ -567,6 +570,7 @@ table, th {
 	background: transparent;
 	border: 1px solid #333;
 	font-weight: 600;
+	margin-left: 3px;
 }
 
 
@@ -665,6 +669,8 @@ table, th {
 
 .barcode img {
 	width: 100%;
+	margin-top: 20px;
+	padding-right: 10px;
 }
 
 .bottom {
@@ -676,6 +682,16 @@ table, th {
 	background-image: url("/resources/img/bottom.png");
 	background-repeat: repeat;
 	background-repeat-y: no-repeat;
+}
+
+.content {
+	text-align: center; 
+	padding: 30px 0 15px 0;
+	margin: 0 20px 0 20px;
+}
+
+.content + p {
+	margin: 0px;
 }
 
 .priceWrap {
@@ -703,7 +719,7 @@ table, th {
 	<div class="container" style="background: #f2f2f2;">
 		<div class="recipeWrap">
 			<div class="logo">
-				<img alt="#" src="https://i.imgur.com/if5laLF.png">
+				<img alt="#" src="https://i.imgur.com/fdRrD3i.png">
 			</div>
 			<div class="title">
 				<p style="text-align: center;">${ask.askTitle }</p>
@@ -760,15 +776,20 @@ table, th {
 			</div>
 
 			<div id="item">
-				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
+				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
 			</div>
 
 
-			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div>
-			<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">	
+<%-- 			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div> --%>
+			<div style="border-top: 1px solid #000;">
+				<div class="content">
+					${ask.askContent }
+				</div>
+			</div>
+			<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
 				<p class="priceText">PRICE</p>
 				<p class="price">
-					<fmt:formatNumber type="number" maxFractionDigits="3"
+					￦ <fmt:formatNumber type="number" maxFractionDigits="3"
 									value="${item.itemPrice }"/>
 				</p>
 			</div>
@@ -777,7 +798,7 @@ table, th {
 
 		</div>
 		<div class="barcode">
-			<img alt="#" src="/resources/img/askBarcode.png">
+			<img alt="#" src="/resources/img/askBarcode2.png">
 
 			<div class="bottom"></div>
 		</div>
