@@ -31,7 +31,7 @@ $(document).ready(function(){
 		
 	
 	$("#btnDelete").click(function(){
-		var result = confirm("허위 신고글을 삭제하시겠습니까??????")
+		var result = confirm("허위 신고글을 삭제하시겠습니까?")
 		var deleteReview = [];
    
 		$('.check:checked').each(function(){
@@ -232,24 +232,6 @@ label {
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 
-<!-- <!-- 신고 처리 코드 영역 --> -->
-<!-- <div class="popupWrap1 hide1"> -->
-<!-- 	<div class="popup1"> -->
-<!-- 		<div class="title"> -->
-<!-- 			<p>신고 내용</p><span class="close1">❌</span> -->
-<!-- 		</div> -->
-<!-- 		<select id="reportCategory" name="reportCategory" class="select"> -->
-<!-- 			<option value="A">부적절한 홍보 게시글</option> -->
-<!-- 			<option value="B">음란성 또는 청소년에게 부적합한 내용</option> -->
-<!-- 			<option value="C">명예훼손/사생활 침해 및 저작권침해등</option> -->
-<!-- 			<option value="D">기타</option> -->
-<!-- 		</select>	 -->
-<!-- 		<textarea name="reportContent" id="reportContent" cols="30" rows="10"></textarea> -->
-<!-- 		<div class="btnWrap1"> -->
-<!-- 			<button id="setReport">보내기</button> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </div> -->
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />

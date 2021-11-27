@@ -32,7 +32,6 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 	
 	@RequestMapping(value = "/list")
 	public void adminReviewReportList(Model model, Paging paramData) {
-		logger.info("/admin/report/review/list");
 		
 		//페이징 처리
 		Paging paging = adminReviewReportService.getPaging(paramData);
@@ -48,7 +47,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 	//신고 처리 여부 'y'로 변경하기
 	@RequestMapping(value = "/list/statustoy", method = RequestMethod.POST)
 	public ModelAndView adminReviewReportStatusToY(ReviewReport reviewReport, ModelAndView mav) {
-		logger.info("/admin/review/report/list/statustoy");
+		logger.info("/admin/report/review/list/statustoy");
 		
 		boolean changeStatus = adminReviewReportService.ReviewStatusToY(reviewReport);
 		
@@ -69,6 +68,21 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		mav.setViewName("jsonView");
 		
 		return mav;
+	}
+
+	//허위 신고 : 신고테이블에서 데이터 삭제
+	@RequestMapping(value = "/delete")
+	public String delete(int[] reportNo) {
+		logger.info("/admin/report/review/delete");
+		
+		int size = reportNo.length;
+		for(int i=0; i<size; i++) {
+			
+			adminReviewReportService.setReviewReportDelete(reportNo[i]);
+		}
+		logger.info("신고 번호: {}", reportNo);
+		
+		return "redirect:/admin/report/review/list";
 	}
 	
 	//신고된 후기 게시글 상세
@@ -107,20 +121,6 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		return "admin/report/review/detail";
 	}
 	
-	//허위 신고 : 신고테이블에서 데이터 삭제
-	@RequestMapping(value = "/delete")
-	public String delete(int[] reportNo) {
-		logger.info("/admin/report/review/delete");
-		
-		int size = reportNo.length;
-		for(int i=0; i<size; i++) {
-
-			adminReviewReportService.setReviewReportDelete(reportNo[i]);
-		}
-		logger.info("신고 번호: {}", reportNo);
-		
-		return "redirect:/admin/report/review/list";
-	}
 }
 
 

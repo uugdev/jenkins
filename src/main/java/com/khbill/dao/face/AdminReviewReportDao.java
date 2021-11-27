@@ -43,7 +43,6 @@ public interface AdminReviewReportDao {
 	 * @return count 처리
 	 */
 	public int selectCntReviewReportByStatusY(ReviewReport reviewReport);
-
 	
 	/**
 	 * 신고처리여부를 'y'에서 'n'로 변경

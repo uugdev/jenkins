@@ -48,6 +48,13 @@ public interface AdminReviewReportService {
 	 * @return 조회된 처리여부 'n' (미완료)
 	 */
 	public boolean ReviewStatusToN(ReviewReport reviewReport);
+	
+	/**
+	 * 허위 신고된 허위 신고번호로 삭제한다
+	 * 
+	 * @param reportNo
+	 */
+	public void setReviewReportDelete(int reportNo);
 
 	/**
 	 * 후기 게시글 상세보기
@@ -80,15 +87,5 @@ public interface AdminReviewReportService {
 	 * @return 조회된 댓글 목록
 	 */
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment);
-
-
-	/**
-	 * 허위 신고된 허위 신고번호로 삭제한다
-	 * 
-	 * @param reportNo
-	 */
-	public void setReviewReportDelete(int reportNo);
-	
-	
 
 }

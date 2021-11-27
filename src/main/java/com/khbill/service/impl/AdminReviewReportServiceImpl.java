@@ -64,6 +64,15 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	}
 
 	@Override
+	public void setReviewReportDelete(int i) {
+		
+		ReviewReport reviewReport = new ReviewReport();
+		
+		reviewReport.setReportNo(i);
+		adminReviewReportDao.deleteReviewReportByReportNo(reviewReport);
+	}
+
+	@Override
 	public HashMap<String, Object> getReviewDetail(Review review) {
 		
 		return adminReviewReportDao.selectReviewByReviewNo(review);
@@ -87,12 +96,4 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 
-	@Override
-	public void setReviewReportDelete(int i) {
-
-		ReviewReport reviewReport = new ReviewReport();
-		
-		reviewReport.setReportNo(i);
-		adminReviewReportDao.deleteReviewReportByReportNo(reviewReport);
-	}
 }

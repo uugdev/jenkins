@@ -60,6 +60,11 @@
 		WHERE review_no = #{reviewNo } AND report_status = 'n'
 	</select>	
 	
+	<delete id="deleteReviewReportByReportNo" parameterType="int">
+		DELETE zreview_report
+		WHERE report_no = #{reportNo }
+	</delete>
+	
 	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.Review" resultType="HashMap">
 		SELECT * FROM (
 		    SELECT 
@@ -87,10 +92,5 @@
 		FROM zfile
 		WHERE file_no = #{fileNo }
 	</select>
-	
-	<delete id="deleteReviewReportByReportNo" parameterType="int">
-		DELETE zreview_report
-		WHERE report_no = #{reportNo }
-	</delete>
 	
 </mapper>
