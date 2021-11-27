@@ -28,6 +28,9 @@ public class QnaController {
 	
 	@Autowired QnaService qnaService;
 	
+	@RequestMapping(value="/qna/main")
+	public void qnaMain() {}
+	
 	@RequestMapping(value="/qna/list")
 	public String qnaList(HttpSession session, Model model, Paging paramData) {
 		

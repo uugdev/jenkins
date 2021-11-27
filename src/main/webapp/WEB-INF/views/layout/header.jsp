@@ -69,7 +69,7 @@ $(document).ready(function() {
 					</li>
 					<li><a href="/account/main"><h3 style="font-weight: bold;">가계부</h3></a></li>
 					<li><a href="/mypage/info"><h3 style="font-weight: bold;">마이페이지</h3></a></li>
-					<li><a href="/qna/list"><h3 style="font-weight: bold;">문의</h3></a></li>
+					<li><a href="/qna/main"><h3 style="font-weight: bold;">문의</h3></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
