@@ -29,7 +29,27 @@ public class QnaController {
 	@Autowired QnaService qnaService;
 	
 	@RequestMapping(value="/qna/list")
-	public void qnaList(HttpSession session, Model model, Paging paramData) {
+	public String qnaList(HttpSession session, Model model, Paging paramData) {
+		
+		//로그인 이전 페이지 url 저장하기 ("/qna/list" 대신 해당 url을 넣어주세요!)
+		//저는 일일이 넣기 힘들어서 상단 메뉴에 노출되어 있는 /qna/list만 로그인페이지로 리다이렉트하고,
+		//나머지 /qna/write, update, detail 은 인터셉터를 유지했습니다...
+		//servlet-context에 <interceptor> 부분에 로그인 페이지로 리다이렉트할 페이지만 exclude-mapping해주시고,
+		//밑에 있는 로그인 세션 null이면 로그인 페이지로 리다이렉트 해주는 식 넣어주세요!!!!!
+		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+		
+		if(session.getAttribute("login") == null) {
+			if(session.getAttribute("referer")!=null) {
+				session.removeAttribute("referer");
+			}
+			session.setAttribute("referer", "/qna/list");
+			return "redirect:/member/login";
+		}
+		
+		//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+		
+		
+		
 		int userNo = (Integer) session.getAttribute("userNo");
 		
 		Paging paging = qnaService.getPaging(paramData, userNo);
@@ -41,6 +61,7 @@ public class QnaController {
 		List<Qna> list = qnaService.getQnaList(map);
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
+		return null;
 	}
 	
 	@RequestMapping(value="/qna/detail")

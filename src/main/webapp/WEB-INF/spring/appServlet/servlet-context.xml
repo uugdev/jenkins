@@ -12,9 +12,10 @@
 	<!-- 인터셉터 설정 -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/qna/*"/>
+			<mapping path="/qna/**"/>
 			<mapping path="/mypage/**"/>
 			<mapping path="/message/**" />
+			<exclude-mapping path="/qna/list"/>
 			<beans:bean class="com.khbill.interceptor.UserInterceptor" />
 		</interceptor>
 		<interceptor>

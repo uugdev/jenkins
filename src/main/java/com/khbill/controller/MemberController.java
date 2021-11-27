@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -38,13 +39,21 @@ public class MemberController {
 	@Autowired MessageService messageService;
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
-	public void login( ) {	}
+	public void login(HttpServletRequest req, HttpSession session) {
+		
+		//각 컨트롤러에서 referer 지정하지 않으면 메인으로 가게 됩니다!!!!!!!
+		
+		if(session.getAttribute("referer") == null) {
+			session.setAttribute("referer", "/main");
+		}
+		logger.info("[GET] referer : {}", session.getAttribute("referer"));
+	} 
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
 	public String loginProc(User user, HttpSession session, 
 			@RequestParam(value="kakaoEmail", required=false) String kakaoEmail, 
 			@RequestParam(value="kakaoGender", required=false) String kakaoGender, 
-			Model model, HttpServletResponse resp) {
+			Model model, HttpServletResponse resp, HttpServletRequest req) {
 //		logger.info("{}", user);
 //		logger.info("kakao email, gender : {}, {}", kakaoEmail, kakaoGender);
 		
@@ -69,8 +78,8 @@ public class MemberController {
 					session.setAttribute("userNick", userInfo.getUserNick());
 					session.setAttribute("userNo", userInfo.getUserNo());
 //					session.setAttribute("unreadMsg", unreadMsg);
-					
-					return "redirect:/main";
+					logger.info("[POST] referer : {}", session.getAttribute("referer"));
+					return "redirect:"+session.getAttribute("referer");
 				} else {
 					logger.info("Reported Member - Login Failed until {}", userInfo.getUnablePeriod());
 					session.invalidate();
@@ -86,7 +95,6 @@ public class MemberController {
 					}
 					return null;
 				}
-				
 				
 			} else {
 				logger.info("Login Failed");
@@ -133,7 +141,7 @@ public class MemberController {
 						session.setAttribute("userNo", kuser.getUserNo());
 //						session.setAttribute("unreadMsg", unreadMsg);
 						
-						return "redirect:/main";
+						return "redirect:"+session.getAttribute("referer");
 					} else {
 						logger.info("Reported Member - Login Failed until {}", kuser.getUnablePeriod());
 						session.invalidate();
@@ -162,8 +170,7 @@ public class MemberController {
 					}
 					return null;
 				}
-				
-				
+
 			}
 		}
 	}
@@ -240,7 +247,7 @@ public class MemberController {
 		model.addAttribute("authkey", authkey);
 		
 		String subject = "KH BiLL 이메일 인증 메일입니다.";
-		String content = "회원가입을 완료하기 위해서 아래 인증문자를 이메일 인증란에 작성하고 회원가입을 진행해주세요!\n\n";
+		String content = "회원가입을 완료하기 위해서 아래 인증문자를 이메일 인증란에 작성하고 회원가입을 진행해주세요!\n\n\n";
 		content += "<h3><strong>"+ authkey +"</strong></h3>";
 		String from = "kh.bill1206@gmail.com";
 		String to = userMail;
@@ -295,7 +302,7 @@ public class MemberController {
 			memberService.setUserTempPwUpdate(tempUser);
 			
 			String subject = "KH BiLL 임시 비밀번호입니다.";
-			String content = "아래 임시 비밀번호로 로그인 후 개인정보 보호를 위해 반드시 마이페이지에서 비밀번호를 변경해주세요!\n\n";
+			String content = "아래 임시 비밀번호로 로그인 후 개인정보 보호를 위해 반드시 마이페이지에서 비밀번호를 변경해주세요!\n\n\n";
 			content += "<h3><strong>"+ tempPw +"</strong></h3>";
 			String from = "kh.bill1206@gmail.com";
 			String to = mailAdr;
