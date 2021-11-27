@@ -64,7 +64,7 @@ public interface AskService {
 	 * @param file - 전달받은 파일 객체
 	 * @param voteEnd - 투표마감일자
 	 */
-	public void setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd);
+	public int setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd);
 
 	/**
 	 * 질문글번호로 상세조회

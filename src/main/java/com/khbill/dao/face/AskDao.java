@@ -476,7 +476,13 @@ public interface AskDao {
 	public List<HashMap<String, Object>> selectAskComCntList();
 	
 	
-	
+	/**
+	 * 유저가 insert한 거래 게시글 번호 조회
+	 * 
+	 * @param userNo - 글쓴 유저의 유저번호
+	 * @return askNo
+	 */
+	public int selectAskNoByUserNo(int userNo);
 
 	
 	

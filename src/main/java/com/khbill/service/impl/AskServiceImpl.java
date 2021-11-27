@@ -45,7 +45,7 @@ public class AskServiceImpl implements AskService {
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
 		paging.setSearch(paramData.getSearch());
 		paging.setTarget(paramData.getTarget());
-		
+
 		return paging;
 	}
 
@@ -66,12 +66,12 @@ public class AskServiceImpl implements AskService {
 	}
 
 	@Override
-	public void setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd) {
+	public int setAskWrite(Ask ask, Item item, MultipartFile file, String voteEnd) {
 
 		// 빈 파일
-		if (file.getSize() <= 0) {
-			return;
-		}
+//		if (file.getSize() <= 0) {
+//			return;
+//		}
 
 		int userNo = ask.getUserNo();
 		int fileNo = askDao.getNextFileNo();
@@ -121,6 +121,7 @@ public class AskServiceImpl implements AskService {
 		askDao.insertItem(item); // 2
 		askDao.insertAsk(ask); // 3
 
+
 		if (voteEnd.equals("sysdate+1")) {
 
 			askDao.insertVote1(vote); // 4
@@ -135,6 +136,7 @@ public class AskServiceImpl implements AskService {
 
 		}
 
+		return askDao.selectAskNoByUserNo(userNo);
 	}
 
 	@Override
@@ -213,7 +215,7 @@ public class AskServiceImpl implements AskService {
 		file.setFileNo(item.getFileNo());
 		System.out.println(item.getFileNo());
 
-		int itemNo = item.getItemNo();
+//		int itemNo = item.getItemNo();
 		int fileNo = file.getFileNo();
 
 		askDao.deleteVote(askNo);
@@ -349,18 +351,18 @@ public class AskServiceImpl implements AskService {
 
 	@Override
 	public boolean scrap(AskScrap askScrap) {
-		if(isScrap(askScrap)) { //스크랩상태
-			
+		if (isScrap(askScrap)) { // 스크랩상태
+
 			askDao.deleteAskScrap(askScrap);
-			
+
 			return false;
-			
-		} else {//스크랩하지않은 상태
-			
+
+		} else {// 스크랩하지않은 상태
+
 			askDao.insertAskScrap(askScrap);
-			
+
 		}
-		
+
 		return true;
 	}
 
@@ -368,39 +370,39 @@ public class AskServiceImpl implements AskService {
 
 		int cnt = askDao.selectCntAskScrap(askScrap);
 
-		if(cnt > 0) { //스크랩
+		if (cnt > 0) { // 스크랩
 			return true;
-			
-		} else { //스크랩안한상태
+
+		} else { // 스크랩안한상태
 			return false;
-			
+
 		}
-		
+
 	}
-	
+
 	@Override
 	public void setAskReport(AskReport askReport) {
 
 		Ask ask = askDao.selectAskByAskNo(askReport.getAskNo());
 		askReport.setRespondentNo(ask.getUserNo());
-		
+
 		askDao.insertAskReport(askReport);
-		
+
 	}
-	
+
 	@Override
 	public boolean askReportByAskNoLoginUserNo(AskReport askReport) {
 
 		int cnt = askDao.selectCntAskReportCheck(askReport);
 
-		if(cnt > 0) {
+		if (cnt > 0) {
 			return false;
 		} else {
 			return true;
 		}
-	
+
 	}
-	
+
 	/*
 	 * @Override public List<Ask> getAskNumOfVoteList(Paging paging) { return
 	 * askDao.selectAskListNumOfVote(paging); }
@@ -411,78 +413,72 @@ public class AskServiceImpl implements AskService {
 
 		return askDao.selectAskHitList(paging);
 	}
-	
-	
+
 	@Override
 	public Paging getAskComPaging(Paging paramData, int askNo) {
-		
-		//총댓글수 계산
+
+		// 총댓글수 계산
 		int totalCount = askDao.selectCntAskComAll(askNo);
 
 		// 페이징 계산
 		Paging paging = new Paging(totalCount, paramData.getCurPage());
-		
+
 		return paging;
 	}
-	
 
 	@Override
 	public List<AskComment> getAskComListPaging(HashMap<String, Object> map) {
 
 		return askDao.selectAskComListByAskNo(map);
 	}
-	
-	
+
 	@Override
 	public AskComment getAskCommentWriteByUserNo(int userNo) {
-	
+
 		AskComment addComment = askDao.selectAskCommentByUserNo(userNo);
-		
+
 		return addComment;
 	}
-	
+
 	@Override
 	public String getUserNickByUserNo(int userNo) {
 		return askDao.selectUserNickByUserNo(userNo);
 	}
-	
+
 	@Override
 	public AskComment setAskCommentUpdate(AskComment askComment) {
 		askDao.updateAskComment(askComment);
-		
+
 		AskComment resultCom = askDao.selectOneAskCommentByAskNo(askComment.getAskComNo());
-		
+
 		System.out.println("resultCom : " + resultCom);
-		
+
 		return resultCom;
 	}
-	
-	
+
 	@Override
 	public List<HashMap<String, Object>> getUserGrade() {
 		return askDao.selectUserWithGrade();
 	}
-	
+
 	@Override
 	public String getGradeUrlByUserNo(int userNo) {
 		return askDao.selectGradeUrlByUserNo(userNo);
 	}
-	
+
 	@Override
 	public int getAskComCnt(int askNo) {
 		return askDao.selectCntAskComAll(askNo);
 	}
-	
-	
+
 	@Override
 	public List<HashMap<String, Object>> getAskitemList(Paging paging) {
 		return askDao.selectAskItemList(paging);
 	}
-	
-	
+
 	@Override
 	public List<HashMap<String, Object>> getAskComCntList() {
 		return askDao.selectAskComCntList();
 	}
-	
+
 }// class

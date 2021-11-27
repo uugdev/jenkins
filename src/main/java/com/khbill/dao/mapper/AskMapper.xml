@@ -396,5 +396,12 @@
 	</select>
 
 
+	<select id="selectAskNoByUserNo" parameterType="int" resultType="int">
+		SELECT ask_no
+		FROM zask
+		WHERE user_no = #{userNo }
+        AND rownum = 1
+        ORDER BY ask_no DESC
+	</select>
 
 </mapper>

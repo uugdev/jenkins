@@ -91,9 +91,9 @@ public class AskController {
 
 		ask.setUserNo(userNo);
 
-		askService.setAskWrite(ask, item, file, voteEnd);
+		int askNo = askService.setAskWrite(ask, item, file, voteEnd);
 
-		return "redirect:/ask/list";
+		return "redirect:/ask/detail?askNo=" + askNo;
 
 	}
 

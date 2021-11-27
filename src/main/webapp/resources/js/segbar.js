@@ -1,6 +1,6 @@
 (function($) {
     const DEFAULT_WIDTH = "100%";
-    const DEFAULT_HEIGHT = "30px";
+    const DEFAULT_HEIGHT = "40px";
     const palette = [
         '#26C281',
         '#E9D460',

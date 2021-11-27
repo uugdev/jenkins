@@ -483,14 +483,15 @@ table, th {
 
 #votedate {
 	text-align: center;
-	font-size: 20px
+	font-size: 20px;
+	margin-top: 60px;
 }
 
 .check {
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
-	width: 600px;
+	width: 630px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -511,16 +512,25 @@ table, th {
 }
 
 #chartBox {
-	width: 300px;
+	width: 415px;
 	margin: 15px;
 }
 
 .item-wrapper {
-	height: 30px !important;
+	height: 35px !important;
+}
+.item-wrapper:nth-child(1) {
+	border-top-left-radius: 18px;
+	border-bottom-left-radius: 18px;
+}
+
+.item-wrapper:nth-last-child(1) {
+	border-top-right-radius: 18px;
+	border-bottom-right-radius: 18px;
 }
 
 .item-percentage {
-	line-height: 30px;
+	line-height: 32px;
 	color: #f2f2f2 !important;
 }
 
@@ -805,7 +815,7 @@ table, th {
 
 
 
-		<hr>
+<!-- 		<hr> -->
 
 		<div id="votedate">
 			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
