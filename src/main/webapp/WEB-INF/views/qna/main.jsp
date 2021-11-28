@@ -17,10 +17,14 @@ $(document).ready(function() {
 		$(this).toggleClass('on').siblings().removeClass('on');
 		$(this).next(".answer").siblings(".answer").slideUp(300); // 1개씩 펼치기
 	})
+
 })
+
 </script>
 
+
 <style>
+
 
 body {
 	background: #f2f2f2;
@@ -34,8 +38,13 @@ a {
 	color: #85969E;
 }
 
-*{
+* {
 	box-sizing: border-box; 
+}
+
+#Accordion_wrap > div {
+	text-align: left;
+	padding-left: 30px;
 }
   
 .question:first-child {
@@ -120,7 +129,10 @@ a {
       <span>자주 묻는 질문 1</span>
      </div>
      <div class="answer">
-      <span>대답 1</span>
+      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec ultricies magna. Fusce egestas libero sit amet metus tincidunt, et molestie ex pharetra. Mauris vitae pulvinar libero. <br>
+     Suspendisse eu efficitur neque. Maecenas nec ultrices velit. Donec viverra molestie purus quis egestas.<br>
+     Vestibulum cursus semper venenatis. Maecenas malesuada porta quam id hendrerit. Fusce iaculis, magna in faucibus euismod, neque lorem venenatis mauris, a rutrum nisi nunc at massa.<br>
+     Etiam maximus lorem congue, suscipit neque eget, vulputate mauris. Nam risus est, venenatis sed finibus tincidunt, pellentesque nec libero.</span>
      </div>
       <div class="question">
       <span>자주 묻는 질문 2</span>
@@ -164,25 +176,15 @@ a {
      <div class="answer">
       <span>대답 8</span>
      </div>
-      <div class="question">
-      <span>자주 묻는 질문 9</span>
-     </div>
-     <div class="answer">
-      <span>대답 9</span>
-     </div>
-      <div class="question">
-      <span>자주 묻는 질문 10</span>
-     </div>
-     <div class="answer">
-      <span>대답 10</span>
-     </div>
-      <div class="question">
-      <span>자주 묻는 질문 11</span>
-     </div>
-     <div class="answer">
-      <span>대답 11</span>
-     </div>
 </div>
+
+
+
+
+
+
+
+
 
 <div style="height:50px;"></div>
 

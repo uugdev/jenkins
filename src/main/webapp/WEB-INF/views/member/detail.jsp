@@ -10,16 +10,59 @@
 <!-- 개별 스타일 및 스크립트 영역 -->
 
 
+<script>
+$(document).ready(function() {
+
+	$("#btnCancel").click(function() {
+		window.open('','_self').close();
+	})
+})
+</script>
+
+
 <style>
-table, h3 {
-	text-align:center;
+
+#btnCancel {
+    height: 35px;
+    width: 65px;
+    border-radius: 0px;
+    border: 0px;
+    background: #5b6e7a;
+    color: #f3f3f3;
+}
+
+body {
+	background-color: #f2f2f2;
+	padding-top: 30px !important;
+	width: 620px !important;
+	
+}
+
+table, h4 {
+	text-align: center;
 	margin: 0 auto;
 }
 
+h4 {
+	margin-bottom: 10px;
+}
+
+.logo {
+	margin-bottom: 20px;
+	margin-left: 116px;
+}
+
 .wrap {
-	width: 600px;
-	padding: 0 0 30px 0;
-	margin: 0 0 0 10px;
+	width: 500px;
+	margin-bottom: 50px !important;
+	margin-left: 112px;
+}
+
+.userinfoarea {
+	width: 400px;
+	background-color: #fff;
+	padding: 30px;
+	text-align: center;
 
 }
 
@@ -29,18 +72,18 @@ table, h3 {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-<div class="container">
 
 <div class="logo">
 	<img id="logo" src="https://i.imgur.com/if5laLF.png" width="135px" height="65px"/>
 </div>
 
-<h4>회원 정보</h4>
+<div class="userinfoarea">
+<h4><b>회원 정보</b></h4>
 
-<table class="table table-hover" style="width: 700px;">
+<table class="table table-hover" style="width: 350px;">
 	<tr>
-		<td>닉네임</td>
-		<td>${user.userNick }</td>
+		<td style="width: 50%">닉네임</td>
+		<td style="width: 50%">${user.userNick }</td>
 	</tr>
 	<tr>
 		<td>가입일</td>
@@ -52,7 +95,7 @@ table, h3 {
 	</tr>
 </table>
 
-<h4>최근 작성한 글</h4>
+<h4><b>최근 작성한 글</b></h4>
 <table class="table table-hover" style="width: 350px;">
 	
 	<c:forEach items="${list }" var="list">
@@ -73,10 +116,12 @@ table, h3 {
 </table>
 
 
+<span class="buttonarea">
+	<button id="btnCancel">닫기</button>
+</span>
+</div>
 
 
-
-</div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->

@@ -41,9 +41,25 @@ $(document).ready(function() {
 
 <style>
 
+.titlearea {
+	margin-bottom: 20px;
+}
+
+button {
+    height: 35px;
+    width: 65px;
+    border-radius: 0px;
+    border: 0px;
+    background: #5b6e7a;
+    color: #f3f3f3;
+}
+
 body {
 	padding: 20px 0 0 0;
+	background-color: #f2f2f2;
+	
 }
+
 table, h3 {
 	text-align: center;
 	margin: 0 auto;
@@ -57,8 +73,14 @@ table, h3 {
 }
 
 .buttonarea {
-	margin: 0 0 0 250px;
+	margin: 0 0 0 240px;
 }
+
+table {
+	background-color: #fff;
+
+}
+
 
 </style>
 
@@ -66,20 +88,20 @@ table, h3 {
 <!-- 개별 영역 끝 -->
 <div class="wrap">
 
-
-<h3>쪽지 보내기</h3>
-
+	<div class="titlearea">
+		<h3>쪽지 보내기</h3>
+	</div>
 
 <form action="/message/write" method="post">
 <input type="hidden" name="userNick" value="${userNick }">
 
-<table class="table table-hover" style="width: 590px;'">
+<table class="table table-hover" style="width: 580px;'">
 	<tr>
-		<td style="width:30%">받는 사람</td>
+		<td style="width:30%"><strong>받는 사람</strong></td>
 		<td style="width:70%"> ${userNick }</td>
 	</tr>
 	<tr>
-		<td style="width:30%"><label for="title">제목</label></td>
+		<td style="width:30%"><label for="msgTitle">제목</label></td>
 		<td style="width:70%"><input type="text" id="msgTitle" name="msgTitle" /></td>
 	</tr>
 	<tr>
