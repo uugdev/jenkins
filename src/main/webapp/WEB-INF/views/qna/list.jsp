@@ -32,7 +32,7 @@ body {
 	color: #85969E;
 }
 
-.table {
+.listTable {
 	text-align: center;
 	width: 100%;
 	background: #fff;
@@ -49,6 +49,14 @@ th {
 .table>tbody>tr>td {
 	height: 50px;
 	vertical-align: middle;
+}
+
+.table>tbody>tr>td>a {
+	color: #000;
+}
+.table>tbody>tr>td>a:hover {
+	color: #85969E;
+	text-decoration: none;
 }
 
 #btnWrite {
@@ -79,7 +87,7 @@ th {
 	<p>질문을 남겨주시면 신속한 답변 드리겠습니다.</p>
 </div>
 
-<div class="table">
+<div class="listTable">
 <table class="table table-hover">
 <tr>
 	<th>문의번호</th>

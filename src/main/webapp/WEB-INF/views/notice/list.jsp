@@ -25,17 +25,92 @@ $(document).ready(function() {
 })
 </script>
 
+<style type="text/css">
 
+body {
+	background: #f2f2f2;
+}
+
+.title {
+	margin: 50px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+.listTable {
+	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+	padding-bottom: 20px;
+}
+
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 40px;
+	vertical-align: middle;
+}
+
+input[type=text] {
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
+}
+
+input[type=text]:focus {
+	outline: none;
+}
+
+
+#btnSearch {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnSearch:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.table>tbody>tr>td>a {
+	color: #000;
+}
+.table>tbody>tr>td>a:hover {
+	color: #85969E;
+	text-decoration: none;
+}
+
+</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
 
-<h3>공지사항 목록</h3>
-<hr>
+<div class="title">
+	<h1>공지사항</h1>
+	<p>홈페이지 이용에 필요한 정보를 전해드립니다.</p>
+</div>
+
+<div class="listTable">
 <div class="text-center" style="width: 700px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 92%;" />
-	<button id="btnSearch" class="pull-right btn">검색</button>
+	<input class="pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 90%;" />
+	<button id="btnSearch" class="pull-right">검색</button>
 </div>
 <div class="clearfix" style="margin-bottom: 10px;"></div>
 <table class="table table-hover">
@@ -57,7 +132,7 @@ $(document).ready(function() {
 
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
-
+</div><!-- .listTable end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

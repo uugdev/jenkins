@@ -123,12 +123,12 @@ body {
 <h2 style="margin-bottom: 40px;">${qna.qnaTitle }</h2>
 <div class="info">
 <span>No.&nbsp;${qna.qnaNo }</span>
-<span><i class="far fa-question-circle"></i>&nbsp;${qna.qnaCategory }</span>
+<span><i class="far fa-question-circle"></i>&nbsp;&nbsp;${qna.qnaCategory }</span>
 <span>
-	<c:if test="${qna.qnaStatus == 'n' }"><i class="far fa-comment-dots"></i>&nbsp;답변 대기중</c:if>
-	<c:if test="${qna.qnaStatus == 'y' }"><i class="fas fa-comment-dots"></i>&nbsp;답변 완료</c:if>
+	<c:if test="${qna.qnaStatus == 'n' }"><i class="far fa-comment-dots"></i>&nbsp;&nbsp;답변 대기중</c:if>
+	<c:if test="${qna.qnaStatus == 'y' }"><i class="fas fa-comment-dots"></i>&nbsp;&nbsp;답변 완료</c:if>
 </span>
-<span><i class="far fa-clock"></i>&nbsp;<fmt:formatDate value="${qna.qnaDate }" pattern="yyyy-MM-dd"/></span>
+<span><i class="far fa-clock"></i>&nbsp;&nbsp;<fmt:formatDate value="${qna.qnaDate }" pattern="yyyy-MM-dd"/></span>
 </div><!-- .info end -->
 
 <table class="table">
