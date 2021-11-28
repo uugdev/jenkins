@@ -75,6 +75,14 @@ public interface AskService {
 	public Ask getAskDetail(int askNo);
 
 	/**
+	 * 질문글번호로 상세조회투표
+	 * 
+	 * @param askNo - 전달받은 질문글번호
+	 * @return
+	 */
+	public Ask getAskVoteDetail(int askNo);
+
+	/**
 	 * 질문글번호로 투표조회
 	 * 
 	 * @param askNo

@@ -296,7 +296,7 @@ public class AskController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 
-		Ask ask = askService.getAskDetail(askNo);
+		Ask ask = askService.getAskVoteDetail(askNo);
 
 		Vote voteSet = new Vote();
 
@@ -327,7 +327,7 @@ public class AskController {
 
 		int userNo = (Integer) session.getAttribute("userNo");
 
-		Ask ask = askService.getAskDetail(askNo);
+		Ask ask = askService.getAskVoteDetail(askNo);
 
 		Vote voteSet = new Vote();
 

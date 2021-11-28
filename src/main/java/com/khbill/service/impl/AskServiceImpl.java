@@ -481,4 +481,10 @@ public class AskServiceImpl implements AskService {
 		return askDao.selectAskComCntList();
 	}
 
+	@Override
+	public Ask getAskVoteDetail(int askNo) {
+		Ask ask = askDao.selectAskByAskNo(askNo);
+
+		return ask;
+	}
 }// class

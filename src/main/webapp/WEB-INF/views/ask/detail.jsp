@@ -146,6 +146,7 @@ $("#setReport").click(function() {
 	var askUserno = "<c:out value='${ask.userNo}' />";
 	var result = "<c:out value='${result}' />";
 	var loginUserVoteState = "<c:out value='${status.voteState}' />";
+
 	
 	if(userno != askUserno && nonLogin) {
 		if(result) {
@@ -174,6 +175,7 @@ $("#setReport").click(function() {
 								
 								initChart(data.cntY, $("#cntN").html())
 								
+								
 							} //success
 							, error: function() {
 								console.log("실패");
@@ -191,8 +193,6 @@ $("#setReport").click(function() {
 			}//loginUserVoteState //로그인유저 투표상태체크 if문 end
 		}//result 투표확인 if문 end
 	};//userNo != askUserno 본인게시글	if문 end
-	
-	
 	
 	
 	if(userno != askUserno && nonLogin) {
@@ -221,7 +221,7 @@ $("#setReport").click(function() {
 							$("#cntN").html(data.cntN);
 							
 							initChart($("#cntY").html(), data.cntN)
-
+							
 						} //success
 						, error: function() {
 							console.log("실패");
@@ -546,19 +546,14 @@ table, th {
 #chartBox {
 	width: 415px;
 	margin: 15px;
+    height: 35px;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .item-wrapper {
 	height: 35px !important;
-}
-.item-wrapper:nth-child(1) {
-	border-top-left-radius: 18px;
-	border-bottom-left-radius: 18px;
-}
-
-.item-wrapper:nth-last-child(1) {
-	border-top-right-radius: 18px;
-	border-bottom-right-radius: 18px;
+	
 }
 
 .item-percentage {
