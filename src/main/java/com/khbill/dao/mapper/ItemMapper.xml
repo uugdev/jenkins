@@ -12,7 +12,7 @@
 	
 	<select id="selectCntVoteInProgress" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM zvote
-		<![CDATA[WHERE TO_CHAR(SYSDATE, 'yy/MM/dd') < TO_CHAR(vote_end, 'yy/MM/dd')]]>
+		<![CDATA[WHERE TO_CHAR(SYSDATE, 'yy/MM/dd hh:Mi:SS') < TO_CHAR(vote_end, 'yy/MM/dd hh:Mi:SS')]]>
 		AND ask_no = #{askNo }
 	</select>
 	
