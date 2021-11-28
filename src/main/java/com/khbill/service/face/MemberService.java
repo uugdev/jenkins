@@ -1,5 +1,8 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.khbill.dto.User;
 
 public interface MemberService {
@@ -126,6 +129,14 @@ public interface MemberService {
 	 * @return 유저 정보
 	 */
 	public User getUserByUserNick(String userNick);
+
+	/**
+	 * 유저번호로 최근 작성글 5개 리스트르 불러오기
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getWriteListByUserNo(int userNo);
 
 
 

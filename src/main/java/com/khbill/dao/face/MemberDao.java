@@ -1,5 +1,8 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.khbill.dto.User;
 
 public interface MemberDao {
@@ -126,6 +129,14 @@ public interface MemberDao {
 	 * @return 유저 정보
 	 */
 	public User selectUserByUserNick(String userNick);
+
+	/**
+	 * 유저 번호로 유저가 작성한 글중 최근 글 5개를 리스트로 불러온다
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectWriteListByUserNo(int userNo);
 
 
 }

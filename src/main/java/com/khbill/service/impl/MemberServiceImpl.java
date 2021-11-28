@@ -1,5 +1,7 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -115,6 +117,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public User getUserByUserNick(String userNick) {
 		return memberDao.selectUserByUserNick(userNick);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> getWriteListByUserNo(int userNo) {
+		return memberDao.selectWriteListByUserNo(userNo);
 	}
 
 	

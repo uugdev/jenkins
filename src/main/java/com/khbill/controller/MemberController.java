@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.mail.MessagingException;
@@ -329,8 +331,12 @@ public class MemberController {
 		
 		User user = memberService.getUserByUserNick(userNick);
 		
+		List<HashMap<String, Object>> writeList = memberService.getWriteListByUserNo(user.getUserNo());
+		
 		logger.info("user정보 : {}", user);
+		logger.info("writeList 정보 : {}", writeList);
 		model.addAttribute("user", user);
+		model.addAttribute("list", writeList);
 		
 	}
 	

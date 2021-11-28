@@ -83,9 +83,32 @@
 	</update>
 	
 	<select id="selectUserByUserNick" parameterType="String" resultType="com.khbill.dto.User">
-		SELECT user_nick, join_date, user_point
+		SELECT user_no, user_nick, join_date, user_point
 		FROM zuser
 		WHERE user_nick = #{userNick }
+	</select>
+	
+	<select id="selectWriteListByUserNo" parameterType="int" resultType="hashmap">
+		SELECT * FROM
+		    (SELECT * FROM
+		        (SELECT trade_no as board_no, trade_title as title, trade_date as write_date, sub.board FROM ztrade,
+		            (SELECT 't' AS board FROM DUAL) sub
+		                WHERE 1=1
+		                AND user_no = 1
+		        UNION
+		        
+		        SELECT ask_no as board_no, ask_title as title, ask_date as write_date, sub.board FROM zask,
+		            (SELECT 'a' AS board FROM DUAL) sub
+		                WHERE 1=1
+		                AND user_no = 1
+		        UNION
+		        
+		        SELECT review_no as board_no, review_title as title, review_date as write_date, sub.board FROM zreview,
+		            (SELECT 'r' AS board FROM DUAL) sub
+		                WHERE 1=1
+		                AND user_no = 1
+		    ) ORDER BY write_date
+		)<![CDATA[WHERE rownum <=5]]>
 	</select>
 	
 	
