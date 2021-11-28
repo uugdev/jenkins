@@ -892,6 +892,7 @@ table, th {
 
 
 		<c:if test="${check eq 'n'}">
+					<p style="font-size: 16px;">투표가 종료되었습니다</p>
 			<div class="check">
 				<div>
 					<div class="pull-left cnt" id="cntY">${cntY }</div>
@@ -905,7 +906,6 @@ table, th {
 					</c:if>
 				</div>
 				<div id="chartBox">
-					투표가 종료되었습니다
 					<div class="chart"></div>
 				</div>
 
