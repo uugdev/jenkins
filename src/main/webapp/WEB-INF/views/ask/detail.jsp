@@ -19,12 +19,12 @@
 <script src="/resources/js/segbar.js"></script>
 
 <script type="text/javascript">
-function message () {
+function message() {
 	 action_popup.confirm('쪽지를 보내시겠습니까?', function (answer) {
         
 		if(answer) {
 		
-			window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+			window.open('/message/write?userNick=${user.userNick }', '쪽지 보내기', ' width=620, height=500, left=400, top=500, resizable=no');
 	
 		} else {
 			return false;
@@ -37,6 +37,13 @@ function message () {
       action_popup.close(this);
       });
         	
+}
+
+function userinfo() {
+
+	window.open('/member/detail?userNick=${user.userNick }', '회원정보 조회', 'width=620, height=640, left=400, top=500, resizable=no');
+			
+		
 }
 
 </script>
@@ -438,15 +445,8 @@ function deleteComment(askComNo) {
 $(document).ready(function() {
 
 	$('.layerpopup').click(function(e) {
-		var divTop = e.clientY - 20;
-		var divLeft = e.clientX - 70;
 		
-		$('#layer').css({
-			"top": divTop
-			, "left": divLeft
-			, "position": "absolute"
-			
-		}).show();
+		$('#layer').show();
 	});
 	
 	$('#layerClose').click(function() {
@@ -459,7 +459,35 @@ $(document).ready(function() {
 </script>
 
 
+
 <style type="text/css">
+
+.layerbox {
+	position: relative;
+	display: inline-block;
+}
+
+.layerpopup {
+	width: 500px;
+}
+
+#layer { 
+	display:none; padding:10px; background:#F2F2F2;
+	position: absolute;
+	top: 24px;
+	left: 0;
+	z-index: 1;
+	width: 130px;
+}
+
+.layerClose {
+	font-size:15px; float: right;
+}
+
+.layerpopup:hover, #layerClose:hover {
+	cursor:pointer; 
+}
+
 .wrap {
 	margin-bottom: 50px;
 	background:#f2f2f2; 
@@ -738,6 +766,7 @@ table, th {
 			<div class="title">
 				<p style="text-align: center;">${ask.askTitle }</p>
 				<p>
+					<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
 						<span class="confirmation username">작성자 : ${user.userNick }</span>
 					</c:if>
@@ -749,6 +778,13 @@ table, th {
 						<span class="confirmation username layerpopup">작성자
 							: ${user.userNick }</span>
 					</c:if>
+					<div id="layer">
+					<a onclick="userinfo();">회원정보 보기</a><br>
+					<a onclick="message();">쪽지 보내기</a><br>
+					<span id="layerClose">닫기</span>
+					</div>
+					</div>
+					
 					<span class="bar">|</span> 
 					<span>
 						<fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
@@ -992,12 +1028,6 @@ table, th {
 			<button id="setReport">보내기</button>
 		</div>
 	</div>
-</div>
-
-<div id="layer">
-	<a href="<%=request.getContextPath() %>/member/detail?userNick=${user.userNick }">회원정보 보기</a><br>
-	<a href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }">쪽지 보내기</a><br>
-	<span id="layerClose">닫기</span>
 </div>
 
 
