@@ -502,8 +502,8 @@ table, th {
 }
 
 .success {
-	width: 60px;
-	height: 60px;
+	width: 65px;
+	height: 65px;
 }
 
 #item {
@@ -523,7 +523,7 @@ table, th {
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
-	width: 630px;
+	width: 641px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -544,7 +544,7 @@ table, th {
 }
 
 #chartBox {
-	width: 415px;
+	width: 418px;
 	margin: 15px;
     height: 35px;
     border-radius: 20px;
@@ -896,29 +896,95 @@ table, th {
 			<div class="check">
 				<div>
 					<div class="pull-left cnt" id="cntY">${cntY }</div>
+					
 					<c:if test="${cntY > cntN}">
-						<img class="pull-left success"
-							src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
+						<c:if test="${status.voteState eq 'y'}">
+							<img class="pull-left success"
+								src="https://i.imgur.com/aH44JbJ.png" alt="찬성이많고찬성에투표" />
+						</c:if>
 					</c:if>
-					<c:if test="${cntY <= cntN}">
-						<img class="vote pull-left" src="https://i.imgur.com/iLdts0b.png"
-							alt="찬성" />
+					<c:if test="${cntY > cntN}">
+						<c:if test="${status.voteState ne 'y'}">
+							<img class="pull-left success"
+								src="https://i.imgur.com/iLdts0b.png" alt="찬성이많고찬성에투표하지않음" />
+						</c:if>
 					</c:if>
+
+					<c:if test="${cntY < cntN}">
+						<c:if test="${status.voteState eq 'y'}">
+							<img class="pull-left vote"
+								src="https://i.imgur.com/aH44JbJ.png" alt="반대가많고찬성에투표" />
+						</c:if>
+					</c:if>
+					<c:if test="${cntY < cntN}">
+						<c:if test="${status.voteState ne 'y'}">
+							<img class="pull-left vote"
+								src="https://i.imgur.com/iLdts0b.png" alt="반대가많고찬성에투표하지않음" />
+						</c:if>
+					</c:if>
+					
+					<c:if test="${cntY == cntN}">
+						<c:if test="${status.voteState eq 'y'}">
+						<img class="success pull-left" src="https://i.imgur.com/aH44JbJ.png"
+							alt="투표수가같고찬성에투표함" />
+						</c:if>
+					</c:if>
+					<c:if test="${cntY == cntN}">
+						<c:if test="${status.voteState ne 'y'}">
+						<img class="success pull-left" src="https://i.imgur.com/iLdts0b.png"
+							alt="투표수가같고찬성에투표하지않음" />
+						</c:if>
+					</c:if>
+				
 				</div>
+				
 				<div id="chartBox">
 					<div class="chart"></div>
 				</div>
 
 				<div>
 					<div class="pull-right cnt" id="cntN">${cntN }</div>
+					
+					
 					<c:if test="${cntY < cntN}">
-						<img class="pull-right success"
-							src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
+						<c:if test="${status.voteState eq 'n'}">
+						<img class="success pull-right" src="https://i.imgur.com/C4qO9bG.png"
+							alt="반대가많고반대에투표함" />
+						</c:if>
 					</c:if>
-					<c:if test="${cntY >= cntN}">
+					<c:if test="${cntY < cntN}">
+						<c:if test="${status.voteState ne 'n'}">
+						<img class="success pull-right" src="https://i.imgur.com/0sDsZn8.png"
+							alt="반대가많고반대에투표하지않음" />
+						</c:if>
+					</c:if>
+
+					<c:if test="${cntY > cntN}">
+						<c:if test="${status.voteState eq 'n'}">
+						<img class="vote pull-right" src="https://i.imgur.com/C4qO9bG.png"
+							alt="찬성이많고반대에투표함" />
+						</c:if>
+					</c:if>
+					<c:if test="${cntY > cntN}">
+						<c:if test="${status.voteState ne 'n'}">
 						<img class="vote pull-right" src="https://i.imgur.com/0sDsZn8.png"
-							alt="반대" />
+							alt="찬성이많고반대에투표하지않음" />
+						</c:if>
 					</c:if>
+				
+					<c:if test="${cntY == cntN}">
+						<c:if test="${status.voteState eq 'n'}">
+						<img class="success pull-right" src="https://i.imgur.com/C4qO9bG.png"
+							alt="투표수가같고반대에투표함" />
+						</c:if>
+					</c:if>
+					<c:if test="${cntY == cntN}">
+						<c:if test="${status.voteState ne 'n'}">
+						<img class="success pull-right" src="https://i.imgur.com/0sDsZn8.png"
+							alt="투표수가같고반대에투표하지않음" />
+						</c:if>
+					</c:if>
+				
 				</div>
 			</div>
 		</c:if>
