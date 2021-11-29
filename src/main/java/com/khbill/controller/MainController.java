@@ -40,9 +40,9 @@ public class MainController {
 		List<User> userTen = mainService.getUserPointListTen(); //유저 랭킹
 		List<Notice> noticeSix = mainService.getNoticeListSix(); //공지사항
 		Map<String, Integer> moneyAndPercent = null; //아낀 돈, 퍼센트
-		List<String> mainment = null; //메인 멘트
+		String mainment = null; //메인 멘트
         List<Object> popularBoard = mainService.getPopularBoard(); //인기있는 질문 게시글
-        List<Object> mainBill = null;
+        List<Object> mainBill = null; //메인 영수증
         
 		//로그인을 했을 경우
 		if( session.getAttribute("userNo") != null ) {

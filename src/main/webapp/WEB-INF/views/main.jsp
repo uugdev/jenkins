@@ -175,13 +175,13 @@
 					</div>
 					<br>
 					<!-- 메인 멘트 -->
-	                <div class="table-responsive" style="background-color:#eee; height: 153px;">
+	                <div class="table-responsive" style="background-color:#eee; height: 153px; padding: 8px;">
                 		<c:if test="${mainment eq null }">
 		                	<p style="font-size: 35px; margin-top: 3%;">회원가입을 통해 서로 의견을 나누고</p>
 		                	<p style="font-size: 35px;">원하는 물건의 구매의사를 확인하세요!</p>
                 		</c:if>
                 		<c:if test="${mainment ne null }">
-		                	<p class="pull-right" style="font-size: 16px;">회원님이 이번 달 아낀 돈은 
+		                	<p class="pull-right" style="font-size: 14px;">회원님이 이번 달 아낀 돈은 
 		                	<fmt:formatNumber type="number" maxFractionDigits="3" value="${moneyAndPercent.saveMoney }" /> 원입니다.</p>
 		                	<p style="font-size: 25px;">아낀 돈으로 무엇을 할 수 있나요?</p>
 		                	<p style="font-size: 35px;">${mainment }</p>
@@ -193,7 +193,7 @@
             <div class="col-md-1"></div>
             
             <!-- 영수증 -->
-            <div class="col-md-4" id="bill" style="background-color:#eee; margin-top: 24px; padding-bottom: 15px;">
+            <div class="col-md-4" id="bill" style="background-color:#eee; margin: 24px 0 24px 0; padding-bottom: 15px;">
                 <p>[주문(대기)번호]</p>
                 <div>
 	                <c:choose>
@@ -210,14 +210,14 @@
                 <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 98%;">
 	            </div>
                 
-                <div style="width: auto; height: 463px; overflow: auto;">
+                <div style="width: auto; height: 454px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
                     	<p style="display: flex;">
                             <span class="ellipsis2" style="text-align: left;">
                                 [${mainBill.ITEM_END }] ${mainBill.ITEM_NAME }
                             </span>
-                            <span class="pull-right" style="text-align: right; width: 30%">
+                            <span class="pull-right" style="text-align: right; width: 40%">
                                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${mainBill.ITEM_PRICE }" /> 원
                             </span>
                         </p>
