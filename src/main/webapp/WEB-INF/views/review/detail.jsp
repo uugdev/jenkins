@@ -279,22 +279,6 @@ $(function() {
 </script>
 
 <style type="text/css">
-/* #reviewTable { */
-	
-/* } */
-
-/* #item .center-block { */
-/* /*   display: block; */ */
-/*   margin-left: auto; */
-/*   margin-right: auto; */
-/* } */
-
-/* #itemImg { */
-/* 	width: 800px; */
-/*     height: 800px; */
-/*     object-fit: scale-down; */
-/* } */
-<style type="text/css">
 
 .layerbox {
 	position: relative;
@@ -609,7 +593,7 @@ table, th {
 			<p style="text-align: center;">${review.REVIEW_TITLE }</p>
 		</div>
 		<div class="layerbox">
-		<span>	
+		<span>		
 			<c:if test="${review.USER_NO eq null }">
 				탈퇴한 회원
 			</c:if>
@@ -619,7 +603,7 @@ table, th {
 						${review.USER_NICK }
 				</span>
 			</c:if>
-			<c:if test="${sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
+			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<span class="confirmation username layerpopup">
 					<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">
 						${review.USER_NICK }
@@ -633,6 +617,7 @@ table, th {
 					<li><a id="layerClose">닫기</a></li>
 				</ul>>
 			</div>
+		</div><!-- #layerbox end -->
 				
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 		<span><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
@@ -640,12 +625,12 @@ table, th {
 		<span>조회 <span id="cntCom">${review.REVIEW_HIT }</span></span>
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${review.REVIEW_COM_COUNT }</span>
 		<div class="btnWrap">
-			<c:if test="${review.USER_NO ne userNo and !empty sessionScope.userNo }">
+
+			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<button id="scrap">스크랩</button>
 				<button id="report" class="popupOpen1">신고</button>
 			</c:if>
 		</div>
-		</div><!-- #layerbox end -->
 			
 		<div class="lineInfo">
 			<ul>
@@ -740,15 +725,6 @@ table, th {
 </table>
 
 <hr style="border: 1px solid #ddd; margin-top: 0;">
-
-<!-- <div class="login input"> -->
-<!-- 비로그인상태 -->
-<%-- <c:if test="${not login }"> --%>
-<!-- 	<strong>로그인이 필요합니다</strong><br> -->
-<!-- 	<button onclick='location.href="/member/login";'>로그인</button> -->
-<!-- 	<button onclick='location.href="/member/join";'>회원가입</button> -->
-<%-- </c:if> --%>
-<!-- </div> -->
 
 <!-- 로그인상태 -->
 <c:if test="${login }">

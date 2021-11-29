@@ -60,21 +60,41 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
+.title {
+	margin: 50px 0 30px 0;
+}
 
-table {
+.listTable {
 	text-align: center;
+	width: 100%;
+	background: #fff;
 	margin: auto;
+	margin-bottom: 50px;
+	padding-bottom: 20px;
+}
+
+.table {
 	margin-top: 10px;
 }
 
-th, td {
-	text-align: center;
+.table>tbody>tr>th {
+	background: #f3f3f3;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td {
+	height: 30px;
+	vertical-align: middle;
 }
 
 label {
 	font-weight: normal !important;
 }
 
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -83,8 +103,11 @@ label {
 <div class="wrap">
 <div class="container">
 
-<h3>후기게시판 목록</h3>
-<hr>
+<div class="title">
+	<h1>후기게시판 목록</h1>
+</div>
+
+<div class="listTable">
 <span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
 	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
@@ -108,30 +131,27 @@ label {
 			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 		</label></td>
 		
-<%-- 		<c:forEach items="${user }" var="user"> --%>
-<%-- 			<c:if test="${review.userNo ne 0}"> --%>
-<%-- 				<c:if test="${review.USER_NO eq userNo}"> --%>
-					<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
-<%-- 				</c:if> --%>
-<%-- 			</c:if> --%>
-<%-- 		</c:forEach> --%>
-<%-- 			<c:if test="${review.USER_NO eq 0}"> --%>
-<!-- 				<td>탈퇴한 회원입니다</td> -->
-<%-- 			</c:if> --%>
+		<c:if test="${review.USER_NO ne null}">
+			<td style="text-align: left;">
+				<label for="${review.REVIEW_NO }">${review.USER_NICK }</label>
+			</td>
+		</c:if>
+		<c:if test="${review.USER_NO eq null}">
+			<td style="text-align: left;">탈퇴한 회원</td>
+		</c:if>
 			
 	<td><label for="${review.USER_NO }">${review.REVIEW_HIT }</label></td>
 	<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yyyy-MM-dd"/></td>
 </tr>
 </c:forEach>
-
 </table>
-<button id="btnDelete" class="pull-left">삭제</button>
+<button id="btnDelete" class="pull-left btn">삭제</button>
 
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
-
+</div><!-- .listTable end -->
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 
