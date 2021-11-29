@@ -7,6 +7,14 @@ li {
 	cursor: pointer;
 }
 
+.pagination>.active>span {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #5b6e7a;
+    border-color: #5b6e7a;
+}
+
 </style>
 
 <div class="text-center">

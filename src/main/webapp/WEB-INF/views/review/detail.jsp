@@ -254,6 +254,28 @@ function deleteComment(reviewComNo) {
 		}
 	});
 }
+
+
+$(function() {
+	
+	$(document).on("click", "#btnList", function(){
+		history.go(-1);
+	});
+	
+	$(document).on("click", "#btnDelete", function(){
+		action_popup.confirm("후기글을 삭제하시겠습니까?", function (res){
+			if(res){
+				location.href="/review/delete?reviewNo="+${review.REVIEW_NO };
+			}
+		})
+	});
+
+	$(".modal_close").on("click", function () {
+	       action_popup.close(this);
+	});
+	
+})/* $(function(){}) end */
+
 </script>
 
 <style type="text/css">
@@ -301,7 +323,7 @@ function deleteComment(reviewComNo) {
 }
 
 .wrap {
-	margin-bottom: 50px;
+/* 	margin-bottom: 50px; */
 	background:#f2f2f2; 
 }
 
@@ -559,6 +581,22 @@ table, th {
 	text-align: right;
 	margin-right: 20px;
 }
+
+#btnUpdate, #btnDelete, #btnList {
+	background: #808080;
+	border-radius: 0px;
+	height: 35px;
+	border: 1px solid #808080;
+	color: #fff;
+	padding: 0 15px;
+}
+
+#btnUpdate:hover, #btnDelete:hover, #btnList:hover {
+	border: 1px solid #808080;
+	background: #fff;
+	color: #808080;
+	transition: all .2s ease-in-out;
+}
 </style>
 
 <div class="wrap">
@@ -574,12 +612,6 @@ table, th {
 		<span>	
 			<c:if test="${review.USER_NO eq null }">
 				탈퇴한 회원
-			</c:if>
-			<c:if test="${userNo eq review.USER_NO }">
-				<span class="confirmation username">
-					<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">
-						${review.USER_NICK }
-				</span>
 			</c:if>
 			<c:if test="${sessionScope.userNo eq review.USER_NO || empty sessionScope.userNo }">
 				<span class="confirmation username">
@@ -709,12 +741,14 @@ table, th {
 
 <hr style="border: 1px solid #ddd; margin-top: 0;">
 
+<!-- <div class="login input"> -->
 <!-- 비로그인상태 -->
-<c:if test="${not login }">
-	<strong>로그인이 필요합니다</strong><br>
-	<button onclick='location.href="/member/login";'>로그인</button>
-	<button onclick='location.href="/member/join";'>회원가입</button>
-</c:if>
+<%-- <c:if test="${not login }"> --%>
+<!-- 	<strong>로그인이 필요합니다</strong><br> -->
+<!-- 	<button onclick='location.href="/member/login";'>로그인</button> -->
+<!-- 	<button onclick='location.href="/member/join";'>회원가입</button> -->
+<%-- </c:if> --%>
+<!-- </div> -->
 
 <!-- 로그인상태 -->
 <c:if test="${login }">
@@ -726,27 +760,23 @@ table, th {
 <!-- 댓글 입력 end -->
 </div>
 </c:if>
-</div><!-- 댓글 처리 end -->
 
 <br>
 
 <div class="text-center" style="margin-bottom: 100px;">
-	<a href="/review/list"><button class="btn btn-default">목록</button></a>
 	<c:if test="${userNo eq review.USER_NO }">
 		<a href="/review/update?reviewNo=${review.REVIEW_NO }">
-		<button class="btn btn-primary">수정</button></a>
-		<a href="/review/delete?reviewNo=${review.REVIEW_NO }">
-		<button type="button" class="btn btn-danger" id="btnDelete">삭제</button></a>
+		<button id="btnUpdate">수정</button></a>
+		<button type="button" id="btnDelete">삭제</button>
 	</c:if>
+	<a href="/review/list"><button id="btnList">목록으로</button></a>
 </div>
 
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
 </div>
-
 <!-- .container end -->
-</div>
 
 </div>
 <!-- .wrap end -->

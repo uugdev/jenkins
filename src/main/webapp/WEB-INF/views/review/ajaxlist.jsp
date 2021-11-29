@@ -50,16 +50,22 @@
 </c:forEach>
 </table>
 
+<span class="pull-left">총 ${paging.totalCount }개</span>
 <c:if test="${login }">
 	<button id="btnWrite" class="pull-right">글쓰기</button>
 </c:if>
-<span class="pull-left">TOTAL ${paging.totalCount }</span>
+<%-- <span class="pull-left">TOTAL ${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
+
 
 <c:import url="/WEB-INF/views/review/paging.jsp" />
 
-<div class="form-inline text-center">
-	<input class="form-control" type="text" id="search" value="${param.search }" />
+<div class="list-search">
+<div class="input_search_area">
+	<div class="input_component" style="width: 400px">
+	<input type="text" id="search" name="search" value="${param.search }" placeholder="검색어를 입력해주세요" style="width: 200px;" />
 	<button id="btnSearch" class="btn">검색</button>
+	</div>
+</div>
 </div>
 <div class="clearfix"></div>

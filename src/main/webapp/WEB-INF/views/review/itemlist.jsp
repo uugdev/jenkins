@@ -52,7 +52,6 @@ td:nth-child(2) {
 #photoList li:nth-child(3n+0) {
   margin-right: 0;
 } 
-
 </style>
 
 <!-- <div> -->
@@ -81,9 +80,11 @@ td:nth-child(2) {
 		</c:forEach>
 	</ul>
 	
-	<div class="form-inline text-center">
-		<input class="form-control" type="text" id="search" value="${param.search }" />
-		<button id="btnSearch" class="btn">검색</button>
+	<div class="bbs-sch">
+		<p class="input">
+			<input class="form-control" type="text" id="search" value="${param.search }" />
+			<button id="btnSearch" class="btn">검색</button>
+		</p>
 	</div>
 	<c:import url="/WEB-INF/views/review/paging.jsp" />
 	

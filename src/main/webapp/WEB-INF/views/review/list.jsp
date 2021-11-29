@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
     <%--page title--%>
-    <title>이건못참조</title>
+    <title>: : : KH 영수증 : : :</title>
 	<c:import url="/WEB-INF/views/layout/head.jsp" />
 </head>
 <body>
@@ -217,7 +217,7 @@ th {
 }
 
 .table>tbody>tr>td {
-	height: 50px;
+	height: 45px;
 	vertical-align: middle;
 }
 
@@ -244,6 +244,46 @@ th {
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
 }
+
+input[type=text] {
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
+}
+
+input[type=text]:focus {
+	outline: none;
+}
+
+.list-search {
+	padding: 16px 0 16px;
+    text-align: center;
+}
+
+
+.input_search_area {
+	display: inline-block;
+}
+
+.input_search_area .input_component {
+    float: left;
+    border-right: 0;
+}
+
+.input_search_area #btnSearch {
+    display: inline-block;
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+
 </style>
 
 <div class="wrap">
