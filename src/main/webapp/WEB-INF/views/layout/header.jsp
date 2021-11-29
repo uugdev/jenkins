@@ -107,7 +107,7 @@ $(document).ready(function() {
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
 					<a href="/notice/list" style="margin-left: 653px;">공지사항</a>
-					<a href="/qna/main">자주 찾는 질문</a>
+					<a href="/qna/main">자주 묻는 질문</a>
 					<a href="/qna/list">1:1 문의</a>
 				</p>
 			</div>
