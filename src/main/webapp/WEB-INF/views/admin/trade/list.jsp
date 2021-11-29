@@ -80,10 +80,30 @@ label {
 <div class="wrap">
 	<div class="container">
 	
-		<h1>거래 게시판 목록</h1>
+		<h3>거래 게시판 목록</h3>
 		<hr>
 		
-		<span class="pull-left">총 ${paging.totalCount }개</span>
+		<span class="pull-left">
+			총 ${paging.totalCount }개
+		</span>
+		<select onchange="if(this.value) location.href=(this.value);" style="margin-left: 585px; height: 33px;">
+		    <c:if test="${param.target ne 0 and param.target ne 1}">
+			    <option value="/admin/trade/list?search=${param.search }" >전체보기</option>
+			    <option value="/admin/trade/list?search=${param.search }&target=0" >팝니다</option>
+			    <option value="/admin/trade/list?search=${param.search }&target=1" >삽니다</option>
+		    </c:if>
+		    <c:if test="${param.target eq 0 }">
+			    <option value="/admin/trade/list?search=${param.search }" >전체보기</option>
+			    <option selected="selected" value="/admin/trade/list?search=${param.search }&target=0" >팝니다</option>
+			    <option value="/admin/trade/list?search=${param.search }&target=1" >삽니다</option>
+		    </c:if>
+		    <c:if test="${param.target eq 1 }">
+			    <option value="/admin/trade/list?search=${param.search }" >전체보기</option>
+			    <option value="/admin/trade/list?search=${param.search }&target=0" >팝니다</option>
+			    <option selected="selected" value="/admin/trade/list?search=${param.search }&target=1" >삽니다</option>
+		    </c:if>
+		</select>
+		
 		<div class="pull-right" style="width: 300px; margin: 0 auto;">
 			<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
 			<button id="btnSearch" class="pull-right btn">검색</button>
@@ -139,7 +159,7 @@ label {
 		
 		<div class="clearfix"></div>
 		
-		<c:import url="/WEB-INF/views/layout/paging.jsp" />
+		<c:import url="/WEB-INF/views/admin/trade/paging.jsp" />
 		
 	</div> <!-- .container end -->
 </div> <!-- .wrap end -->
