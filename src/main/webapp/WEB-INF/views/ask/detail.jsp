@@ -458,7 +458,6 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-
 .layerbox {
 	position: relative;
 	display: inline-block;
@@ -475,8 +474,10 @@ $(document).ready(function() {
 	color: #667F92;
 }
 
-#layer { 
-	display:none; padding:10px; background:#fff;
+#layer {
+	display: none;
+	padding: 10px;
+	background: #fff;
 	position: absolute;
 	top: 24px;
 	left: 0;
@@ -485,45 +486,45 @@ $(document).ready(function() {
 	height: 120px;
 	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 	padding: 0;
-	
 }
 
-#layer > ul {
+#layer>ul {
 	list-style: none;
 	padding-left: 0;
 }
 
-#layer > ul > li {
+#layer>ul>li {
 	line-height: 40px;
 }
 
-#layer > ul > li:hover {
+#layer>ul>li:hover {
 	background-color: #a1b8c9;
 	cursor: pointer;
 }
 
-#layer > ul > li > a {
+#layer>ul>li>a {
 	display: block;
 	color: #667F92;
 }
 
-#layer > ul > li > a:hover {
+#layer>ul>li>a:hover {
 	color: #FFF;
 	cursor: pointer;
 	text-decoration: none;
 }
 
 .layerClose {
-	font-size:15px; float: right;
+	font-size: 15px;
+	float: right;
 }
 
 .layerpopup:hover, #layerClose:hover {
-	cursor:pointer; 
+	cursor: pointer;
 }
 
 .wrap {
 	margin-bottom: 50px;
-	background:#f2f2f2; 
+	background: #f2f2f2;
 }
 
 table {
@@ -562,7 +563,6 @@ table, th {
 }
 
 #itemImg {
-	
 	object-fit: scale-down;
 }
 
@@ -579,14 +579,13 @@ table, th {
 #chartBox {
 	width: 418px;
 	margin: 15px;
-    height: 35px;
-    border-radius: 20px;
-    overflow: hidden;
+	height: 35px;
+	border-radius: 20px;
+	overflow: hidden;
 }
 
 .item-wrapper {
 	height: 35px !important;
-	
 }
 
 .item-percentage {
@@ -595,12 +594,11 @@ table, th {
 }
 
 .recipeWrap {
-/*  	width: 700px; */
-	width: 1050px;
+	/*  	width: 700px; */
+	width: 100%;
 	margin: 50px auto 0;
-	padding: 15px;
+	padding: 30px;
 	background: #fff;
-	padding: 50px;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
 }
@@ -643,7 +641,6 @@ table, th {
 	margin-left: 3px;
 }
 
-
 .lineInfo {
 	margin-top: 20px;
 	border-bottom: 3px solid #585858;
@@ -668,28 +665,28 @@ table, th {
 
 .lineInfo li+li:after {
 	position: absolute;
-/* 	top: 6px; */
- 	top: 1px; 
+	/* 	top: 6px; */
+	top: 1px;
 	left: 0;
 	content: '';
 	clear: both;
 	display: inline-block;
 	width: 1px;
-/* 	height: 15px; */
- 	height: 28px; 
+	/* 	height: 15px; */
+	height: 28px;
 	background: #333;
 }
 
 .lineInfo li:nth-child(1) {
-	width: 20%;
+	width: 33%;
 }
 
 .lineInfo li:nth-child(2) {
-	width: 40%;
+	width: 33%;
 }
 
 .lineInfo li:nth-child(3) {
-	width: 40%;
+	width: 33%;
 }
 
 .lineInfo li dl {
@@ -719,8 +716,8 @@ table, th {
 	border-top-right-radius: 20px;
 	/* 	border-bottom-left-radius: 6px; */
 	/* 	border-bottom-right-radius: 6px; */
-/* 	width: 700px; */
-	width: 1050px;
+	/* 	width: 700px; */
+	width: 100%;
 	padding: 20px 25px;
 }
 
@@ -731,7 +728,7 @@ table, th {
 	content: '';
 	clear: both;
 	display: inline-block;
-/* 	width: 665px; */
+	/* 	width: 665px; */
 	width: 1050px;
 	border-top: 3px dashed #f2f2f2;
 	content: '';
@@ -755,12 +752,12 @@ table, th {
 }
 
 .content {
-	text-align: center; 
+	text-align: center;
 	padding: 30px 0 15px 0;
 	margin: 0 20px 0 20px;
 }
 
-.content + p {
+.content+p {
 	margin: 0px;
 }
 
@@ -780,21 +777,20 @@ table, th {
 	text-align: right;
 	margin-right: 20px;
 }
-
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-	<div class="container" style="background: #f2f2f2;">
-		<div class="recipeWrap">
-			<div class="logo">
-				<img alt="#" src="https://i.imgur.com/fdRrD3i.png">
-			</div>
-			<div class="title">
-				<p style="text-align: center;">${ask.askTitle }</p>
-				<p>
-					<div class="layerbox">
+	<div class="container">
+			<div class="recipeWrap">
+				<div class="logo">
+					<img alt="#" src="https://i.imgur.com/fdRrD3i.png">
+				</div>
+				<div class="title">
+					<p style="text-align: center;">${ask.askTitle }</p>
+				</div>
+				<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
 						<span class="confirmation username">작성자 : ${user.userNick }</span>
 					</c:if>
@@ -803,8 +799,8 @@ table, th {
 					</c:if>
 					<c:if
 						test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
-						<span class="confirmation username layerpopup">작성자
-							: ${user.userNick }</span>
+						<span class="confirmation username layerpopup">작성자 :
+							${user.userNick }</span>
 					</c:if>
 					<div id="layer">
 						<ul>
@@ -812,18 +808,14 @@ table, th {
 							<li><a onclick="message();">쪽지 보내기</a></li>
 							<li><a id="layerClose">닫기</a></li>
 						</ul>
-					</div> <!-- #layer end -->
 					</div>
-					</div>
-					
-					<span class="bar">|</span> 
-					<span>
-						<fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
-					</span> 
-					<span class="bar">|</span>
-					<span>조회 <span id="cntCom">${ask.askHit }</span>
-					</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
-				</p>
+					<!-- #layer end -->
+				</div>
+
+				<span class="bar">|</span> <span> <fmt:formatDate
+						value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
+				</span> <span class="bar">|</span> <span>조회 <span id="cntCom">${ask.askHit }</span>
+				</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
 				<div class="btnWrap">
 					<c:if
 						test="${ask.userNo ne userNo and !empty sessionScope.userNo  }">
@@ -832,7 +824,6 @@ table, th {
 					</c:if>
 				</div>
 
-			</div>
 			<div class="lineInfo">
 				<ul>
 					<li>
@@ -857,36 +848,37 @@ table, th {
 			</div>
 
 			<div id="item">
-				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
+				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진"
+					class="img-responsive center-block" alt="Responsive image" />
 			</div>
 
 
-<%-- 			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div> --%>
+			<%-- 			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div> --%>
 			<div style="border-top: 1px solid #000;">
-				<div class="content">
-					${ask.askContent }
-				</div>
+				<div class="content">${ask.askContent }</div>
 			</div>
-			<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
+			<div class="priceWrap"
+				style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
 				<p class="priceText">PRICE</p>
 				<p class="price">
-					￦ <fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }"/>
+					￦
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+						value="${item.itemPrice }" />
 				</p>
 			</div>
 
 
-
-		</div>
-		<div class="barcode">
-			<img alt="#" src="/resources/img/askBarcode2.png">
-
-			<div class="bottom"></div>
 		</div>
 
 
+			<div class="barcode">
+				<img alt="#" src="/resources/img/askBarcode2.png">
 
-<!-- 		<hr> -->
+				<div class="bottom"></div>
+			</div>
+
+
+		<!-- 		<hr> -->
 
 		<div id="votedate">
 			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
@@ -928,11 +920,11 @@ table, th {
 
 
 		<c:if test="${check eq 'n'}">
-					<p style="font-size: 16px;">투표가 종료되었습니다</p>
+			<p style="font-size: 16px;">투표가 종료되었습니다</p>
 			<div class="check">
 				<div>
 					<div class="pull-left cnt" id="cntY">${cntY }</div>
-					
+
 					<c:if test="${cntY > cntN}">
 						<c:if test="${status.voteState eq 'y'}">
 							<img class="pull-left success"
@@ -948,79 +940,79 @@ table, th {
 
 					<c:if test="${cntY < cntN}">
 						<c:if test="${status.voteState eq 'y'}">
-							<img class="pull-left vote"
-								src="https://i.imgur.com/aH44JbJ.png" alt="반대가많고찬성에투표" />
+							<img class="pull-left vote" src="https://i.imgur.com/aH44JbJ.png"
+								alt="반대가많고찬성에투표" />
 						</c:if>
 					</c:if>
 					<c:if test="${cntY < cntN}">
 						<c:if test="${status.voteState ne 'y'}">
-							<img class="pull-left vote"
-								src="https://i.imgur.com/iLdts0b.png" alt="반대가많고찬성에투표하지않음" />
+							<img class="pull-left vote" src="https://i.imgur.com/iLdts0b.png"
+								alt="반대가많고찬성에투표하지않음" />
 						</c:if>
 					</c:if>
-					
+
 					<c:if test="${cntY == cntN}">
 						<c:if test="${status.voteState eq 'y'}">
-						<img class="success pull-left" src="https://i.imgur.com/aH44JbJ.png"
-							alt="투표수가같고찬성에투표함" />
+							<img class="success pull-left"
+								src="https://i.imgur.com/aH44JbJ.png" alt="투표수가같고찬성에투표함" />
 						</c:if>
 					</c:if>
 					<c:if test="${cntY == cntN}">
 						<c:if test="${status.voteState ne 'y'}">
-						<img class="success pull-left" src="https://i.imgur.com/iLdts0b.png"
-							alt="투표수가같고찬성에투표하지않음" />
+							<img class="success pull-left"
+								src="https://i.imgur.com/iLdts0b.png" alt="투표수가같고찬성에투표하지않음" />
 						</c:if>
 					</c:if>
-				
+
 				</div>
-				
+
 				<div id="chartBox">
 					<div class="chart"></div>
 				</div>
 
 				<div>
 					<div class="pull-right cnt" id="cntN">${cntN }</div>
-					
-					
+
+
 					<c:if test="${cntY < cntN}">
 						<c:if test="${status.voteState eq 'n'}">
-						<img class="success pull-right" src="https://i.imgur.com/C4qO9bG.png"
-							alt="반대가많고반대에투표함" />
+							<img class="success pull-right"
+								src="https://i.imgur.com/C4qO9bG.png" alt="반대가많고반대에투표함" />
 						</c:if>
 					</c:if>
 					<c:if test="${cntY < cntN}">
 						<c:if test="${status.voteState ne 'n'}">
-						<img class="success pull-right" src="https://i.imgur.com/0sDsZn8.png"
-							alt="반대가많고반대에투표하지않음" />
+							<img class="success pull-right"
+								src="https://i.imgur.com/0sDsZn8.png" alt="반대가많고반대에투표하지않음" />
 						</c:if>
 					</c:if>
 
 					<c:if test="${cntY > cntN}">
 						<c:if test="${status.voteState eq 'n'}">
-						<img class="vote pull-right" src="https://i.imgur.com/C4qO9bG.png"
-							alt="찬성이많고반대에투표함" />
+							<img class="vote pull-right"
+								src="https://i.imgur.com/C4qO9bG.png" alt="찬성이많고반대에투표함" />
 						</c:if>
 					</c:if>
 					<c:if test="${cntY > cntN}">
 						<c:if test="${status.voteState ne 'n'}">
-						<img class="vote pull-right" src="https://i.imgur.com/0sDsZn8.png"
-							alt="찬성이많고반대에투표하지않음" />
+							<img class="vote pull-right"
+								src="https://i.imgur.com/0sDsZn8.png" alt="찬성이많고반대에투표하지않음" />
 						</c:if>
 					</c:if>
-				
+
 					<c:if test="${cntY == cntN}">
 						<c:if test="${status.voteState eq 'n'}">
-						<img class="success pull-right" src="https://i.imgur.com/C4qO9bG.png"
-							alt="투표수가같고반대에투표함" />
+							<img class="success pull-right"
+								src="https://i.imgur.com/C4qO9bG.png" alt="투표수가같고반대에투표함" />
 						</c:if>
 					</c:if>
 					<c:if test="${cntY == cntN}">
 						<c:if test="${status.voteState ne 'n'}">
-						<img class="success pull-right" src="https://i.imgur.com/0sDsZn8.png"
-							alt="투표수가같고반대에투표하지않음" />
+							<img class="success pull-right"
+								src="https://i.imgur.com/0sDsZn8.png" alt="투표수가같고반대에투표하지않음" />
 						</c:if>
 					</c:if>
-				
+
 				</div>
 			</div>
 		</c:if>
@@ -1099,13 +1091,12 @@ table, th {
 			</c:if>
 		</div>
 
-
-		<%-- --%>
-
 	</div>
-	<!-- .container end -->
-	<c:import url="/WEB-INF/views/layout/footer.jsp" />
+	<%-- --%>
+
 </div>
+<!-- .container end -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
 <!-- .wrap end -->
 
 <div class="popupWrap1 hide1">

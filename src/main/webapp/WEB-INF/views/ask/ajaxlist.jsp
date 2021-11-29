@@ -7,6 +7,7 @@
 
 <!-- <div> -->
 <!-- <div id="ajaxArea"> -->
+<div class="listTable">
 <table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -14,7 +15,7 @@
 			<th style="width: 45%; text-align: left;">제목</th>
 			<th style="width: 12%; text-align: left;">작성자</th>
 			<th style="width: 10%; text-align: center;">조회수</th>
-			<th style="width: 15%; text-align: left;">작성일</th>
+			<th style="width: 15%; text-align: center;">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -61,9 +62,9 @@
 </table>
 
 <c:if test="${login }">
-	<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+	<button id="btnWrite" class="btn btn-primary pull-right">글쓰기</button>
 </c:if>
-<span class="pull-right">total : ${paging.totalCount }</span>
+<span class="pull-left">total : ${paging.totalCount }</span>
 <div class="clearfix"></div>
 
 <div class="form-inline text-center">
@@ -73,5 +74,6 @@
 </div>
 <c:import url="/WEB-INF/views/review/paging.jsp" />
 
+</div>
 <!-- 	</div>.container -->
 <!-- </div>.wrap end -->

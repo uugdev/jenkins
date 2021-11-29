@@ -175,13 +175,62 @@ function reportStatusY() {
 </script>
 
 <style type="text/css">
-table {
-	table-layout: fixed;
+body {
+	background: #f2f2f2;
 }
 
-table, th, td {
-	text-align: left;
+.title {
+	margin: 50px 0;
 }
+
+.title > p {
+	color: #85969E;
+}
+
+.listTable {
+	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+	padding-bottom: 20px;
+	margin-top: 10px;
+}
+
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 50px;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td>a {
+	color: #000;
+}
+.table>tbody>tr>td>a:hover {
+	color: #85969E;
+	text-decoration: none;
+}
+
+#btnWrite {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnWrite:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
 
 td:nth-child(2) {
 	text-align: left;
@@ -200,15 +249,29 @@ td:nth-child(2) {
 	width: 162px;
 }
 
+a {
+	color: #000;
+}
+
+a:hover {
+	color: #85969E;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 	<div class="container">
+		<div class="title">
+			<h1>질문게시판</h1>
+			<p>질문을 올려주시어쩌고</p>
+		</div>
 
-		<h1>질문</h1>
-		<hr>
 		<div class="pull-right" style="margin-bottom: 20px;">
 			<a id="latestList">최신순</a>
 			<a id="hitList">조회순</a>
