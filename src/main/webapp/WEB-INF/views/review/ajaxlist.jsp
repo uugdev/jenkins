@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
+
 <table class="table table-hover">
 <tr>
 	<th width="13%">글 번호</th>
@@ -14,11 +15,11 @@
 <c:forEach items="${reviewList }" var="review">
 <tr>
 	<td>${review.REVIEW_NO }</td>
-	<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
-<!-- 				title 옆 comment count 처리 -->
-<%-- 				<c:if test="${review.REVIEW_NO }"> --%>
-<%-- 					<strong><span> [${review.REVIEW_COM_NO }]</span></strong> --%>
-<%-- 				</c:if> --%>
+	<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+	<c:if test="${not empty review.REVIEW_COM_CNT }">
+		<strong><span>[${review.REVIEW_COM_CNT}]</span></strong>
+	</c:if>
+	</td>
 	<c:if test="${review.USER_NICK eq null }">
 		<td>탈퇴한 회원</td>
 	</c:if>

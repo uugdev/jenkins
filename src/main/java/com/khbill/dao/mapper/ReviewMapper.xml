@@ -75,19 +75,27 @@
 		SELECT * FROM (
 		    SELECT rownum rnum, R.* FROM (
 		        SELECT
-		            review_no, U.user_no, user_nick, F.file_no, F.file_stored
+		            R.review_no, U.user_no, user_nick, F.file_no, F.file_stored
 		            , i.item_no, i.item_brand, i.item_name, i.item_price
-		            , review_title, review_content, review_date, review_hit, W.grade_url
-		            , ( SELECT count (review_com_no) FROM ZREVIEW_COMMENT
+		            , R.review_title, R.review_content, R.review_date, R.review_hit, W.grade_url
+		            , ( SELECT count (review_com_no) FROM zreview_comment
 		            WHERE review_no = 1 ) review_com_count
+		            , cnt.review_com_cnt
 		        FROM zreview R
-		        LEFT OUTER JOIN zuser U ON U.user_no = R.user_no    
+		        LEFT OUTER JOIN zuser U ON U.user_no(+) = R.user_no    
 		        LEFT OUTER JOIN zfile F ON R.file_no = F.file_no
 		        LEFT OUTER JOIN zitem I ON R.item_no = I.item_no
 		        LEFT OUTER JOIN USERWITHURL W ON U.user_no = W.user_no
+		        LEFT OUTER JOIN 
+		            ( 
+		                SELECT count (review_com_no) review_com_cnt, review_no
+		                FROM ZREVIEW_COMMENT
+		                GROUP BY review_no
+		            ) cnt
+		            ON cnt.review_no = R.review_no
 		        ORDER BY review_no
 		    ) R
-		) ZREVIEW
+	    ) ZREVIEW
 		WHERE review_no = #{reviewNo } 
 	</select>
 	 

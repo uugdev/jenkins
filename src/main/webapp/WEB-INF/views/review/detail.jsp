@@ -623,7 +623,7 @@ table, th {
 		<span><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>				
 		<span>조회 <span id="cntCom">${review.REVIEW_HIT }</span></span>
-		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${review.REVIEW_COM_COUNT }</span>
+		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${review.REVIEW_COM_CNT}</span>
 		<div class="btnWrap">
 
 			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
