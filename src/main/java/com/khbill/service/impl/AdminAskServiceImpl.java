@@ -156,4 +156,31 @@ public class AdminAskServiceImpl implements AdminAskService {
 	}
 	
 	
+	@Override
+	public int getAskComCnt(int askNo) {
+		return adminAskDao.selectCntAskComAll(askNo);
+	}
+	
+	
+	@Override
+	public String voteCheck(Vote vote) {
+		System.out.println(vote);
+
+		int res = adminAskDao.selectVoteEnd(vote);
+		String check = null;
+
+		if (res == 1) {
+
+			check = "y";
+
+		} else if (res <= 0) {
+
+			check = "n";
+
+		}
+
+		return check;
+	}
+	
+	
 }// class

@@ -63,6 +63,24 @@
 	width: 100%;
 	height: 100%;
 }
+
+.btnWrap:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.btnWrap {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+	margin-bottom: 100px;
+}
+
 </style>
 
 
@@ -84,7 +102,7 @@
 			</div>
 			<div class="form-group">
 				<label for="askTitle">제목</label> <input type="text" id="askTitle"
-					name="askTitle" class="form-control" value="${ask.askTitle }" />
+					name="askTitle" class="form-control"  maxlength="32"  value="${ask.askTitle }" />
 			</div>
 
 			<div class="form-group">
@@ -127,8 +145,8 @@
 			</div>
 
 			<div class="text-center">
-				<button type="button" class="btn btn-primary" id="btnWrite">작성</button>
-				<input type="reset" id="cancel" class="btn btn-danger" value="취소" />
+				<button type="button" class="btn btnWrap" id="btnWrite">수정</button>
+				<input type="reset" id="cancel" class="btn btnWrap" value="취소" />
 			</div>
 
 		</form>

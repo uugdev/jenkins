@@ -137,4 +137,17 @@
 	</select>
 
 
+	<select id="selectCntAskComAll" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM zask_comment
+		WHERE ask_no = #{askNo}
+	</select>
+
+
+	<select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
+		SELECT COUNT(*) FROM zvote
+		WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
+		AND ask_no = #{askNo} AND user_no = #{userNo}
+	</select>
+
+
 </mapper>

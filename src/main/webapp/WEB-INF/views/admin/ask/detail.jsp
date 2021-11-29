@@ -18,66 +18,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	var userno = "<c:out value='${userNo}' />";
-	var askUserno = "<c:out value='${ask.userNo}' />";
-	var result = "<c:out value='${result}' />";
-	var loginUserVoteState = "<c:out value='${status.voteState}' />";
-	
-	$("#like").click(function() {
-							
-		$.ajax({
-			type: "get"
-			, url: "/ask/votelike"
-			, data: { "askNo": '${ask.askNo }' }
-			, dataType: "json"
-			, success: function( data ) {
-				console.log("성공");
-				$("#like")
-				.attr("src", "https://i.imgur.com/aH44JbJ.png").removeClass('vote')
-				.addClass('success');
-									
-				//투표수 적용
-				$("#cntY").html(data.cntY);
-									
-				initChart(data.cntY, $("#cntN").html())
-									
-			} //success
-			, error: function() {
-				console.log("실패");
-			} //error
-		}); //ajax end
-	}); //$("#like").click() end
-		
-	
-	$("#hate").click(function() {
-				
-		$.ajax({
-			type: "get"
-			, url: "/ask/votehate"
-			, data: { "askNo": '${ask.askNo }' }
-			, dataType: "json"
-			, success: function( data ) {
-				console.log("성공");
-				$("#hate")
-				.attr("src", "https://i.imgur.com/C4qO9bG.png").removeClass('vote')
-				.addClass('success');
-						
-				//투표수 적용
-				$("#cntN").html(data.cntN);
-							
-				initChart($("#cntY").html(), data.cntN)
 
-			} //success
-			, error: function() {
-				console.log("실패");
-			} //error
-		}) //ajax end
-	}) //$("#hate").click() end
-	
-
-
-	
 	$("#btnDelete").click(function() {
 
 		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
@@ -139,6 +80,75 @@ function deleteComment(askComNo) {
 
 </script>
 <style type="text/css">
+.layerbox {
+	position: relative;
+	display: inline-block;
+}
+
+.layerpopup {
+	width: 500px;
+}
+
+.layerpopup:hover {
+	width: 500px;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #667F92;
+}
+
+#layer {
+	display: none;
+	padding: 10px;
+	background: #fff;
+	position: absolute;
+	top: 24px;
+	left: 0;
+	z-index: 1;
+	width: 110px;
+	height: 120px;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	padding: 0;
+}
+
+#layer>ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#layer>ul>li {
+	line-height: 40px;
+}
+
+#layer>ul>li:hover {
+	background-color: #a1b8c9;
+	cursor: pointer;
+}
+
+#layer>ul>li>a {
+	display: block;
+	color: #667F92;
+}
+
+#layer>ul>li>a:hover {
+	color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.layerClose {
+	font-size: 15px;
+	float: right;
+}
+
+.layerpopup:hover, #layerClose:hover {
+	cursor: pointer;
+}
+
+.wrap {
+	margin-bottom: 50px;
+	background: #f2f2f2;
+}
+
 table {
 	table-layout: fixed;
 }
@@ -148,40 +158,39 @@ table, th {
 }
 
 .success {
-	width: 50px;
-	height: 50px;
+	width: 65px;
+	height: 65px;
 }
 
 #item {
-	width: 300px;
-	height: 300px;
-	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin: 15px auto 15px;
+	padding: 50px 0;
+	border-top: 1px solid #000;
+	display: flex;
 }
 
 #votedate {
 	text-align: center;
+	font-size: 20px;
+	margin-top: 60px;
 }
 
 .check {
 	display: flex;
 	justify-content: space-between;
 	text-align: center;
-	width: 500px;
+	width: 641px;
 	margin: 0 auto;
-	width: 500px;
 	text-align: center;
 }
 
 #itemImg {
-	width: 100%;
-	height: 100%;
+	object-fit: scale-down;
 }
 
 .vote {
-	width: 45px;
-	height: 45px;
+	width: 60px;
+	height: 60px;
 }
 
 .cnt {
@@ -190,117 +199,419 @@ table, th {
 }
 
 #chartBox {
-	width: 300px;
+	width: 418px;
+	margin: 15px;
+	height: 35px;
+	border-radius: 20px;
+	overflow: hidden;
 }
 
 .item-wrapper {
-	height: 30px !important;
+	height: 35px !important;
 }
 
 .item-percentage {
+	line-height: 32px;
+	color: #f2f2f2 !important;
+}
+
+.recipeWrap {
+	/*  	width: 700px; */
+	width: 100%;
+	margin: 100px auto 0;
+	padding: 30px;
+	background: #fff;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+
+.logo {
+	margin: 25px 0 15px;
+	text-align: center;
+}
+
+.logo img {
+	width: 200px;
+}
+
+.title p:nth-child(1) {
+	font-size: 32px;
+	font-weight: 500;
+	margin: 30px 0;
+}
+
+.title .bar {
+	display: inline-block;
+	margin: 0 15px;
+	color: #777777;
+}
+
+.title .username {
+	cursor: pointer;
+}
+
+.btnWrap {
+	text-align: right;
+}
+
+.btnWrap button {
+	width: 83px;
+	height: 35px;
+	background: transparent;
+	border: 1px solid #333;
+	font-weight: 600;
+	margin-left: 3px;
+}
+
+.lineInfo {
+	margin-top: 20px;
+	border-bottom: 3px solid #585858;
+	border-top: 3px solid #585858;
+}
+
+.lineInfo ul {
+	padding: 10px 0;
+	margin: 0;
+	list-style: none;
+	overflow: hidden;
+}
+
+.lineInfo li {
+	float: left;
 	line-height: 30px;
+}
+
+.lineInfo li+li {
+	position: relative;
+}
+
+.lineInfo li+li:after {
+	position: absolute;
+	/* 	top: 6px; */
+	top: 1px;
+	left: 0;
+	content: '';
+	clear: both;
+	display: inline-block;
+	width: 1px;
+	/* 	height: 15px; */
+	height: 28px;
+	background: #333;
+}
+
+.lineInfo li:nth-child(1) {
+	width: 33%;
+}
+
+.lineInfo li:nth-child(2) {
+	width: 33%;
+}
+
+.lineInfo li:nth-child(3) {
+	width: 33%;
+}
+
+.lineInfo li dl {
+	margin: 0;
+	padding: 5px 0;
+}
+
+.lineInfo li dl dt, .lineInfo li dl dd {
+	float: left;
+}
+
+.lineInfo li dl dt {
+	width: 80px;
+}
+
+.lineInfo li dl dd {
+	text-align: left;
+	width: calc(100% - 80px);
+	word-break: break-all;
+}
+
+.barcode {
+	position: relative;
+	margin: 0 auto;
+	background: #fff;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	/* 	border-bottom-left-radius: 6px; */
+	/* 	border-bottom-right-radius: 6px; */
+	/* 	width: 700px; */
+	width: 100%;
+	padding: 20px 25px;
+}
+
+.barcode:before {
+	position: absolute;
+	top: 0;
+	left: 16px;
+	content: '';
+	clear: both;
+	display: inline-block;
+	/* 	width: 665px; */
+	width: 1050px;
+	border-top: 3px dashed #f2f2f2;
+	content: '';
+}
+
+.barcode img {
+	width: 100%;
+	margin-top: 20px;
+	padding-right: 10px;
+}
+
+.bottom {
+	position: absolute;
+	bottom: -18px;
+	left: -1px;
+	width: 100%;
+	height: 21px;
+	background-image: url("/resources/img/bottom.png");
+	background-repeat: repeat;
+	background-repeat-y: no-repeat;
+}
+
+.content {
+	text-align: center;
+	padding: 30px 0 15px 0;
+	margin: 0 20px 0 20px;
+}
+
+.content+p {
+	margin: 0px;
+}
+
+.priceWrap {
+	display: flex;
+	justify-content: space-between;
+	font-weight: 700;
+	font-size: 24px;
+}
+
+.priceText {
+	text-align: left;
+	margin-left: 20px;
+}
+
+.price {
+	text-align: right;
+	margin-right: 20px;
+}
+
+#hate:hover {
+	cursor: pointer;
+}
+
+#like:hover {
+	cursor: pointer;
+}
+
+.btnGroup {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+	margin-bottom: 100px;
+}
+
+.btnGroup:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 </style>
 
 <!-- 개별 영역 끝 -->
-
 <div class="wrap">
 	<div class="container">
+		<div class="recipeWrap">
+			<div class="logo">
+				<img alt="#" src="https://i.imgur.com/fdRrD3i.png">
+			</div>
+			<div class="title">
+				<p style="text-align: center;">${ask.askTitle }</p>
+			</div>
+			<div class="layerbox">
+				<c:if test="${ask.userNo ne 0}">
+					<span class="confirmation username">닉네임 : ${user.userNick }</span>
+				</c:if>
+				<c:if test="${ask.userNo eq 0 }">
+						탈퇴한 회원
+					</c:if>
+				<div id="layer">
+					<ul>
+						<li><a onclick="userinfo();">회원정보 보기</a></li>
+						<li><a onclick="message();">쪽지 보내기</a></li>
+						<li><a id="layerClose">닫기</a></li>
+					</ul>
+				</div>
+				<!-- #layer end -->
+			</div>
 
-		<%-- --%>
+			<span class="bar">|</span> <span> <fmt:formatDate
+					value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
+			</span> <span class="bar">|</span> <span>조회 <span id="cntCom">${ask.askHit }</span>
+			</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
 
-		<h1 style="text-align: center; margin-top: 50px;">${ask.askTitle }</h1>
-		<!-- <button id="btnRecommend" class="btn pull-right">추천</button> -->
-		<!-- <div class="clearfix"></div> -->
-		<hr>
-		<c:if test="${userNo eq ask.userNo }">
-			<span>작성자 : ${user.userNick }</span>
+			<div class="lineInfo">
+				<ul>
+					<li>
+						<dl class="clearfix">
+							<dt>NO</dt>
+							<dd>${ask.askNo }</dd>
+						</dl>
+					</li>
+					<li>
+						<dl class="clearfix">
+							<dt>BRAND</dt>
+							<dd>${item.itemBrand}</dd>
+						</dl>
+					</li>
+					<li>
+						<dl class="clearfix">
+							<dt>NAME</dt>
+							<dd>${item.itemName }</dd>
+						</dl>
+					</li>
+				</ul>
+			</div>
+
+			<div id="item">
+				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진"
+					class="img-responsive center-block" alt="Responsive image" />
+			</div>
+
+
+			<div style="border-top: 1px solid #000;">
+				<div class="content">${ask.askContent }</div>
+			</div>
+			<div class="priceWrap"
+				style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
+				<p class="priceText">PRICE</p>
+				<p class="price">
+					￦
+					<fmt:formatNumber type="number" maxFractionDigits="3"
+						value="${item.itemPrice }" />
+				</p>
+			</div>
+
+
+		</div>
+
+
+		<div class="barcode">
+			<img alt="#" src="/resources/img/askBarcode2.png">
+
+			<div class="bottom"></div>
+		</div>
+
+
+
+		<c:if test="${vote.voteEnd ne null}">
+
+			<div id="votedate">
+				<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
+				~
+				<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
+			</div>
 		</c:if>
-		<c:if test="${userNo ne ask.userNo }">
-			<a
-				href="<%=request.getContextPath() %>/message/write?userNick=${user.userNick }"
-				onclick="return confirm('쪽지를 보내시겠습니까?');"><span>작성자 :
-					${user.userNick }</span></a>
+
+		<c:if test="${vote.voteEnd eq null}">
+			<div style="margin-top: 60px;"></div>
 		</c:if>
-		| <span><fmt:formatDate value="${ask.askDate }"
-				pattern="yy-MM-dd HH:mm" /></span> <span class="pull-right">조회수 :
-			${ask.askHit }</span>
 
-		<table class="table table-striped table-hover">
-			<thead>
-				<tr>
-					<th style="width: 33%;">브랜드</th>
-					<th style="width: 33%;">상품명</th>
-					<th style="width: 33%;">가격</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>${item.itemBrand }</td>
-					<td>${item.itemName }</td>
-					<td><fmt:formatNumber type="number" maxFractionDigits="3"
-							value="${item.itemPrice }" />원</td>
-				</tr>
-			</tbody>
-		</table>
+		<c:if test="${check eq 'y'}">
+			<div class="check">
+				<div>
+					<div class="pull-left cnt" id="cntY">${cntY }</div>
 
-		<div id="item">
-			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
-		</div>
+					<img class="vote pull-left" id="like"
+						src="https://i.imgur.com/iLdts0b.png" alt="찬성" />
+				</div>
+				<div id="chartBox">
+					<div class="chart"></div>
+				</div>
 
-
-		<div style="text-align: center;">${ask.askContent }</div>
-
-		<hr>
-
-
-
-		<div id="votedate">
-			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
-			~
-			<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
-		</div>
-
-		<div class="check">
-			<div>
-				<div class="pull-left cnt" id="cntY">${cntY }</div>
-				<c:if test="${cntY > cntN}">
-					<img class="pull-left success"
-						src="https://i.imgur.com/aH44JbJ.png" alt="찬성투표후" />
-				</c:if>
-				<c:if test="${cntY <= cntN}">
-					<img class="vote pull-left" src="https://i.imgur.com/iLdts0b.png"
-						alt="찬성" />
-				</c:if>
+				<div>
+					<div class="pull-right cnt" id="cntN">${cntN }</div>
+					<img class="vote pull-right" id="hate"
+						src="https://i.imgur.com/0sDsZn8.png" alt="반대" />
+				</div>
 			</div>
-			<div id="chartBox">
-				<div class="chart"></div>
-			</div>
+		</c:if>
 
-			<div>
-				<div class="pull-right cnt" id="cntN">${cntN }</div>
-				<c:if test="${cntY < cntN}">
-					<img class="pull-right success"
-						src="https://i.imgur.com/C4qO9bG.png" alt="반대투표후" />
-				</c:if>
-				<c:if test="${cntY >= cntN}">
-					<img class="vote pull-right" src="https://i.imgur.com/0sDsZn8.png"
-						alt="반대" />
-				</c:if>
+
+		<c:if test="${check eq 'n'}">
+			<p style="font-size: 16px;">투표가 종료되었습니다</p>
+			<div class="check">
+				<div>
+					<c:if test="${cntY > cntN}">
+						<div class="pull-left cnt" id="cntY">
+							<strong>${cntY }</strong>
+						</div>
+					</c:if>
+
+					<c:if test="${cntY <= cntN}">
+						<div class="pull-left cnt" id="cntY">${cntY }</div>
+					</c:if>
+
+
+					<c:if test="${cntY > cntN}">
+							<img class="pull-left success"
+								src="https://i.imgur.com/aH44JbJ.png" alt="찬성이많고찬성에투표" />
+					</c:if>
+					<c:if test="${cntY <= cntN}">
+							<img class="pull-left vote"
+								src="https://i.imgur.com/iLdts0b.png" alt="찬성이많고찬성에투표하지않음" />
+					</c:if>
+
+
+				</div>
+
+				<div id="chartBox">
+					<div class="chart"></div>
+				</div>
+
+				<div>
+					<c:if test="${cntN > cntY}">
+						<div class="pull-right cnt" id="cntN">
+							<strong>${cntN }</strong>
+						</div>
+					</c:if>
+
+					<c:if test="${cntN <= cntY}">
+						<div class="pull-right cnt" id="cntN">${cntN }</div>
+					</c:if>
+
+					<c:if test="${cntY < cntN}">
+							<img class="success pull-right"
+								src="https://i.imgur.com/C4qO9bG.png" alt="반대가많고반대에투표함" />
+					</c:if>
+					<c:if test="${cntY >= cntN}">
+							<img class="vote pull-right"
+								src="https://i.imgur.com/0sDsZn8.png" alt="반대가많고반대에투표하지않음" />
+					</c:if>
+
+
+				</div>
 			</div>
-		</div>
+		</c:if>
 
 		<br> <br>
 		<hr>
-
 		<!-- 댓글 리스트 -->
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 12%;">작성자</th>
-					<th style="width: 62%;">댓글</th>
-					<th style="width: 12%;">작성일</th>
+					<th style="width: 15%;">닉네임</th>
+					<th style="width: 58%;">댓글</th>
+					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>
 				</tr>
 			</thead>
@@ -312,24 +623,24 @@ table, th {
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
 						<td></td>
 						<c:if test="${askComment.USER_NICK ne null }">
-							<td style="text-align: left;"><img alt="#"
-								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
-								${askComment.USER_NICK }</td>
+							<td style="text-align: left;">${askComment.USER_NICK }</td>
 						</c:if>
 						<c:if test="${askComment.USER_NICK eq null}">
-							<td class="pull-left">탈퇴한 회원입니다</td>
+							<td class="pull-left">탈퇴한 회원</td>
 						</c:if>
-						<td id="td${askComment.ASK_COM_NO }" style="text-align: left">${askComment.ASK_COM_CONTENT }</td>
+						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
 							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
 								pattern="yy-MM-dd hh:mm:ss" />
 						</td>
 						<td>
-							<button class="btn btn-default btn-xs"
+							<button class="btn btn-default btn-xs btnDel"
 								onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
+
 						</td>
 					</tr>
 				</c:forEach>
+				<tr id="appendArea"></tr>
 			</tbody>
 		</table>
 		<!-- 댓글 리스트 end -->
@@ -342,18 +653,18 @@ table, th {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center" style="margin-bottom: 100px;">
-			<a href="/admin/ask/list"><button class="btn btn-default">목록</button></a>
-			<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+		<div class="text-center"
+			style="margin-bottom: 100px; margin-top: 50px;">
+			<a href="/admin/ask/list"><button class="btn btnGroup">목록</button></a>
+
+			<button type="button" class="btn btnGroup" id="btnDelete">삭제</button>
+
 		</div>
 
-
-		<%-- --%>
-		<!-- .container end -->
 	</div>
-	<!-- footer start -->
-	<c:import url="/WEB-INF/views/layout/footer.jsp" />
-	<!-- .wrap end -->
+	<%-- --%>
+
 </div>
-
-
+<!-- .container end -->
+<c:import url="/WEB-INF/views/layout/footer.jsp" />
+<!-- .wrap end -->

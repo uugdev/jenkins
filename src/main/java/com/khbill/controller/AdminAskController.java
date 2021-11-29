@@ -75,6 +75,12 @@ public class AdminAskController {
 		model.addAttribute("file",file);
 		
 		
+		String check = adminAskService.voteCheck(vote);
+
+		model.addAttribute("check", check);
+		
+		
+		
 		String voteStateY = "n"; //투표체크 Y
 		int cntN = adminAskService.getVoteStatusTotalCnt(askNo,voteStateY);
 		model.addAttribute("cntN",cntN);
@@ -88,6 +94,12 @@ public class AdminAskController {
 
 		logger.info("askComment : {}", askComment);
 		model.addAttribute("askComment",askComment);
+		
+		int cntCom = adminAskService.getAskComCnt(askNo);
+		
+		model.addAttribute("cntCom", cntCom);
+		
+		
 		
 	}
 	

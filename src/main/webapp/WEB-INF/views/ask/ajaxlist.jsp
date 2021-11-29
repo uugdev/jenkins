@@ -13,9 +13,9 @@
 		<tr>
 			<th style="width: 10%; text-align: center;">글번호</th>
 			<th style="width: 45%; text-align: left;">제목</th>
-			<th style="width: 12%; text-align: left;">작성자</th>
-			<th style="width: 10%; text-align: center;">조회수</th>
+			<th style="width: 12%; text-align: left;">닉네임</th>
 			<th style="width: 15%; text-align: center;">작성일</th>
+			<th style="width: 10%; text-align: center;">조회수</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,13 +27,12 @@
 						<strong><span>[${ask.ASK_COM_CNT}]</span></strong>
 					</c:if></td>
 				<c:if test="${ask.USER_NICK eq null}">
-					<td>탈퇴한 회원입니다</td>
+					<td style="text-align: left;">탈퇴한 회원</td>
 				</c:if>
 				<c:if test="${ask.USER_NICK ne null }">
 					<td style="text-align: left;"><img alt="#"
 						src="${ask.GRADE_URL}" style="width: 20px; height: 20px;">${ask.USER_NICK }</td>
 				</c:if>
-				<td style="text-align: center">${ask.ASK_HIT }</td>
 
 
 				<%-- 시간를 변환(yyyyMMdd)하여 변수에 저장하기 --%>
@@ -54,6 +53,7 @@
 						</c:when>
 					</c:choose>
 				</td>
+				<td style="text-align: center">${ask.ASK_HIT }</td>
 			
 			</tr>
 		</c:forEach>

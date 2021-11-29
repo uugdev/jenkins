@@ -336,54 +336,13 @@ var myChart2 = new Chart(context2, {
 
 
 <div class="wrap">
-	<div class="container">
+	<div class="container" style="width: 1200px;">
 
 		<%-- 내부 콘텐츠 영역입니다. --%>
 		<div id="plugin">
 
 			<div id='calendar'></div>
 
-
-			<div id="chartJs">
-				<div id="barChart">
-					<!--차트가 그려질 부분-->
-					<canvas id="myChart" style=""></canvas>
-				</div>
-				<div id="monthMoney">
-					<!-- 기본 도넛차트 -->
-					<div id="doughnut">
-						<canvas id="myChart2"></canvas>
-					</div>
-					<div style="position: relative;" id="btnMoney">
-						<div>
-							<h3 style="margin-top: 50px;">이번달 지출한도</h3>
-							<h3 id="ch" style="margin-top: 0">
-								<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${user.extraMoney}" />
-								원
-							</h3>
-						</div>
-						<button class="popupOpen1" id="updateMoney">지출한도 수정하기</button>
-						<div class="popupWrap1 hide1">
-							<div class="popup1 commaInput">
-								<div class="title">
-									<p>지출 가능 금액 설정</p>
-									<span class="close1">❌</span>
-								</div>
-								<input type="text" name="extraMoney" id="extraMoney" value="" />
-								<span style="font-size: 24px;">원</span>
-								<div class="btnWrap1">
-									<button id="update">저장</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-		<div id="itemlist">
 			<div id="billBox">
 				<div id="bill">
 					<p style="font-size: 17px;">[주문번호]</p>
@@ -423,6 +382,60 @@ var myChart2 = new Chart(context2, {
 					</div>
 				</div>
 			</div>
+
+		</div>
+
+		<div id="itemlist">
+
+			<div id="chartJs">
+				<div id="barChart">
+					<!--차트가 그려질 부분-->
+					<canvas id="myChart" style=""></canvas>
+				</div>
+				<div id="monthMoney">
+					<!-- 기본 도넛차트 -->
+					<div id="doughnut">
+						<canvas id="myChart2"></canvas>
+					</div>
+					<div style="position: relative;" id="btnMoney">
+						<div>
+							<h3 style="margin-top: 50px;">이번달 지출한도</h3>
+							<h3 id="ch" style="margin-top: 0">
+								<fmt:formatNumber type="number" maxFractionDigits="3"
+									value="${user.extraMoney}" />
+								원
+							</h3>
+						</div>
+						<button class="popupOpen1" id="updateMoney">지출한도 수정하기</button>
+						<div class="popupWrap1 hide1">
+							<div class="popup1 commaInput">
+								<div class="title">
+									<p>지출 가능 금액 설정</p>
+									<span class="close1">❌</span>
+								</div>
+								<input type="text" name="extraMoney" id="extraMoney" value="" />
+								<span style="font-size: 24px;">원</span>
+								<div class="btnWrap1">
+									<button id="update">저장</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 			<div id="ment">
 				<c:if test="${monthPrice gt last}">

@@ -127,6 +127,19 @@ public interface AdminAskService {
 	public int getVoteStatusTotalCnt(int askNo, String voteStateY);
 
 
+	/**
+	 * 
+	 * 게시글에 달린 총댓글수 
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public int getAskComCnt(int askNo);
+
+
+	public String voteCheck(Vote vote);
+
+
 
 	
 	
