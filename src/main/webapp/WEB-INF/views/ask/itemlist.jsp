@@ -43,7 +43,7 @@ td:nth-child(2) {
 #photoList li {
     margin-right: 15px;
     display: inline-block;
-    width: 330px;
+    width: 296px;
     margin-bottom: 35px;
     border-radius: 1px;
     overflow: hidden;
@@ -60,7 +60,7 @@ td:nth-child(2) {
 
 <!-- <div> -->
 <!-- <div id="ajaxArea"> -->
-
+<div class="listTable">
 	<ul id="photoList">
 		<c:forEach items="${list}" var="list">
 			<li>
@@ -90,6 +90,6 @@ td:nth-child(2) {
 		<button id="btnSearch" class="btn btnSearch">검색</button>
 	</div>
 	<c:import url="/WEB-INF/views/review/paging.jsp" />
-	
+</div>	
 <!-- 	</div>.container -->
 <!-- </div>.wrap end -->

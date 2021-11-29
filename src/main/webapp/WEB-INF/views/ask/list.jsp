@@ -285,12 +285,11 @@ a:hover {
 			<p>질문을 올려주시어쩌고</p>
 		</div>
 
-		<div class="pull-right" style="margin-bottom: 20px;">
+		<div class="pull-right" style="margin:70px 50px 0 0; padding:0 0 10px 0;">
 			<a id="latestList">최신순</a>
 			<a id="hitList">조회순</a>
 			<a id="itemList">이미지순</a>
 		</div>
-		<br>
 
 		<div id="result"></div>
 	

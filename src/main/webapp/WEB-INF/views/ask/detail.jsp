@@ -823,16 +823,15 @@ table, th {
 				</div>
 				<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
-						<span class="confirmation username">작성자 : 
+						<span class="confirmation username">닉네임 : 
 						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
-					<c:if test="${userNo eq ask.userNo and empty sessionScope.userNo }">
-						<span class="confirmation username">작성자 : 
-						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
+					<c:if test="${ask.userNo eq 0 }">
+						탈퇴한 회원
 					</c:if>
 					<c:if
-						test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
-						<span class="confirmation username layerpopup">작성자 :
+						test="${ask.userNo ne 0 and userNo ne ask.userNo and !empty sessionScope.userNo }">
+						<span class="confirmation username layerpopup">닉네임 :
 						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<div id="layer">
@@ -911,14 +910,19 @@ table, th {
 			</div>
 
 
-		<!-- 		<hr> -->
+		
+		<c:if test="${vote.voteEnd ne null}">
 
-		<div id="votedate">
-			<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
-			~
-			<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
-		</div>
-
+			<div id="votedate">
+				<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
+				~
+				<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />
+			</div>
+		</c:if>
+		
+		<c:if test="${vote.voteEnd eq null}">
+			<div style="margin-top: 60px;"></div>
+		</c:if>
 
 		<c:if test="${check eq 'y'}">
 			<div class="check">
@@ -956,8 +960,15 @@ table, th {
 			<p style="font-size: 16px;">투표가 종료되었습니다</p>
 			<div class="check">
 				<div>
-					<div class="pull-left cnt" id="cntY">${cntY }</div>
-
+					<c:if test="${cntY > cntN}">
+						<div class="pull-left cnt" id="cntY"><strong>${cntY }</strong></div>
+					</c:if>
+					
+					<c:if test="${cntY <= cntN}">
+						<div class="pull-left cnt" id="cntY">${cntY }</div>
+					</c:if>
+					
+					
 					<c:if test="${cntY > cntN}">
 						<c:if test="${status.voteState eq 'y'}">
 							<img class="pull-left success"
@@ -1004,8 +1015,13 @@ table, th {
 				</div>
 
 				<div>
-					<div class="pull-right cnt" id="cntN">${cntN }</div>
+					<c:if test="${cntN > cntY}">
+						<div class="pull-right cnt" id="cntN"><strong>${cntN }</strong></div>
+					</c:if>
 
+					<c:if test="${cntN <= cntY}">
+						<div class="pull-right cnt" id="cntN">${cntN }</div>
+					</c:if>
 
 					<c:if test="${cntY < cntN}">
 						<c:if test="${status.voteState eq 'n'}">
@@ -1057,7 +1073,7 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 15%;">작성자</th>
+					<th style="width: 15%;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>
@@ -1076,7 +1092,7 @@ table, th {
 								${askComment.USER_NICK }</td>
 						</c:if>
 						<c:if test="${askComment.USER_NICK eq null}">
-							<td class="pull-left">탈퇴한 회원입니다</td>
+							<td class="pull-left">탈퇴한 회원</td>
 						</c:if>
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">

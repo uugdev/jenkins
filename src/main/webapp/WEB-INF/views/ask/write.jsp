@@ -74,6 +74,25 @@ $(document).ready(function() {
 })
 </script>
 
+<style type="text/css">
+.btnWrap:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.btnWrap {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+	margin-bottom: 100px;
+}
+</style>
+
 
 <!-- 개별 영역 끝 -->
 
@@ -92,7 +111,7 @@ $(document).ready(function() {
 			</div>
 			<div class="form-group">
 				<label for="askTitle">제목</label> <input type="text" id="askTitle"
-					name="askTitle" class="form-control" maxlength="33" />
+					name="askTitle" class="form-control" maxlength="32" />
 			</div>
 			<div class="form-group">
 				<label for="itemBrand">브랜드</label> <input type="text" id="itemBrand"
@@ -131,8 +150,8 @@ $(document).ready(function() {
 			</div>
 
 			<div class="text-center">
-				<button type="button" class="btn btn-primary" id="btnWrite">작성</button>
-				<input type="reset" id="cancel" class="btn btn-danger" value="취소" />
+				<button type="button" class="btn btnWrap" id="btnWrite">작성</button>
+				<input type="reset" id="cancel" class="btn btnWrap" value="취소" />
 			</div>
 		</form>
 

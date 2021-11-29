@@ -156,6 +156,17 @@ public interface AdminAskDao {
 	 * @return
 	 */
 	public int selectVoteByAskNoVoteState(Vote vote);
+
+	/**
+	 * 
+	 * 게시글번호로 댓글수조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
+	public int selectCntAskComAll(int askNo);
+
+	public int selectVoteEnd(Vote vote);
 	
 	
 	
