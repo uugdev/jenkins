@@ -124,32 +124,62 @@ function statusToN(reviewNo) {
 
 
 <style type="text/css">
+.title {
+	margin: 50px 0 30px 0;
+}
 
-table {
+.listTable {
 	text-align: center;
+	width: 100%;
+	background: #fff;
 	margin: auto;
+	margin-bottom: 50px;
+	padding-bottom: 20px;
+}
+
+.table {
 	margin-top: 10px;
 }
 
-th, td {
-	text-align: center;
+.table>tbody>tr>th {
+	background: #f3f3f3;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td {
+	height: 30px;
+	vertical-align: middle;
 }
 
 label {
 	font-weight: normal !important;
 }
 
-.ellipsis2 {
- 	display: -webkit-box;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: normal;
-/* 	line-height: 1.2em; */
-/* 	max-height: 1.2em; */
-	word-wrap: break-word;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	width: 100px;
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+}
+
+#status {
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 </style>
 
@@ -159,8 +189,11 @@ label {
 <div class="wrap">
 <div class="container">
 
-<h3>후기 신고게시판 목록</h3>
-<hr>
+<div class="title">
+	<h1>후기 신고게시판 목록</h1>
+</div>
+
+<div class="listTable">
 <span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
 	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
@@ -213,25 +246,25 @@ label {
 	<td><fmt:formatDate value="${review.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
 	
 	<c:if test="${review.REPORT_STATUS == 'n' }">
-		<td><button class="btnStatusN${review.REVIEW_NO }" onclick="statusToY(${review.REVIEW_NO});" >미완료</button></td>
+		<td><button class="btnStatusN${review.REVIEW_NO }" id="status" onclick="statusToY(${review.REVIEW_NO});" >미완료</button></td>
 	</c:if>
 	<c:if test="${review.REPORT_STATUS == 'y' }">
-		<td><button class="btnStatusY${review.REVIEW_NO }" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
+		<td><button class="btnStatusY${review.REVIEW_NO }" id="status" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
 	</c:if>
 	
 </tr>
 </c:forEach>
 
 </table>
-<button id="btnDelete" class="pull-left">삭제</button>
+<button id="btnDelete" class="pull-left btn">삭제</button>
 
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
+</div><!-- .listTable end -->
 </div><!-- .container end -->
 </div><!-- .wrap end -->
-
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
