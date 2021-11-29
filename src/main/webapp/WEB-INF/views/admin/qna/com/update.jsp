@@ -13,7 +13,8 @@
 
 $(document).ready(function(){
 	$("#btnList").click(function(){
-		location.href="/admin/qna/list"
+		history.go(-1);
+		return false;
 	})
 	$("#btnUpdate").click(function(){
 		var answer = confirm("문의 답변을 수정하시겠습니까?");
@@ -121,7 +122,7 @@ th {
 </div>
 
 <div class="text-center">
-	<button id="btnUpdate" class="btn">답변 작성</button>
+	<button id="btnUpdate" class="btn">답변 수정</button>
 	<button id="btnList" class="btn">목록으로</button>
 </div><!-- .text-center end -->
 

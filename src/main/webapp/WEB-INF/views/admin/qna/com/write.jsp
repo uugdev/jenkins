@@ -11,11 +11,13 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	$("#btnList").click(function(){
-		location.href="/admin/qna/list"
-	})
-	$("#btnWrite").click(function(){
+
+$(function(){
+	$(document).on("click", "#btnList", function(){
+		history.go(-1);
+		return false;
+	});
+	$(document).on("click", "#btnWrite", function(){
 		var answer = confirm("문의 답변을 작성하시겠습니까?");
 		
 		if(answer == true){
@@ -116,15 +118,7 @@ th {
 <div id="content">${qna.qnaContent }</div>
 
 <div id="answer">
-	<textarea name="qnaComContent" class="answer">
-안녕하세요, ${nick } 고객님!
-저희 KH 영수증을 이용해주셔서 감사합니다.
-
-///문의 답변///
-
-추가 문의사항이 있으실 경우 1:1 문의를 이용해주세요.
-감사합니다.
-	</textarea>	
+	<textarea name="qnaComContent" class="answer"></textarea>	
 </div>
 
 <div class="text-center">
