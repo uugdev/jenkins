@@ -9,6 +9,31 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 
+<script>
+
+/* confirm 사용 예시 */
+function btnUpdateY(t) {
+    action_popup.confirm("되돌릴 수 없습니다. 정말로 삭제 하시겠습니까?", function (res) {
+        if (res) {
+        	
+        	/* ----------------------------------------- */
+        	
+        	location.href="/mypage/item/yes?itemNo="+t
+        	
+        	/* ----------------------------------------- */
+           
+        }
+    })
+    
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+    
+};
+
+</script>
+
 
 <style>
 .titlearea {
@@ -51,7 +76,7 @@ body {
 		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
 		<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
 			<td>
-				<a href="<%=request.getContextPath() %>/mypage/item/yes?itemNo=${list.ITEM_NO }"><button class="btnUpdateY" onclick="if(!confirm('구매했음으로 설정하시겠습니까?')){return false;}">살게요!</button></a>
+				<a><button class="btnUpdateY" onclick="btnUpdateY(${list.ITEM_NO});">살게요!</button></a>
 				<a href="<%=request.getContextPath() %>/mypage/item/no?itemNo=${list.ITEM_NO }"><button class="btnUpdateN" onclick="if(!confirm('구매하지않음으로 설정하시겠습니까?')){return false;}">안살게요!</button></a>
 			</td>
 		</c:if>
