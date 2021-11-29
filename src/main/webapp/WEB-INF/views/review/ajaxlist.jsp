@@ -5,16 +5,16 @@
 
 <table class="table table-hover">
 <tr>
-	<th>글 번호</th>
-	<th>제목</th>
-	<th>닉네임</th>
-	<th>작성일</th>
-	<th>조회</th>
+	<th width="13%">글 번호</th>
+	<th width="49%">제목</th>
+	<th width="18%">닉네임</th>
+	<th width="10%">작성일</th>
+	<th width="10%">조회</th>
 </tr>
 <c:forEach items="${reviewList }" var="review">
 <tr>
 	<td>${review.REVIEW_NO }</td>
-	<td><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
+	<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
 <!-- 				title 옆 comment count 처리 -->
 <%-- 				<c:if test="${review.REVIEW_NO }"> --%>
 <%-- 					<strong><span> [${review.REVIEW_COM_NO }]</span></strong> --%>
