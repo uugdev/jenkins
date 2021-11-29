@@ -138,15 +138,15 @@ function insertComment() {
 				if(data.addComment.tradeComSecret == 'y') {
 					$('#appendArea').before('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
 							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
-							'<td style="width: 4%; text-align: center; padding: 5px;">' +
+							'<td style="text-align: center; padding: 5px;">' +
 							'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
 							'</td>' +
-							'<td style="width: 12%; padding: 5px; text-align: left;">' +
+							'<td style="padding: 5px; text-align: left;">' +
 							'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' +
 							data.userNick +'</td>' +
-							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 62%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 12%; padding: 5px;">'+ tradeComDate +'</td>' +
-							'<td style="width: 10%; padding: 5px;">' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style=" padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
 							'</td>' +
@@ -156,13 +156,13 @@ function insertComment() {
 				if(data.addComment.tradeComSecret == 'n') {
 					$('#appendArea').before('<tr data-updateTradeComNo="'+ data.addComment.tradeComNo +'"></tr>' +
 							'<tr data-tradeComNo="'+ data.addComment.tradeComNo +'" style="text-align: left;">' +
-							'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
-							'<td style="width: 12%; padding: 5px; text-align: left;">' +
+							'<td style="text-align: center; padding: 5px;"></td>' +
+							'<td style="padding: 5px; text-align: left;">' +
 							'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' +
 							data.userNick +'</td>' +
-							'<td id="td'+ data.addComment.tradeComNo +'" style="width: 62%; padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
-							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="width: 12%; padding: 5px;">'+ tradeComDate +'</td>' +
-							'<td style="width: 10%; padding: 5px;">' +
+							'<td id="td'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
+							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ tradeComDate +'</td>' +
+							'<td style="padding: 5px;">' +
 							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
 							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
 							'</td>' +
@@ -340,6 +340,9 @@ function tradeDelete() {
 			${tradeDetail.TRADE_TITLE }
 		</h1>
 		<span style="float: left;">
+		<c:if test="${!empty tradeDetail.GRADE_URL }">
+			<img alt="#" src="${tradeDetail.GRADE_URL }" width="20px" height="20px;">
+		</c:if>
 		<c:if test="${tradeDetail.USER_NO eq null }">
 			탈퇴(된)한 회원
 		</c:if>
@@ -381,9 +384,9 @@ function tradeDelete() {
 				<thead>
 					<tr>
 						<th style="width: 4%;"></th>
-						<th style="width: 12%;">작성자</th>
-						<th style="width: 62%;">댓글</th>
-						<th style="width: 12%;">작성일</th>
+						<th style="width: 15%;">작성자</th>
+						<th style="width: 58%;">댓글</th>
+						<th style="width: 13%;">작성일</th>
 						<th style="width: 10%;"></th>
 					</tr>
 				</thead>
@@ -401,9 +404,9 @@ function tradeDelete() {
 										<td style="width: 4%; text-align: center;">
 											<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
 										</td>
-										<td style="width: 12%;"></td>
-										<td style="width: 64%; text-align: center;">비밀글입니다!</td>
-										<td style="width: 10%;"></td>
+										<td style="width: 15%;"></td>
+										<td style="width: 58%; text-align: center;">비밀글입니다!</td>
+										<td style="width: 13%;"></td>
 										<td style="width: 10%;"></td>
 			                		</c:if>
 									

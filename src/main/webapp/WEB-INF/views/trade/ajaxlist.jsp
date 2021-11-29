@@ -29,8 +29,11 @@
 						<c:if test="${board.TRADE_CATEGORY eq 0 }">
 							[팝니다] 
 						</c:if>
-						${board.TRADE_TITLE }
+						${board.TRADE_TITLE } 
 					</a>
+					<c:if test="${!empty board.TRADE_COM_CNT }">
+						<strong><span>[${board.TRADE_COM_CNT }]</span></strong>
+					</c:if>
 				</td>
 				<c:if test="${board.USER_NICK eq null }">
 					<td>
