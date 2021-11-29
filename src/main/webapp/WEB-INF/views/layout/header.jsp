@@ -29,17 +29,30 @@ $(document).ready(function() {
 
 	
     $('#boardA').hover(function() {
-    	$(".blockNav").slideDown();
+    	$("#qnaNav").slideUp("fast");
+    	$("#boardNav").slideDown();
     });
     
-    $('#topContainer').mouseleave(function() {
-    	$(".blockNav").slideUp();
+//     $('#boardA').mouseleave(function() {
+//     	$("#boardNav").slideUp();
+//     });
+
+    $('#qnaA').hover(function() {
+    	$("#boardNav").slideUp("fast");
+    	$("#qnaNav").slideDown();
     });
+    
+//     $('#qnaA').mouseleave(function() {
+//     	$("#qnaNav").slideUp();
+//     });
+    
+    $('#topContainer').mouseleave(function(){
+    	$('.blockNav').slideUp();
+    });
+    
     
 
 });
-
-
 
 </script>
 
@@ -69,7 +82,11 @@ $(document).ready(function() {
 					</li>
 					<li><a href="/account/main"><h3 style="font-weight: bold;">가계부</h3></a></li>
 					<li><a href="/mypage/info"><h3 style="font-weight: bold;">마이페이지</h3></a></li>
-					<li><a href="/qna/main"><h3 style="font-weight: bold;">고객센터</h3></a></li>
+					<li>
+						<a id="qnaA" role="button">
+							<h3 style="font-weight: bold;">고객센터</h3>
+						</a>
+					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
@@ -87,11 +104,19 @@ $(document).ready(function() {
 				</ul>
 			</div>
 			<div id="boardNav" class="blockNav container"
-				 style="background: gray; display: none; width: 100%; height: 45px; text-align: left;">
+				 style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
 					<a href="/ask/list" style="margin-left: 228px;">질문 게시판</a>
 					<a href="/review/list">후기 게시판</a>
 					<a href="/trade/list">거래 게시판</a>
+				</p>
+			</div>
+			<div id="qnaNav" class="blockNav container"
+				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
+				<p style="line-height: 46px;">
+					<a href="/notice/list" style="margin-left: 400px;">공지사항</a>
+					<a href="/qna/main">자주 찾는 질문</a>
+					<a href="/qna/list">1:1 문의</a>
 				</p>
 			</div>
 		</div>
