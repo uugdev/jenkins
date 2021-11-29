@@ -445,20 +445,17 @@ function deleteComment(askComNo) {
 $(document).ready(function() {
 
 	$('.layerpopup').click(function(e) {
-		
 		$('#layer').show();
+		
 	});
 	
 	$('#layerClose').click(function() {
 		$('#layer').css('display', 'none');
 	});
 
-
 })
 
 </script>
-
-
 
 <style type="text/css">
 
@@ -471,13 +468,49 @@ $(document).ready(function() {
 	width: 500px;
 }
 
+.layerpopup:hover {
+	width: 500px;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #667F92;
+}
+
 #layer { 
-	display:none; padding:10px; background:#F2F2F2;
+	display:none; padding:10px; background:#fff;
 	position: absolute;
 	top: 24px;
 	left: 0;
 	z-index: 1;
-	width: 130px;
+	width: 110px;
+	height: 120px;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	padding: 0;
+	
+}
+
+#layer > ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#layer > ul > li {
+	line-height: 40px;
+}
+
+#layer > ul > li:hover {
+	background-color: #a1b8c9;
+	cursor: pointer;
+}
+
+#layer > ul > li > a {
+	display: block;
+	color: #667F92;
+}
+
+#layer > ul > li > a:hover {
+	color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 .layerClose {
@@ -774,9 +807,12 @@ table, th {
 							: ${user.userNick }</span>
 					</c:if>
 					<div id="layer">
-					<a onclick="userinfo();">회원정보 보기</a><br>
-					<a onclick="message();">쪽지 보내기</a><br>
-					<span id="layerClose">닫기</span>
+						<ul>
+							<li><a onclick="userinfo();">회원정보 보기</a></li>
+							<li><a onclick="message();">쪽지 보내기</a></li>
+							<li><a id="layerClose">닫기</a></li>
+						</ul>
+					</div> <!-- #layer end -->
 					</div>
 					</div>
 					
