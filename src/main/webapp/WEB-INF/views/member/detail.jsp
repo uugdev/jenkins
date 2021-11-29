@@ -17,11 +17,25 @@ $(document).ready(function() {
 		window.open('','_self').close();
 	})
 })
+
+
+function askdetail(t) {
+	opener.parent.location="/ask/detail?askNo="+t;
+}
+
+function reviewdetail(t) {
+	opener.parent.location="/review/detail?reviewNo="+t;
+}
+
+function tradedetail(t) {
+	opener.parent.location="/trade/detail?tradeNo="+t;
+}
+
+        
+
 </script>
 
-
 <style>
-
 #btnCancel {
     height: 35px;
     width: 65px;
@@ -29,6 +43,19 @@ $(document).ready(function() {
     border: 0px;
     background: #5b6e7a;
     color: #f3f3f3;
+}
+
+.ellipsis2 {
+ 	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+/* 	line-height: 1.2em; */
+/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 175px;
 }
 
 body {
@@ -65,8 +92,6 @@ h4 {
 	text-align: center;
 
 }
-
-
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -101,14 +126,25 @@ h4 {
 	<c:forEach items="${list }" var="list">
 	<tr>
 		<c:if test="${list.BOARD == 'a' }">
-		<td style="width: 70%"><a href="/ask/detail?askNo=${list.BOARD_NO }">${list.TITLE }</a></td>
+		<td style="width: 20%">질문</td>
 		</c:if>
 		<c:if test="${list.BOARD == 'r' }">
-		<td style="width: 70%"><a href="/review/detail?reviewNo=${list.BOARD_NO }">${list.TITLE }</a></td>
+		<td style="width: 20%">후기</td>
 		</c:if>
 		<c:if test="${list.BOARD == 't' }">
-		<td style="width: 70%"><a href="/trade/detail?tradeNo=${list.BOARD_NO }">${list.TITLE }</a></td>
+		<td style="width: 20%">거래</td>
 		</c:if>
+		
+		<c:if test="${list.BOARD == 'a' }">
+		<td style="width: 50%"><span class="ellipsis2"><a onclick="askdetail(${list.BOARD_NO });">${list.TITLE }</a></span></td>
+		</c:if>
+		<c:if test="${list.BOARD == 'r' }">
+		<td style="width: 50%"><span class="ellipsis2"><a onclick="reviewdetail(${list.BOARD_NO });">${list.TITLE }</a></span></td>
+		</c:if>
+		<c:if test="${list.BOARD == 't' }">
+		<td style="width: 50%"><span class="ellipsis2"><a onclick="tradedetail(${list.BOARD_NO });">${list.TITLE }</a></span></td>
+		</c:if>
+		
 		<td><fmt:formatDate value="${list.WRITE_DATE }" pattern="yy-MM-dd" /></td>
 	</tr>
 	

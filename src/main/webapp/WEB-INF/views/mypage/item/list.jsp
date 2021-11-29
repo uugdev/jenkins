@@ -10,32 +10,62 @@
 <!-- 개별 스타일 및 스크립트 영역 -->
 
 <script>
-
-/* confirm 사용 예시 */
-function btnUpdateY(t) {
-    action_popup.confirm("되돌릴 수 없습니다. 정말로 삭제 하시겠습니까?", function (res) {
+function itemstatustoY(t) {
+    action_popup.confirm("구매하기로 결정하셨나요?", function (res) {
         if (res) {
-        	
-        	/* ----------------------------------------- */
-        	
-        	location.href="/mypage/item/yes?itemNo="+t
-        	
-        	/* ----------------------------------------- */
-           
+        	location.href="/mypage/item/yes?itemNo="+t;
         }
     })
-    
     /* 닫는 창으로 꼭 필요함 */
     $(".modal_close").on("click", function () {
         action_popup.close(this);
     });
-    
+};
+
+function itemstatustoN(t) {
+    action_popup.confirm("구매하지 않기로 결정하셨나요? 취소가 불가능하니 신중하게 　선택해주세요!", function (res) {
+        if (res) {
+        	location.href="/mypage/item/no?itemNo="+t;
+        }
+    })
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+};
+
+function writereview(t) {
+    action_popup.confirm("후기 작성 페이지로 이동하시겠어요?", function (res) {
+        if (res) {
+        	location.href="/review/write?askNo="+t;
+        }
+    })
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+};
+
+function itemcancel(t) {
+    action_popup.confirm("다시 선택하시겠어요?", function (res) {
+        if (res) {
+        	location.href="/mypage/item/cancel?itemNo="+t;
+        }
+    })
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
 };
 
 </script>
 
 
 <style>
+.container {
+	width: 1200px;
+}
+
 .titlearea {
 	margin: 50px 0 30px 0;
 }
@@ -43,6 +73,16 @@ function btnUpdateY(t) {
 body {
 	background-color: #f2f2f2;
 }
+
+button {
+	height: 35px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -76,19 +116,19 @@ body {
 		<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
 		<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
 			<td>
-				<a><button class="btnUpdateY" onclick="btnUpdateY(${list.ITEM_NO});">살게요!</button></a>
-				<a href="<%=request.getContextPath() %>/mypage/item/no?itemNo=${list.ITEM_NO }"><button class="btnUpdateN" onclick="if(!confirm('구매하지않음으로 설정하시겠습니까?')){return false;}">안살게요!</button></a>
+				<button class="btnUpdateY" onclick="itemstatustoY(${list.ITEM_NO});">살게요</button>
+				<button class="btnUpdateN" onclick="itemstatustoN(${list.ITEM_NO});">안살게요</button>
 			</td>
 		</c:if>
 		<c:if test="${list.ITEM_STATUS == 'n'&& not empty list.ITEM_DATE}">
 			<td>안살래요</td>
 		</c:if>
 		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && empty list.REVIEW_NO }">
-			<td><a href="<%=request.getContextPath() %>/review/write?askNo=${list.ITEM_NO }"><button class="btnWrite" onclick="if(!confirm('리뷰 작성하기 페이지로 이동하시겠습니까?')){return false;}">리뷰 작성</button></a>
-			<a href="<%=request.getContextPath() %>/mypage/item/cancel?itemNo=${list.ITEM_NO }"><button class="btnCancel" onclick="if(!confirm('구매 철회하시겠습니까?')){return false;}">구매 취소</button></a></td>
+			<td><button class="btnWrite" onclick="writereview(${list.ITEM_NO});">후기 쓰기</button>
+			<button class="btnCancel" onclick="itemcancel(${list.ITEM_NO });">마음이 바뀌었어요</button></td>
 		</c:if>	
 		<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && not empty list.REVIEW_NO }">
-			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail">후기 확인</button></a></td>
+			<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail">작성한 후기 보기</button></a></td>
 		</c:if>
 	</tr>
 	</c:forEach>

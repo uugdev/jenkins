@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
-<c:import url="/WEB-INF/views/layout/header.jsp" />
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
@@ -25,12 +24,21 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		
-		var answer = confirm("쪽지를 보내시겠습니까?");
+		action_popup.confirm("쪽지를 보내시겠습니까?", function(result) {
+			
+			if( result == true){
+				submitContents($("#btnWrite"));
+				$("form").submit();		 
+			} else {
+				return false;
+	
+			}
+		})
 		
-		if( answer == true) {
-			submitContents($("#btnWrite"));
-			$("form").submit();
-		}
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
 
 	$("#btnCancel").click(function() {
@@ -42,9 +50,48 @@ $(document).ready(function() {
 
 <style>
 
+.titlearea {
+	margin-bottom: 20px;
+}
+
+#btnWrite {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnCancel {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnWrite:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+#btnCancel:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
 body {
 	padding: 20px 0 0 0;
+	background-color: #f2f2f2;
+	
 }
+
 table, h3 {
 	text-align: center;
 	margin: 0 auto;
@@ -58,16 +105,23 @@ table, h3 {
 }
 
 .buttonarea {
-	margin: 0 0 0 250px;
+	margin: 0 0 0 240px;
 }
 
+table {
+	background-color: #fff;
+
+}
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 
-<h1>쪽지 보내기</h1>
+	<div class="titlearea">
+		<h3>답장하기</h3>
+	</div>
+
 
 <form action="/message/reply" method="post">
 <input type="hidden" name="userNick" value="${userNick }">
@@ -102,6 +156,19 @@ nhn.husky.EZCreator.createInIFrame({
 	fCreator: "createSEditor2"
 });
 </script>
+
+<!-- confirm 모달을 쓸 페이지에 추가 start-->
+<section class="modal modal-section type-confirm">
+    <div class="enroll_box">
+        <p class="menu_msg"></p>
+    </div>
+    <div class="enroll_btn">
+        <button class="btn pink_btn btn_ok">확인</button>
+        <button class="btn gray_btn modal_close">취소</button>
+    </div>
+</section>
+<!-- confirm 모달을 쓸 페이지에 추가 end-->
+
 
 </body>
 </html>

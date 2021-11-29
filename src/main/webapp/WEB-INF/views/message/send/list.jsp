@@ -14,7 +14,7 @@ function message () {
 	
 	if(answer) {
 		
-		window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+		window.open('/message/mem/write', '쪽지 보내기', 'width=620, height=500, left=400, top=500, resizable=no');
 	} else {
 		return false;
 	}

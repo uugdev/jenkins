@@ -11,34 +11,36 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#btnDelete").click(function() {
-		var answer = confirm(" 정말 탈퇴하시겠습니까?\n탈퇴시 작성하신 글은 삭제되지 않습니다.")
-		
-		if(answer == true) {
+function userupdate() {
+    action_popup.confirm("회원정보 수정 페이지로 이동하시겠습니까?", function (res) {
+        if (res) {
+			location.href="/mypage/update?userNo=${user.userNo }";
+        }
+    })
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+};
+
+function userdelete() {
+    action_popup.confirm("정말 탈퇴하시겠습니까? 작성하신 글은 삭제되지 않습니다.", function (res) {
+        if (res) {
 			$("form").submit();
-		} else {
-			return false;
-		}
-	});
-	
-	$('#btnUpdate').click(function() {
-		
-		var answer = confirm("회원정보 수정 페이지로 이동하시겠습니까?")
-		
-		if( answer == true ){
-			
-			location.href="<%=request.getContextPath() %>/admin/mem/delete?memid=${mem.memId }";
-			
-		} else {
-			return false;
-		}
-	})
-	
-});
+        }
+    })
+    /* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+};
 </script>
 
 <style>
+
+.container {
+	width: 1200px;
+}
 
 #btnUpdate {
 	float: left;
@@ -51,8 +53,7 @@ $(document).ready(function() {
 }
 
 table {
-    margin-left: auto; 
-    margin-right: auto;
+	margin: 0 auto;
 }
 
 td {
@@ -62,6 +63,59 @@ td {
 
 .titlearea {
 	margin: 50px 0 30px 0;
+}
+
+.wrap {
+	background-color: #f2f2f2;
+	margin-bottom: 0;
+	height: 725px;
+}
+
+.col-md-9 {
+	margin-top : 50px;
+	background: #fff;
+}
+
+.buttonarea {
+	background: #fff;
+	margin: 0 auto;
+}
+
+.tablearea {
+	margin-bottom: 40px;
+
+}
+
+#btnUpdate {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnDelete {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnUpdate:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+#btnDelete:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 
 
@@ -77,63 +131,66 @@ td {
 
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 	<div class="one">
-		<div class="col-md-9" style="height: 500px;">
+		<div class="col-md-9" style="height: 600px;">
 			<div class="titlearea"> 
 				<h3>회원정보 조회</h3>
-			</div>	
-		<table class="table table-hover" style="width: 500px">
-			<tr>
-				<td style="width:10%" ><strong>아이디</strong></td>
-				<c:if test="${kakaoUser == 'kakao'}">
-					<td style="width:10%">소셜 로그인 회원입니다.</td>
-				</c:if>
-				<c:if test="${kakaoUser == '' }">
-					<td style="width:10%" >${user.userId }</td>			
-				</c:if>
-			</tr>
-			<tr>
-				<td><strong>닉네임</strong></td>
-				<td>${user.userNick }</td>
-			</tr>
-			<tr>
-				<td><strong>이메일</strong></td>
-				<td>${user.userMail }</td>
-			</tr>
-			<tr>
-				<td><strong>유저 성별</strong></td>
-				<c:if test="${user.userGender == 'M' }">
-					<td>남</td>
-				</c:if>
-				<c:if test="${user.userGender == 'F' }">
-					<td>여</td>
-				</c:if>
-				<c:if test="${user.userGender == 'N' }">
-					<td>선택 안함</td>
-				</c:if>
-			</tr>
-			<tr>
-				<td><strong>생일</strong></td>
-				<td>${user.userBday }</td>
-			</tr>
-			<tr>
-				<td><strong>가입일</strong></td>
-				<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
-			</tr>
-			<tr>
-				<td><strong>포인트</strong></td>
-				<td>${user.userPoint }</td>
-			</tr>
-		
-		</table>
-		
-		
-		<div class="buttonarea" style="width:200px; margin: 0 auto;">
-		<a href="<%=request.getContextPath() %>/mypage/update?userNo=${user.userNo }"><button id="btnUpdate" class="btn" class="left">수정하기</button></a>
-		<form action="/mypage/delete" method="post">
-		<button id="btnDelete" class="btn">회원탈퇴</button>
-		<input type="hidden" name="userNo" value="${user.userNo }">
-		</form>
-		</div><!-- .buttonarea end -->
+			</div>
+			<div class="tablearea">
+				<table class="table table-hover" style="width: 500px">
+					<tr>
+						<td style="width:10%" ><strong>아이디</strong></td>
+						<c:if test="${kakaoUser == 'kakao'}">
+							<td style="width:10%">소셜 로그인 회원입니다.</td>
+						</c:if>
+						<c:if test="${kakaoUser == '' }">
+							<td style="width:10%" >${user.userId }</td>			
+						</c:if>
+					</tr>
+					<tr>
+						<td><strong>닉네임</strong></td>
+						<td>${user.userNick }</td>
+					</tr>
+					<tr>
+						<td><strong>이메일</strong></td>
+						<td>${user.userMail }</td>
+					</tr>
+					<tr>
+						<td><strong>성별</strong></td>
+						<c:if test="${user.userGender == 'M' }">
+							<td>남</td>
+						</c:if>
+						<c:if test="${user.userGender == 'F' }">
+							<td>여</td>
+						</c:if>
+						<c:if test="${user.userGender == 'N' }">
+							<td>선택 안함</td>
+						</c:if>
+					</tr>
+					<tr>
+						<td><strong>생일</strong></td>
+						<td>${user.userBday }</td>
+					</tr>
+					<tr>
+						<td><strong>가입일</strong></td>
+						<td><fmt:formatDate value="${user.joinDate }" pattern="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td><strong>포인트</strong></td>
+						<td>${user.userPoint }</td>
+					</tr>
+				
+				</table>
+			</div>
+			
+			<div class="buttonarea" style="width:200px; height: 100px;">
+				<button id="btnUpdate" class="left" onclick='userupdate();'>수정하기</button>
+				<form action="/mypage/delete" method="post">
+				<button type="button" id="btnDelete" onclick='userdelete();'>회원탈퇴</button>
+				<button hidden="hidden"></button>
+				<input type="hidden" name="userNo" value="${user.userNo }">
+				</form>
+			</div><!-- .buttonarea end -->
+
 		
 		</div> <!-- .col-md-9 end -->
 	</div> <!-- .one end -->

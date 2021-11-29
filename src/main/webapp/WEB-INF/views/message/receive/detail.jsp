@@ -10,14 +10,20 @@
 <!-- 개별 스타일 및 스크립트 영역 -->
 <script type="text/javascript">
 function message () {
-	var answer = confirm('쪽지를 보내시겠습니까?');
+	action_popup.confirm("답장을 보내시겠습니까?", function(result) {
 	
-	if(answer) {
+		if(result == true) {
+			window.open('/message/reply?userNo=${senderNo}', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+		} else {
+			return false;
+		}
 		
-		window.open('/message/reply?userNo=${senderNo}', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
-	} else {
-		return false;
-	}
+	})
+	
+	/* 닫는 창으로 꼭 필요함 */
+	$(".modal_close").on("click", function() {
+		action_popup.close(this);
+	});
 }
 
 </script>
@@ -26,15 +32,21 @@ function message () {
 $(document).ready(function(){
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+		action_popup.confirm("쪽지를 삭제하시겠습니까? 해당 작업은 되돌릴 수 없습니다.", function(result) {
 
-		if( answer == true ){
-
-			location.href="/message/receive/delete?msgNo=";
-
-		} else {
-			return false;
-		}
+			if( result == true ){
+	
+				location.href="/message/receive/delete?msgNo=${msg.msgNo}";
+	
+			} else {
+				return false;
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
 
 })
@@ -73,7 +85,7 @@ table {
 <button id="messageWrite" onclick="message()">답장하기</button>
 
 <a href="/message/receive/list"><button>목록</button></a>
-<a href="/message/receive/delete?msgNo=${msg.msgNo }"><button id="btnDelete">삭제</button></a>
+<button id="btnDelete">삭제</button>
 
 </div><!-- .container end -->
 <!-- footer start -->
