@@ -23,7 +23,7 @@
 
 #popular_table td {
 	height: 114px;
-	font-size: 18px;
+	font-size: 16px;
 	vertical-align: top;
 }
 
@@ -43,14 +43,18 @@
 }
 
 .ellipsis2 {
- 	display: -webkit-box;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: normal;
+/*  	display: -webkit-box; */
+/* 	overflow: hidden; */
+/* 	text-overflow: ellipsis; */
+/* 	white-space: normal; */
 /* 	line-height: 1.2em; */
 /* 	max-height: 1.2em; */
-	word-wrap: break-word;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	width: 270px;
+/* 	word-wrap: break-word; */
+/* 	-webkit-line-clamp: 1; */
+/* 	-webkit-box-orient: vertical; */
+/* 	width: 270px; */
+	width: 260px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;  /* 말줄임 적용 */
 }

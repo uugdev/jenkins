@@ -37,9 +37,9 @@ public interface MainService {
 	 * 퍼센트에 해당하는 메인 멘트 리스트 조회
 	 * 
 	 * @param persent - 퍼센트
-	 * @return 메인 멘트 리스트
+	 * @return 랜덤 메인 멘트
 	 */
-	public List<String> getMainment(Integer persent);
+	public String getMainment(Integer persent);
 	
 	/**
 	 * 질문 게시판에서 인기 게시글 조회

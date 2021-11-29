@@ -44,7 +44,17 @@ $(document).ready(function(){
 	})
 	
 	$("#btnSearch").click(function() {
-		location.href="/admin/trade/list?search="+$("#search").val();
+		
+		var target = getParameterByName("target")
+		
+		console.log(target)
+		
+		if(!target) {
+			location.href="/admin/trade/list?search="+$("#search").val();
+		} else {
+			location.href="/admin/trade/list?search="+$("#search").val()+"&target="+target;
+		}
+		
 	});
 	
 	$("#search").keypress(function(event){
@@ -55,6 +65,13 @@ $(document).ready(function(){
 	});
 
 })
+
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 </script>
 
 <style type="text/css">

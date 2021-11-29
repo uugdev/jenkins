@@ -3,6 +3,7 @@ package com.khbill.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -83,8 +84,16 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<String> getMainment(Integer persent) {
-		return mainDao.selectMainment(persent);
+	public String getMainment(Integer persent) {
+		
+		List<String> mainment = mainDao.selectMainment(persent);
+		
+		Random random = new Random();
+		
+		logger.info("Random Number - {}", random.nextInt(mainment.size()));
+		logger.info("mainment - {}", mainment.get(random.nextInt(mainment.size())));
+		
+		return mainment.get(random.nextInt(mainment.size()));
 	}
 
 	@Override
