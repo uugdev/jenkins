@@ -40,10 +40,10 @@ td:nth-child(2) {
 }
 
 #photoList li {
-  margin-right: 15px;
+  margin-right: 10px;
     display: inline-block;
-    width: 330px;
-    margin-bottom: 35px;
+    width: 300px;
+    margin-bottom: 30px;
     border-radius: 1px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;

@@ -13,7 +13,6 @@
 <%--header--%>
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -191,85 +190,86 @@ function reportStatusY() {
 </script>
 
 <style type="text/css">
-table {
-	table-layout: fixed;
+body {
+	background: #f2f2f2;
 }
 
-table, th {
+.title {
+	margin: 50px 0;
+}
+
+.title > p {
+	color: #85969E;
+}
+
+.listTable {
 	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding: 50px;
+	padding-bottom: 20px;
 }
 
-td:nth-child(2) {
-	text-align: left;
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 50px;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td>a {
+	color: #000;
+}
+.table>tbody>tr>td>a:hover {
+	color: #85969E;
+	text-decoration: none;
+}
+
+#btnWrite {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnWrite:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 </style>
 
-
 <div class="wrap">
-	<div class="container">
+<div class="container">
 	
-	<h1 style="text-align: center;">후기</h1>
-	<hr>
-	<!-- 구분선 삭제 예정 -->	
-	<div class="pull-right" style="margin-bottom: 20px;">
-		<a id="hitList">조회순</a>
-		<a id="latestList">최신순</a>
-		<a id="itemList">이미지순</a>
-	</div>
-	<br>
+<div class="title">	
+<h1 style="text-align: center;">후기</h1>
+<p>질문한 제품을 구매하셨다면 후기를 남겨주세요.</p>
+</div>
+
+<div class="listTable">
+<div class="pull-right" style="margin-bottom: 20px;">
+	<a id="hitList">조회순</a>
+	<a id="latestList">최신순</a>
+	<a id="itemList">이미지순</a>
+</div>
 	
-<%-- 	<div id="ajaxArea">
-		${reviewStatus }
-		<table class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th style="width: 10%;">글번호</th>
-				<th style="width: 45%;">제목</th>
-				<th style="width: 12%;">닉네임</th>
-				<th style="width: 10%;">조회수</th>
-				<th style="width: 15%;">작성일</th>
-			</tr>
-		</thead>
-		<tbody>
-		<c:forEach items="${reviewList }" var="review">
-			<tr>
-				<td>${review.REVIEW_NO }</td>
-				<td>
-					<c:if test="${review.REPORT_STATUS eq 'n' }">				
-						<a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
-					</c:if>
-					<c:if test="${review.REPORT_STATUS eq 'y' }">				
-						<a onclick="reportStatusY()">${review.REVIEW_TITLE }</a>
-					</c:if>
-				</td>
-					<c:if test="${review.USER_NICK eq null }">
-						<td>탈퇴한 회원</td>
-					</c:if>
-					<c:if test="${review.USER_NICK ne null }">
-						<td style="text-align: left;">
-							<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;"> ${review.USER_NICK }
-						</td>
-					</c:if>
-				
-				<td>${review.REVIEW_HIT }</td>
-				<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm:ss"/></td>
-			</tr>
-		</c:forEach>
-		</tbody>
-		</table>
-	</div>
-	
-	
-	<div class="form-inline text-center">
-		<input class="form-control" type="text" id="search" value="${param.search }" />
-		<button id="btnSearch" class="btn">검색</button>
-	</div>
-	<c:import url="/WEB-INF/views/review/paging.jsp" /> --%>
-		<div id="result">
-		
-		</div>
-	</div><!-- .container -->
+<div id="result">
+<!-- ajax로 리스트가 불러올 영역 -->
+</div>
+</div><!-- .listTable end -->
+
+</div><!-- .container -->
 </div><!-- .wrap end -->
+
+
 
 <%--footer--%>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
