@@ -213,21 +213,23 @@ var myChart2 = new Chart(context2, {
 })
 </script>
 <style type="text/css">
-  /*요일*/
-  .fc-col-header-cell-cushion {
+/*요일*/
+.fc-col-header-cell-cushion {
 	color: #000;
-  }
-  .fc-col-header-cell-cushion:hover {
+}
+
+.fc-col-header-cell-cushion:hover {
 	text-decoration: none;
-	color:#000;
-  }
-  /*일자*/
-  .fc-daygrid-day-number{
 	color: #000;
-	font-size:1em;
-  }
-.fc-event-title.fc-sticky{
-    white-space: normal;
+}
+/*일자*/
+.fc-daygrid-day-number {
+	color: #000;
+	font-size: 1em;
+}
+
+.fc-event-title.fc-sticky {
+	white-space: normal;
 }
 
 #calendar {
@@ -317,7 +319,6 @@ var myChart2 = new Chart(context2, {
 	padding-left: 20px;
 	padding-bottom: 20px;
 }
-
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -358,7 +359,7 @@ var myChart2 = new Chart(context2, {
 									<span class="close1">❌</span>
 								</div>
 								<input type="text" name="extraMoney" id="extraMoney" value="" />
-								<span style="font-size:24px;">원</span>
+								<span style="font-size: 24px;">원</span>
 								<div class="btnWrap1">
 									<button id="update">저장</button>
 								</div>
@@ -406,26 +407,40 @@ var myChart2 = new Chart(context2, {
 				</table>
 			</div>
 			<div id="ment">
-				<h2>이번 달 지출금액은 지난 달보다</h2>
 				<c:if test="${monthPrice gt last}">
-					<span style="color: red; font-size: 32px;">
-					<fmt:formatNumber type="number"
-								maxFractionDigits="3" value="${compare}" />원</span>
-					<span style="font-size: 30px;">더 쓰셨네요!</span>
-				<div style="width: 150px; height: 120px;"
+					<h2>이번 달 지출금액은 지난 달보다</h2>
+					<div>
+						<span style="color: red; font-size: 32px;"> <fmt:formatNumber
+								type="number" maxFractionDigits="3" value="${compare}" />원
+						</span> <span style="font-size: 30px;">더 쓰셨네요!</span>
+					</div>
+					<div style="width: 150px; height: 120px; margin-right: 20px;"
 						class="pull-right">
-						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
+						<img style="width: 100%; height: 100%;"
+							src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
 					</div>
 				</c:if>
 
-				<c:if test="${monthPrice le last}">
-					<span style="color: blue; font-size: 32px;">
-					<fmt:formatNumber type="number"
-								maxFractionDigits="3" value="${compare}" />원</span>
-					<span style="font-size: 30px;">덜 쓰셨네요!</span>
-				<div style="width: 150px; height: 120px;"
+				<c:if test="${monthPrice lt last}">
+					<h2>이번 달 지출금액은 지난 달보다</h2>
+					<div>
+						<span style="color: blue; font-size: 32px;"> <fmt:formatNumber
+								type="number" maxFractionDigits="3" value="${compare}" />원
+						</span> <span style="font-size: 30px;">덜 쓰셨네요!</span>
+					</div>
+					<div style="width: 150px; height: 120px; margin-right: 20px;"
 						class="pull-right">
-						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
+						<img style="width: 100%; height: 100%;"
+							src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
+					</div>
+				</c:if>
+
+				<c:if test="${monthPrice eq last}">
+					<h2>이번 달 지출금액은 지난 달과 같아요</h2>
+					<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 40px;"
+						class="pull-right">
+						<img style="width: 100%; height: 100%;"
+							src="https://i.imgur.com/Rg5O9bR.png" alt="같음" />
 					</div>
 				</c:if>
 			</div>

@@ -85,7 +85,7 @@ $(document).ready(function() {
 		<h1>질문 글쓰기 페이지</h1>
 		<hr>
 
-		<form action="/ask/write" method="post" enctype="multipart/form-data" id="nullCheck">
+		<form action="/ask/write" method="post" enctype="multipart/form-data" id="nullCheck" style="text-align: left;" >
 			<div class="form-group">
 				<label for="userNick">작성자</label> <input type="text" id="userNick"
 					value="${userNick }" class="form-control" readonly="readonly" maxlength="12"/>
@@ -108,18 +108,18 @@ $(document).ready(function() {
 			</div>
 
 			<div class="form-group">
-				<label for="file">첨부파일</label> <input type="file" id="file"
+				<label for="file">상품사진</label> <input type="file" id="file"
 					name="file" />
 			</div>
 
 			<div class="form-group">
-				<label for="askContent">구구절절</label>
+				<label for="askContent">본문</label>
 				<textarea rows="10" style="width: 100%;" id="askContent"
-					name="askContent"></textarea>
+					name="askContent"  maxlength="1333"></textarea>
 			</div>
 
 			<div class="form-group">
-				<h6>투표 기간 설정</h6>
+				<h4>투표 기간 설정</h4>
 			</div>
 
 			<div class="form-group">

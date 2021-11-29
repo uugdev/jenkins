@@ -103,6 +103,10 @@ public class AskController {
 
 		Ask ask = askService.getAskDetail(askNo);
 		
+		int detailUserNo = ask.getUserNo();
+		
+		String grade = askService.getGradeUrlByUserNo(detailUserNo);
+		
 		int userNo = 0;
         if(session.getAttribute("userNo") != null ){
             userNo = (Integer) session.getAttribute("userNo");
@@ -121,6 +125,7 @@ public class AskController {
 
 		User user = askService.getUserInfoByUserNo(ask.getUserNo());
 
+		model.addAttribute("grade", grade);
 		model.addAttribute("user", user);
 		model.addAttribute("status", status);
 		model.addAttribute("result", result);

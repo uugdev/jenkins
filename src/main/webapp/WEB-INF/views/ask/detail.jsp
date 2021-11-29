@@ -596,7 +596,7 @@ table, th {
 .recipeWrap {
 	/*  	width: 700px; */
 	width: 100%;
-	margin: 50px auto 0;
+	margin: 100px auto 0;
 	padding: 30px;
 	background: #fff;
 	border-bottom-left-radius: 20px;
@@ -777,6 +777,37 @@ table, th {
 	text-align: right;
 	margin-right: 20px;
 }
+
+
+#hate:hover {
+	cursor: pointer;
+}
+
+#like:hover {
+	cursor: pointer;
+}
+
+.btnGroup {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+	margin-bottom: 100px;
+}
+
+.btnGroup:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+
+
+
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -792,15 +823,17 @@ table, th {
 				</div>
 				<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
-						<span class="confirmation username">작성자 : ${user.userNick }</span>
+						<span class="confirmation username">작성자 : 
+						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<c:if test="${userNo eq ask.userNo and empty sessionScope.userNo }">
-						<span class="confirmation username">작성자 : ${user.userNick }</span>
+						<span class="confirmation username">작성자 : 
+						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<c:if
 						test="${userNo ne ask.userNo and !empty sessionScope.userNo }">
 						<span class="confirmation username layerpopup">작성자 :
-							${user.userNick }</span>
+						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<div id="layer">
 						<ul>
@@ -1073,7 +1106,7 @@ table, th {
 				<input type="text" size="10" class="form-control" id="userNick"
 					value="${userNick }" readonly="readonly" />
 				<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
-				<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
+				<button id="btnCommInsert" class="btn btn-default" onclick="insertComment();">입력</button>
 			</div>
 			<!-- 댓글 입력 end -->
 		</c:if>
@@ -1083,11 +1116,11 @@ table, th {
 
 		<div class="text-center"
 			style="margin-bottom: 100px; margin-top: 50px;">
-			<a href="/ask/list"><button class="btn btn-default">목록</button></a>
+			<a href="/ask/list"><button class="btn btnGroup">목록</button></a>
 			<c:if test="${userNo eq ask.userNo }">
 				<a href="/ask/update?askNo=${ask.askNo }"><button
-						class="btn btn-primary">수정</button></a>
-				<button type="button" class="btn btn-danger" id="btnDelete">삭제</button>
+						class="btn btnGroup">수정</button></a>
+				<button type="button" class="btn btnGroup" id="btnDelete">삭제</button>
 			</c:if>
 		</div>
 

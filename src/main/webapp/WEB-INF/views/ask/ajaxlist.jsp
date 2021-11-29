@@ -31,8 +31,7 @@
 				</c:if>
 				<c:if test="${ask.USER_NICK ne null }">
 					<td style="text-align: left;"><img alt="#"
-						src="${ask.GRADE_URL}" style="width: 20px; height: 20px;">
-						${ask.USER_NICK }</td>
+						src="${ask.GRADE_URL}" style="width: 20px; height: 20px;">${ask.USER_NICK }</td>
 				</c:if>
 				<td style="text-align: center">${ask.ASK_HIT }</td>
 
