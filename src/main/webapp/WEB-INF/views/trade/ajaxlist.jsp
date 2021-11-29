@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.util.Date" %>
+
+<%--  현재 날짜 --%>
+<fmt:formatDate value="<%=new Date() %>" pattern="yyyyMMdd" var="nowStr" />
 
 <table class="table table-striped table-hover">
 	<thead>
@@ -39,7 +43,19 @@
 					</td>
 				</c:if>
 				<td>${board.TRADE_HIT }</td>
-				<td><fmt:formatDate value="${board.TRADE_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
+				<%-- 시간를 변환(yyyyMMdd)하여 변수에 저장하기 --%>
+			    <fmt:formatDate value="${board.TRADE_DATE }" pattern="yyyyMMdd" var="timeStr" />
+			
+			    <td>
+			    <c:choose>
+			        <c:when test="${timeStr lt nowStr }">
+			            <fmt:formatDate value="${board.TRADE_DATE }"  pattern="yy-MM-dd"/>
+			        </c:when>
+			        <c:when test="${timeStr eq nowStr }">
+			            <fmt:formatDate value="${board.TRADE_DATE }"  pattern="HH:mm"/>
+			        </c:when>
+			    </c:choose>
+			    </td>
 			</tr>
 		</c:forEach>
 	</tbody>

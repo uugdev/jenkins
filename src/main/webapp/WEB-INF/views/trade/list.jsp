@@ -79,6 +79,30 @@
 				}
 			})
 		})
+
+		//이미지로 정렬 처리
+		$("#picList").click(function () {
+//	 		console.log("#ajax clicked")
+			
+			target = 3;
+			var curPage = 1;
+			$.ajax({
+				type: "get"
+				, url: "/trade/list/ajax"
+				, data: {
+					curPage: curPage
+					, target: target
+				}
+				, dataType: "html"
+				, success: function ( res ) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+				}
+				, error: function () {
+					console.log("AJAX 실패")
+				}
+			})
+		})
 		
 		//<otherwise>태그로 로드하는 부분
 		var target = null;
@@ -173,6 +197,7 @@ td:nth-child(2) {
 		<div class="pull-right" style="margin-bottom: 10px;">
 			<a id="latestList">최신순</a>
 			<a id="hitList">조회순</a>
+			<a id="picList">이미지</a>
 		</div>
 		
 		<div id="result"></div>
