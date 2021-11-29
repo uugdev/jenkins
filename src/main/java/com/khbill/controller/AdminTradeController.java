@@ -30,9 +30,15 @@ public class AdminTradeController {
 				, Paging paramData
 			) {
 		
+		logger.info("paramData - {}", paramData);
+		
 		Paging paging = adminTradeService.getPaging(paramData);
 		
+		logger.info("paging - {}", paging);
+		
 		List<Trade> tradeList = adminTradeService.getTradeList(paging);
+		
+		logger.info("tradeList - {}", tradeList);
 		
 		model.addAttribute("tradeList", tradeList);
 		model.addAttribute("paging", paging);

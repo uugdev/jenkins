@@ -78,13 +78,29 @@ function submitContents(elClickedObj) {
 
 $(document).ready(function() {
 	
-	$("#btnUpdate").click(function() {
-		submitContents($("#btnUpdate"));
-		
-		$('#fileArea').before('<input type="hidden" name="tradeNo" value="'+ ${param.tradeNo } +'" />');
-		
-		$("form").submit();
-	})
+    $(document).on("click", "#btnUpdate", function () {
+        action_popup.confirm("수정 하시겠습니까?", function (res) {
+            if (res) {
+            	
+            	/* ----------------------------------------- */
+            	
+				submitContents($("#btnUpdate"));
+				
+				$('#fileArea').before('<input type="hidden" name="tradeNo" value="'+ ${param.tradeNo } +'" />');
+				
+				$("form").submit();
+            	
+            	/* ----------------------------------------- */
+               
+            }
+        })
+    });
+    
+	/* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
+	
 	
 	$("#btnCancel").click(function() {
 		history.go(-1);
@@ -105,10 +121,17 @@ $(document).ready(function() {
 	
 		<form id="updateForm" action="/trade/update" method="post" enctype="multipart/form-data">
 		
-			<input type="text" style="width: 60%;" name="tradeTitle" value="${tradeDetail.TRADE_TITLE }" placeholder="제목을 입력해주세요"/>
+			<input type="text" style="width: 60%;" name="tradeTitle" value="${tradeDetail.TRADE_TITLE }"
+				   placeholder="제목을 입력해주세요" maxlength="33"/>
 			<select name="tradeCategory">
-				<option value="0">팝니다</option>
-				<option value="1">삽니다</option>
+				<c:if test="${tradeDetail.TRADE_CATEGORY eq 0 }">
+					<option value="0" selected="selected">팝니다</option>
+					<option value="1">삽니다</option>
+				</c:if>
+				<c:if test="${tradeDetail.TRADE_CATEGORY eq 1 }">
+					<option value="0">팝니다</option>
+					<option value="1" selected="selected">삽니다</option>
+				</c:if>
 			</select>
 			<p style="text-align: left;">** 카테고리에 알맞은 주제에 대한 글을 올려주세요.</p>
 		

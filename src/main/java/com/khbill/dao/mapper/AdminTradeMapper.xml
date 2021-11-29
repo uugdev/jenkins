@@ -42,6 +42,8 @@
 		        <when test="target == 1">
 		        AND trade_category = 1
 		        </when>
+		        <otherwise>
+		        </otherwise>
 		        </choose>
 		        ORDER BY trade_no DESC
 		        ) sub
