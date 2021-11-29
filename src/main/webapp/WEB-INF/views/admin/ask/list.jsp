@@ -117,7 +117,7 @@ label {
 	<th style="text-align: center; width: 6%;"><input type="checkbox" name="select" id="selectAll" /></th>
 	<th style="width: 8%;">글번호</th>
 	<th style="text-align: left; width: 46%;">제목</th>
-	<th style="text-align: left; width: 12%;">닉네임</th>
+	<th style="text-align: left; width: 12%;">작성자</th>
 	<th style="text-align: center; width: 10%;">조회수</th>
 	<th style="text-align: center; width: 12%;">작성일</th>
 </tr>
@@ -139,7 +139,6 @@ label {
 	<c:if test="${askList.USER_NICK ne null}">
 		<td style="text-align: left;">
 			<label for="${askList.ASK_NO }">
-				<img alt="#" src="${askList.GRADE_URL}" style="width: 20px; height: 20px;" />
 				${askList.USER_NICK }
 			</label>
 		</td>

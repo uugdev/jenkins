@@ -38,11 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 			<c:forEach items="${bDay}" var="b">
 			{
-             
-				display: 'background',
-                backgroundColor: 'rgb(253, 166, 195)',
-                backgroundColor: '#FFFFFF',
-                title  : 'MyBirthDay',
+				color : "#FFF",
+                backgroundColor: '#FFF',
+                textColor : "red",
+                title  : '🎉B-DAY',	
 	      		start  : '<fmt:formatDate value="${b}" pattern="YYYY-MM-dd" />',
 	      		end  : '<fmt:formatDate value="${b}" pattern="YYYY-MM-dd" />',
 	    	},
@@ -319,14 +318,6 @@ var myChart2 = new Chart(context2, {
 	padding-bottom: 20px;
 }
 
-.fc .fc-bg-event .fc-event-title {
-
-	margin-top: 21px;
-	color: red;
-	font-size: 10px;
-
-}
-
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -417,18 +408,22 @@ var myChart2 = new Chart(context2, {
 			<div id="ment">
 				<h2>이번 달 지출금액은 지난 달보다</h2>
 				<c:if test="${monthPrice gt last}">
-					<span style="color: red; font-size: 32px;">${compare}원 </span>
+					<span style="color: red; font-size: 32px;">
+					<fmt:formatNumber type="number"
+								maxFractionDigits="3" value="${compare}" />원</span>
 					<span style="font-size: 30px;">더 쓰셨네요!</span>
-				<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 30px;"
+				<div style="width: 150px; height: 120px;"
 						class="pull-right">
 						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
 					</div>
 				</c:if>
 
 				<c:if test="${monthPrice le last}">
-					<span style="color: blue; font-size: 32px;">${compare}원 </span>
+					<span style="color: blue; font-size: 32px;">
+					<fmt:formatNumber type="number"
+								maxFractionDigits="3" value="${compare}" />원</span>
 					<span style="font-size: 30px;">덜 쓰셨네요!</span>
-				<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 30px;"
+				<div style="width: 150px; height: 120px;"
 						class="pull-right">
 						<img style="width: 100%; height: 100%;" src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
 					</div>

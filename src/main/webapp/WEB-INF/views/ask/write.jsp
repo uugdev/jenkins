@@ -88,7 +88,7 @@ $(document).ready(function() {
 		<form action="/ask/write" method="post" enctype="multipart/form-data" id="nullCheck">
 			<div class="form-group">
 				<label for="userNick">작성자</label> <input type="text" id="userNick"
-					value="${userNick }" class="form-control" readonly="readonly" />
+					value="${userNick }" class="form-control" readonly="readonly" maxlength="12"/>
 			</div>
 			<div class="form-group">
 				<label for="askTitle">제목</label> <input type="text" id="askTitle"
@@ -104,7 +104,7 @@ $(document).ready(function() {
 			</div>
 			<div class="form-group commaInput">
 				<label for="itemPrice">가격</label> <input type="text" id="itemPrice"
-					name="itemPrice" class="form-control" />
+					name="itemPrice" class="form-control" maxlength="10"/>
 			</div>
 
 			<div class="form-group">
