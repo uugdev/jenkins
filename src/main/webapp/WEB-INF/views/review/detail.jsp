@@ -619,7 +619,7 @@ table, th {
 						${review.USER_NICK }
 				</span>
 			</c:if>
-			<c:if test="${sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
+			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<span class="confirmation username layerpopup">
 					<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">
 						${review.USER_NICK }
