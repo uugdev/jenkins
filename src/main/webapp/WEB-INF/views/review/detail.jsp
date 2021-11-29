@@ -279,22 +279,6 @@ $(function() {
 </script>
 
 <style type="text/css">
-/* #reviewTable { */
-	
-/* } */
-
-/* #item .center-block { */
-/* /*   display: block; */ */
-/*   margin-left: auto; */
-/*   margin-right: auto; */
-/* } */
-
-/* #itemImg { */
-/* 	width: 800px; */
-/*     height: 800px; */
-/*     object-fit: scale-down; */
-/* } */
-<style type="text/css">
 
 .layerbox {
 	position: relative;
@@ -609,7 +593,7 @@ table, th {
 			<p style="text-align: center;">${review.REVIEW_TITLE }</p>
 		</div>
 		<div class="layerbox">
-		<span>	
+		<span>		
 			<c:if test="${review.USER_NO eq null }">
 				탈퇴한 회원
 			</c:if>
