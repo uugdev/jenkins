@@ -16,32 +16,25 @@ table {
 </style>
 
 <script type="text/javascript">
+
 $(document).ready(function(){
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
+		action_popup.confirm("쪽지를 삭제하시겠습니까? 삭제시 나의 보낸 쪽지함에서만 삭제되고 상대방의 쪽지함에서는 삭제되지 않습니다.", function(result) {
 
-		if( answer == true ){
-			location.href="/message/send/delete?msgNo=";
-		} else {
-			return false;
-		}
-	})
-
-})
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
+			if( result == true ){
 	
-	$("#btnDelete").click(function() {
-		var answer = confirm("쪽지를 삭제하시겠습니까?\n삭제시 보낸 쪽지함에서만 삭제되고, 상대방의 쪽지함에서는 삭제되지 않습니다.")
-
-		if( answer == true ){
-			location.href="/message/send/delete?msgNo="
-		} else {
-			return false;
-		}
+				location.href="/message/send/delete?msgNo=${msg.msgNo}";
+	
+			} else {
+				return false;
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
 
 })
@@ -81,7 +74,7 @@ table {
 
 
 <a href="/message/send/list"><button>목록</button></a>
-<a href="/message/send/delete?msgNo=${msg.msgNo }"><button id="btnDelete">삭제</button></a>
+<button id="btnDelete">삭제</button>
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

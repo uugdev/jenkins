@@ -46,13 +46,14 @@ $(document).ready(function(){
 </script>
 
 <style>
+.container {
+	width: 1200px;
+}
+
 .titlearea {
 	margin: 50px 0 30px 0;
 }
 
-body {
-	background-color: #f2f2f2;
-}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -66,21 +67,19 @@ body {
 </div>
 <div class="col-md-9" style="height: 500px;">
 
-<table class="table table-striped table-hover">
+<table class="table table-hover table-striped">
 <thead>
 	<tr>
-		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 10%;">글번호</th>
+		<th style="width: 15%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
 		<th style="width: 45%;">제목</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 15%;">작성일</th>
+		<th style="width: 8%;">조회수</th>
+		<th style="width: 22%;">작성일</th>
 	</tr>
 </thead>
 <tbody>
 	<c:forEach items="${ask }" var="ask">
 	<tr>
 		<td><input type="checkbox" id="${ask.askNo }" value="${ask.askNo }" class="chk" /></td>
-		<td>${ask.askNo }</td>
 		<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${ask.askNo }">${ask.askTitle }</a></td>
 		<td>${ask.askHit }</td>
 		<td><fmt:formatDate value="${ask.askDate }" pattern="yy-MM-dd HH:mm" /></td>

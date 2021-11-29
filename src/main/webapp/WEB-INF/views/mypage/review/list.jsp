@@ -46,6 +46,10 @@ $(document).ready(function(){
 </script>
 
 <style>
+.container {
+	width: 1200px;
+}
+
 .titlearea {
 	margin: 50px 0 30px 0;
 }
@@ -65,18 +69,16 @@ $(document).ready(function(){
 <table class="table table-striped table-hover">
 <thead>
 	<tr>
-		<th>전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 10%;">글번호</th>
+		<th style="width: 14%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 10%;">조회수</th>
-		<th style="width: 15%;">작성일</th>
+		<th style="width: 20%;">작성일</th>
 	</tr>
 </thead>
 <tbody>
 	<c:forEach items="${review }" var="review">
 	<tr>
 		<td><input type="checkbox" id="${review.reviewNo }" value="${review.reviewNo }" class="chk" /></td>
-		<td>${review.reviewNo }</td>
 		<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
 		<td>${review.reviewHit }</td>
 		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm" /></td>

@@ -46,6 +46,11 @@ $(document).ready(function(){
 </script>
 
 <style>
+
+.container {
+	width: 1200px;
+}
+
 .titlearea {
 	margin: 50px 0 30px 0;
 }
@@ -66,7 +71,6 @@ $(document).ready(function(){
 <thead>
 	<tr>
 		<th style="width: 12%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 8%;">글번호</th>
 		<th style="width: 10%;">카테고리</th>
 		<th style="width: 36%;">제목</th>
 		<th style="width: 8%;">조회수</th>
@@ -77,7 +81,6 @@ $(document).ready(function(){
 	<c:forEach items="${trade }" var="trade">
 	<tr>
 	<td><input type="checkbox" id="${trade.tradeNo }" value="${trade.tradeNo }" class="chk" /></td>
-		<td>${trade.tradeNo }</td>
 		<c:if test="${trade.tradeCategory == '1' }">
 		<td>삽니다</td>
 		</c:if>

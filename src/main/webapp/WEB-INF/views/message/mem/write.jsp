@@ -25,26 +25,31 @@ function submitContents(elClickedObj) {
 <script type="text/javascript">
 
 $(document).ready(function () {
-	
-	$("#btnWrite").click(function(){
+
+	$("#btnWrite").click(function() {
 		
 		var userNick = $("#userNick").val();
 		
 		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
-
 	
 		var nickregex = nickRegex.exec(userNick);
-			
-		var answer = confirm("쪽지를 보내시겠습니까?");
 		
-		if( answer == true){
-			submitContents($("#btnWrite"));
-			$("form").submit();		
-		} else {
-			return false;
-
-		}
-	});
+		action_popup.confirm("쪽지를 보내시겠습니까?", function(result) {
+		
+			if( result == true){
+				submitContents($("#btnWrite"));
+				$("form").submit();		 
+			} else {
+				return false;
+	
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
+	})
 	
 	
 	$("#btnCancel").click(function() {
@@ -94,12 +99,55 @@ function checkUserNick() {
 
 <style>
 
+#btnWrite {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnCancel {
+	height: 35px;
+	width: 76px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnWrite:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+#btnCancel:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
 body {
 	padding: 20px 0 0 0;
+	background-color: #f2f2f2;
+	
 }
+
 table, h3 {
 	text-align: center;
-	margin: 0 0 5px 0 auto;
+	margin: 0 auto;
+}
+
+table {
+	background-color: #fff;
+}
+
+.titlearea {
+	margin-bottom: 20px;
 }
 
 .wrap {
@@ -110,7 +158,7 @@ table, h3 {
 }
 
 .buttonarea {
-	margin: 0 0 0 250px;
+	margin: 0 0 0 240px;
 }
 
 .nick_ok, .nick_check {
@@ -124,8 +172,10 @@ table, h3 {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-
-<h3>쪽지 보내기</h3>
+	
+	<div class="titlearea">
+		<h3>쪽지 보내기</h3>
+	</div>
 
 <form action="/message/mem/write" method="post">
 
@@ -138,7 +188,7 @@ table, h3 {
 	</tr>
 	
 	<tr>
-		<td style="width:30%"><label for="title">제목</label></td>
+		<td style="width:30%"><label for="msgTitle">제목</label></td>
 		<td style="width:70%"><input type="text" id="msgTitle" name="msgTitle" /></td>
 	</tr>
 	<tr>
@@ -161,6 +211,18 @@ nhn.husky.EZCreator.createInIFrame({
 	fCreator: "createSEditor2"
 });
 </script>
+
+<!-- confirm 모달을 쓸 페이지에 추가 start-->
+<section class="modal modal-section type-confirm">
+    <div class="enroll_box">
+        <p class="menu_msg"></p>
+    </div>
+    <div class="enroll_btn">
+        <button class="btn pink_btn btn_ok">확인</button>
+        <button class="btn gray_btn modal_close">취소</button>
+    </div>
+</section>
+<!-- confirm 모달을 쓸 페이지에 추가 end-->
 
 </body>
 </html>

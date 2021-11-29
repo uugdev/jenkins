@@ -45,6 +45,11 @@ $(document).ready(function(){
 </script>
 
 <style>
+
+.container {
+	width: 1200px;
+}
+
 .titlearea {
 	margin: 50px 0 30px 0;
 }

@@ -103,6 +103,10 @@ a {
 	margin-right: 5px;
 }
 
+.pull-left {
+	margin: 0 0 0 20px;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
