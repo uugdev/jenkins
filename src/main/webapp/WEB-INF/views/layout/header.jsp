@@ -29,22 +29,14 @@ $(document).ready(function() {
 
 	
     $('#boardA').hover(function() {
-    	$("#qnaNav").slideUp("fast");
+    	$("#qnaNav").slideUp(0);
     	$("#boardNav").slideDown();
     });
-    
-//     $('#boardA').mouseleave(function() {
-//     	$("#boardNav").slideUp();
-//     });
 
     $('#qnaA').hover(function() {
-    	$("#boardNav").slideUp("fast");
+    	$("#boardNav").slideUp(0);
     	$("#qnaNav").slideDown();
     });
-    
-//     $('#qnaA').mouseleave(function() {
-//     	$("#qnaNav").slideUp();
-//     });
     
     $('#topContainer').mouseleave(function(){
     	$('.blockNav').slideUp();
@@ -114,7 +106,7 @@ $(document).ready(function() {
 			<div id="qnaNav" class="blockNav container"
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/notice/list" style="margin-left: 400px;">공지사항</a>
+					<a href="/notice/list" style="margin-left: 653px;">공지사항</a>
 					<a href="/qna/main">자주 찾는 질문</a>
 					<a href="/qna/list">1:1 문의</a>
 				</p>

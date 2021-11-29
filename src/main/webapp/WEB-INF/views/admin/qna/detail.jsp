@@ -36,21 +36,31 @@ $(document).ready(function(){
 
 <style type="text/css">
 
-#content {
-	vertical-align: middle;
-	height: 200px;
+.detail {
+	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: 50px auto;
 }
 
-.answer {
-	margin: 0 auto;
-	width: 95%;
-	height: 95%;
-	text-align: center;
+.info {
 	display: flex;
-	align-items: center;
+	justify-content: space-between;
+	font-size: 15px;
+	width: 80%;
+	margin: auto;
+	color: #5F6062;
+}
+
+#content {
+	display: flex;
 	justify-content: center;
+	align-items: center;
+	height: 400px;
 	background: #f2f2f2;
 	padding: 10px;
+	overflow: auto;
+	font-size: 16px;
 }
 
 td, th {
@@ -61,6 +71,21 @@ td, th {
 th{
 	background: #ccc;
 }
+
+#answer {
+	margin: auto;
+	margin-bottom: 30px;
+	margin-top: 20px;
+	width: 100%;
+	height: 150px;
+	border: 3px solid #f3f3f3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+	font-size: 16px;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -68,53 +93,47 @@ th{
 <div class="wrap">
 <div class="container">
 
-<h3>${qna.qnaTitle }</h3>
-<hr>
-<table class="table table-condensed">
-<tr>
-	<th>문의번호</th>
-	<td>${qna.qnaNo }</td>
-	<th>닉네임</th>
-	<td>${nick }</td>
-	<th>문의 유형</th>
-	<td>${qna.qnaCategory }</td>
-	<th>답변 여부</th>
-	<td>
+<div class="detail">
+<h2 style="margin-bottom: 40px;">${qna.qnaTitle }</h2>
+
+<div class="info">
+	<span><label>문의번호</label>&nbsp;&nbsp;&nbsp;${qna.qnaNo }</span>|
+	<span><label>닉네임</label>&nbsp;&nbsp;&nbsp;${nick }</span>|
+	<span><label>문의 유형</label>&nbsp;&nbsp;&nbsp;${qna.qnaCategory }</span>|
+	<span><label>답변 여부</label>&nbsp;&nbsp;&nbsp;
 		<c:if test="${qna.qnaStatus == 'n' }">답변 대기중</c:if>
 		<c:if test="${qna.qnaStatus == 'y' }">답변 완료</c:if>
-	</td>
-	<th>작성일</th>
-	<td><fmt:formatDate value="${qna.qnaDate }" pattern="yyyy-MM-dd" /></td>
-</tr>
-<tr>
-	<td colspan="10" id="content">${qna.qnaContent }</td>
-</tr>
-<tr>
-	<td colspan="10" style="height: 100px;">
+	</span>|
+	<span><label>작성일</label>&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${qna.qnaDate }" pattern="yyyy-MM-dd" /></span>
+</div><!-- .info end -->
+
+<div id="content">${qna.qnaContent }</div>
+
+<div id="answer">
 	<c:if test="${not empty qnaComment }">
-		<div class="answer"><span>${qnaComment.qnaComContent }</span></div>
+		<span>${qnaComment.qnaComContent }</span>
 	</c:if>
 	<c:if test="${empty qnaComment }">
-		<div class="answer"><span>아직 작성된 답변이 없습니다.</span></div>
+		<span>아직 작성된 답변이 없습니다.</span>
 	</c:if>
-	</td>
-</tr>
-</table>
+</div>
+
 <c:if test="${not empty qnaComment }">
 <div class="text-center">
-	<button id="btnUpdate">답변 수정</button>
-	<button id="btnDelete">답변 삭제</button>
-	<button id="btnList">목록으로</button>
+	<button id="btnUpdate" class="btn">답변 수정</button>
+	<button id="btnDelete" class="btn">답변 삭제</button>
+	<button id="btnList" class="btn">목록으로</button>
 </div><!-- .text-center end -->
 </c:if>
 
 <c:if test="${empty qnaComment }">
 <div class="text-center">
-	<button id="btnWrite">답변 작성</button>
-	<button id="btnList">목록으로</button>
+	<button id="btnWrite" class="btn">답변 작성</button>
+	<button id="btnList" class="btn">목록으로</button>
 </div><!-- .text-center end -->
 </c:if>
 
+</div><!-- .detail end -->
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 

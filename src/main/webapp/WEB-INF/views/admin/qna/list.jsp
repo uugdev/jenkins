@@ -15,7 +15,8 @@ $(document).ready(function(){
 	
 	loadList();
 	
-	$("#btnDelete").click(function(){
+// 	$("#btnDelete").click(function(){
+	$(document).on('click', '#btnDelete', function(){
 		var answer = confirm("선택한 문의글을 삭제하시겠습니까?\n※해당 작업은 되돌릴 수 없습니다!")
 		var delchk = [];
    
@@ -145,22 +146,49 @@ function loadCurPage(i, t){
 
 <style type="text/css">
 
-table {
-	text-align: center;
-	margin: auto;
+
+.title {
+	margin: 50px 0 30px 0;
 }
 
-th, td {
+.listTable {
 	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: auto;
+	margin-bottom: 50px;
+	padding-bottom: 20px;
+}
+
+.table {
+	margin-top: 10px;
+}
+
+.table>tbody>tr>th {
+	background: #f3f3f3;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td {
+	height: 30px;
+	vertical-align: middle;
 }
 
 label {
 	font-weight: normal !important;
 }
 
+input[type=checkbox] {
+	width: 15px;
+	height: 15px;
+}
+
+#orderByNo, #orderByStatus {
+	color: black;
+}
 #orderByNo:hover, #orderByStatus:hover {
-	color: blue;
 	text-decoration: underline;
+	cursor: pointer;
 }
 </style>
 
@@ -169,14 +197,19 @@ label {
 <div class="wrap">
 <div class="container">
 
-<h3>문의 목록</h3>
-<hr>
+<div class="title">
+	<h1>문의 목록</h1>
+</div><!-- .title end -->
+
+<div class="listTable">
 <div class="pull-right">
 	<a id="orderByNo">최신순</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a id="orderByStatus">미답변순</a>
 </div>
-<div class="clearfix"></div>
 
 <div id="result"></div>
+<!-- <button id="btnDelete" class="pull-left">삭제</button> -->
+<!-- <div class="clearfix"></div> -->
+</div><!-- .listTable end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

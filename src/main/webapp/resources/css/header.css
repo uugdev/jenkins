@@ -75,11 +75,11 @@ html {
 	}
 }
 
-#boardA, #qnaA {
+#boardA, #qnaA, #boardB, #reportB, #cscenterB {
     cursor:pointer;
 }
 
-div#boardNav.blockNav a, div#qnaNav.blockNav a {
+div#boardNav.blockNav a, div#qnaNav.blockNav a, div#adminBoardNav.blockNav a, div#adminReportNav.blockNav a, div#adminCscenterNav.blockNav a {
 	color: white;
 	font-size: 20px;
 	font-weight: lighter;

@@ -2,9 +2,40 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+
+$(function(){
+    $('#boardB').hover(function() {
+    	$("#adminBoardNav").slideDown("fast");
+    	$("#adminReportNav").slideUp(0);
+    	$("#adminCscenterNav").hide();
+    });
+    
+    $('#reportB').hover(function() {
+    	$("#adminBoardNav").slideUp(0);
+    	$("#adminReportNav").slideDown("fast");
+    	$("#adminCscenterNav").slideUp(0);
+    });
+
+    $('#cscenterB').hover(function() {
+    	$("#adminBoardNav").hide();
+    	$("#adminReportNav").slideUp(0);
+    	$("#adminCscenterNav").slideDown("fast");
+    });
+    
+    $('#topContainer').mouseleave(function(){
+    	$('.blockNav').slideUp();
+    });
+    
+})
+
+
+</script>
+
+
 <header>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container-fluid">
+	<nav class="navbar navbar-default navbar-fixed-top" style="border: 0;">
+		<div id="topContainer" class="container-fluid" style="padding: 0;">
 			<div class="navbar-header">
 				<a href="/main">
 				<img src="https://i.imgur.com/if5laLF.png"
@@ -22,13 +53,14 @@
 			<div class="collapse navbar-collapse" id="myNavbar"
 				 style="background: white; height: 100px;">
 				<ul class="nav navbar-nav">
-					<li><a href="/admin/user/list" style="margin: 7px 0 0 30px;"><h4>회원 관리</h4></a></li>
-					<li><a href="/admin/notice/list" style="margin: 7px 0 0 30px;"><h4>공지 관리</h4></a></li>
-					<li><a href="/admin/ask/list" style="margin: 7px 0 0 30px;"><h4>질문게시판 관리</h4></a></li>
-					<li><a href="/admin/review/list" style="margin: 7px 0 0 30px;"><h4>후기게시판 관리</h4></a></li>
-					<li><a href="/admin/trade/list" style="margin: 7px 0 0 30px;"><h4>거래게시판 관리</h4></a></li>
-					<li><a href="#" style="margin: 7px 0 0 30px;"><h4>신고 관리</h4></a></li>
-					<li><a href="/admin/qna/list" style="margin: 7px 0 0 30px;"><h4>문의 관리</h4></a></li>
+					<li><a href="/admin/user/list" style="margin: 7px 0 0 30px;"><h3 style="font-weight: bold;">회원 관리</h3></a></li>
+					<li>
+						<a id="boardB" role="button" style="margin: 7px 0 0 30px;"><h3 style="font-weight: bold;">게시판 관리</h3></a>
+					</li>
+					<li>
+						<a id="reportB" role="button" style="margin: 7px 0 0 30px;"><h3 style="font-weight: bold;">신고 관리</h3></a>
+					</li>
+					<li><a id="cscenterB" role="button" style="margin: 7px 0 0 30px;"><h3 style="font-weight: bold;">고객센터 관리</h3></a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -45,6 +77,29 @@
 						</c:when>
 					</c:choose>
 				</ul>
+			</div>
+			<div id="adminBoardNav" class="blockNav container"
+				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
+				<p style="line-height: 46px;">
+					<a href="/admin/ask/list" style="margin-left: 433px;">질문게시판</a>
+					<a href="/admin/review/list">후기게시판</a>
+					<a href="/admin/trade/list">거래게시판</a>
+				</p>
+			</div>
+			<div id="adminReportNav" class="blockNav container"
+				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
+				<p style="line-height: 46px;">
+					<a href="/admin/report/ask/list" style="margin-left: 425px;">질문게시글 신고</a>
+					<a href="/admin/report/review/list">후기게시글 신고</a>
+					<a href="#">거래게시글 신고</a>
+				</p>
+			</div>
+			<div id="adminCscenterNav" class="blockNav container"
+				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
+				<p style="line-height: 46px;">
+					<a href="/admin/notice/list" style="margin-left: 732px;">공지사항</a>
+					<a href="/admin/qna/list">1:1 문의</a>
+				</p>
 			</div>
 		</div>
 	</nav>

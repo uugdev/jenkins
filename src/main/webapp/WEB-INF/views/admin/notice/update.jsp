@@ -43,9 +43,22 @@ $(document).ready(function() {
 
 <style type="text/css">
 
+.title {
+	margin: 50px 0 30px 0;
+}
+
+.detail {
+	text-align: center;
+	width: 100%;
+	background: #fff;
+	margin: 50px auto;
+}
+
+
 table {
-	width: 1000px;
-	margin: 0 auto;
+	width: 100%;
+	margin: auto;
+	margin-bottom: 30px;
 }
 
 th, td {
@@ -53,13 +66,17 @@ th, td {
 	padding: 5px;
 }
 
-th {
-	width: 100px;
+input[type=text] {
+	width: 100%;
+	text-align: center;
+	height: 35px;
+	border-radius: 0px;
+	border: 1px solid #DBDAD7;
+	color: #5F6062;
 }
 
-input[type=text] {
-	width: 95%;
-	height: 30px;
+input[type=text]:focus {
+	outline: none;
 }
 
 </style>
@@ -68,34 +85,35 @@ input[type=text] {
 <div class="wrap">
 <div class="container">
 
-<h3>공지사항 작성</h3>
-<hr>
+<div class="title">
+	<h2>공지사항 수정</h2>
+</div>
 
+<div class="detail">
 <form action="/admin/notice/update" method="post">
 <input type="hidden" name="noticeNo" value="${notice.noticeNo }"/>
 <input type="hidden" name="adminNo" value="${adminNo }"/>
 <input type="hidden" name="noticeHit" value="${notice.noticeHit }"/>
+
 <table>
 
 <tr>
-	<th>작성자</th>
-	<td><input type="text" name="adminNick" value="${adminNick }" readonly="readonly" style="background: #ccc;" /></td>
-</tr>
-<tr>
 	<th>제목</th>
-	<td><input type="text" name="noticeTitle" autocomplete="off" value="${notice.noticeTitle }"/></td>
+	<td><input type="text" name="noticeTitle" autocomplete="off" value="${notice.noticeTitle }" /></td>
+	<th style="width: 10%;">작성자</th>
+	<td style="width: 15%;"><input type="text" name="adminNick" value="${adminNick }" readonly="readonly" style="background: #f2f2f2;" /></td>
 </tr>
 <tr>
 	<th>내용</th>
-	<td><textarea id="noticeContent" name="noticeContent" style="width: 100%; height: 200px;">${notice.noticeContent }</textarea></td>
+	<td colspan="3"><textarea id="noticeContent" name="noticeContent" style="width: 100%; height: 200px;">${notice.noticeContent }</textarea></td>
 </tr>
 </table>
 <div>
-	<button id="btnUpdate">수정</button>
-	<button type="button" id="btnCancel">취소</button>
+	<button id="btnUpdate" class="btn">수정</button>
+	<button type="button" id="btnCancel" class="btn">취소</button>
 </div>
 </form>
-
+</div><!-- .detail end -->
 
 </div><!-- .container end -->
 </div><!-- .wrap end -->

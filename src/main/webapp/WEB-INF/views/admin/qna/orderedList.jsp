@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<span class="pull-left">총 ${paging.totalCount }개</span>
+<div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
 	<th><input type="checkbox" id="selectAll" name="select"/></th>
@@ -24,8 +26,7 @@
 </tr>
 </c:forEach>
 </table>
-<button id="btnDelete" class="pull-left">삭제</button>
-<span class="pull-right">총 ${paging.totalCount }개</span>
+<button id="btnDelete" class="pull-left btn">삭제</button>
 <div class="clearfix"></div>
 <c:import url="/WEB-INF/views/review/paging.jsp" />
     

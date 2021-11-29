@@ -117,12 +117,15 @@ function setUnablePeriodNull(clicked_id){
 <style type="text/css">
 
 .title {
-	margin: 50px 0 30px 0;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	text-align: center;
 }
 
 .tableList {
 	text-align: center;
-	width: 100%;
+	width: 90%;
 	background: #fff;
 	margin: auto;
 	margin-bottom: 50px;
@@ -135,6 +138,7 @@ function setUnablePeriodNull(clicked_id){
 
 th {
 	background: #f3f3f3;
+	text-align: center;
 }
 
 .table>tbody>tr>td {
@@ -156,7 +160,6 @@ input[type=checkbox] {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-<div class="container">
 
 <div class="title">
 	<h1>회원 목록</h1>
@@ -173,6 +176,7 @@ input[type=checkbox] {
 <tr>
 	<th><input type="checkbox" id="selectAll" name="select" /></th>
 	<th>회원번호</th>
+	<th>아이디</th>
 	<th>닉네임</th>
 	<th>이메일</th>
 	<th>가입일</th>
@@ -189,6 +193,7 @@ input[type=checkbox] {
 <tr>
 	<td><input type="checkbox" id="${i.userNo }" class="chk" value="${i.userNo }" /></td>
 	<td><label for="${i.userNo}">${i.userNo }</label></td>
+	<td><label for="${i.userNo}">${i.userId }</label></td>
 	<td><label for="${i.userNo }">${i.userNick }</label></td>
 	<td><label for="${i.userNo }">${i.userMail }</label></td>
 	<td><label for="${i.userNo }"><fmt:formatDate value="${i.joinDate }" pattern="yyyy-MM-dd"/></label></td>
@@ -216,7 +221,6 @@ input[type=checkbox] {
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 </div><!-- .table end -->
 
-</div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->

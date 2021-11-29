@@ -44,7 +44,7 @@ $(document).ready(function(){
 	display: flex;
 	justify-content: space-between;
 	font-size: 15px;
-	width: 50%;
+	width: 60%;
 	margin: auto;
 	color: #5F6062;
 }
@@ -74,10 +74,10 @@ th{
 <h2 style="margin-bottom: 40px;">${notice.noticeTitle }</h2>
 
 <div class="info">
-<span>번호  ${notice.noticeNo }</span>|
-<span>작성자  ${adminNick }</span>|
-<span>조회수  ${notice.noticeHit }</span>|
-<span>작성일  <fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd HH:mm:s"/></span>
+<span><label>번호</label>&nbsp;&nbsp;&nbsp;${notice.noticeNo }</span>|
+<span><label>작성자</label>&nbsp;&nbsp;&nbsp;${adminNick }</span>|
+<span><label>조회수</label>&nbsp;&nbsp;&nbsp;${notice.noticeHit }</span>|
+<span><label>작성일</label>&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd HH:mm:s"/></span>
 </div><!-- .info end -->
 
 <table class="table">
