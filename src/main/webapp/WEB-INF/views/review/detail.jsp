@@ -741,15 +741,6 @@ table, th {
 
 <hr style="border: 1px solid #ddd; margin-top: 0;">
 
-<!-- <div class="login input"> -->
-<!-- 비로그인상태 -->
-<%-- <c:if test="${not login }"> --%>
-<!-- 	<strong>로그인이 필요합니다</strong><br> -->
-<!-- 	<button onclick='location.href="/member/login";'>로그인</button> -->
-<!-- 	<button onclick='location.href="/member/join";'>회원가입</button> -->
-<%-- </c:if> --%>
-<!-- </div> -->
-
 <!-- 로그인상태 -->
 <c:if test="${login }">
 <!-- 댓글 입력 -->
