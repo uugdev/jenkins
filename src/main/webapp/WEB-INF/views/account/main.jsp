@@ -241,20 +241,21 @@ var myChart2 = new Chart(context2, {
 }
 
 #plugin {
-	height: 515px;
+	height: 630px;
 	display: flex;
 	margin-top: 100px;
 	margin-bottom: 50px;
 }
 
 #calendar {
-	flex: 1;
+	flex: 6;
 	margin-right: 50px;
 }
 
 #chartJs {
 	flex: 1;
 	height: 500px;
+	margin-left: 50px;
 }
 
 #barChart {
@@ -265,20 +266,18 @@ var myChart2 = new Chart(context2, {
 }
 
 #doughnut {
-	width: 50%;
-	height: 240px;
-	flex: 1;
-	margin-left: 10px;
+	margin-top: 25px;
+	margin-left: 30px;
 }
 
 #btnMoney {
-	width: 50%;
 	height: 250px;
 	flex: 1;
 	align-items: center;
 }
 
 #monthMoney {
+	flex: 1;
 	display: flex;
 	border: 1px solid #ccc;
 	border-radius: 5px;
@@ -301,6 +300,7 @@ var myChart2 = new Chart(context2, {
 #itemlist {
 	display: flex;
 	margin-bottom: 100px;
+	width: 100%;
 }
 
 #userBill {
@@ -316,15 +316,12 @@ var myChart2 = new Chart(context2, {
 
 #billBox {
 	width: 50%;
-	flex: 1;
-	padding: 5px 15px 15px 15px;
+	flex: 4;
+	padding: 0px 15px 15px 15px;
 }
 
 #ment {
-	width: 50%;
 	height: 250px;
-	flex: 1;
-	margin-left: 26px;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	text-align: left;
@@ -350,7 +347,7 @@ var myChart2 = new Chart(context2, {
 						<span style="font-size: 30px; background-color: gray;">${userNo }</span>
 					</div>
 					<div style="text-align: left;">
-						<span>주문내역</span>
+						<span>이번달 주문내역</span>
 						<hr
 							style="border: 3px solid black; margin: 3px 10px 10px 0; width: 98%;">
 					</div>
@@ -387,37 +384,31 @@ var myChart2 = new Chart(context2, {
 
 		<div id="itemlist">
 
-			<div id="chartJs">
-				<div id="barChart">
-					<!--차트가 그려질 부분-->
-					<canvas id="myChart" style=""></canvas>
+			<div id="monthMoney">
+				<!-- 기본 도넛차트 -->
+				<div id="doughnut">
+					<canvas id="myChart2"></canvas>
 				</div>
-				<div id="monthMoney">
-					<!-- 기본 도넛차트 -->
-					<div id="doughnut">
-						<canvas id="myChart2"></canvas>
+				<div style="position: relative; margin-top: 70px;" id="btnMoney">
+					<div>
+						<h3 style="margin-top: 50px;">이번달 지출한도</h3>
+						<h3 id="ch" style="margin-top: 0">
+							<fmt:formatNumber type="number" maxFractionDigits="3"
+								value="${user.extraMoney}" />
+							원
+						</h3>
 					</div>
-					<div style="position: relative;" id="btnMoney">
-						<div>
-							<h3 style="margin-top: 50px;">이번달 지출한도</h3>
-							<h3 id="ch" style="margin-top: 0">
-								<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${user.extraMoney}" />
-								원
-							</h3>
-						</div>
-						<button class="popupOpen1" id="updateMoney">지출한도 수정하기</button>
-						<div class="popupWrap1 hide1">
-							<div class="popup1 commaInput">
-								<div class="title">
-									<p>지출 가능 금액 설정</p>
-									<span class="close1">❌</span>
-								</div>
-								<input type="text" name="extraMoney" id="extraMoney" value="" />
-								<span style="font-size: 24px;">원</span>
-								<div class="btnWrap1">
-									<button id="update">저장</button>
-								</div>
+					<button class="popupOpen1" id="updateMoney">지출한도 수정하기</button>
+					<div class="popupWrap1 hide1">
+						<div class="popup1 commaInput">
+							<div class="title">
+								<p>지출 가능 금액 설정</p>
+								<span class="close1">❌</span>
+							</div>
+							<input type="text" name="extraMoney" id="extraMoney" value="" />
+							<span style="font-size: 24px;">원</span>
+							<div class="btnWrap1">
+								<button id="update">저장</button>
 							</div>
 						</div>
 					</div>
@@ -430,52 +421,54 @@ var myChart2 = new Chart(context2, {
 
 
 
+			<div id="chartJs">
 
+				<div id="barChart">
+					<!--차트가 그려질 부분-->
+					<canvas id="myChart" style=""></canvas>
+				</div>
 
+				<div id="ment">
+					<c:if test="${monthPrice gt last}">
+						<h2>이번 달 지출금액은 지난 달보다</h2>
+						<div>
+							<span style="color: red; font-size: 32px;"> <fmt:formatNumber
+									type="number" maxFractionDigits="3" value="${compare}" />원
+							</span> <span style="font-size: 30px;">더 쓰셨네요!</span>
+						</div>
+						<div style="width: 150px; height: 120px; margin-right: 20px;"
+							class="pull-right">
+							<img style="width: 100%; height: 100%;"
+								src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
+						</div>
+					</c:if>
 
+					<c:if test="${monthPrice lt last}">
+						<h2>이번 달 지출금액은 지난 달보다</h2>
+						<div>
+							<span style="color: blue; font-size: 32px;"> <fmt:formatNumber
+									type="number" maxFractionDigits="3" value="${compare}" />원
+							</span> <span style="font-size: 30px;">덜 쓰셨네요!</span>
+						</div>
+						<div style="width: 150px; height: 120px; margin-right: 20px;"
+							class="pull-right">
+							<img style="width: 100%; height: 100%;"
+								src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
+						</div>
+					</c:if>
 
-
-
-
-			<div id="ment">
-				<c:if test="${monthPrice gt last}">
-					<h2>이번 달 지출금액은 지난 달보다</h2>
-					<div>
-						<span style="color: red; font-size: 32px;"> <fmt:formatNumber
-								type="number" maxFractionDigits="3" value="${compare}" />원
-						</span> <span style="font-size: 30px;">더 쓰셨네요!</span>
-					</div>
-					<div style="width: 150px; height: 120px; margin-right: 20px;"
-						class="pull-right">
-						<img style="width: 100%; height: 100%;"
-							src="https://i.imgur.com/OqXy9GH.png" alt="더씀" />
-					</div>
-				</c:if>
-
-				<c:if test="${monthPrice lt last}">
-					<h2>이번 달 지출금액은 지난 달보다</h2>
-					<div>
-						<span style="color: blue; font-size: 32px;"> <fmt:formatNumber
-								type="number" maxFractionDigits="3" value="${compare}" />원
-						</span> <span style="font-size: 30px;">덜 쓰셨네요!</span>
-					</div>
-					<div style="width: 150px; height: 120px; margin-right: 20px;"
-						class="pull-right">
-						<img style="width: 100%; height: 100%;"
-							src="https://i.imgur.com/CuGkpYF.png" alt="덜씀" />
-					</div>
-				</c:if>
-
-				<c:if test="${monthPrice eq last}">
-					<h2>이번 달 지출금액은 지난 달과 같아요</h2>
-					<div
-						style="width: 150px; height: 120px; margin-right: 20px; margin-top: 40px;"
-						class="pull-right">
-						<img style="width: 100%; height: 100%;"
-							src="https://i.imgur.com/Rg5O9bR.png" alt="같음" />
-					</div>
-				</c:if>
+					<c:if test="${monthPrice eq last}">
+						<h2>이번 달 지출금액은 지난 달과 같아요</h2>
+						<div
+							style="width: 150px; height: 120px; margin-right: 20px; margin-top: 40px;"
+							class="pull-right">
+							<img style="width: 100%; height: 100%;"
+								src="https://i.imgur.com/Rg5O9bR.png" alt="같음" />
+						</div>
+					</c:if>
+				</div>
 			</div>
+		
 		</div>
 
 
