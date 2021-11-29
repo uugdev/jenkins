@@ -231,7 +231,6 @@ th {
 	transition: all .2s ease-in-out;
 }
 
-
 td:nth-child(2) {
 	text-align: left;
 }
@@ -259,7 +258,21 @@ a:hover {
 	cursor: pointer;
 }
 
+.btnSearch:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
 
+.btnSearch {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
 
 </style>
 

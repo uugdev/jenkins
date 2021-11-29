@@ -55,6 +55,7 @@ td:nth-child(2) {
   margin-right: 0;
 
 } 
+
 </style>
 
 <!-- <div> -->
@@ -86,7 +87,7 @@ td:nth-child(2) {
 	
 	<div class="form-inline text-center">
 		<input class="form-control" type="text" id="search" value="${param.search }" />
-		<button id="btnSearch" class="btn">검색</button>
+		<button id="btnSearch" class="btn btnSearch">검색</button>
 	</div>
 	<c:import url="/WEB-INF/views/review/paging.jsp" />
 	

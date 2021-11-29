@@ -303,9 +303,21 @@ var myChart2 = new Chart(context2, {
 	margin-bottom: 100px;
 }
 
-#bill {
+#userBill {
 	width: 50%;
 	flex: 1;
+}
+
+#bill {
+	width: 100%;
+	background-color: #eee;
+	padding: 15px 15px 30px 15px;
+}
+
+#billBox {
+	width: 50%;
+	flex: 1;
+	padding: 5px 15px 15px 15px;
 }
 
 #ment {
@@ -372,40 +384,46 @@ var myChart2 = new Chart(context2, {
 		</div>
 
 		<div id="itemlist">
-			<div id="bill">
-				<table class="table table-striped table-hover">
-					<tr>
-						<th>상품명</th>
-						<th>상품브랜드</th>
-						<th>상품가격</th>
-						<th>결제날짜</th>
-					</tr>
-					<c:forEach items="${monthItemList}" var="i">
-						<tr>
-							<td>${i.itemName}</td>
-							<td>${i.itemBrand}</td>
-							<td><fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${i.itemPrice}" /></td>
-							<td><fmt:formatDate value="${ i.itemDate }"
-									pattern="YYYY-MM-dd" /></td>
-						</tr>
-					</c:forEach>
-					<tr>
-						<th></th>
-						<th></th>
-						<th>이번달지출액</th>
-						<th>지출가능금액</th>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td id="monthPrice"><fmt:formatNumber type="number"
-								maxFractionDigits="3" value="${monthPrice}" />원</td>
-						<td id="subMoney"><fmt:formatNumber type="number"
-								maxFractionDigits="3" value="${subMoney}" />원</td>
-					</tr>
-				</table>
+			<div id="billBox">
+				<div id="bill">
+					<p style="font-size: 17px;">[주문번호]</p>
+					<div>
+						<span style="font-size: 30px; background-color: gray;">${userNo }</span>
+					</div>
+					<div style="text-align: left;">
+						<span>주문내역</span>
+						<hr
+							style="border: 3px solid black; margin: 3px 10px 10px 0; width: 98%;">
+					</div>
+
+					<div style="width: auto; height: 300px; overflow: auto;">
+						<c:forEach items="${monthItemList }" var="i">
+							<div style="font-size: 17px;">
+								<span class="ellipsis2 pull-left" style="text-align: left;">
+									[<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />]
+									${i.itemName }
+								</span> <span class="pull-right" style="text-align: right; width: 30%">
+									<fmt:formatNumber type="number" maxFractionDigits="3"
+										value="${i.itemPrice }" /> 원
+								</span>
+							</div>
+						</c:forEach>
+					</div>
+					<hr style="border: 2px dashed black; width: 98%;">
+					<div style="font-size: 17px;">
+						<span style="float: left;">총 주문금액</span> <span
+							style="float: right;"> <fmt:formatNumber type="number"
+								maxFractionDigits="3" value="${monthPrice}" /> 원
+						</span> <br> <span style="float: left;">지출가능금액</span> <span
+							style="float: right;" id="subMoney"> <fmt:formatNumber
+								type="number" maxFractionDigits="3" value="${subMoney}" /> 원
+						</span> <img alt="#" src="https://i.imgur.com/ayGt3tk.png"
+							style="margin-top: 20px; width: 100%; height: 50px;"> <span
+							id="time" style="float: right;"></span>
+					</div>
+				</div>
 			</div>
+
 			<div id="ment">
 				<c:if test="${monthPrice gt last}">
 					<h2>이번 달 지출금액은 지난 달보다</h2>
@@ -437,7 +455,8 @@ var myChart2 = new Chart(context2, {
 
 				<c:if test="${monthPrice eq last}">
 					<h2>이번 달 지출금액은 지난 달과 같아요</h2>
-					<div style="width: 150px; height: 120px; margin-right: 20px; margin-top: 40px;"
+					<div
+						style="width: 150px; height: 120px; margin-right: 20px; margin-top: 40px;"
 						class="pull-right">
 						<img style="width: 100%; height: 100%;"
 							src="https://i.imgur.com/Rg5O9bR.png" alt="같음" />
