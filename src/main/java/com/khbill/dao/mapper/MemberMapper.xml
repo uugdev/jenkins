@@ -94,20 +94,20 @@
 		        (SELECT trade_no as board_no, trade_title as title, trade_date as write_date, sub.board FROM ztrade,
 		            (SELECT 't' AS board FROM DUAL) sub
 		                WHERE 1=1
-		                AND user_no = 1
+		                AND user_no = #{userNo }
 		        UNION
 		        
 		        SELECT ask_no as board_no, ask_title as title, ask_date as write_date, sub.board FROM zask,
 		            (SELECT 'a' AS board FROM DUAL) sub
 		                WHERE 1=1
-		                AND user_no = 1
+		                AND user_no = #{userNo }
 		        UNION
 		        
 		        SELECT review_no as board_no, review_title as title, review_date as write_date, sub.board FROM zreview,
 		            (SELECT 'r' AS board FROM DUAL) sub
 		                WHERE 1=1
-		                AND user_no = 1
-		    ) ORDER BY write_date
+		                AND user_no = #{userNo }
+		    ) ORDER BY write_date DESC
 		)<![CDATA[WHERE rownum <=5]]>
 	</select>
 	
