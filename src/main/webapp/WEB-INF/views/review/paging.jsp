@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style type="text/css">
+
+li {
+	cursor: pointer;
+}
+
+</style>
+
 <div class="text-center">
 <ul class="pagination pagination-sm">
 
@@ -82,7 +90,7 @@
 <!-- 검색 안했을 때 -->
 <c:if test="${empty param.search }">
 	<c:if test="${paging.curPage eq i }">
-		<li><span onclick="loadCurPage(${i }, ${paging.target })"><input name ="curP" type="hidden" value="${i },${paging.target }"/>${i }</span></li>
+		<li class="active"><span onclick="loadCurPage(${i }, ${paging.target })"><input name ="curP" type="hidden" value="${i },${paging.target }"/>${i }</span></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
 		<li><span onclick="loadCurPage(${i }, ${paging.target })"><input name ="curP" type="hidden" value="${i },${paging.target }"/>${i }</span></li>
@@ -92,7 +100,7 @@
 <!-- 검색 했을 때, 타겟 설정했을 때 -->
 <c:if test="${not empty param.search and not empty paging.target }">
 	<c:if test="${paging.curPage eq i }">
-		<li><span onclick="loadCurPage(${i }, ${paging.target }, '${paging.search }')"><input name ="curP" type="hidden" value="${i },${paging.target }, '${paging.search }'"/>${i }</span></li>
+		<li class="active"><span onclick="loadCurPage(${i }, ${paging.target }, '${paging.search }')"><input name ="curP" type="hidden" value="${i },${paging.target }, '${paging.search }'"/>${i }</span></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
 		<li><span onclick="loadCurPage(${i }, ${paging.target }, '${paging.search }')"><input name ="curP" type="hidden" value="${i },${paging.target }, '${paging.search }'"/>${i }</span></li>
@@ -102,7 +110,7 @@
 <!-- 검색 했을 때, 타겟 설정안했을 때 -->
 <c:if test="${not empty param.search and empty paging.target }">
 	<c:if test="${paging.curPage eq i }">
-		<li><span onclick="loadCurPage(${i }, null, '${paging.search }')"><input name ="curP" type="hidden" value="${i }, null, '${paging.search }'"/>${i }</span></li>
+		<li class="active"><span onclick="loadCurPage(${i }, null, '${paging.search }')"><input name ="curP" type="hidden" value="${i }, null, '${paging.search }'"/>${i }</span></li>
 	</c:if>
 	<c:if test="${paging.curPage ne i }">
 		<li><span onclick="loadCurPage(${i }, null, '${paging.search }')"><input name ="curP" type="hidden" value="${i }, null, '${paging.search }'"/>${i }</span></li>
