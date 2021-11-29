@@ -1,7 +1,7 @@
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -61,7 +61,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
 	                                    ${popularBoard[0].USER_NICK } /
                                         <c:if test="${popularBoard[0].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[0].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="MM-dd"/>
@@ -71,7 +71,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
 	                                    ${popularBoard[1].USER_NICK } / 
                                         <c:if test="${popularBoard[1].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[1].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="MM-dd"/>
@@ -106,7 +106,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
 	                                    ${popularBoard[2].USER_NICK } / 
                                         <c:if test="${popularBoard[2].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[2].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="MM-dd"/>
@@ -116,7 +116,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
 	                                    ${popularBoard[3].USER_NICK } / 
                                         <c:if test="${popularBoard[3].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[3].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="MM-dd"/>
@@ -151,7 +151,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
 	                                    ${popularBoard[4].USER_NICK } / 
                                         <c:if test="${popularBoard[4].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[4].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="MM-dd"/>
@@ -161,7 +161,7 @@
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
 	                                    ${popularBoard[5].USER_NICK } / 
                                         <c:if test="${popularBoard[5].MMDDASK_DATE eq fmtDate }">
-                                            <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:ss"/>
+                                            <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:MI"/>
                                         </c:if>
                                         <c:if test="${popularBoard[5].MMDDASK_DATE ne fmtDate }">
                                             <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="MM-dd"/>
@@ -210,7 +210,7 @@
                 <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 98%;">
 	            </div>
                 
-                <div style="width: auto; height: 457px; overflow: auto;">
+                <div style="width: auto; height: 463px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
                     	<p style="display: flex;">
