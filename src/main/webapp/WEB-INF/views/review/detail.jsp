@@ -617,6 +617,7 @@ table, th {
 					<li><a id="layerClose">닫기</a></li>
 				</ul>>
 			</div>
+		</div><!-- #layerbox end -->
 				
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 		<span><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd HH:mm"/></span>
@@ -624,12 +625,12 @@ table, th {
 		<span>조회 <span id="cntCom">${review.REVIEW_HIT }</span></span>
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${review.REVIEW_COM_COUNT }</span>
 		<div class="btnWrap">
-			<c:if test="${review.USER_NO ne userNo and !empty sessionScope.userNo }">
+
+			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<button id="scrap">스크랩</button>
 				<button id="report" class="popupOpen1">신고</button>
 			</c:if>
 		</div>
-		</div><!-- #layerbox end -->
 			
 		<div class="lineInfo">
 			<ul>
