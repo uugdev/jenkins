@@ -11,167 +11,167 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	loadList();
-	
-	$(document).on("click", "#btnWrite", function(){
-		$(location).attr("href", "/ask/write");
-	})
-	
-	$(document).on("click", "#btnSearch", function(){
-		search = $("#search").val();
-		console.log(search)
-		loadList()
+	$(document).ready(function() {
+
+		loadList();
+
+		$(document).on("click", "#btnWrite", function() {
+			$(location).attr("href", "/ask/write");
+		})
+
+		$(document).on("click", "#btnSearch", function() {
+			search = $("#search").val();
+			console.log(search)
+			loadList()
+		});
+
+		$("#search").keypress(function(event) {
+			if (event.which == 13) {
+				$("#btnSearch").click();
+				return false;
+			}
+		});
+
+		//조회순으로 정렬 처리
+		$("#hitList").click(function() {
+			target = 1;
+			var curPage = 1;
+			$.ajax({
+				type : "get",
+				url : "/ask/list/hit",
+				data : {
+					curPage : curPage,
+					target : target
+				},
+				dataType : "html",
+				success : function(res) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+
+				},
+				error : function() {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+
+		//최신순으로 정렬 처리
+		$("#latestList").click(function() {
+
+			target = 2;
+			var curPage = 1;
+			$.ajax({
+				type : "get",
+				url : "/ask/list/hit",
+				data : {
+					curPage : curPage,
+					target : target
+				},
+				dataType : "html",
+				success : function(res) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+
+				},
+				error : function() {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+
+		//사진순으로 정렬 처리
+		$("#itemList").click(function() {
+
+			target = 3;
+			var curPage = 1;
+			$.ajax({
+				type : "get",
+				url : "/ask/list/hit",
+				data : {
+					curPage : curPage,
+					target : target
+				},
+				dataType : "html",
+				success : function(res) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+
+				},
+				error : function() {
+					console.log("AJAX 실패")
+				}
+			})
+		})
+
+		//<otherwise>태그로 로드하는 부분
+		var target = null;
+		var curPage = 1;
+		var search = null;
+
+		function loadList() {
+			$.ajax({
+				type : "get",
+				url : "/ask/list/hit",
+				data : {
+					curPage : curPage,
+					target : target,
+					search : search
+				},
+				dataType : "html",
+				success : function(res) {
+					console.log("AJAX 성공")
+					result.innerHTML = res;
+				},
+				error : function() {
+					console.log("AJAX 실패")
+				}
+			})
+			$("#cur").html(curPage)
+		}
+		;
+
 	});
 
-	$("#search").keypress(function(event) {
-		if (event.which == 13) {
-			$("#btnSearch").click();
-			return false;
-		}
-	});
-	
-	//조회순으로 정렬 처리
-	$("#hitList").click(function () {
-		target = 1;
-		var curPage = 1;
+	//페이지가 증가되야하는 부분 (+1)
+	function loadCurPage(i, t, s) {
+		var curPage = i;
+		var target = t;
+		var search = s;
+
+		console.log("curP : " + curPage);
+		console.log("tg : " + target);
+		console.log("sc : " + search);
+
 		$.ajax({
-			type: "get"
-			, url: "/ask/list/hit"
-			, data: {
-				curPage: curPage
-				, target: target
-			}
-			, dataType: "html"
-			, success: function ( res ) {
+			type : "post",
+			url : "/ask/list/hit",
+			data : {
+				curPage : curPage,
+				target : target,
+				search : search
+			},
+			dataType : "html",
+			success : function(data) {
 				console.log("AJAX 성공")
-				result.innerHTML = res;
-				
-			}
-			, error: function () {
-				console.log("AJAX 실패")
-			}
-		})
-	})
-	
-	//최신순으로 정렬 처리
-	$("#latestList").click(function () {
-		
-		target = 2;
-		var curPage = 1;
-		$.ajax({
-			type: "get"
-			, url: "/ask/list/hit"
-			, data: {
-				curPage: curPage
-				, target: target
-			}
-			, dataType: "html"
-			, success: function ( res ) {
-				console.log("AJAX 성공")
-				result.innerHTML = res;
-				
-			}
-			, error: function () {
-				console.log("AJAX 실패")
-			}
-		})
-	})
-	
-	//사진순으로 정렬 처리
-	$("#itemList").click(function () {
-		
-		target = 3;
-		var curPage = 1;
-		$.ajax({
-			type: "get"
-			, url: "/ask/list/hit"
-			, data: {
-				curPage: curPage
-				, target: target
-			}
-			, dataType: "html"
-			, success: function ( res ) {
-				console.log("AJAX 성공")
-				result.innerHTML = res;
-				
-			}
-			, error: function () {
-				console.log("AJAX 실패")
-			}
-		})
-	})
-	
-	//<otherwise>태그로 로드하는 부분
-	var target = null;
-	var curPage = 1;
-	var search = null;
-	
-	function loadList() {
-		$.ajax({
-			type: "get"
-			, url: "/ask/list/hit"
-			, data: {
-			curPage: curPage
-			, target: target
-			, search: search
-			}
-			, dataType: "html"
-			, success: function(res){
-				console.log("AJAX 성공")
-				result.innerHTML = res;
-			}
-			, error: function(){
+				console.log(data)
+				result.innerHTML = data;
+
+			},
+			error : function() {
 				console.log("AJAX 실패")
 			}
 		})
 		$("#cur").html(curPage)
-	};
-	
-});
+	}
 
-//페이지가 증가되야하는 부분 (+1)
-function loadCurPage(i, t, s){
-    var curPage =  i ;
-	var target = t;
-	var search = s;
-    
-	console.log("curP : "+ curPage);
-    console.log("tg : " + target);
-    console.log("sc : " + search);
-    
-       $.ajax({
-          type: "post"
-          , url: "/ask/list/hit"
-          , data: { 
-             curPage: curPage
-             ,target: target
-             ,search: search
-          }
-          , dataType: "html"
-          , success: function(data){
-             console.log("AJAX 성공")
-             console.log(data)
-             result.innerHTML = data;
+	function reportStatusY() {
 
-          }
-          , error: function(){
-             console.log("AJAX 실패")
-          }
-       })
-       $("#cur").html(curPage)
- }
+		action_popup.alert("신고된 게시물로 접근이 불가합니다");
 
-function reportStatusY() {
-	
-        action_popup.alert("신고된 게시물로 접근이 불가합니다"); 
-        
-    $(".modal_close").on("click", function () {
-        action_popup.close(this);
-    });
-}
-
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
+	}
 </script>
 
 <style type="text/css">
@@ -183,7 +183,7 @@ body {
 	margin: 50px 0;
 }
 
-.title > p {
+.title>p {
 	color: #85969E;
 }
 
@@ -210,6 +210,7 @@ th {
 .table>tbody>tr>td>a {
 	color: #000;
 }
+
 .table>tbody>tr>td>a:hover {
 	color: #85969E;
 	text-decoration: none;
@@ -236,12 +237,12 @@ td:nth-child(2) {
 }
 
 .ellipsis2 {
- 	display: -webkit-box;
+	display: -webkit-box;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
-/* 	line-height: 24px; */
-/* 	max-height: 1.2em; */
+	/* 	line-height: 24px; */
+	/* 	max-height: 1.2em; */
 	word-wrap: break-word;
 	-webkit-line-clamp: 1;
 	-webkit-box-orient: vertical;
@@ -273,7 +274,6 @@ a:hover {
 	background: #5b6e7a;
 	color: #f3f3f3;
 }
-
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -281,20 +281,22 @@ a:hover {
 <div class="wrap">
 	<div class="container">
 		<div class="title">
-			<h1>질문게시판</h1>
-			<p>질문을 올려주시어쩌고</p>
+			<h1>머니토론</h1>
+			<p>머니토론주제를 올려주세요<br>
+				회원들의 선택은 머니?
+			</p>
 		</div>
+		<div class="listTable">
+			<div class="pull-right" style="margin-bottom: 20px;">
+				<a id="latestList">최신순</a> <a id="hitList">조회순</a> <a id="itemList">이미지순</a>
+			</div>
 
-		<div class="pull-right" style="margin:70px 50px 0 0; padding:0 0 10px 0;">
-			<a id="latestList">최신순</a>
-			<a id="hitList">조회순</a>
-			<a id="itemList">이미지순</a>
+			<div id="result"></div>
 		</div>
-
-		<div id="result"></div>
-	
-	</div><!-- .container -->
-</div><!-- .wrap end -->
+	</div>
+	<!-- .container -->
+</div>
+<!-- .wrap end -->
 
 <%--footer--%>
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
