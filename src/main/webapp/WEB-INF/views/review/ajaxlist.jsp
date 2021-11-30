@@ -15,7 +15,12 @@
 <c:forEach items="${reviewList }" var="review">
 <tr>
 	<td>${review.REVIEW_NO }</td>
-	<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+	<c:if test="${review.REPORT_STATUS eq 'n' }">
+		<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+	</c:if>
+	<c:if test="${review.REPORT_STATUS eq 'y' }">
+		<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${review.REVIEW_TITLE }</a>
+	</c:if>
 	<c:if test="${not empty review.REVIEW_COM_CNT }">
 		<strong><span>[${review.REVIEW_COM_CNT}]</span></strong>
 	</c:if>
