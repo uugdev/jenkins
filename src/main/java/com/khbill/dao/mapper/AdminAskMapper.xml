@@ -21,7 +21,7 @@
 	<select id="selectAskList" resultType="HashMap" parameterType="com.khbill.util.Paging">
 		SELECT A.ask_no, U.user_no, A.user_nick, A.ask_title, A.ask_content, A.ask_date, A.ask_hit, u.grade_url
 		FROM USERWITHURL U, (
-            SELECT ask_no, U.user_no, user_nick, ask_title, ask_content, product_no, ask_date, ask_hit
+            SELECT rownum rnum, ask_no, U.user_no, user_nick, ask_title, ask_content, product_no, ask_date, ask_hit
             FROM zask A, zuser U
             WHERE 1=1
             AND U.user_no(+) = A.user_no 
@@ -30,7 +30,7 @@
         ) A
         WHERE 1=1
         AND U.user_no(+) = A.user_no
-        AND rownum BETWEEN #{startNo } AND #{endNo }
+        AND rnum BETWEEN #{startNo } AND #{endNo }
 		ORDER BY A.ask_no DESC
 	</select>
 
