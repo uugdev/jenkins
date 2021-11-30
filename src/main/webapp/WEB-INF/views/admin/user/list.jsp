@@ -125,7 +125,7 @@ function setUnablePeriodNull(clicked_id){
 
 .tableList {
 	text-align: center;
-	width: 90%;
+	width: 75%;
 	background: #fff;
 	margin: auto;
 	margin-bottom: 50px;

@@ -20,17 +20,49 @@ $(document).ready(function(){
 })
 
 </script>
+
+<style type="text/css">
+
+#msg {
+	width: 500px;
+	height: 100%;
+	margin: auto;
+	margin-top: 75px;
+}
+
+
+#btnLogin, #btnMain {
+	height: 35px;
+	width: 70px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+#btnLogin:hover, #btnMain:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+
+</style>
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 <div class="container">
-<div style="width: 500px; height: 500px; margin: 0 auto; padding: 30px;">
+
+<div id="msg">
+
+<img width="150px;" height="150px;" alt="축하" src="https://i.imgur.com/mLcR2T8.png">
 <h3><strong>회원가입을 축하합니다!</strong></h3>
 <hr><br><br>
 <button id="btnMain">메인으로</button>
 <button id="btnLogin">로그인</button>
+</div><!-- .msg end -->
 
-</div>
 </div><!-- .container end -->
 </div><!-- .wrap end -->
 

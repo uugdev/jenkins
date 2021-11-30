@@ -61,7 +61,7 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 .title {
-	margin: 60px 0 30px 0;
+	margin: 70px 0 30px 0;
 }
 
 .title > p {

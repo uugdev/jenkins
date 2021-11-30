@@ -43,7 +43,7 @@ $(document).ready(function () {
 	$("#kakaojoin").click(function(){
 		var userNick = $("#userNick").val();
 	
-		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
+		var nickRegex = /^[ㄱ-ㅎ가-힣a-zA-z0-9]{4,8}$/;
 
 
 		var nickregex = nickRegex.exec(userNick);
@@ -97,7 +97,7 @@ function checkNick(){
 function checkUserNick() {
 	var userNick = $("#userNick").val();
 
-    var idRegExp = /^[가-힣a-zA-z0-9]{4,12}$/;
+    var idRegExp = /^[ㄱ-ㅎ가-힣a-zA-z0-9]{4,8}$/;
     if (!idRegExp.test(userNick)) {
         $(".nick_already").css("display","none");
         $(".nick_ok").css("display", "none");
@@ -106,6 +106,28 @@ function checkUserNick() {
     }
     return checkNick();
 }
+
+
+function viewKorean(){
+	var num = $("#extraMoney").val();
+	
+	var hanA = new Array("","일","이","삼","사","오","육","칠","팔","구","십");
+	var danA = new Array("","십","백","천","","십","백","천","","십","백","천","","십","백","천");
+	var result = "";
+	for(i=0; i<num.length; i++) {
+		str = ""; han = hanA[num.charAt(num.length-(i+1))];
+		if(han != "") str += han+danA[i];
+		if(i == 4) str += "만";
+		if(i == 8) str += "억";
+		if(i == 12) str += "조";
+		result = str + result;
+	}
+	if(num != 0) result = result + "원";
+	
+	 $("#won").text(result);
+}
+
+
 
 </script>
 
@@ -224,18 +246,20 @@ body {
 <table class="table table-hover">
 <tr>
 	<th><label for="userNick">닉네임<span class="required">&nbsp;*</span></label></th>
-	<td><input type="text" id="userNick" name="userNick" placeholder="닉네임을 입력하세요" autocomplete="off" required oninput="checkUserNick()" /><br>
+	<td><input type="text" id="userNick" name="userNick" placeholder="닉네임을 입력하세요" autocomplete="off" maxlength="8" required oninput="checkUserNick()" /><br>
 	<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 	<span class="nick_already">사용 중인 닉네임입니다.</span>
-	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
+	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~8자리로 입력해야 합니다!</span></td>
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
 	<td><input type="email" id="userMail" name="userMail" value="${kakaoEmail }" readonly style="background: #f3f3f3;"/><br>
 </tr>
 <tr>
-	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label></th>
-	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" value="0" min="0" step="1000" required/></td>
+	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label><br>
+	<span style="color: #C2BDB9; font-size: 12px; font-weight: lighter;">(단위 : ￦)</span></th>
+	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" min="0" oninput="viewKorean()" required/>
+	<span id="won" class="pull-right"></span></td>
 </tr>
 <tr>
 	<th><label for="userBday">생일</label><span class="required">&nbsp;*</span></th>
