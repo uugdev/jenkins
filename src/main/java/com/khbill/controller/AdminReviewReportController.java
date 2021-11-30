@@ -104,7 +104,7 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 		//첨부파일 정보 전달
 		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
 		file = adminReviewReportService.getReviewFile(fileNo);
-		logger.info("파일 번호: {}", fileNo);	
+		logger.info("파일 번호: {}", fileNo);
 		
 		//모델값 전달
 		model.addAttribute("adminLogin", adminLogin);

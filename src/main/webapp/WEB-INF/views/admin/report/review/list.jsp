@@ -73,7 +73,7 @@ function statusToY(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusN"+reviewNo).before('<button class="btnStatusY'+ reviewNo +'" onclick="statusToN('+ reviewNo +');">완료</button>');
+				$(".btnStatusN"+reviewNo).before('<button id="status" class="btnStatusY'+ reviewNo +'" onclick="statusToN('+ reviewNo +');">완료</button>');
 				$(".btnStatusN"+reviewNo).remove();
 				
 // 				$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
@@ -103,7 +103,7 @@ function statusToN(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusY"+reviewNo).before('<button class="btnStatusN'+ reviewNo +'" onclick="statusToY('+ reviewNo +');" >미완료</button>');
+				$(".btnStatusY"+reviewNo).before('<button id="status" class="btnStatusN'+ reviewNo +'" onclick="statusToY('+ reviewNo +');" >미완료</button>');
 				$(".btnStatusY"+reviewNo).remove();
 // 				$(".btnStatusY"+reviewNo).attr("onclick", "statusToY("+ reviewNo + ")");
 // 				$(".btnStatusY"+reviewNo).attr("class", "statusToN"+ reviewNo);
@@ -180,6 +180,7 @@ input[type=checkbox] {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
+    width: 65px;
 }
 </style>
 
