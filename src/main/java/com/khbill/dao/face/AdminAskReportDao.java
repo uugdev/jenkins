@@ -1,8 +1,12 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.khbill.dto.Ask;
 import com.khbill.dto.AskReport;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.util.Paging;
 
 public interface AdminAskReportDao {
@@ -60,6 +64,8 @@ public interface AdminAskReportDao {
 	 * @param reviewReport
 	 */
 	public void deleteAskReportByReportNo(AskReport askReport);
-	 
+
+	public HashMap<String, Object> selectAskByAskNo(int askNo);
+
 
 }

@@ -1,5 +1,6 @@
 package com.khbill.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.khbill.dao.face.AdminAskReportDao;
 import com.khbill.dao.face.AskDao;
+import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.service.face.AdminAskReportService;
 import com.khbill.util.Paging;
 
@@ -67,5 +72,18 @@ public class AdminAskReportServiceImpl implements AdminAskReportService {
 		askReport.setReportNo(i);
 		adminAskReportDao.deleteAskReportByReportNo(askReport);
 		
+	}
+
+	@Override
+	public HashMap<String, Object> getAskDetail(int askNo) {
+
+		return adminAskReportDao.selectAskByAskNo(askNo);
+	}
+
+
+	@Override
+	public List<HashMap<String, Object>> getAskComList(int askNo) {
+		
+		return askDao.selectAskComCntList();
 	}
 }

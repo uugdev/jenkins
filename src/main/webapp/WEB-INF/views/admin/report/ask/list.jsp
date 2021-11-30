@@ -73,7 +73,7 @@ function statusToY(askNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusN"+askNo).before('<button class="btnStatusY'+ askNo +'" onclick="statusToN('+ askNo +');">완료</button>');
+				$(".btnStatusN"+askNo).before('<button id="status" class="btnStatusY'+ askNo +'" onclick="statusToN('+ askNo +');">완료</button>');
 				$(".btnStatusN"+askNo).remove();
 				
 				console.log("완료로 바껴라")
@@ -100,7 +100,7 @@ function statusToN(askNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusY"+askNo).before('<button class="btnStatusN'+ askNo +'" onclick="statusToY('+ askNo +');" >미완료</button>');
+				$(".btnStatusY"+askNo).before('<button id="status" class="btnStatusN'+ askNo +'" onclick="statusToY('+ askNo +');" >미완료</button>');
 				$(".btnStatusY"+askNo).remove();
 				
 				console.log(".btnStatusY"+askNo);
@@ -175,6 +175,7 @@ input[type=checkbox] {
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
+    width: 65px;
 }
 </style>
 
@@ -246,7 +247,6 @@ input[type=checkbox] {
 	<c:if test="${ask.REPORT_STATUS == 'y' }">
 		<td><button class="btnStatusY${ask.ASK_NO }" id="status" onclick="statusToN(${ask.ASK_NO});">완료</button></td>
 	</c:if>
-	
 </tr>
 </c:forEach>
 
