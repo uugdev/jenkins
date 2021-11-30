@@ -1,6 +1,9 @@
 package com.khbill.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
-import com.khbill.dto.Review;
-import com.khbill.dto.ReviewReport;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.service.face.AdminAskReportService;
 import com.khbill.util.Paging;
 
@@ -81,4 +86,22 @@ private static final Logger logger = LoggerFactory.getLogger(AdminAskReportContr
 		return "redirect:/admin/report/ask/list";
 	}
 	
+	//신고된 후기 게시글 상세
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String adminAskReportDetail(
+			int askNo, AskReport askReport, AskComment askComment
+			, Model model, HttpSession session
+		) {
+		logger.info("/admin/report/ask/detail");
+		
+		boolean adminLogin = (boolean) session.getAttribute("adminLogin");
+		HashMap<String, Object> askDetail = adminAskReportService.getAskDetail(askNo);
+		List<HashMap<String, Object>> askCommentList = adminAskReportService.getAskComList(askNo);
+		
+		model.addAttribute("adminLogin", adminLogin);
+		model.addAttribute("askDetail", askDetail);
+		model.addAttribute("askCommentList", askCommentList);
+		
+		return "admin/report/ask/detail";
+	}
 }

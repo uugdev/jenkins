@@ -1,8 +1,13 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.khbill.dto.Ask;
+import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
+import com.khbill.dto.File;
+import com.khbill.dto.Item;
 import com.khbill.util.Paging;
 
 public interface AdminAskReportService {
@@ -50,5 +55,21 @@ public interface AdminAskReportService {
 	 * @param reportNo
 	 */
 	public void setAskReportDelete(int reportNo);
+
+	/**
+	 * 후기 게시글 상세보기
+	 * 
+	 * @param ask - 상세 조회할 게시글 번호 DTO
+	 * @return 조회된 상세 게시글 정보
+	 */
+	public HashMap<String, Object> getAskDetail(int askNo);
+
+	/**
+	 * 댓글 목록을 조회한다
+	 * 
+	 * @param askComment - 댓글을 조회할 게시글 정보
+	 * @return 조회된 댓글 목록
+	 */
+	public List<HashMap<String, Object>> getAskComList(int askNo);
 
 }
