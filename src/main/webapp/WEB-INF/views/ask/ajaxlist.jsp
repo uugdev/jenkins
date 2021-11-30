@@ -20,11 +20,18 @@
 	<tbody>
 		<c:forEach items="${list }" var="ask">
 			<tr>
-				<td style="text-align: center">${ask.ASK_NO }</td>
-				<td><a href="/ask/detail?askNo=${ask.ASK_NO }"> <span>${ask.ASK_TITLE }</span>
-				</a> <c:if test="${not empty ask.ASK_COM_CNT }">
-						<strong><span>[${ask.ASK_COM_CNT}]</span></strong>
-					</c:if></td>
+				<td style="text-align: center">${ask.ASK_NO }
+				<c:if test="${ask.REPORT_STATUS eq 'n' }">
+				 	<td style="text-align: left;"><a href="/ask/detail?askNo=${ask.ASK_NO }"><span>${ask.ASK_TITLE }</span></a> 
+				</c:if>
+				<c:if test="${ask.REPORT_STATUS eq 'y' }">
+					<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${ask.ASK_TITLE }</a>
+				</c:if>
+				<c:if test="${not empty ask.ASK_COM_CNT }">
+					<strong><span>[${ask.ASK_COM_CNT}]</span></strong>
+				</c:if>
+				</td>
+				
 				<c:if test="${ask.USER_NICK eq null}">
 					<td style="text-align: left;">탈퇴한 회원</td>
 				</c:if>
