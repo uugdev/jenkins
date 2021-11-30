@@ -410,7 +410,7 @@ table, th {
 <hr>
 <div class="text-center" style="margin-bottom: 100px;">
 	<!-- 댓글 리스트 -->
-	<table class="table table-striped table-hover table-condensed">
+	<table class="table table-hover table-condensed">
 	<thead>
 	<tr>
 		<th style="width: 20%;">작성자</th>
