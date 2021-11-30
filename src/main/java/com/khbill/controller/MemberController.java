@@ -72,8 +72,7 @@ public class MemberController {
 				
 				if(userInfo.getUnablePeriod() == null || format.format(userInfo.getUnablePeriod()).compareTo(today) < 0) {
 					
-//					int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());
-					
+//					int unreadMsg = messageService.getUnreadMsgCnt(userInfo.getUserNo());				
 //					logger.info("안읽은 쪽지 개수 : {}", unreadMsg);
 					
 					session.setAttribute("login", true);
@@ -90,7 +89,7 @@ public class MemberController {
 					try {
 						PrintWriter out = resp.getWriter();
 						out.append("<script>");
-						out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(userInfo.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/main';");
+						out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(userInfo.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
 						out.append("</script>");
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -152,7 +151,7 @@ public class MemberController {
 						try {
 							PrintWriter out = resp.getWriter();
 							out.append("<script>");
-							out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(kuser.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/main';");
+							out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(kuser.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
 							out.append("</script>");
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -248,9 +247,9 @@ public class MemberController {
 		String authkey = UUID.randomUUID().toString().split("-")[2] + UUID.randomUUID().toString().split("-")[4].substring(0, 2);
 		model.addAttribute("authkey", authkey);
 		
-		String subject = "KH BiLL 이메일 인증 메일입니다.";
-		String content = "회원가입을 완료하기 위해서 아래 인증문자를 이메일 인증란에 작성하고 회원가입을 진행해주세요!\n\n\n";
-		content += "<h3><strong>"+ authkey +"</strong></h3>";
+		String subject = "KH 영수증 이메일 인증 메일입니다.";
+		String content = "<h3>회원가입을 완료하기 위해서 아래 인증문자를 이메일 인증란에 작성하고 회원가입을 진행해주세요!</h3><br><br><br>";
+		content += "<h2 style='color: red;'><strong>"+ authkey +"</strong></h2>";
 		String from = "kh.bill1206@gmail.com";
 		String to = userMail;
 		
@@ -303,9 +302,9 @@ public class MemberController {
 			tempUser.setUserPw(tempPw);
 			memberService.setUserTempPwUpdate(tempUser);
 			
-			String subject = "KH BiLL 임시 비밀번호입니다.";
-			String content = "아래 임시 비밀번호로 로그인 후 개인정보 보호를 위해 반드시 마이페이지에서 비밀번호를 변경해주세요!\n\n\n";
-			content += "<h3><strong>"+ tempPw +"</strong></h3>";
+			String subject = "KH 영수증 임시 비밀번호입니다.";
+			String content = "<h3>아래 임시 비밀번호로 로그인 후 개인정보 보호를 위해 반드시 마이페이지에서 비밀번호를 변경해주세요!</h3><br><br><br>";
+			content += "<h2 style='color: red;'><strong>"+ tempPw +"</strong></h2>";
 			String from = "kh.bill1206@gmail.com";
 			String to = mailAdr;
 			
