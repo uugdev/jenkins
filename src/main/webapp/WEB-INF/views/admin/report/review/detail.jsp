@@ -10,7 +10,6 @@
 <!-- header end -->
 
 <style type="text/css">
-
 .layerbox {
 	position: relative;
 	display: inline-block;
@@ -340,10 +339,6 @@ table, th {
   </div>
   <div class="list-group-item"><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></div>
 </div>
-
-<!-- 	<div class="logo"> -->
-<!-- 		<img alt="#" src="https://i.imgur.com/fdRrD3i.png"> -->
-<!-- 	</div> -->
 	<div class="title">
 		<P style="text-align: center;">${review.REVIEW_TITLE }</P>
 	</div>
@@ -390,7 +385,8 @@ table, th {
 	</div>
 		
 	<div id="item">
-		<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
+		<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" 
+			class="img-responsive center-block" alt="Responsive image" />
 	</div>
 	<div style="border-top: 1px solid #000;">
 		<div class="content">
@@ -417,9 +413,8 @@ table, th {
 	<table class="table table-striped table-hover table-condensed">
 	<thead>
 	<tr>
-		<!-- 		<th style="width: 5%;">번호</th> -->
-		<th style="width: 10%;">작성자</th>
-		<th style="width: 65%;">댓글</th>
+		<th style="width: 20%;">작성자</th>
+		<th style="width: 60%;">댓글</th>
 		<th style="width: 20%;">작성일</th>
 	</tr>
 	</thead>
@@ -427,11 +422,17 @@ table, th {
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
 	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-		<td style="width: 10%;">${reviewComment.USER_NICK }</td>
-		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td>
-		<td style="width: 20%;"><fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+		<c:if test="${reviewComment.USER_NICK eq null}">
+			<td style="width: 20%;">탈퇴한 회원</td>
+		</c:if>
+		<c:if test="${reviewComment.USER_NICK ne null }">
+			<td style="width: 20%;">${reviewComment.USER_NICK }</td>
+		</c:if>
+		<td style="width: 60%;">${reviewComment.REVIEW_COM_CONTENT }</td>
+		<td style="width: 20%;"><fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
 	</tr>
 	</c:forEach>
+	</tbody>
 	</table>
 	<!-- 댓글 리스트 end -->
 

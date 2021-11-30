@@ -5,80 +5,11 @@
 
 <c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/adminheader.jsp" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/reportPopup.css">
+
+<link rel="stylesheet" type="text/css" href="/resources/css/reportPopup.css">
 <!-- header end -->
 
-<!-- 개별 스타일 및 스크립트 영역 -->
 
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="/resources/js/segbar.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-	$("#btnDelete").click(function() {
-
-		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
-
-		if (result == true) {
-			$(location).attr("href", "/admin/ask/delete?askNo=${ask.askNo }");
-		}
-		
-		})
-		
-		/* 닫는 창으로 꼭 필요함 */
-	    $(".modal_close").on("click", function () {
-	        action_popup.close(this);
-	    });
-
-	});
-
-	
-	
-	initChart(${cntY}, ${cntN})
-
-});
-
-function initChart(cntY, cntN) {
-	$('.chart').empty();
-	
-	$('.chart').segbar([
-		{
-		  data: [ 
-		    {  value: Number(cntY), color:'#3A539B'  },
-		    {  value: Number(cntN), color:'#F22613'  }
-		  ]
-		}
-	]);
-} 
-
-function deleteComment(askComNo) {
-	$.ajax({
-		type: "post"
-		, url: "/admin/ask/comment/delete"
-		, dataType: "json"
-		, data: {
-			askComNo: askComNo
-		}
-		, success: function(data){
-			if(data.success) {
-				
-				$("[data-askComNo='"+askComNo+"']").remove();
-				
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
-}
-
-</script>
 <style type="text/css">
 .layerbox {
 	position: relative;
@@ -424,6 +355,22 @@ table, th {
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
 }
+
+#btnUpdate, #btnDelete, #btnList {
+	background: #808080;
+	border-radius: 0px;
+	height: 35px;
+	border: 1px solid #808080;
+	color: #fff;
+	padding: 0 15px;
+}
+
+#btnUpdate:hover, #btnDelete:hover, #btnList:hover {
+	border: 1px solid #808080;
+	background: #fff;
+	color: #808080;
+	transition: all .2s ease-in-out;
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -450,14 +397,13 @@ table, th {
 			</c:choose>
 		</c:if>
 	</div>
-<div class="list-group-item"><label for="${askDetail.REPORT_NO }">${askDetail.REPORT_CONTENT }</label></div>
+	<div class="list-group-item"><label for="${askDetail.REPORT_NO }">${askDetail.REPORT_CONTENT }</label></div>
 </div>
-
 	<div class="title">
 		<p style="text-align: center;">${askDetail.ASK_TITLE }</p>
 	</div>
 	<div class="layerbox">
-		<span>		
+		<span>
 			<c:if test="${askDetail.USER_NO eq null }">
 				탈퇴한 회원
 			</c:if>
@@ -468,7 +414,6 @@ table, th {
 				${askDetail.USER_NICK }
 			</c:if>
 		</span>
-		
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span> 
 		<span><fmt:formatDate value="${askDetail.ASK_DATE }" pattern="yy-MM-dd HH:mm" /></span>
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
@@ -521,8 +466,7 @@ table, th {
 	<div class="bottom"></div>
 </div>
 
-
-
+<!-- 투표 처리 -->
 <c:if test="${askDetail.VOTE_END ne null}">
 
 	<div id="votedate">
@@ -594,49 +538,44 @@ table, th {
 
 <!-- 댓글 처리 -->
 <hr>
-<!-- <div class="text-center" style="margin-bottom: 100px;"> -->
-<!-- 	<!-- 댓글 리스트 --> -->
-<!-- 	<table class="table table-striped table-hover table-condensed"> -->
-<!-- 	<thead> -->
-<!-- 	<tr> -->
-<!-- <!-- 		<th style="width: 4%;"></th> --> -->
-<!-- 		<th style="width: 10%;">닉네임</th> -->
-<!-- 		<th style="width: 58%;">댓글</th> -->
-<!-- 		<th style="width: 13%;">작성일</th> -->
-<!-- 	</tr> -->
-<!-- 	</thead> -->
+<div class="text-center" style="margin-bottom: 100px;">
+	<!-- 댓글 리스트 -->
+	<table class="table table-striped table-hover table-condensed">
+	<thead>
+	<tr>
+		<th style="width: 20%;">닉네임</th>
+		<th style="width: 60%;">댓글</th>
+		<th style="width: 20%;">작성일</th>
+	</tr>
+	</thead>
 
-<!-- 	<tbody id="commentBody"> -->
-<%-- 		<c:forEach items="${askCommentList }" var="askComment"> --%>
-<%-- 			<tr data-askComNo="${askComment.ASK_COM_NO }"> --%>
-<!-- 				<td style="width: 10%;"> -->
-<%-- 					<c:if test="${askComment.USER_NICK ne null }"> --%>
-<%-- 						<td style="text-align: left;">${askComment.USER_NICK }</td> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${askComment.USER_NICK eq null}"> --%>
-<!-- 						<td class="pull-left">탈퇴한 회원</td> -->
-<%-- 					</c:if> --%>
-<!-- 				</td> -->
-<%-- 				<td style="width: 50%">${askComment.ASK_COM_CONTENT }</td> --%>
-<%-- 				<td style="width: 20%;"><fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td> --%>
-<!-- 			</tr> -->
-<%-- 		</c:forEach> --%>
-<!-- 		<tr id="appendArea"></tr> -->
-<!-- 	</tbody> -->
-<!-- 	</table> -->
-<!-- <!-- 댓글 리스트 end --> -->
+	<tbody id="commentBody">
+	<c:forEach items="${askCommentList }" var="askComment">
+		<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
+		<tr data-askComNo="${askComment.ASK_COM_NO }">
+				<c:if test="${askComment.USER_NICK eq null}">
+					<td style="width: 20%;">탈퇴한 회원</td>
+				</c:if>
+				<c:if test="${askComment.USER_NICK ne null }">
+					<td style="width: 20%;">${askComment.USER_NICK }</td>
+				</c:if>
+			<td style="width: 60%">${askComment.ASK_COM_CONTENT }</td>
+			<td style="width: 20%;"><fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+		</tr>
+	</c:forEach>
+	</tbody>
+	</table>
+	<!-- 댓글 리스트 end -->
 
-<!-- </div>댓글 처리 end -->
+</div><!-- 댓글 처리 end -->
+	
+<div class="text-center" style="margin-bottom: 150px;">
+	<a href="/admin/report/ask/list"><button id="btnList">목록으로</button></a>
+</div>
+<br>
 
+</div><!-- .container end -->
 
-
-
-		<!-- 댓글 처리 end -->
-	<div class="text-center" style="margin-bottom: 100px;">
-		<a href="/admin/report/ask/list"><button class="btnList">목록</button></a>
-	</div>
-
-	</div><!-- .container end -->
-</div><!-- .wrap end -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
-<!-- .wrap end -->
+
+</div><!-- .wrap end -->

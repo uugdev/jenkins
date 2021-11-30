@@ -7,6 +7,7 @@ import com.khbill.dto.Ask;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
+import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
 
 public interface AdminAskReportDao {
@@ -65,7 +66,46 @@ public interface AdminAskReportDao {
 	 */
 	public void deleteAskReportByReportNo(AskReport askReport);
 
+	/**
+	 * 질문 게시글의 상세 페이지를 조회
+	 * 
+	 * @param askNo
+	 * @return
+	 */
 	public HashMap<String, Object> selectAskByAskNo(int askNo);
+
+	/**
+	 * 질문 게시글에 댓글 list를 조회한다
+	 * 
+	 * @return
+	 */
+	public List<HashMap<String, Object>> selectAskCommentByAskNo(int askNo);
+	
+	/**
+	 * 게시글번호,유저번호가담긴 보트객체로 투표객체조회
+	 * 
+	 * @param Vote
+	 * @return
+	 */
+	public Vote selectVoteByAskNoUserNo(Vote voteResult);
+
+	/**
+	 * 
+	 * 
+	 * @param vote
+	 * @return
+	 */
+	public int selectVoteEnd(Vote vote);
+
+	/**
+	 * y,n에 투표한 사람의 수 조회
+	 * 
+	 * @param vote
+	 * @return
+	 */
+	public int selectVoteByAskNoVoteState(Vote vote);
+
+
 
 
 }
