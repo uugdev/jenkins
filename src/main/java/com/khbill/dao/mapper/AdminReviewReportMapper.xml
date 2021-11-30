@@ -67,7 +67,7 @@
 	
 	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.Review" resultType="HashMap">
 		SELECT * FROM (
-		    SELECT 
+		   SELECT 
 		        R.review_no, item_no, U.user_no, user_nick, file_no
 		        , review_title, review_content, review_date, review_hit
 		        , X.report_category, X.report_content
@@ -78,7 +78,7 @@
 		       ON R.review_no = X.review_no
 		    ORDER BY user_no
 		) ZREVIEW
-		WHERE review_no = #{reviewNo } 
+		WHERE review_no = #{reviewNo }
 	</select>
 	 
 	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
