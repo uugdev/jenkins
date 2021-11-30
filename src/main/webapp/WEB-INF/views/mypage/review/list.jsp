@@ -29,29 +29,69 @@ $(document).ready(function(){
 	});
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("선택한 글을 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
 	        delchk.push($(this).val());
 	    });
-		if( answer == true ){
-			location.href="/mypage/review/delete?reviewNo="+delchk;
-		} else {
-			return false;
-		}
+	    
+		action_popup.confirm("선택한 글을 삭제하시겠습니까? 해당 작업은 되돌릴 수 없습니다.", function(result) {
+			
+			if( result == true){
+				location.href="/mypage/review/delete?reviewNo="+delchk;
+			} else {
+				return false;
+	
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
 
 })
 </script>
 
 <style>
+
+body {
+	background-color: #f2f2f2;
+}
 .container {
 	width: 1200px;
 }
 
 .titlearea {
 	margin: 50px 0 30px 0;
+}
+
+.tablearea {
+	background-color: #fff;
+	padding: 20px 50px 20px 50px;
+	
+}
+
+.titlearea > p {
+	color: #85969E;
+}
+
+#btnDelete {
+	width: 55px;
+	height: 35px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+
+}
+
+#btnDelete:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
 }
 </style>
 
@@ -62,35 +102,39 @@ $(document).ready(function(){
 
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
-<div class="col-md-9" style="height: 500px;">
-<div class="titlearea">
-	<h3>작성한 후기글</h3>
-</div>
-<table class="table table-striped table-hover">
-<thead>
-	<tr>
-		<th style="width: 14%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 20%;">작성일</th>
-	</tr>
-</thead>
-<tbody>
-	<c:forEach items="${review }" var="review">
-	<tr>
-		<td><input type="checkbox" id="${review.reviewNo }" value="${review.reviewNo }" class="chk" /></td>
-		<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
-		<td>${review.reviewHit }</td>
-		<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm" /></td>
-	</tr>
-	</c:forEach>
-</table>
-<button id="btnDelete" class="pull-left">삭제</button>
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
+	<div class="titlearea">
+		<h2>작성한 후기</h2>
+		<p>후기게시판에 작성한 글</p>
+		
+	</div>
+	<div class="col-md-9" style="height: 500px;">
+		<div class="tablearea">
+		<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th style="width: 14%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+				<th style="width: 45%;">제목</th>
+				<th style="width: 10%;">조회수</th>
+				<th style="width: 20%;">작성일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${review }" var="review">
+			<tr>
+				<td><input type="checkbox" id="${review.reviewNo }" value="${review.reviewNo }" class="chk" /></td>
+				<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
+				<td>${review.reviewHit }</td>
+				<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm" /></td>
+			</tr>
+			</c:forEach>
+		</table>
+	<button id="btnDelete" class="pull-left">삭제</button>
+	<c:import url="/WEB-INF/views/layout/paging.jsp" />
+	</div>
+	
+	<div class="clearfix"></div>
 
-<div class="clearfix"></div>
-
-</div>
+	</div>
 
 
 </div><!-- .container end -->

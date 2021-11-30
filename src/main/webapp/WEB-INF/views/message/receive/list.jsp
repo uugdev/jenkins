@@ -156,18 +156,27 @@ $(document).ready(function(){
 	});
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n 해당 작업은 되돌릴 수 없습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
 	        delchk.push($(this).val());
 	    });
-		if( answer == true ){
-			location.href="/message/receive/delete?msgNo="+delchk;
-		} else {
-			return false;
-		}
+		
+	    action_popup.confirm("선택한 쪽지를 삭제하시겠습니까? 해당 작업은 되돌릴 수 없습니다.", function(result) {
+			
+			if( result == true){
+				location.href="/message/receive/delete?msgNo="+delchk;
+			} else {
+				return false;
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
+})
 	
 // 	$("#unreadList").click(function () {
 		
@@ -207,7 +216,7 @@ $(document).ready(function(){
 // 		})
 // 	})
 
-})
+
 </script>
 
 <style>

@@ -42,18 +42,29 @@ $(document).ready(function(){
 	});
 	
 	$("#btnDelete").click(function() {
-		var answer = confirm("선택한 쪽지를 삭제하시겠습니까?\n삭제시 보낸 쪽지함에서만 삭제되고, 상대방의 쪽지함에서는 삭제되지 않습니다.")
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){
 	        delchk.push($(this).val());
 	    });
-		if( answer == true ){
-			location.href="/message/send/delete?msgNo="+delchk;
-		} else {
-			return false;
-		}
-	})
+	    
+		action_popup.confirm("선택한 쪽지를 삭제하시겠습니까?\n삭제시 보낸 쪽지함에서만 삭제되고, 상대방의 쪽지함에서는 삭제되지 않습니다.", function(result) {
+			
+			if( result == true){
+				location.href="/message/send/delete?msgNo="+delchk;
+			} else {
+				return false;
+	
+			}
+		})
+		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
+
+
+	});
 
 })
 </script>
