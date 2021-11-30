@@ -8,6 +8,7 @@ import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
+import com.khbill.dto.Vote;
 import com.khbill.util.Paging;
 
 public interface AdminAskReportService {
@@ -71,5 +72,19 @@ public interface AdminAskReportService {
 	 * @return 조회된 댓글 목록
 	 */
 	public List<HashMap<String, Object>> getAskComList(int askNo);
+
+	public Vote getVote(Vote voteSet);
+
+	public String voteCheck(Vote vote);
+	
+	/**
+	 * y,n 총 투표수 가져오기
+	 * 
+	 * @param askNo
+	 * @param voteState
+	 * @return
+	 */
+	public int getVoteStatusTotalCnt(int askNo, String voteStateY);
+
 
 }

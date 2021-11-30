@@ -19,6 +19,7 @@ import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
+import com.khbill.dto.Vote;
 import com.khbill.service.face.AdminAskReportService;
 import com.khbill.util.Paging;
 
@@ -89,8 +90,8 @@ private static final Logger logger = LoggerFactory.getLogger(AdminAskReportContr
 	//신고된 후기 게시글 상세
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String adminAskReportDetail(
-			int askNo, AskReport askReport, AskComment askComment
-			, Model model, HttpSession session
+			Ask ask, int askNo, AskReport askReport, AskComment askComment
+			, Vote vote, Model model, HttpSession session
 		) {
 		logger.info("/admin/report/ask/detail");
 		
@@ -98,9 +99,28 @@ private static final Logger logger = LoggerFactory.getLogger(AdminAskReportContr
 		HashMap<String, Object> askDetail = adminAskReportService.getAskDetail(askNo);
 		List<HashMap<String, Object>> askCommentList = adminAskReportService.getAskComList(askNo);
 		
+		String check = adminAskReportService.voteCheck(vote);
+		
+		Vote voteSet = new Vote();
+		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setAskNo(askNo);
+		vote = adminAskReportService.getVote(voteSet);
+
+		logger.info("askCommentList - {}", askCommentList);
+		
 		model.addAttribute("adminLogin", adminLogin);
 		model.addAttribute("askDetail", askDetail);
 		model.addAttribute("askCommentList", askCommentList);
+		model.addAttribute("vote", vote);
+		model.addAttribute("check", check);
+		
+		String voteStateY = "n"; //투표체크 Y
+		int cntN = adminAskReportService.getVoteStatusTotalCnt(askNo,voteStateY);
+		model.addAttribute("cntN",cntN);
+		
+		String voteStateN = "y"; //투표체크 N
+		int cntY = adminAskReportService.getVoteStatusTotalCnt(askNo,voteStateN);
+		model.addAttribute("cntY",cntY);
 		
 		return "admin/report/ask/detail";
 	}

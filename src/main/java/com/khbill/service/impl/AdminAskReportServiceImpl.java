@@ -13,6 +13,7 @@ import com.khbill.dto.AskComment;
 import com.khbill.dto.AskReport;
 import com.khbill.dto.File;
 import com.khbill.dto.Item;
+import com.khbill.dto.Vote;
 import com.khbill.service.face.AdminAskReportService;
 import com.khbill.util.Paging;
 
@@ -84,6 +85,45 @@ public class AdminAskReportServiceImpl implements AdminAskReportService {
 	@Override
 	public List<HashMap<String, Object>> getAskComList(int askNo) {
 		
-		return askDao.selectAskComCntList();
+		return adminAskReportDao.selectAskCommentByAskNo(askNo);
+	}
+	
+	@Override
+	public Vote getVote(Vote voteResult) {
+		
+		Vote vote = adminAskReportDao.selectVoteByAskNoUserNo(voteResult);
+
+		return vote;
+	}
+	
+@Override
+	public int getVoteStatusTotalCnt(int askNo, String voteState) {
+
+		Vote vote = new Vote();
+		vote.setAskNo(askNo);
+		vote.setVoteState(voteState);
+		
+		int cnt = adminAskReportDao.selectVoteByAskNoVoteState(vote);
+		
+		return cnt;
+	}
+	
+	@Override
+	public String voteCheck(Vote vote) {
+		System.out.println(vote);
+
+		int res = adminAskReportDao.selectVoteEnd(vote);
+		String check = null;
+
+		if (res == 1) {
+
+			check = "y";
+
+		} else if (res <= 0) {
+
+			check = "n";
+
+		}
+		return check;
 	}
 }
