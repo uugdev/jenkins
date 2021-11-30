@@ -1073,7 +1073,7 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 15%;">닉네임</th>
+					<th style="width: 15%; padding-right: 26px;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>

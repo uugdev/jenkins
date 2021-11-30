@@ -30,6 +30,21 @@ td:nth-child(2) {
 	width: 268px;
 }
 
+.ellipsis {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-height: 18px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+
+
 #photoList {
 	display: flex;
 	margin: 0px;
@@ -47,7 +62,7 @@ td:nth-child(2) {
 	margin-bottom: 35px;
 	border-radius: 1px;
 	overflow: hidden;
-	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	box-shadow: rgba(0, 0, 0, 0.15) 3px 3px 3px;
 }
 
 #photoList li:nth-child(3n+0) {
@@ -68,10 +83,10 @@ td:nth-child(2) {
 			</div>
 			<div style="box-sizing: border-box; padding: 0 5px 10px;">
 				<div style="padding-top: 8px; display: flex;">
-					<span class="ellipsis2" style="text-align: left;">제목:
+					<span class="ellipsis" style="text-align: left;">제목:
 						${list.ASK_TITLE}</span>
 					<c:if test="${list.ASK_COM_CNT ne null}">
-						<span><strong>[${list.ASK_COM_CNT}]</strong></span>
+						<span><strong>&nbsp;[${list.ASK_COM_CNT}]</strong></span>
 					</c:if>
 				</div>
 

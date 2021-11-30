@@ -138,9 +138,9 @@ a:hover {
 						type="checkbox" name="select" id="selectAll" /></th>
 					<th style="width: 8%;">글번호</th>
 					<th style="text-align: left; width: 45%; padding-left: 30px;">제목</th>
-					<th style="text-align: left; width: 15%;">작성자</th>
+					<th style="text-align: center; width: 12%; padding-right: 30px;">닉네임</th>
 					<th style="text-align: center; width: 10%;">조회수</th>
-					<th style="text-align: center; width: 10%;">작성일</th>
+					<th style="text-align: center; width: 17%;">작성일</th>
 				</tr>
 				<c:forEach items="${list }" var="askList">
 					<tr>
@@ -164,7 +164,7 @@ a:hover {
 						<td><label for="${askList.ASK_NO }">${askList.ASK_HIT }</label>
 						</td>
 						<td><fmt:formatDate value="${askList.ASK_DATE }"
-								pattern="yyyy-MM-dd" /></td>
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					</tr>
 				</c:forEach>
 

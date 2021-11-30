@@ -230,6 +230,7 @@ var myChart2 = new Chart(context2, {
 
 .fc-event-title.fc-sticky {
 	white-space: normal;
+	font-size: 15px;
 }
 
 #calendar {
@@ -328,6 +329,21 @@ var myChart2 = new Chart(context2, {
 	padding-left: 20px;
 	padding-bottom: 20px;
 }
+
+.ellipsis2 {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	/* 	line-height: 24px; */
+	/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 280px;
+}
+
+
 </style>
 <!-- 개별 영역 끝 -->
 
@@ -355,7 +371,7 @@ var myChart2 = new Chart(context2, {
 					<div style="width: auto; height: 300px; overflow: auto;">
 						<c:forEach items="${monthItemList }" var="i">
 							<div style="font-size: 17px;">
-								<span class="ellipsis2 pull-left" style="text-align: left;">
+								<span class="ellipsis2 pull-left" style="text-align: left; width: 70%;">
 									[<fmt:formatDate value="${ i.itemDate }" pattern="YYYY-MM-dd" />]
 									${i.itemName }
 								</span> <span class="pull-right" style="text-align: right; width: 30%">
