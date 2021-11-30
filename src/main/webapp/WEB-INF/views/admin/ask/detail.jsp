@@ -21,19 +21,12 @@ $(document).ready(function() {
 
 	$("#btnDelete").click(function() {
 
-		action_popup.confirm("정말 삭제하시겠습니까?", function (result) {
+		var result = confirm("정말 삭제하시겠습니까?") 
 
 		if (result == true) {
 			$(location).attr("href", "/admin/ask/delete?askNo=${ask.askNo }");
 		}
 		
-		})
-		
-		/* 닫는 창으로 꼭 필요함 */
-	    $(".modal_close").on("click", function () {
-	        action_popup.close(this);
-	    });
-
 	});
 
 	
@@ -609,7 +602,7 @@ table, th {
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
-					<th style="width: 15%;">닉네임</th>
+					<th style="width: 15%; padding-right: 47px;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>

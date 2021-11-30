@@ -3,6 +3,23 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style type="text/css">
+
+li {
+	cursor: pointer;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #5b6e7a;
+    border-color: #5b6e7a;
+}
+
+</style>
+
 <c:if test="${not empty param.search }">
 	<c:set var="searchParam" value="&search=${param.search }" />
 </c:if>
