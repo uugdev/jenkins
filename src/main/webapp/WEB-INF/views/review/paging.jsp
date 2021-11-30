@@ -7,7 +7,8 @@ li {
 	cursor: pointer;
 }
 
-.pagination>.active>span {
+.pagination>.active>span,
+.pagination>.active>span:hover {
     z-index: 2;
     color: #fff;
     cursor: default;
