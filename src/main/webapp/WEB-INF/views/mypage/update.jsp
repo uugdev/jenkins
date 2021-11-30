@@ -167,6 +167,11 @@ function checkUserNick() {
 
 <style>
 
+body {
+	background-color: #f2f2f2;
+
+}
+
 .container {
 	width: 1200px;
 }

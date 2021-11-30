@@ -142,21 +142,21 @@ body {
 				<td>${list.ASK_HIT }</td>
 				<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
 				<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
-				<td>
 				<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
+				<td>
 						<button class="btnUpdateY contentbtn" onclick="itemstatustoY(${list.ITEM_NO});">살게요</button>
 						<button class="btnUpdateN contentbtn" onclick="itemstatustoN(${list.ITEM_NO});">안살게요</button>
-				</c:if>
 				</td>
+				</c:if>
 				<c:if test="${list.ITEM_STATUS == 'n'&& not empty list.ITEM_DATE}">
 					<td>안살래요</td>
 				</c:if>
-					<td>
 				<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && empty list.REVIEW_NO }">
+					<td>
 						<button class="btnWrite contentbtn" onclick="writereview(${list.ITEM_NO});">후기 쓰기</button>
 						<button class="btnCancel contentbtn" onclick="itemcancel(${list.ITEM_NO });">마음이 바뀌었어요</button>
-				</c:if>	
 					</td>
+				</c:if>	
 				<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && not empty list.REVIEW_NO }">
 					<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail contentbtn">작성한 후기 보기</button></a></td>
 				</c:if>

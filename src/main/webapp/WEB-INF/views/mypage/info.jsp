@@ -38,6 +38,11 @@ function userdelete() {
 
 <style>
 
+
+body {
+	background-color: #f2f2f2;
+
+}
 .container {
 	width: 1200px;
 }
@@ -66,7 +71,6 @@ td {
 }
 
 .wrap {
-	background-color: #f2f2f2;
 	margin-bottom: 0;
 	height: 725px;
 }
