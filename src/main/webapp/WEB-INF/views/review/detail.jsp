@@ -51,7 +51,7 @@ function message () {
 
 function userinfo() {
 
-	window.open('/member/detail?userNick=${user.userNick }', '회원정보 조회', 'width=620, height=640, left=400, top=500, resizable=no');
+	window.open('/member/detail?userNick=${review.USER_NICK }', '회원정보 조회', 'width=620, height=640, left=400, top=500, resizable=no');
 		
 }
 </script>
@@ -674,7 +674,7 @@ table, th {
 					<li><a onclick="userinfo();">회원정보 보기</a></li>
 					<li><a onclick="message();">쪽지 보내기</a></li>
 					<li><a id="layerClose">닫기</a></li>
-				</ul>>
+				</ul>
 			</div>
 		</div><!-- #layerbox end -->
 				
