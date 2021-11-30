@@ -67,7 +67,7 @@
 
 	<select id="selectAskByAskNo" resultType="HashMap" parameterType="int">
 		SELECT * FROM (
-		    SELECT 
+		    SELECT DISTINCT
 		        A.ask_no, U.user_no, U.user_nick, A.product_no 
 		        , I.item_brand, I.item_name, I.item_price, F.file_no, F.file_stored
 		        , A.ask_title, A.ask_content, A.ask_date, A.ask_hit
@@ -87,6 +87,39 @@
 		    ORDER BY user_no
 		) ZASK
 		WHERE ask_no = #{askNo }
+	</select>
+	
+	<select id="selectAskCommentByAskNo" resultType="HashMap" parameterType="int">
+        SELECT * FROM (
+            SELECT rownum rnum, C.* FROM (
+                SELECT
+                     ask_com_no, U.user_no, user_nick, ask_no
+                    , ask_com_content, ask_com_date, ask_com_like, ask_com_hate, W.grade_url
+                FROM ZASK_COMMENT C
+                LEFT OUTER JOIN zuser U
+                    ON U.user_no = C.user_no
+                LEFT OUTER JOIN USERWITHURL W
+                    ON U.user_no = W.user_no
+                WHERE ask_no = #{askNo}
+                ORDER BY ask_com_no
+            ) C
+        ) ZASK_COMMENT
+	</select>
+	
+	<select id="selectVoteByAskNoUserNo" resultType="com.khbill.dto.Vote" parameterType="com.khbill.dto.Vote">
+		SELECT * FROM zvote
+		WHERE ask_no = #{askNo } AND user_no = #{userNo}
+	</select>
+	
+	<select id="selectVoteByAskNoVoteState" parameterType="com.khbill.dto.Vote" resultType="int">
+		SELECT COUNT(*) FROM zvote
+		WHERE ask_no = #{askNo} AND vote_state = #{voteState}
+	</select>
+	
+	<select id="selectVoteEnd"  resultType="int" parameterType="com.khbill.dto.Vote">
+		SELECT COUNT(*) FROM zvote
+		WHERE sysdate <![CDATA[ < ]]> #{voteEnd}
+		AND ask_no = #{askNo} AND user_no = #{userNo}
 	</select>
 
 </mapper>
