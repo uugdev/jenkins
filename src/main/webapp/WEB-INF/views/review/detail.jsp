@@ -12,6 +12,23 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <!-- header end -->
 
+<script>
+
+$(document).ready(function() {
+
+	$('.layerpopup').click(function(e) {
+		$('#layer').show();
+		
+	});
+	
+	$('#layerClose').click(function() {
+		$('#layer').css('display', 'none');
+	});
+
+})
+
+</script>
+
 <script type="text/javascript">
 function message () {
 	 action_popup.confirm('쪽지를 보내시겠습니까?', function (answer) {
@@ -32,6 +49,11 @@ function message () {
       });      	
 }
 
+function userinfo() {
+
+	window.open('/member/detail?userNick=${user.userNick }', '회원정보 조회', 'width=620, height=640, left=400, top=500, resizable=no');
+		
+}
 </script>
 
 <script type="text/javascript">
@@ -289,23 +311,60 @@ $(function() {
 	width: 500px;
 }
 
-#layer { 
-	display:none; padding:10px; background:#F2F2F2;
+.layerpopup:hover {
+	width: 500px;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #667F92;
+}
+
+#layer {
+	display: none;
+	padding: 10px;
+	background: #fff;
 	position: absolute;
 	top: 24px;
 	left: 0;
 	z-index: 1;
-	width: 130px;
+	width: 110px;
+	height: 120px;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	padding: 0;
+}
+
+#layer>ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#layer>ul>li {
+	line-height: 40px;
+}
+
+#layer>ul>li:hover {
+	background-color: #a1b8c9;
+	cursor: pointer;
+}
+
+#layer>ul>li>a {
+	display: block;
+	color: #667F92;
+}
+
+#layer>ul>li>a:hover {
+	color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 .layerClose {
-	font-size:15px; float: right;
+	font-size: 15px;
+	float: right;
 }
 
 .layerpopup:hover, #layerClose:hover {
-	cursor:pointer; 
+	cursor: pointer;
 }
-
 .wrap {
 /* 	margin-bottom: 50px; */
 	background:#f2f2f2; 
@@ -613,7 +672,7 @@ table, th {
 			<div id="layer">
 				<ul>
 					<li><a onclick="userinfo();">회원정보 보기</a></li>
-					<li><a onclick="message();">쪽지 보내기</a><br></li>
+					<li><a onclick="message();">쪽지 보내기</a></li>
 					<li><a id="layerClose">닫기</a></li>
 				</ul>>
 			</div>
