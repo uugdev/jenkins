@@ -403,7 +403,8 @@ table, th {
 			￦ <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>
 		</p>
 	</div>
-</div>
+</div><!-- .recipeWrap end -->
+
 <div class="barcode">
 	<img alt="#" src="/resources/img/askBarcode2.png">
 	<div class="bottom"></div>

@@ -14,7 +14,7 @@
 </tr>
 <c:forEach items="${reviewList }" var="review">
 <tr>
-	<td>${review.REVIEW_NO }</td>
+	<td>${review.REVIEW_NO }
 	<c:if test="${review.REPORT_STATUS eq 'n' }">
 		<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 	</c:if>
@@ -60,9 +60,7 @@
 <c:if test="${login }">
 	<button id="btnWrite" class="pull-right">글쓰기</button>
 </c:if>
-<%-- <span class="pull-left">TOTAL ${paging.totalCount }</span> --%>
 <div class="clearfix"></div>
-
 
 <c:import url="/WEB-INF/views/review/paging.jsp" />
 

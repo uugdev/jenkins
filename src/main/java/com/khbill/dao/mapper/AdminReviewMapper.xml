@@ -7,10 +7,10 @@
 
 	<sql id="selectReview">
         SELECT 
-        	review_no, U.user_no, user_nick
+        	review_no, U.user_no, U.user_nick
         	, review_title, review_date, review_hit
         FROM zreview R
-        INNER JOIN zuser U
+        LEFT OUTER JOIN zuser U
             ON U.user_no = R.user_no
 	</sql>
 	
@@ -47,12 +47,12 @@
 		        SELECT 
 		        	review_no, item_no, U.user_no, user_nick, file_no
 		        	, review_title, review_content, review_date, review_hit
-		        FROM zuser U
-		        INNER JOIN zreview R
+		        FROM zreview R
+		        LEFT OUTER JOIN zuser U
 		            ON U.user_no = R.user_no
 		        ORDER BY user_no
 		) ZREVIEW
-		WHERE review_no = #{reviewNo } 
+		WHERE review_no = #{reviewNo }
 	</select>
 	 
 	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
