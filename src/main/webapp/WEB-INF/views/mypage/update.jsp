@@ -62,7 +62,7 @@ $(document).ready(function() {
 		var userNick = $("#userNick").val();
 		
 		var pwRegex = /^[a-zA-z0-9]{8,16}$/;
-		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
+		var nickRegex = /^[가-힣a-zA-z0-9]{4,8}$/;
 		
 		var pwregex = pwRegex.exec(userPw);
 		if(pwregex == null){
@@ -151,7 +151,7 @@ function checkNick(){
 function checkUserNick() {
 	var userNick = $("#userNick").val();
 
-    var idRegExp = /^[가-힣a-zA-z0-9]{4,12}$/;
+    var idRegExp = /^[가-힣a-zA-z0-9]{4,8}$/;
     if (!idRegExp.test(userNick)) {
         $(".nick_already").css("display","none");
         $(".nick_ok").css("display", "none");
@@ -308,7 +308,7 @@ input[type=password]{
 						<td><input type="text" id="userNick" name="userNick" value="${user.userNick }" required oninput="checkUserNick()"><br>
 						<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 						<span class="nick_already">사용 중인 닉네임입니다.</span>
-						<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~12자리로 입력해야 합니다!</span></td>
+						<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~8자리로 입력해야 합니다!</span></td>
 					</tr>
 					<tr>
 						<td><strong>이메일</strong></td>

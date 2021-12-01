@@ -103,7 +103,7 @@ body {
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 	<div class="titlearea">
-		<h2>작성한 후기</h2>
+		<h2>작성한 글</h2>
 		<p>후기게시판에 작성한 글</p>
 		
 	</div>
@@ -112,7 +112,7 @@ body {
 		<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th style="width: 14%;">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+				<th style="width: 14%;"><input type="checkbox" name="select" id="selectAll" /></th>
 				<th style="width: 45%;">제목</th>
 				<th style="width: 10%;">조회수</th>
 				<th style="width: 20%;">작성일</th>
@@ -129,10 +129,10 @@ body {
 			</c:forEach>
 		</table>
 	<button id="btnDelete" class="pull-left">삭제</button>
+	<div class="clearfix"></div>
 	<c:import url="/WEB-INF/views/layout/paging.jsp" />
 	</div>
 	
-	<div class="clearfix"></div>
 
 	</div>
 
