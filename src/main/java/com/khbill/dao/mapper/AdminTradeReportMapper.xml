@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.khbill.dao.face.AdminTradeReportDao">
+
+	<sql id="selectTradeReport">
+        SELECT 
+            X.report_no, X.report_category, X.report_content, X.respondent_no
+            , R.trade_no, U.user_no, U.user_nick, R.trade_title, X.report_date, X.report_status
+        FROM ztrade_report X 
+        INNER JOIN ztrade R
+            ON X.trade_no = R.trade_no
+        INNER JOIN zuser U
+            ON U.user_no = R.user_no
+	</sql>
+	
+	<sql id="whereTradeReportTitleSearch">
+		WHERE trade_title LIKE '%' || #{search} || '%'
+	</sql>
+
+	<select id="selectTradeReportList" parameterType="com.khbill.util.Paging" resultType="HashMap">
+		SELECT * FROM (
+			SELECT rownum rnum, X.* FROM (
+		    	<include refid="selectTradeReport"/>   
+		    	<include refid="whereTradeReportTitleSearch"/>   
+		        ORDER BY report_no DESC
+		    ) X
+		) ztrade_report
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+
+	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">
+		SELECT count(*) FROM (
+			<include refid="selectTradeReport"/>
+			<include refid="whereTradeReportTitleSearch"/>
+		)
+	</select>
+
+	
+	<update id="updateTradeReportByStatusY" parameterType="com.khbill.dto.TradeReport">
+		UPDATE ztrade_report
+		SET report_status = 'y'
+		WHERE trade_no = #{tradeNo }
+	</update>
+	
+	<select id="selectCntTradeReportByStatusY" parameterType="com.khbill.dto.TradeReport" resultType="int">
+		SELECT count(*) FROM ztrade_report
+		WHERE trade_no = #{tradeNo } AND report_status = 'y'
+	</select>
+	
+	<update id="updateTradeReportByStatusN" parameterType="com.khbill.dto.TradeReport">
+		UPDATE ztrade_report
+		SET report_status = 'n'
+		WHERE trade_no = #{tradeNo }
+	</update>
+	
+	<select id="selectCntTradeReportByStatusN" parameterType="com.khbill.dto.TradeReport" resultType="int">
+		SELECT count(*) FROM ztrade_report
+		WHERE trade_no = #{tradeNo } AND report_status = 'n'
+	</select>	
+	
+	<delete id="deleteTradeReportByReportNo" parameterType="int">
+		DELETE ztrade_report
+		WHERE report_no = #{reportNo }
+	</delete>
+	
+		
+	<select id="selectTradeByTradeNo" resultType="HashMap" parameterType="int">
+		SELECT 
+		    t.user_no, t.trade_no, t.trade_title, t.trade_content, t.trade_category
+		    , f.file_stored, u.user_nick, X.report_category, X.report_content
+		    , w.grade_url, t.trade_date, t.trade_hit, (
+		SELECT count(trade_com_no)
+		FROM ztrade_comment
+		WHERE trade_no = #{tradeNo }
+		) trade_com_count
+		FROM ztrade t, zuser u, zfile f, USERWITHURL w, ztrade_report X
+		WHERE 1=1
+		AND t.user_no = u.user_no (+)
+		AND t.file_no = f.file_no (+)
+		AND t.user_no = w.user_no
+		AND t.trade_no = x.trade_no (+)
+		
+		AND t.trade_no = #{tradeNo }
+	</select>
+		
+	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
+		SELECT u.user_nick, c.user_no, c.trade_com_no, c.trade_no, c.trade_com_content, c.trade_com_date, c.trade_com_secret, w.grade_url
+		FROM ztrade_comment c, zuser u, USERWITHURL w
+		WHERE 1=1
+		AND u.user_no(+) = c.user_no
+		AND w.user_no(+) = u.user_no 
+		AND trade_no = #{tradeNo }
+		ORDER BY trade_com_date
+	</select>
+	
+</mapper>
