@@ -9,8 +9,6 @@
 
 <!-- 개별 스타일 및 스크립트 영역 -->
 
-<!-- 개별 영역 끝 -->
-
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -184,6 +182,38 @@ table {
 td:nth-child(2) {
 	text-align: left;
 }
+
+#btnWrite {
+    height: 35px;
+    width: 65px;
+    border-radius: 0px;
+    border: 0px;
+    background: #5b6e7a;
+    color: #f3f3f3;
+}
+
+#btnWrite:hover {
+    border: 1px solid #5b6e7a;
+    background: #fff;
+    color: #5b6e7a;
+    transition: all .2s ease-in-out;
+}
+
+.listArea {
+    text-align: center;
+    width: 100%;
+    background: #fff;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 50px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+}
+
+body {
+	background: #f2f2f2;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -193,14 +223,16 @@ td:nth-child(2) {
 	
 		<h1>거래</h1>
 		<hr>
-		
-		<div class="pull-right" style="margin-bottom: 10px;">
-			<a id="latestList">최신순</a>
-			<a id="hitList">조회순</a>
-			<a id="picList">이미지</a>
+			
+		<div class="listArea">
+			<div class="pull-right" style="margin-bottom: 10px;">
+				<a id="latestList">최신순</a>
+				<a id="hitList">조회순</a>
+				<a id="picList">이미지</a>
+			</div>
+			
+			<div id="result"></div>
 		</div>
-		
-		<div id="result"></div>
 		
 	</div><!-- .container end -->
 </div><!-- .wrap end -->

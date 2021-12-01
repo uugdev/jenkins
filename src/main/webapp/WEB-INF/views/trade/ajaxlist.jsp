@@ -64,10 +64,10 @@
 	</tbody>
 </table>
 
+<span class="pull-left">total : ${paging.totalCount }</span>
 <c:if test="${login }">
-	<button id="btnWrite" class="btn btn-primary pull-left">글쓰기</button>
+	<button id="btnWrite" class="pull-right">글쓰기</button>
 </c:if>
-<span class="pull-right">total : ${paging.totalCount }</span>
 <div class="clearfix"></div>
 
 <div class="form-inline text-center">

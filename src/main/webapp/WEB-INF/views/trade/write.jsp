@@ -64,8 +64,8 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="text-right">
-				<button type="button" id="btnCancel" class="btn btn-default">취소</button>
-				<button type="button" id="btnWrite" class="btn btn-info">작성</button>
+				<button type="button" id="btnCancel" class="button">취소</button>
+				<button type="button" id="btnWrite" class="button">작성</button>
 			</div>
 		
 		</form>

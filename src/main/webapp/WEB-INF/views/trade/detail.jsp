@@ -504,17 +504,10 @@ function tradeDelete() {
 			
 			<hr style="border: 1px solid #ddd; margin-top: 0;">
 			
-			<!-- 비로그인상태 -->
-			<c:if test="${not login }">
-				<strong>로그인이 필요합니다</strong><br>
-				<button onclick='location.href="/member/login";'>로그인</button>
-				<button onclick='location.href="/member/join";'>회원가입</button>
-			</c:if>
-			
 			<!-- 로그인상태 -->
 			<c:if test="${login }">
 			<!-- 댓글 입력 -->
-			<div class="form-inline text-center">
+			<div class="form-inline text-center" style="margin: 20px 0 20px 0;">
 				<input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
 				<label for="tradeComSecret">비밀글　</label>
 				<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
@@ -525,10 +518,10 @@ function tradeDelete() {
 			</c:if>
 			
 			<div class="text-right">
-				<button style="float: left;" type="button" onclick="location.href='/trade/list';" >목록으로</button>
+				<button class="button" style="float: left; margin-bottom: 20px;" type="button" onclick="location.href='/trade/list';" >목록으로</button>
 				<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
-					<button type="button" onclick="location.href='/trade/update?tradeNo=${tradeDetail.TRADE_NO}';" >수정</button>
-					<button type="button" onclick='tradeDelete();'>삭제</button>
+					<button class="button" type="button" onclick="location.href='/trade/update?tradeNo=${tradeDetail.TRADE_NO}';" >수정</button>
+					<button class="button" type="button" onclick='tradeDelete();'>삭제</button>
 				</c:if>
 			</div>
 			
