@@ -173,21 +173,21 @@ function insertComment() {
 			var userNo = '<%=session.getAttribute("userNo")%>';
 			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
 				
-			$('#appendArea').before('<tr data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></tr>' +
-				'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'" style="text-align: left;">' +
+			$('#appendArea').before('<tr data-updateReviewComNo="'+data.addComment.reviewComNo+'"></tr>' +
+				'<tr data-reviewComNo="'+data.addComment.reviewComNo+'" style="text-align: left;">' +
 				'<td></td>' +
 				
 				/* 새롭게 삽입한 부분 - 회원 등급 아이콘 삽입부분 */
 				'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
 				'</td>' +
 				'<td style="width: 15%; padding: 5px; text-align: left;">' +
-				'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
+				'<img alt="#" src="'+data.gradeUrl+'" width="20px;" height="20px;">'+data.userNick+'</td>' +
 				
-				'<td id="td'+ data.addComment.reviewComNo +'" style="text-align: left;">'+ textarea +'</td>' +
-				'<td id="dateTd'+ data.addComment.reviewComNo +'" style="width: 10%;" padding: 5px;">'+ reviewComDate +'</td>' +
+				'<td id="td'+data.addComment.reviewComNo+'" style="text-align: left;">'+textarea+'</td>' +
+				'<td id="dateTd'+data.addComment.reviewComNo+'">'+ reviewComDate+'</td>' +
 				'<td style="text-align: center;">' +
-				'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.reviewComNo +');">삭제</button> ' +
-				'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.reviewComNo +');">수정</button>' +
+				'<button class="btn btn-default btn-xs" onclick="deleteComment('+data.addComment.reviewComNo+');">삭제</button> ' +
+				'<button class="btn btn-default btn-xs" onclick="updateComment('+data.addComment.reviewComNo+');">수정</button>' +
 				'</td>' +
 				'</tr>');
 			
@@ -214,10 +214,10 @@ function updateComment(reviewComNo) {
 		'<span class="comment_inbox_name pull-left" id="userNick">' +
 		'<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }' +
 		'</span>'+
-		'<textarea data-v-3b426d7d="" rows="1" class="comment_inbox_text" onkeyup="adjustHeight();" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+ reviewComNo +'">'+ reviewText +'</textarea>' + 
+		'<textarea data-v-3b426d7d="" rows="1" class="comment_inbox_text" onkeyup="adjustHeight();" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+reviewComNo+'">'+reviewText+'</textarea>' + 
 		'<div class="register_box">' +
-		'<button id="btnCommUpdateCancel" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
-		'<button id="btnCommUpdate" onclick="updateCom('+ reviewComNo +');">등록</button>　' +
+		'<button id="btnCommUpdateCancel" onclick="cancelCom('+reviewComNo+');">취소</button>' +
+		'<button id="btnCommUpdate" onclick="updateCom('+reviewComNo+');">등록</button>　' +
 		'</div>' +
 		'</div>' +
 		'</div>');
@@ -721,6 +721,10 @@ comment_inbox {
     border: 1px solid #ddd;
     background-color: #ddd;
 }
+
+#btnCommUpdate {
+	margin-right: -15px;
+}
 </style>
 
 <div class="wrap">
@@ -849,7 +853,7 @@ comment_inbox {
 				
 				<td id="td${reviewComment.REVIEW_COM_NO }" style="text-align: left;">${reviewComment.REVIEW_COM_CONTENT }</td>
 				<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
-					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE}" pattern="yy-MM-dd hh:mm:ss" />
 				</td>
 				
 				<td style="width: 10%;">
