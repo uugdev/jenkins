@@ -43,13 +43,16 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login(HttpServletRequest req, HttpSession session) {
 				
-//		String add = req.getHeader("Referer").substring(21); //localhost:8888 referer
-		String add = req.getHeader("Referer").substring(13); //khbill.p-e.kr referer
-//		logger.info("[GET] header referer : {}", add);
-		
+		String add = req.getHeader("Referer").substring(21); //localhost:8888 referer
+		logger.info("[GET] member add : {}", add);
 		session.setAttribute("referer", add);
+		if( session.getAttribute("referer").equals("/member/login") || session.getAttribute("referer").equals("/member/joinSuccess") 
+				|| session.getAttribute("referer").equals("/member/findId") || session.getAttribute("referer").equals("/member/findPw")) {
+			session.removeAttribute("referer");
+			session.setAttribute("referer", "/main");
+		}
 		logger.info("[GET] referer : {}", session.getAttribute("referer"));
-		logger.info("[GET] qnaReferer : {}", session.getAttribute("qnaReferer"));
+		logger.info("[GET] personalReferer : {}", session.getAttribute("personalReferer"));
 	} 
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
@@ -82,10 +85,10 @@ public class MemberController {
 //					session.setAttribute("unreadMsg", unreadMsg);
 					
 					logger.info("[POST] referer : {}", session.getAttribute("referer"));
-					if(session.getAttribute("qnaReferer") == null) {
+					if(session.getAttribute("personalReferer") == null) {
 						return "redirect:"+session.getAttribute("referer");
 					} else {
-						return "redirect:"+session.getAttribute("qnaReferer");
+						return "redirect:"+session.getAttribute("personalReferer");
 					}
 				} else {
 					logger.info("Reported Member - Login Failed until {}", userInfo.getUnablePeriod());
@@ -148,10 +151,10 @@ public class MemberController {
 						session.setAttribute("userNo", kuser.getUserNo());
 //						session.setAttribute("unreadMsg", unreadMsg);
 						
-						if(session.getAttribute("qnaReferer") == null) {
+						if(session.getAttribute("personalReferer") == null) {
 							return "redirect:"+session.getAttribute("referer");
 						} else {
-							return "redirect:"+session.getAttribute("qnaReferer");
+							return "redirect:"+session.getAttribute("personalReferer");
 						}
 					} else {
 						logger.info("Reported Member - Login Failed until {}", kuser.getUnablePeriod());

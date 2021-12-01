@@ -15,7 +15,6 @@
 			<mapping path="/qna/**"/>
 			<mapping path="/mypage/**"/>
 			<mapping path="/message/**" />
-			<exclude-mapping path="/qna/list"/>
 			<exclude-mapping path="/qna/main"/>
 			<beans:bean class="com.khbill.interceptor.UserInterceptor" />
 		</interceptor>

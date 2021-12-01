@@ -35,12 +35,12 @@ public class AccountController {
 		logger.info("/account/main [GET]");
 
 		
-		if( session.getAttribute("userNo") == null ) {
-			
+		if(session.getAttribute("userNo") == null) {
+			session.setAttribute("personalReferer", "/account/main");
 			return "redirect:/member/login";
-			
 		}
 		
+		session.removeAttribute("personalReferer");
 		
 		int userNo = (int) session.getAttribute("userNo");
 		User user = accountService.getUserInfo(userNo);

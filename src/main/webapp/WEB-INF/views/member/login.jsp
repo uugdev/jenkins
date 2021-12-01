@@ -128,7 +128,7 @@ a:hover {
 	<td style="width: 30%; vertical-align: middle;" rowspan="2"><button type="submit" id="btnSubmit" tabindex="3">로그인</button></td>
 </tr>
 <tr>
-	<td><input type="text" id="userPw" name="userPw" placeholder="PASSWORD" tabindex="2" required /></td><!-- 추후에 타입 변경 예정 -->
+	<td><input type="password" id="userPw" name="userPw" placeholder="PASSWORD" tabindex="2" required /></td><!-- 추후에 타입 변경 예정 -->
 </tr>
 </table>
 <hr>

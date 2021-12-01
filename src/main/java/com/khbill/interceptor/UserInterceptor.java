@@ -18,11 +18,10 @@ public class UserInterceptor implements HandlerInterceptor {
 		
 		HttpSession session = request.getSession();
 		if( null == session.getAttribute("login") ) { //비로그인 상태
-//			String referer = request.getHeader("referer").substring(request.getHeader("referer").lastIndexOf("8/")+1);
+//			String referer = request.getHeader("referer").substring(21);
 //			logger.info("interceptor referer : {}", referer);
 //			session.setAttribute("referer", referer);
-			response.sendRedirect("/layout/userError");
-			
+			request.getRequestDispatcher("/WEB-INF/views/layout/userError.jsp").forward(request, response);
 			return false;
 		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);

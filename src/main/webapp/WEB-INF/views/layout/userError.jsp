@@ -56,7 +56,8 @@ $(document).ready(function(){
 <div id="msg">
 
 <img width="150px;" height="150px;" alt="금지" src="https://i.imgur.com/OlYEpre.png">
-<h3><strong>부적절한 접근입니다!</strong></h3>
+<h3><strong>로그인이 필요한 페이지입니다!</strong></h3>
+<h4>이 페이지를 이용하고 싶다면 로그인해주세요!</h4>
 <hr><br><br>
 <button id="btnMain">메인으로</button>
 <button id="btnLogin">로그인</button>

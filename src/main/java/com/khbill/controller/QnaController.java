@@ -41,14 +41,14 @@ public class QnaController {
 		//밑에 있는 로그인 세션 null이면 로그인 페이지로 리다이렉트 해주는 식 넣어주세요!!!!!
 		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 		
-		if(session.getAttribute("login") == null) {
-			session.setAttribute("qnaReferer", "/qna/list");
-			return "redirect:/member/login";
-		}
-		
-		//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
-		
-		session.removeAttribute("qnaReferer");
+//		if(session.getAttribute("login") == null) {
+//			session.setAttribute("personalReferer", "/qna/list");
+//			return "redirect:/member/login";
+//		}
+//		
+//		//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+//		
+//		session.removeAttribute("personalReferer");
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		
