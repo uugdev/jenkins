@@ -66,33 +66,53 @@ $(document).ready(function() {
 		
 		var pwregex = pwRegex.exec(userPw);
 		if(pwregex == null){
-			alert("비밀번호를 다시 확인해주세요!");
+			action_popup.alert("비밀번호를 확인해주세요.");
+			
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+		    
 			$("#userPw").focus();
 			return false;
 		}
 		
 		if(userPw != userPwCheck){
-			alert("비밀번호가 일치하지 않습니다.");
+			action_popup.alert("비밀번호가 일치하지 않습니다.");
+			
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+		    
 			$("#userPwCheck").focus();
 			return false;
 		}
 		
 		var nickregex = nickRegex.exec(userNick);
 		if(nickregex == null){
-			alert("닉네임을 다시 확인해주세요");
+			action_popup.alert("닉네임을 다시 확인해주세요");
+			
+		    $(".modal_close").on("click", function () {
+		        action_popup.close(this);
+		    });
+		    
 			$("#userNick").focus();
 			return false;
 		}
 		
-		var answer = confirm("회원정보를 수정하시겠습니까?")
+		action_popup.confirm("회원정보를 수정하시겠습니까?", function (res) {
 		
-		if(answer == true) {
-			$("form").submit();
-		} else {
-			return false;
-		}
+			if(res == true) {
+				$("form").submit();
+			} else {
+				return false;
+			}
 	
+		})
 		
+	    $(".modal_close").on("click", function () {
+	        action_popup.close(this);
+	    });
+	
 	})
 
 })
@@ -220,7 +240,7 @@ td {
 
 }
 
-button {
+.contentbutton {
 	height: 35px;
 	width: 76px;
 	border-radius: 0px;
@@ -229,7 +249,7 @@ button {
 	color: #f3f3f3;
 }
 
-button:hover {
+.contentbutton:hover {
 	border: 1px solid #5b6e7a;
 	background: #fff;
 	color: #5b6e7a;
@@ -351,8 +371,8 @@ input[type=password]{
 			</div>
 		</form>
 		<div class="buttonarea" style="width:200px; margin: 0 auto;">
-			<button id="btnUpdate" type="button">수정하기</button>
-			<button id="btnCancel" type="button">이전으로</button>
+			<button id="btnUpdate" type="button" class="contentbutton">수정하기</button>
+			<button id="btnCancel" type="button" class="contentbutton">이전으로</button>
 		</div> <!-- .buttonarea end -->
 
 		</div> <!-- .col-md-9 end -->
