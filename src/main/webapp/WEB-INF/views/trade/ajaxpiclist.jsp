@@ -43,7 +43,7 @@ td:nth-child(2) {
 #photoList li {
     margin-right: 15px;
     display: inline-block;
-    width: 330px;
+    width: 296px;
     margin-bottom: 35px;
     border-radius: 1px;
     overflow: hidden;

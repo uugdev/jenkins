@@ -129,6 +129,8 @@ var tradeComCount = ${tradeDetail.TRADE_COM_COUNT }
 function insertComment() {
 	
 	var textarea = $("#tradeComContent").val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
+	
 	var tradeComSecret = null;
 	
 	if($("input:checkbox[id='tradeComSecret']").is(":checked") == true){
@@ -145,7 +147,7 @@ function insertComment() {
 		, dataType: "json"
 		, data: {
 			tradeNo: ${tradeDetail.TRADE_NO }
-			, tradeComContent: textarea
+			, tradeComContent: content
 			, tradeComSecret: tradeComSecret
 		}
 		, success: function(data){
@@ -168,8 +170,8 @@ function insertComment() {
 							'<td id="td'+ data.addComment.tradeComNo +'" style=" padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
 							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ tradeComDate +'</td>' +
 							'<td style="padding: 5px;">' +
-							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
-							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
+							'<button class="btn_d" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
+							'<button class="btn_u" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
 							'</td>' +
 							'</tr>');
 				}
@@ -184,13 +186,19 @@ function insertComment() {
 							'<td id="td'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ data.addComment.tradeComContent +'</td>' +
 							'<td id="dateTd'+ data.addComment.tradeComNo +'" style="padding: 5px;">'+ tradeComDate +'</td>' +
 							'<td style="padding: 5px;">' +
-							'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
-							'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
+							'<button class="btn_d" onclick="deleteComment('+ data.addComment.tradeComNo +');">삭제</button> ' +
+							'<button class="btn_u" onclick="updateComment('+ data.addComment.tradeComNo +');">수정</button>' +
 							'</td>' +
 							'</tr>');
 				}
 				
 				$('#tradeComContent').val('');
+				
+				
+				var textEle = $('#tradeComContent');
+				textEle[0].style.height = '45px';
+				var textEleHeight = textEle.prop('scrollHeight');
+				textEle.css('height', textEleHeight);
 						
 			} else {
 				alert("댓글 작성 실패");
@@ -205,26 +213,39 @@ function insertComment() {
 
 function updateComment(tradeComNo) {
 	
-    var tdText = $("#td"+tradeComNo).text();
+    var tdText = $("#td"+tradeComNo).html();
+    var content = tdText.replace(/<br>/ig, '\n');
     
 	$("[data-tradeComNo='"+tradeComNo+"']").css("display", "none");
-	$("[data-updateTradeComNo='"+tradeComNo+"']").append('<td style="width: 4%;"></td>' +
-			'<td style="width: 12%;"></td>' +
-			'<td style="width: 62%;">' +
-			'<div class="form-inline text-center">' +
-			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/> ' +
-			'<textarea rows="2" cols="60" class="form-control" id="tradeComUpdateContent'+ tradeComNo +'">'+ tdText +'</textarea>' +
-			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ tradeComNo +');">수정</button>　' +
-			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ tradeComNo +');">취소</button>' +
+	$("[data-updateTradeComNo='"+tradeComNo+"']").append('<td colspan="5">' +
+			'<div class="CommentWriter" style="width: 1010px;">' +
+			'<div class="comment_inbox">' +
+			'<span class="comment_inbox_name pull-left" id="userNick">' +
+			'<img alt="#" src="${gradeUrl }" style="width: 20px; height: 20px;">${userNick }</span>' +
+			'<textarea onkeyup="adjustHeight(this);" placeholder="댓글을 남겨보세요" rows="1"' +
+			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
+			'id="tradeComUpdateContent'+ tradeComNo +'">'+ content +'</textarea>' +
+			'<div class="register_box">' +
+			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ tradeComNo +');">취소</button> ' +
+			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ tradeComNo +');">수정</button>' +
 			'</div>' +
-			'</td>' +
-			'<td style="width: 12%;"></td>' +
-			'<td style="width: 10%;"></td>');
+			'</div>' +
+			'</div>' +
+			'</td>');
+	
+	var textEle = $('#tradeComUpdateContent' + tradeComNo);
+	textEle[0].style.height = '45px';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight);
+	
 }
 
 function updateCom(tradeComNo) {
 	
 	var textarea = $("#tradeComUpdateContent"+ tradeComNo).val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
+	
+	var tradeComSecret = null;
 	
 	$.ajax({
 		type: "post"
@@ -232,7 +253,7 @@ function updateCom(tradeComNo) {
 		, dataType: "json"
 		, data: {
 			tradeComNo: tradeComNo
-			, tradeComContent: textarea
+			, tradeComContent: content
 		}
 		, success: function(data){
 			if(data.success) {
@@ -245,6 +266,7 @@ function updateCom(tradeComNo) {
 				$("#td"+tradeComNo).html(data.tradeComment.tradeComContent);
 				$("#dateTd"+tradeComNo).html(tradeComDate);
 				$("[data-updateTradeComNo='"+tradeComNo+"']").html('');
+				
 			} else {
 				alert("댓글 수정 실패");
 			}
@@ -350,7 +372,88 @@ function tradeDelete() {
 	
 }
 
+function adjustHeight(obj) {
+    obj.style.height = '45px';
+    obj.style.height = (obj.scrollHeight) + 'px';
+};
+
 </script>
+
+<style>
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.CommentWriter {
+	margin: 12px 0 29px;
+    padding: 20px;
+    border: 2px solid #9f9d9d;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: #fff;
+}
+.CommentWriter .comment_inbox_text {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
+    width: 100%;
+    min-height: 17px;
+    padding-right: 1px;
+    border: 0;
+    font-size: 13px;
+    -webkit-appearance: none;
+    resize: none;
+    box-sizing: border-box;
+    background: transparent;
+    color: var(--skinTextColor);
+    outline: 0;
+}
+.CommentWriter .register_box {
+    text-align: right;
+}
+
+comment_inbox {
+	text-align: left;
+}
+
+#btn_register, #btnCommUpdateCancel, #btnCommUpdate, .btn_u, .btn_d {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #5b6e7a;
+    border-radius: 4px;
+    background-color: #5b6e7a;
+    width: 65px;
+    color: #fff;
+}
+
+#btnCommUpdateCancel, .btn_d {
+    border: 1px solid #ddd;
+    background-color: #ddd;
+}
+
+.btn_d, .btn_u {
+	padding: 2px 5px;
+	width: 44px;
+}
+
+</style>
 
 <!-- 개별 영역 끝 -->
 
@@ -466,11 +569,11 @@ function tradeDelete() {
 										</td>
 										<td>
 											<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
-												<button class="btn btn-default btn-xs"
+												<button class="btn_d"
 														onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
 														삭제
 												</button>
-												<button class="btn btn-default btn-xs"
+												<button class="btn_u"
 														onclick="updateComment(${tradeComment.TRADE_COM_NO });">
 														수정
 												</button>
@@ -496,11 +599,11 @@ function tradeDelete() {
 									</td>
 									<td>
 										<c:if test="${sessionScope.userNo eq tradeComment.USER_NO }">
-											<button class="btn btn-default btn-xs"
+											<button class="btn_d"
 													onclick="deleteComment(${tradeComment.TRADE_COM_NO });">
 													삭제
 											</button>
-											<button class="btn btn-default btn-xs"
+											<button class="btn_u"
 													onclick="updateComment(${tradeComment.TRADE_COM_NO });">
 													수정
 											</button>
@@ -519,12 +622,21 @@ function tradeDelete() {
 			<!-- 로그인상태 -->
 			<c:if test="${login }">
 			<!-- 댓글 입력 -->
-			<div class="form-inline text-center" style="margin: 20px 0 20px 0;">
-				<input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
-				<label for="tradeComSecret">비밀글　</label>
-				<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>
-				<textarea rows="2" cols="60" class="form-control" id="tradeComContent"></textarea>
-				<button id="btnCommInsert" class="btn" onclick="insertComment();">입력</button>
+			<div class="CommentWriter" style="width: 1010px; margin-left: 5px;">
+				<div class="comment_inbox">
+					<span class="comment_inbox_name pull-left" id="userNick">
+						<img alt="#" src="${gradeUrl }" style="width: 20px; height: 20px;"> ${userNick }
+					</span>
+						<textarea onkeyup="adjustHeight(this);" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text"
+								  style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="tradeComContent"></textarea>
+					<div class="comment_attach">
+					<div class="register_box">
+		                <input type="checkbox" id="tradeComSecret" name="tradeComSecret" />
+		                <label for="tradeComSecret">비밀글　</label>
+						<button role="button" id="btn_register" onclick="insertComment();">등록</button>
+					</div>
+					</div>
+				</div>
 			</div>
 			<!-- 댓글 입력 end -->
 			</c:if>

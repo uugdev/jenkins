@@ -93,23 +93,21 @@ public class TradeController {
 		
 		tradeScrap.setUserNo(userNo);
 		
+		//로그인 한 사람의 gradeUrl
+	 	String gradeUrl = tradeService.getGradeUrlByUserNo(userNo);
+		
 		//스크랩 상태 전달
 		boolean isScrap = tradeService.isScrap(tradeScrap);
 		
 		logger.info("tradeDetail - {}", tradeDetail);
 		logger.info("tradeComment - {}", tradeComment);
-		logger.info("reviewScrap{}", tradeScrap);	
+		logger.info("reviewScrap - {}", tradeScrap);
+		logger.info("gradeUrl - {}", gradeUrl);
 		
 		model.addAttribute("isScrap", isScrap);
 		model.addAttribute("tradeDetail", tradeDetail);
 		model.addAttribute("tradeComment", tradeComment);
-		
-//		if(session.getAttribute("login") == null) {
-//			if(session.getAttribute("referer")!=null) {
-//				session.removeAttribute("referer");
-//			}
-//			session.setAttribute("referer", "/trade/detail?tradeNo=" + tradeNo);
-//		}
+		model.addAttribute("gradeUrl", gradeUrl);
 		
 		return "trade/detail";
 		
