@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<table class="table table-hover">
+<table class="table table-hover table-striped">
 	<thead>
 	<tr>
-		<th style="width:10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
+		<th style="width:10%"><input type="checkbox" name="select" id="selectAll" /></th>
 		<th style="width:10%">보낸 사람</th>
 		<th style="width:30%">제목</th>
 		<th style="width:10%">상태</th>
@@ -29,9 +29,10 @@
 	</tbody>
 </table>
 <button id="btnDelete" class="pull-left">삭제</button>
-
-<div style="height:50px;"></div>
+	<div style="height:30px;"></div>
 
 <c:import url="/WEB-INF/views/message/receive/paging.jsp" />
-<div class="clearfix"></div>
+
+
+<div style="height:30px;"></div>
 

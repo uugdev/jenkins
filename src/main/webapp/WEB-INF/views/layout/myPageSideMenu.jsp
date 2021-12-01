@@ -53,6 +53,7 @@ ul {
 
 li {
 	font-weight: bold;
+	cursor: pointer;
 }
 
 a {

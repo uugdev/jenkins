@@ -124,7 +124,7 @@ body {
 		
 	</div>
 	<div class="tablearea">
-		<div style="height: 40px; background-color: #fff;"></div>
+		<div style="height: 30px; background-color: #fff;"></div>
 		<table class="table table-striped table-hover">
 			<tr>
 				<th style="width:20%"><strong>상품명</strong></th>

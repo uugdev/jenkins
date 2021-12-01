@@ -71,14 +71,50 @@ $(document).ready(function(){
 
 <style>
 
+body {
+	background-color: #f2f2f2;
+}
+
+.tablearea {
+	background-color: #fff;
+	padding: 20px 50px 20px 50px;
+	margin: 0 0 50px 0;
+}
+
+.titlearea > p {
+	color: #85969E;
+}
+
+a {
+	color: #667F92;
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+#btnDelete {
+	width: 55px;
+	height: 35px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+	margin: 0 0 110px 40px;
+
+}
+
+#btnDelete:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
 
 #messageWrite {
 	margin: 0 0 0 45px;
 }
 
-#btnDelete {
-	margin: 0 0 100px 60px;
-}
 
 
 </style>
@@ -99,37 +135,38 @@ $(document).ready(function(){
 <h3>보낸 쪽지함</h3>
 
 <div style="height: 30px;"></div>
+<div class="tablearea">
+	<table class="table table-hover table-striped">
+		<thead>
+		<tr>
+			<th style="width: 10%"><input type="checkbox" name="select" id="selectAll" /></th>
+			<th style="width: 10%">받는 사람</th>
+			<th style="width: 30%">제목</th>
+			<th style="width: 10%">상태</th>
+			<th style="width: 10%">보낸 날짜</th>
+		</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${resultMapList }" var="map">
+		<tr>
+			<td><input type="checkbox" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
+			<td>${map.USER_NICK }</td>
+			<td><a href="<%=request.getContextPath() %>/message/send/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
+			<td>
+				<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
+				<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
+			</td>
+			<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
+		</tr>
+		</c:forEach>
+		</tbody>
+	</table>
 
-<table class="table table-hover">
-	<thead>
-	<tr>
-		<th style="width: 10%">전체 선택&nbsp;<input type="checkbox" name="select" id="selectAll" /></th>
-		<th style="width: 10%">받는 사람</th>
-		<th style="width: 30%">제목</th>
-		<th style="width: 10%">상태</th>
-		<th style="width: 10%">보낸 날짜</th>
-	</tr>
-	</thead>
-	<tbody>
-	<c:forEach items="${resultMapList }" var="map">
-	<tr>
-		<td><input type="checkbox" id="${map.MSG_NO }" value="${map.MSG_NO }" class="chk" /></td>
-		<td>${map.USER_NICK }</td>
-		<td><a href="<%=request.getContextPath() %>/message/send/detail?msgNo=${map.MSG_NO }">${map.MSG_TITLE }</a></td>
-		<td>
-			<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
-			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
-		</td>
-		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
-	</tr>
-	</c:forEach>
-	</tbody>
-</table>
-<button id="btnDelete" class="pull-left">삭제</button>
-<div style="height:50px;"></div>
+	<button id="btnDelete" class="pull-left">삭제</button>
+	<div style="height:30px;"></div>
+	<c:import url="/WEB-INF/views/layout/paging.jsp" />
+</div>
 
-
-<c:import url="/WEB-INF/views/layout/paging.jsp" />
 <div class="clearfix"></div>
 
 
