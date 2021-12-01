@@ -143,6 +143,12 @@
 	   VALUES ( zreview_seq.nextval, #{itemNo }, #{userNo }, #{fileNo }, #{reviewTitle }, #{reviewContent }, sysdate, 0 )
 	</insert>
 
+	<update id="updateUserPoint" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+		SET user_point = user_point + 200
+		WHERE user_no = #{userNo }
+	</update>
+
  	<select id="selectReviewFileByReviewNo" resultType="com.khbill.dto.Review" parameterType="com.khbill.dto.Review">
 	    SELECT 
 	        review_no, r.file_no, file_origin, file_stored, file_size, file_date

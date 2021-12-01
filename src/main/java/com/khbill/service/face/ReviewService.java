@@ -12,6 +12,7 @@ import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
 import com.khbill.dto.TradeComment;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewService {

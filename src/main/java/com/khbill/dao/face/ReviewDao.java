@@ -8,6 +8,7 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewDao {
@@ -112,9 +113,17 @@ public interface ReviewDao {
 	 * 후기글 삽입
 	 * 
 	 * @param review
+	 * @return 
 	 */
 	public void insertReview(Review review);
 
+	/**
+	 * 글을 작성한 회원들에게 점수를 부여
+	 * 
+	 * @param u
+	 */
+	public void updateUserPoint(Review review);
+	
 	/**
 	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
 	 * 

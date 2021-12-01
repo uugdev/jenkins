@@ -21,6 +21,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -140,12 +141,10 @@ public class ReviewServiceImpl implements ReviewService {
 	      review.setItemNo(itemNo);
 	      review.setFileNo(fileNo);
 	      
+	      
 	      reviewDao.insertFile(reviewFile);
 	      reviewDao.insertReview(review);
-	      
-	      logger.info("review{}", review);
-	      logger.info("reviewFile{}", reviewFile);
-	      
+	      reviewDao.updateUserPoint(review);
 	   }
 
 	@Override
