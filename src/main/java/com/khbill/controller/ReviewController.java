@@ -93,12 +93,11 @@ public class ReviewController {
 		model.addAttribute("review", reviewMap);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
-	
+		
 		
 		//댓글 리스트 전달
 		List<HashMap<String, Object>> commentList = reviewService.getReviewComList(reviewComment);
 		model.addAttribute("commentList", commentList);
-		
 		
 		//스크랩 상태 조회
 		ReviewScrap reviewScrap = new ReviewScrap();
@@ -109,6 +108,9 @@ public class ReviewController {
 			userNo = (Integer) session.getAttribute("userNo");
 		}
 		reviewScrap.setUserNo(userNo);
+		
+		String grade = reviewService.getGradeUrlByUserNo(userNo);
+		model.addAttribute("grade", grade);
 		
 		//스크랩 상태 전달
 		boolean isScrap = reviewService.isScrap(reviewScrap);

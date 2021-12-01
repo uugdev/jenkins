@@ -41,6 +41,7 @@ public class ReviewCommentController {
 		logger.info("userNick - {}", userNick);
 		logger.info("reviewComment {}", reviewComment);
 		logger.info("addComment {}", addComment);
+		logger.info("gradeUrl {}", gradeUrl);
 		
 		boolean success = false;
 		

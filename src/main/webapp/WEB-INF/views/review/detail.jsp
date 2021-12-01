@@ -849,23 +849,28 @@ comment_inbox {
 <!-- 		<span style="width: 12%;"></span> -->
 <!-- 	</div> -->
 
-	<div id="comment_list">
+<!-- 	<div id="comment_list"> -->
+<ul class="comment_list">
+  <li id="47173947" class="CommentItem">
+    <div class="comment_area">
 	
-		<c:forEach items="${commentList }" var="reviewComment">	
+	<c:forEach items="${commentList }" var="reviewComment">	
 		<div class="comment_box">
-		<div class="comment_nick_box">
-			<div data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></div>
-			<div data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-				<span style="width: 4%;"></span>
-	
-				<c:if test="${reviewComment.USER_NICK eq null }">
-					<span>탈퇴한 회원</span>
-				</c:if>
-				<c:if test="${reviewComment.USER_NICK ne null }">
-					<span style="text-align: left;">
-						<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">${reviewComment.USER_NICK }
-					</span>
-				</c:if>
+	       	<div class="comment_nick_box">
+	      		<div class="comment_nick_info">
+					<div data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></div>
+					<div data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
+						<c:if test="${reviewComment.USER_NICK eq null }"><span>탈퇴한 회원</span></c:if>
+						<c:if test="${reviewComment.USER_NICK ne null }">
+							<span id="cih47173947" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="comment_nickname">				
+								<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">${reviewComment.USER_NICK }
+							</span>
+						</c:if>
+		         	</div>
+				</div>
+			</div><!-- comment_nick_info -->
+		</div><!-- comment_nick_box -->
+			
 				<div class="comment_text_box">
 					<span id="td${reviewComment.REVIEW_COM_NO }" style="width: 66%;">${reviewComment.REVIEW_COM_CONTENT }</span>
 				</div>
@@ -881,12 +886,12 @@ comment_inbox {
 					</span>
 				</div>
 			</div>
-		</div><!-- comment_nick_box -->
-		</div><!-- comment_box -->
 		</c:forEach>
 		<div id="appendArea"></div>
-	</div>
-
+		</div>
+		</div>
+	</li>
+</ul>
 <!-- </div> -->
 
 <hr style="border: 1px solid #ddd; margin-top: 0;">
@@ -897,9 +902,10 @@ comment_inbox {
 <div class="CommentWriter">
 	<div class="comment_inbox">
 		<span class="comment_inbox_name pull-left" id="userNick">
-			<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">${review.USER_NICK }
+			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }
 		</span>
-			<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComContent"></textarea>
+			<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
+				style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComContent"></textarea>
 		<div class="comment_attach">
 		<div class="register_box">
 			<button role="button" id="btn_register" onclick="insertComment();">등록</button>
