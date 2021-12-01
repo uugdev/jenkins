@@ -25,3 +25,68 @@ hr {
 .table {
 	margin-bottom: 0;
 }
+
+
+.layerbox {
+	position: relative;
+	display: inline-block;
+}
+
+.layerpopup {
+	width: 500px;
+}
+
+.layerpopup:hover {
+	width: 500px;
+	cursor: pointer;
+	text-decoration: underline;
+	color: #667F92;
+}
+
+#layer {
+	display: none;
+	padding: 10px;
+	background: #fff;
+	position: absolute;
+	top: 195px;
+	left: 134px;
+	z-index: 1;
+	width: 110px;
+	height: 120px;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	padding: 0;
+}
+
+#layer>ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#layer>ul>li {
+	line-height: 40px;
+}
+
+#layer>ul>li:hover {
+	background-color: #a1b8c9;
+	cursor: pointer;
+}
+
+#layer>ul>li>a {
+	display: block;
+	color: #667F92;
+}
+
+#layer>ul>li>a:hover {
+	color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.layerClose {
+	font-size: 15px;
+	float: right;
+}
+
+.layerpopup:hover, #layerClose:hover {
+	cursor: pointer;
+}

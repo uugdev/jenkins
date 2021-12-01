@@ -16,6 +16,15 @@
 
 $(document).ready(function() {
 	
+	$('.layerpopup').click(function(e) {
+		$('#layer').show();
+		
+	});
+	
+	$('#layerClose').click(function() {
+		$('#layer').css('display', 'none');
+	});
+	
 	$('.popupOpen1').on('click', function() {
 		$('.popupWrap1').removeClass('hide1');
 	});
@@ -288,7 +297,7 @@ function sendMessage() {
         	
         	/* ----------------------------------------- */
         	
-        	window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+        	window.open('/message/write?userNick=${tradeDetail.USER_NICK}', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
         	
         	/* ----------------------------------------- */
            
@@ -300,6 +309,12 @@ function sendMessage() {
         action_popup.close(this);
     });
 	
+}
+
+function userinfo() {
+
+	window.open('/member/detail?userNick=${tradeDetail.USER_NICK }', '회원정보 조회', 'width=620, height=640, left=400, top=500, resizable=no');
+		
 }
 
 function tradeDelete() {
@@ -350,7 +365,14 @@ function tradeDelete() {
 			${tradeDetail.USER_NICK }
 		</c:if>
 		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
-			<a onclick='sendMessage()'>${tradeDetail.USER_NICK }</a>
+			<a class="layerpopup">${tradeDetail.USER_NICK }</a>
+				<div id="layer">
+					<ul>
+						<li><a onclick="userinfo();">회원정보 보기</a></li>
+						<li><a onclick="message();">쪽지 보내기</a></li>
+						<li><a id="layerClose">닫기</a></li>
+					</ul>
+				</div>
 		</c:if>
 			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
 		</span>
