@@ -873,31 +873,7 @@ comment_inbox {
 	text-align: left;
 }
 
-#btn_register {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #5b6e7a;
-    border-radius: 4px;
-    background-color: #5b6e7a;
-    width: 65px;
-    color: #fff;
-}
-
+#btn_register ,
 #btnCommUpdate, 
 #btnCommUpdateCancel {
     display: inline-block;
@@ -927,6 +903,13 @@ comment_inbox {
 #btnCommUpdate {
 	margin-right: -10px;
 }
+
+#btnCommUpdateCancel {
+	background: #ddd;
+	border-color: #ddd;
+
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -1206,7 +1189,7 @@ comment_inbox {
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
 						<td></td>
 						<c:if test="${askComment.USER_NICK ne null }">
-							<td style="text-align: left;" class="tdNthChild1"><img alt="#"
+							<td style="text-align: left;"><img alt="#"
 								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
 								${askComment.USER_NICK }</td>
 						</c:if>
@@ -1215,15 +1198,14 @@ comment_inbox {
 						</c:if>
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
-							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
-								pattern="yy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 						</td>
-						<td><c:if test="${userNo eq askComment.USER_NO }">
-								<button class="btn btn-default btn-xs btnDel"
-									onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
-								<button class="btn btn-default btn-xs"
-									onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
-							</c:if></td>
+						<td>
+							<c:if test="${userNo eq askComment.USER_NO }">
+								<button class="btn btn-default btn-xs btnDel" onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
+								<button class="btn btn-default btn-xs" onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 				<tr id="appendArea"></tr>
