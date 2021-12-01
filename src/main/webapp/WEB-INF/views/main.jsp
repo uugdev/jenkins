@@ -284,7 +284,7 @@
 						<c:forEach var="i" begin="0" end="5">
 							<tr>
 								<td style="text-align: left;">
-									<a href="/notice/detail?noticeno=${noticeSix[i].noticeNo }">
+									<a href="/notice/detail?noticeNo=${noticeSix[i].noticeNo }">
 										<p style="margin-bottom: 0;">${noticeSix[i].noticeTitle }</p>
 									</a>
 								</td>
@@ -296,7 +296,7 @@
 			
 			<div class="col-md-1"></div>
 			
-			<!-- 인기 게시글 -->
+			<!-- 랭킹 table -->
 			<div class="col-md-3">
 				<table class="table table-hover" id="rank_table" style="height: 342px;">
 					<c:forEach var="i" begin="3" end="9">
