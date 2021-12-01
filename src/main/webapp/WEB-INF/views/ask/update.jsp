@@ -52,11 +52,10 @@
 
 <style type="text/css">
 #item {
-	width: 300px;
-	height: 300px;
+	width: 400px;
 	margin: 0 auto;
-	margin-top: 100px;
-	margin-bottom: 100px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 #itemImg {
@@ -78,66 +77,122 @@
 	border: 0px;
 	background: #5b6e7a;
 	color: #f3f3f3;
-	margin-bottom: 100px;
 }
 
+input {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	height: 32px;
+	margin-bottom: 50px;
+	cursor: auto;
+}
+
+input:focus {outline:none;}
+
+
+#askTitle {
+	width: 100%;
+}
+
+#itemName {
+	width: 100%;
+}
+
+label {
+	font-size: 20px;
+}
+
+#itemBrand, #itemPrice {
+	width: 390px;
+}
+
+.inlineWrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+#file {
+	border: none;
+	margin: 0;
+}
+
+.voteWrap {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+
+.title {
+	margin: 50px 0;
+}
+
+.title>p {
+	color: #85969E;
+}
+
+body {
+    background: #f2f2f2;
+}
+
+form {
+
+    width: 100%;
+    background: #fff;
+    margin: auto;
+    margin-bottom: 100px;
+    padding: 50px;
+}
 </style>
 
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-	<div class="container">
+	<div class="container" style="width: 950px;">
 
-		<%-- 시작 --%>
+		<div class="title">
+			<h1>머니토론</h1>
+			<p>제목과 본문을 수정할수있습니다</p>
+		</div>
 
-		<h1>질문 글쓰기 수정페이지</h1>
-		<hr>
-
-		<form action="/ask/update" method="post" enctype="multipart/form-data">
-			<div class="form-group">
-				<label for="userNick">작성자</label> <input type="text" id="userNick"
-					value="${userNick }" class="form-control" readonly="readonly" /> <input
-					type="hidden" id="askNo" name="askNo" value="${ask.askNo }" />
-			</div>
-			<div class="form-group">
+		<form action="/ask/update" method="post" enctype="multipart/form-data"
+			style="text-align: left;">
+			<input type="hidden" id="askNo" name="askNo" value="${ask.askNo }" />
+			<div class="">
 				<label for="askTitle">제목</label> <input type="text" id="askTitle"
-					name="askTitle" class="form-control"  maxlength="32"  value="${ask.askTitle }" />
+					name="askTitle" class=""  maxlength="32"  value="${ask.askTitle }" />
 			</div>
-
-			<div class="form-group">
-				<label for="itemBrand">브랜드</label> <input type="text" id="itemBrand"
-					name="itemBrand" class="form-control" value="${item.itemBrand }"
-					readonly="readonly" />
-			</div>
-			<div class="form-group">
+			<div class="">
 				<label for="itemName">상품명</label> <input type="text" id="itemName"
-					name="itemName" class="form-control" value="${item.itemName }"
+					name="itemName" class="" value="${item.itemName }"
 					readonly="readonly" />
 			</div>
-			<div class="form-group">
-				<label for="itemPrice">가격</label>
-				<%-- 	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="${item.itemPrice }" readonly="readonly"/> --%>
-				<input type="text" id="itemPrice" name="itemPrice"
-					class="form-control"
-					value="<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }"/>"
-					readonly="readonly" />
+			<div class="inlineWrap">
+				<div class="">
+					<label for="itemBrand">브랜드</label><br> <input type="text" id="itemBrand"
+						name="itemBrand" class="" value="${item.itemBrand }"
+						readonly="readonly" />
+				</div>
+				<div class="">
+					<label for="itemPrice">가격</label><br>
+					<input type="text" id="itemPrice" name="itemPrice" class=""
+						value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>"
+						readonly="readonly" />
+				</div>
+			</div>
+			
+			<div class="" id="item">
+				<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" />
 			</div>
 
-			<div class="form-group" id="item">
-				<span>첨부파일</span><img id="itemImg" src="/upload/${file.fileStored}"
-					alt="상품사진" />
+			<div class="">
+				<label for="askContent" style="margin-bottom: 10px;">고민이유를 적어주세요</label>
+				<textarea rows="10" style="width: 100%; height: 400px" id="askContent"
+					name="askContent" maxlength="1333">${ask.askContent }</textarea>
 			</div>
 
-			<div class="form-group">
-				<label for="askContent">구구절절</label>
-				<textarea rows="10" style="width: 100%;" id="askContent"
-					name="askContent">${ask.askContent }</textarea>
-			</div>
-
-			<div class="form-group">
-				<h6>투표 기간</h6>
+			<div class="voteWrap">
+				<p style="font-size: 20px; margin-top: 20px;">투표 기간</p>
 				<fmt:formatDate value="${vote.voteStart}" pattern="yy-MM-dd HH:mm" />
 				~
 				<fmt:formatDate value="${vote.voteEnd}" pattern="yy-MM-dd HH:mm" />

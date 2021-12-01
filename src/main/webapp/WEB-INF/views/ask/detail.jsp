@@ -350,10 +350,10 @@ function insertComment() {
 			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD hh:mm:ss");
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
-					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
+					'<tr data-askComNo="'+ data.addComment.askComNo +'">'+
 					'<td></td>' +
-					'<td style="width: 15%; padding: 5px; text-align: left;">' +
-					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
+					'<td style="width: 15%; padding: 8px; text-align: left;"> ' +
+					' <img alt="#" src="'+data.gradeUrl+'" width="20px;" height="20px;">'+data.userNick+'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
 					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
 					'<td>' +
@@ -907,9 +907,7 @@ comment_inbox {
 #btnCommUpdateCancel {
 	background: #ddd;
 	border-color: #ddd;
-
 }
-
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -1171,10 +1169,10 @@ comment_inbox {
 		<br> <br>
 		<hr>
 		<!-- 댓글 리스트 -->
-		<table class="table table-condensed">
+		<table class="table">
 			<thead>
 				<tr>
-					<th style="width: 1.6%;"></th>
+					<th style="width: 1.3%;"></th>
 					<th style="width: 15%;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
@@ -1190,8 +1188,7 @@ comment_inbox {
 						<td></td>
 						<c:if test="${askComment.USER_NICK ne null }">
 							<td style="text-align: left;"><img alt="#"
-								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
-								${askComment.USER_NICK }</td>
+								src="${askComment.GRADE_URL }" width="20px;" height="20px;">${askComment.USER_NICK }</td>
 						</c:if>
 						<c:if test="${askComment.USER_NICK eq null}">
 							<td class="pull-left">탈퇴한 회원</td>
