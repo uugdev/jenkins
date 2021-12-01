@@ -104,12 +104,12 @@ public class TradeController {
 		model.addAttribute("tradeDetail", tradeDetail);
 		model.addAttribute("tradeComment", tradeComment);
 		
-		if(session.getAttribute("login") == null) {
-			if(session.getAttribute("referer")!=null) {
-				session.removeAttribute("referer");
-			}
-			session.setAttribute("referer", "/trade/detail?tradeNo=" + tradeNo);
-		}
+//		if(session.getAttribute("login") == null) {
+//			if(session.getAttribute("referer")!=null) {
+//				session.removeAttribute("referer");
+//			}
+//			session.setAttribute("referer", "/trade/detail?tradeNo=" + tradeNo);
+//		}
 		
 		return "trade/detail";
 		

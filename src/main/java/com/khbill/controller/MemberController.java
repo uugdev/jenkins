@@ -45,10 +45,12 @@ public class MemberController {
 		
 		//각 컨트롤러에서 referer 지정하지 않으면 메인으로 가게 됩니다!!!!!!!
 		
-		if(session.getAttribute("referer") == null) {
-			session.setAttribute("referer", "/main");
-		}
+		String add = req.getHeader("Referer").substring(21);
+//		logger.info("[GET] header referer : {}", add);
+		
+		session.setAttribute("referer", add);
 		logger.info("[GET] referer : {}", session.getAttribute("referer"));
+		logger.info("[GET] qnaReferer : {}", session.getAttribute("qnaReferer"));
 	} 
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.POST)
@@ -79,8 +81,13 @@ public class MemberController {
 					session.setAttribute("userNick", userInfo.getUserNick());
 					session.setAttribute("userNo", userInfo.getUserNo());
 //					session.setAttribute("unreadMsg", unreadMsg);
+					
 					logger.info("[POST] referer : {}", session.getAttribute("referer"));
-					return "redirect:"+session.getAttribute("referer");
+					if(session.getAttribute("qnaReferer") == null) {
+						return "redirect:"+session.getAttribute("referer");
+					} else {
+						return "redirect:"+session.getAttribute("qnaReferer");
+					}
 				} else {
 					logger.info("Reported Member - Login Failed until {}", userInfo.getUnablePeriod());
 					session.invalidate();
@@ -142,7 +149,11 @@ public class MemberController {
 						session.setAttribute("userNo", kuser.getUserNo());
 //						session.setAttribute("unreadMsg", unreadMsg);
 						
-						return "redirect:"+session.getAttribute("referer");
+						if(session.getAttribute("qnaReferer") == null) {
+							return "redirect:"+session.getAttribute("referer");
+						} else {
+							return "redirect:"+session.getAttribute("qnaReferer");
+						}
 					} else {
 						logger.info("Reported Member - Login Failed until {}", kuser.getUnablePeriod());
 						session.invalidate();

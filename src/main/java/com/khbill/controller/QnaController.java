@@ -42,16 +42,13 @@ public class QnaController {
 		//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 		
 		if(session.getAttribute("login") == null) {
-			if(session.getAttribute("referer")!=null) {
-				session.removeAttribute("referer");
-			}
-			session.setAttribute("referer", "/qna/list");
+			session.setAttribute("qnaReferer", "/qna/list");
 			return "redirect:/member/login";
 		}
 		
 		//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 		
-		
+		session.removeAttribute("qnaReferer");
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		
