@@ -53,6 +53,15 @@ function getParameterByName(name) {
 	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
+function adjustHeight() {
+    var textEle = $('textarea');
+    textEle[0].style.height = '45px';
+    var textEleHeight = textEle.prop('scrollHeight');
+    textEle.css('height', textEleHeight);
+};
+
+
+
 
 </script>
 
@@ -342,6 +351,7 @@ function insertComment() {
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
+					'<td></td>' +
 					'<td style="width: 15%; padding: 5px; text-align: left;">' +
 					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
@@ -374,12 +384,12 @@ function updateComment(askComNo) {
 			'<div class="comment_inbox">' +
 			'<span class="comment_inbox_name pull-left" id="userNick">' +
 			'<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>' +
-			'<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1"' +
+			'<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" onkeyup="adjustHeight();" rows="1"' +
 			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
 			'id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
 			'<div class="register_box">' +
-			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ askComNo +');">수정</button>　' +
-			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ askComNo +');">취소</button>' +
+			'<button id="btnCommUpdate" onclick="updateCom('+ askComNo +');">수정</button>　' +
+			'<button id="btnCommUpdateCancel" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
 			'</div>' +
 			'</div>');
@@ -888,8 +898,8 @@ comment_inbox {
     color: #fff;
 }
 
-.btnCommUpdate, 
-.btnCommUpdateCancle {
+#btnCommUpdate, 
+#btnCommUpdateCancel {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -913,13 +923,10 @@ comment_inbox {
     width: 65px;
     color: #fff;
 }
-tr td:nth-child(1) {
 
-	padding: 10px 10px 10px 21px;
-
+#btnCommUpdate {
+	margin-right: -10px;
 }
-
-
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -1181,9 +1188,10 @@ tr td:nth-child(1) {
 		<br> <br>
 		<hr>
 		<!-- 댓글 리스트 -->
-		<table class="table table-striped table-hover table-condensed">
+		<table class="table table-condensed">
 			<thead>
 				<tr>
+					<th style="width: 1.6%;"></th>
 					<th style="width: 15%;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
@@ -1196,8 +1204,9 @@ tr td:nth-child(1) {
 				<c:forEach items="${askComment}" var="askComment">
 					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
+						<td></td>
 						<c:if test="${askComment.USER_NICK ne null }">
-							<td style="text-align: left;"><img alt="#"
+							<td style="text-align: left;" class="tdNthChild1"><img alt="#"
 								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
 								${askComment.USER_NICK }</td>
 						</c:if>
@@ -1232,7 +1241,10 @@ tr td:nth-child(1) {
 				<div class="comment_inbox">
 					<span class="comment_inbox_name pull-left" id="userNick">
 						<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>
-					<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="askComContent"></textarea>
+					<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" 
+					class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; 
+					height: 45px;" id="askComContent" onkeyup="adjustHeight();"></textarea>
+			
 					<div class="register_box">
 						<button role="button" id="btn_register" onclick="insertComment();">등록</button>
 					</div>
