@@ -342,7 +342,6 @@ function insertComment() {
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">' +
-					'<td style="width: 4%; text-align: center; padding: 5px;"></td>' +
 					'<td style="width: 15%; padding: 5px; text-align: left;">' +
 					'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
 					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
@@ -371,18 +370,19 @@ function updateComment(askComNo) {
     var askText = $("#td"+askComNo).text();
     
 	$("[data-askComNo='"+askComNo+"']").css("display", "none");
-	$("[data-updateAskComNo='"+askComNo+"']").append('<td></td>' +
-			'<td style="width: 15%;"></td>' +
-			'<td style="width: 58%;">' +
-			'<div class="form-inline text-center">' +
-			'<input type="text" size="10" class="form-control" id="userNick" value="${userNick }" readonly="readonly"/>' +
-			'<textarea rows="2" cols="60" class="form-control" id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
+	$("[data-updateAskComNo='"+askComNo+"']").append('<div class="CommentWriter" style="width: 1020px;">' +
+			'<div class="comment_inbox">' +
+			'<span class="comment_inbox_name pull-left" id="userNick">' +
+			'<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>' +
+			'<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1"' +
+			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
+			'id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
+			'<div class="register_box">' +
 			'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ askComNo +');">수정</button>　' +
 			'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
-			'</td>' +
-			'<td style="width: 13%;"></td>' +
-			'<td style="width: 10%;"></td>');
+			'</div>' +
+			'</div>');
 }
 
 function updateCom(askComNo) {
@@ -823,7 +823,101 @@ table, th {
 }
 
 
+/* 댓글 */
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.CommentWriter {
+	margin: 12px 0 29px;
+    padding: 20px;
+    border: 2px solid #9f9d9d;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background: #fff;
+}
+.CommentWriter .comment_inbox_text {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
+    width: 100%;
+    min-height: 17px;
+    padding-right: 1px;
+    border: 0;
+    font-size: 13px;
+    -webkit-appearance: none;
+    resize: none;
+    box-sizing: border-box;
+    background: transparent;
+    color: var(--skinTextColor);
+    outline: 0;
+}
+.CommentWriter .register_box {
+    text-align: right;
+}
+
+comment_inbox {
+	text-align: left;
+}
+
+#btn_register {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #5b6e7a;
+    border-radius: 4px;
+    background-color: #5b6e7a;
+    width: 65px;
+    color: #fff;
+}
+
+.btnCommUpdate, 
+.btnCommUpdateCancle {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid #5b6e7a;
+    border-radius: 4px;
+    background-color: #5b6e7a;
+    width: 65px;
+    color: #fff;
+}
+tr td:nth-child(1) {
+
+	padding: 10px 10px 10px 21px;
+
+}
 
 
 </style>
@@ -1090,8 +1184,7 @@ table, th {
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
 				<tr>
-					<th style="width: 4%;"></th>
-					<th style="width: 15%; padding-right: 26px;">닉네임</th>
+					<th style="width: 15%;">닉네임</th>
 					<th style="width: 58%;">댓글</th>
 					<th style="width: 13%;">작성일</th>
 					<th style="width: 10%;"></th>
@@ -1103,7 +1196,6 @@ table, th {
 				<c:forEach items="${askComment}" var="askComment">
 					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
 					<tr data-askComNo="${askComment.ASK_COM_NO }">
-						<td></td>
 						<c:if test="${askComment.USER_NICK ne null }">
 							<td style="text-align: left;"><img alt="#"
 								src="${askComment.GRADE_URL }" width="20px;" height="20px;">
@@ -1136,14 +1228,18 @@ table, th {
 		<!-- 로그인상태 -->
 		<c:if test="${login }">
 			<!-- 댓글 입력 -->
-			<div class="form-inline text-center">
-				<input type="text" size="10" class="form-control" id="userNick"
-					value="${userNick }" readonly="readonly" />
-				<textarea rows="2" cols="60" class="form-control" id="askComContent"></textarea>
-				<button id="btnCommInsert" class="btn btn-default" onclick="insertComment();">입력</button>
+			<div class="CommentWriter">
+				<div class="comment_inbox">
+					<span class="comment_inbox_name pull-left" id="userNick">
+						<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>
+					<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="askComContent"></textarea>
+					<div class="register_box">
+						<button role="button" id="btn_register" onclick="insertComment();">등록</button>
+					</div>
+				</div>
 			</div>
-			<!-- 댓글 입력 end -->
 		</c:if>
+			<!-- 댓글 입력 end -->
 
 
 		<!-- 댓글 처리 end -->
