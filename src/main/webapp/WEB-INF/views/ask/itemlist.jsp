@@ -31,19 +31,17 @@ td:nth-child(2) {
 }
 
 .ellipsis {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    max-height: 18px;
-    white-space: normal;
-    word-break: break-all;
-    word-wrap: break-word;
-    word-break: break-word;
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	max-height: 18px;
+	white-space: normal;
+	word-break: break-all;
+	word-wrap: break-word;
+	word-break: break-word;
 }
-
-
 
 #photoList {
 	display: flex;
@@ -83,10 +81,13 @@ td:nth-child(2) {
 			</div>
 			<div style="box-sizing: border-box; padding: 0 5px 10px;">
 				<div style="padding-top: 8px; display: flex;">
-					<span class="ellipsis" style="text-align: left;">제목:
-						${list.ASK_TITLE}</span>
+					<a href="/ask/detail?askNo=${list.ASK_NO}"> <span
+						class="ellipsis" style="text-align: left;">제목:
+							${list.ASK_TITLE}</span>
+					</a>
 					<c:if test="${list.ASK_COM_CNT ne null}">
-						<span><strong>&nbsp;[${list.ASK_COM_CNT}]</strong></span>
+						<strong><span><a
+								href="/ask/detail?askNo=${list.ASK_NO}&commentFocus=true">&nbsp;[${list.ASK_COM_CNT}]</a></span></strong>
 					</c:if>
 				</div>
 

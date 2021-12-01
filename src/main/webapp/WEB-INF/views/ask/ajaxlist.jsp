@@ -28,7 +28,7 @@
 					<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${ask.ASK_TITLE }</a>
 				</c:if>
 				<c:if test="${not empty ask.ASK_COM_CNT }">
-					<strong><span>[${ask.ASK_COM_CNT}]</span></strong>
+					<strong><span><a href="/ask/detail?askNo=${ask.ASK_NO }&commentFocus=true">[${ask.ASK_COM_CNT}]</a></span></strong>
 				</c:if>
 				</td>
 				

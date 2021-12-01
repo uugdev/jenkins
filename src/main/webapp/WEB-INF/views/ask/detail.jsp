@@ -46,6 +46,14 @@ function userinfo() {
 		
 }
 
+
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+};
+
+
 </script>
 
 <script type="text/javascript">
@@ -138,6 +146,16 @@ $("#setReport").click(function() {
 		}
 		
 	});
+	
+	var patId = getParameterByName('commentFocus');
+
+	if(patId == 'true') {
+		console.log("댓글포커스")
+		document.getElementById('commentBody').scrollIntoView();
+	}
+	
+	
+	
 	
 	
 	
@@ -1097,7 +1115,7 @@ table, th {
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
 							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
-								pattern="yy-MM-dd hh:mm:ss" />
+								pattern="yy-MM-dd HH:mm:ss" />
 						</td>
 						<td><c:if test="${userNo eq askComment.USER_NO }">
 								<button class="btn btn-default btn-xs btnDel"
