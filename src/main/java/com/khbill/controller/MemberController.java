@@ -42,10 +42,9 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login(HttpServletRequest req, HttpSession session) {
-		
-		//각 컨트롤러에서 referer 지정하지 않으면 메인으로 가게 됩니다!!!!!!!
-		
-		String add = req.getHeader("Referer").substring(21);
+				
+//		String add = req.getHeader("Referer").substring(21); //localhost:8888 referer
+		String add = req.getHeader("Referer").substring(13); //khbill.p-e.kr referer
 //		logger.info("[GET] header referer : {}", add);
 		
 		session.setAttribute("referer", add);
