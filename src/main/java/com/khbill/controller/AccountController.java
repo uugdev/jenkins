@@ -31,9 +31,17 @@ public class AccountController {
 	AccountService accountService;
 
 	@RequestMapping(value = "/account/main", method = RequestMethod.GET)
-	public void accountMain(HttpSession session, Model model) {
+	public String accountMain(HttpSession session, Model model) {
 		logger.info("/account/main [GET]");
 
+		
+		if( session.getAttribute("userNo") == null ) {
+			
+			return "redirect:/member/login";
+			
+		}
+		
+		
 		int userNo = (int) session.getAttribute("userNo");
 		User user = accountService.getUserInfo(userNo);
 
@@ -107,6 +115,10 @@ public class AccountController {
 			e.printStackTrace();
 		}
 
+		
+		return "account/main";
+		
+		
 	}
 
 	@RequestMapping(value = "/account/extramoney", method = RequestMethod.POST)
