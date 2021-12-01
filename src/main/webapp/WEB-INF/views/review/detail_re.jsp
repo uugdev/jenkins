@@ -141,13 +141,6 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-function adjustHeight() {
-    var textEle = $('textarea');
-    textEle[0].style.height = '45px';
-    var textEleHeight = textEle.prop('scrollHeight');
-    textEle.css('height', textEleHeight);
-};
-
 var reviewComCount = ${review.REVIEW_COM_COUNT }
 
 function insertComment() {
@@ -173,23 +166,23 @@ function insertComment() {
 			var userNo = '<%=session.getAttribute("userNo")%>';
 			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
 				
-			$('#appendArea').before('<tr data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></tr>' +
-				'<tr data-reviewComNo="'+ data.addComment.reviewComNo +'" style="text-align: left;">' +
-				'<td></td>' +
+			$('#appendArea').before(
+				'<div data-updateReviewComNo="'+ data.addComment.reviewComNo +'"></div>' +
+				'<div data-reviewComNo="'+ data.addComment.reviewComNo +'" style="text-align: left;">' +
+				'<span style="width: 4%; text-align: center; padding: 5px;"></span>' +
 				
 				/* 새롭게 삽입한 부분 - 회원 등급 아이콘 삽입부분 */
-				'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
-				'</td>' +
-				'<td style="width: 15%; padding: 5px; text-align: left;">' +
-				'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +'</td>' +
+				'<span style="text-align: left;">'+
+				'<img alt="#" src="'+ data.gradeUrl +'" width="20px;" height="20px;"> ' + data.userNick +		
+				'</span>' +
 				
-				'<td id="td'+ data.addComment.reviewComNo +'" style="text-align: left;">'+ textarea +'</td>' +
-				'<td id="dateTd'+ data.addComment.reviewComNo +'" style="width: 10%;" padding: 5px;">'+ reviewComDate +'</td>' +
-				'<td style="text-align: center;">' +
+				'<span id="td'+ data.addComment.reviewComNo +'" style="width: 66%;">'+ textarea +'</span>' +
+				'<span id="dateTd'+ data.addComment.reviewComNo +'" style="width: 10%;">'+ reviewComDate +'</span>' +
+				'<span style="width: 10%;">' +
 				'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.reviewComNo +');">삭제</button> ' +
 				'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.reviewComNo +');">수정</button>' +
-				'</td>' +
-				'</tr>');
+				'</span>' +
+				'</div>');
 			
 				$('#reviewComContent').val('');
 				
@@ -209,15 +202,17 @@ function updateComment(reviewComNo) {
     
 	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "none");
 	$("[data-updateReviewComNo='"+reviewComNo+"']").append(
-		'<div class="CommentWriter" style="width: 1020px;>' +
+		'<div class="CommentWriter">' +
 		'<div class="comment_inbox">' +
 		'<span class="comment_inbox_name pull-left" id="userNick">' +
-		'<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }' +
+		'<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">${review.USER_NICK }' +
 		'</span>'+
-		'<textarea data-v-3b426d7d="" rows="1" class="comment_inbox_text" onkeyup="adjustHeight();" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+ reviewComNo +'">'+ reviewText +'</textarea>' + 
+		'<textarea data-v-3b426d7d="" rows="1" class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComContent'+ reviewComNo +'">'+ reviewText +'</textarea>' + 
+		'<div class="comment_attach">' +
 		'<div class="register_box">' +
-		'<button id="btnCommUpdateCancel" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
-		'<button id="btnCommUpdate" onclick="updateCom('+ reviewComNo +');">등록</button>　' +
+		'<button id="btnCommUpdate" class="btn" onclick="updateCom('+ reviewComNo +');">수정</button>　' +
+		'<button id="btnCommUpdateCancel" class="btn" onclick="cancelCom('+ reviewComNo +');">취소</button>' +
+		'</div>' +
 		'</div>' +
 		'</div>' +
 		'</div>');
@@ -649,7 +644,7 @@ table, th {
 }
 </style>
 
-<style type="text/css">
+<style>
 ul {
     list-style: none;
     margin: 0;
@@ -688,10 +683,7 @@ comment_inbox {
 	text-align: left;
 }
 
-
-#btn_register ,
-#btnCommUpdate, 
-#btnCommUpdateCancel {
+#btn_register {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -716,10 +708,37 @@ comment_inbox {
     color: #fff;
 }
 
-#btnCommUpdateCancel {
-	margin-right: 8px;
-    border: 1px solid #ddd;
-    background-color: #ddd;
+.CommentBox .comment_list .comment_area {
+    position: relative;
+    padding: 12px 23px 10px 0;
+}
+
+.CommentBox .comment_list .comment_box {
+    padding-left: 46px;
+}
+
+.CommentBox .comment_list .comment_nick_box {
+    margin-bottom: 4px;
+}
+
+.CommentBox .comment_list .comment_nick_box .comment_nick_info {
+    display: inline-block;
+    position: relative;
+    font-size: 13px;
+    vertical-align: top;	
+}
+
+.CommentBox .comment_list .comment_text_box {
+    position: relative;
+    font-size: 13px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.CommentBox .comment_list .comment_info_box {
+    margin-top: 7px;
+    font-size: 12px;
+    color: #676767;
 }
 </style>
 
@@ -796,8 +815,7 @@ comment_inbox {
 		</div>
 
 		<div id="item">
-			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" 
-				class="img-responsive center-block" alt="Responsive image" />
+			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
 		</div>
 
 <%-- 			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div> --%>
@@ -822,47 +840,61 @@ comment_inbox {
 	<hr>
 	
 	<!-- 댓글 리스트 -->
-	<table class="table table-condensed">
-	<thead>
-	<tr>
-		<th style="width: 1.6%;"></th>
-		<th style="width: 15%;">닉네임</th>
-		<th style="width: 58%;">댓글</th>
-		<th style="width: 13%;">작성일</th>
-		<th style="width: 10%;"></th>
-	</tr>
-	</thead>
+<!-- <div class="table table-hover table-condensed"> -->
+<!-- 	<div> -->
+<!-- 		<span style="width: 4%;"></span> -->
+<!-- 		<span style="width: 10%;">작성자</span> -->
+<!-- 		<span style="width: 62%;">댓글</span> -->
+<!-- 		<span style="width: 12%;">작성일</span> -->
+<!-- 		<span style="width: 12%;"></span> -->
+<!-- 	</div> -->
+
+<!-- 	<div id="comment_list"> -->
+<ul class="comment_list">
+  <li id="47173947" class="CommentItem">
+    <div class="comment_area">
 	
-	<tbody id="commentBody">
-		<c:forEach items="${commentList }" var="reviewComment">
-			<tr data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></tr>
-			<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-				<td></td>
-				<c:if test="${reviewComment.USER_NICK eq null }">
-					<td class="pull-left">탈퇴한 회원</td>
-				</c:if>
-				<c:if test="${reviewComment.USER_NICK ne null }">
-					<td style="text-align: left;">
-						<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">${reviewComment.USER_NICK }
-					</td>
-				</c:if>
-				
-				<td id="td${reviewComment.REVIEW_COM_NO }" style="text-align: left;">${reviewComment.REVIEW_COM_CONTENT }</td>
-				<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
-					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
-				</td>
-				
-				<td style="width: 10%;">
-					<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
-						<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-						<button class="btn btn-default btn-xs" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
-					</c:if>
-				</td>
-			</tr>
+	<c:forEach items="${commentList }" var="reviewComment">	
+		<div class="comment_box">
+	       	<div class="comment_nick_box">
+	      		<div class="comment_nick_info">
+					<div data-updateReviewComNo="${reviewComment.REVIEW_COM_NO }" ></div>
+					<div data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
+						<c:if test="${reviewComment.USER_NICK eq null }"><span>탈퇴한 회원</span></c:if>
+						<c:if test="${reviewComment.USER_NICK ne null }">
+							<span id="cih47173947" href="#" role="button" aria-haspopup="true" aria-expanded="false" class="comment_nickname">				
+								<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">${reviewComment.USER_NICK }
+							</span>
+						</c:if>
+		         	</div>
+				</div>
+			</div><!-- comment_nick_info -->
+		</div><!-- comment_nick_box -->
+			
+				<div class="comment_text_box">
+					<span id="td${reviewComment.REVIEW_COM_NO }" style="width: 66%;">${reviewComment.REVIEW_COM_CONTENT }</span>
+				</div>
+				<div class="comment_info_box">
+					<span id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
+						<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" />
+					</span>
+					<span style="width: 10%;">
+						<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
+							<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
+							<button class="btn btn-default btn-xs" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
+						</c:if>
+					</span>
+				</div>
+			</div>
 		</c:forEach>
-		<tr id="appendArea"></tr>
-	</tbody>
-</table>
+		<div id="appendArea"></div>
+		</div>
+		</div>
+	</li>
+</ul>
+<!-- </div> -->
+
+<hr style="border: 1px solid #ddd; margin-top: 0;">
 
 <!-- 로그인상태 -->
 <c:if test="${login }">
@@ -873,14 +905,15 @@ comment_inbox {
 			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }
 		</span>
 			<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
-				style="overflow: hidden; overflow-wrap: break-word; 
-				height: 45px;" id="reviewComContent" onkeyup="adjustHeight();"></textarea>
+				style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComContent"></textarea>
+		<div class="comment_attach">
 		<div class="register_box">
 			<button role="button" id="btn_register" onclick="insertComment();">등록</button>
-
+		</div>
 		</div>
 	</div>
 </div>
+	
 </c:if>
 
 <br>
