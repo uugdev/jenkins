@@ -32,7 +32,7 @@
 						${board.TRADE_TITLE } 
 					</a>
 					<c:if test="${!empty board.TRADE_COM_CNT }">
-						<strong><span>[${board.TRADE_COM_CNT }]</span></strong>
+						<strong><a href="/trade/detail?tradeNo=${board.TRADE_NO }&commentFocus=true">[${board.TRADE_COM_CNT }]</a></strong>
 					</c:if>
 				</td>
 				<c:if test="${board.USER_NICK eq null }">
