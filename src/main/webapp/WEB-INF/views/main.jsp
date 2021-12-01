@@ -175,9 +175,9 @@
 					</div>
 					<br>
 					<!-- 메인 멘트 -->
-	                <div class="table-responsive" style="background-color:#eee; height: 153px; padding: 8px;">
+	                <div style="background-color:#eee; height: 153px; padding: 8px;">
                 		<c:if test="${mainment eq null }">
-		                	<p style="font-size: 35px; margin-top: 3%;">회원가입을 통해 서로 의견을 나누고</p>
+		                	<p style="font-size: 35px; margin-top: 14px;">회원가입을 통해 서로 의견을 나누고</p>
 		                	<p style="font-size: 35px;">원하는 물건의 구매의사를 확인하세요!</p>
                 		</c:if>
                 		<c:if test="${mainment ne null }">

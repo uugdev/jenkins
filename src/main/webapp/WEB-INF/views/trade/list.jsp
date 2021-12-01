@@ -214,6 +214,10 @@ body {
 	background: #f2f2f2;
 }
 
+.table>tbody>tr>td>a {
+    color: #000;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->

@@ -107,6 +107,6 @@ hr {
     transition: all .2s ease-in-out;
 }
 
-.container {
-    margin-top: 20px;
+#mainContainer {
+	margin-top: 20px;
 }

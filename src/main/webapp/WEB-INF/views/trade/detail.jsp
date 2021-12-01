@@ -25,7 +25,6 @@ $(document).ready(function() {
 	var patId = getParameterByName('commentFocus');
 	
 	if(patId == 'true') {
-		console.log("안녕")
 		document.getElementById('commentBody').scrollIntoView();
 	}
 
@@ -356,7 +355,7 @@ function tradeDelete() {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-	<div class="container">
+	<div id="mainContainer" class="container">
 	
 		<h1>
 			<c:if test="${tradeDetail.TRADE_CATEGORY eq 1 }">

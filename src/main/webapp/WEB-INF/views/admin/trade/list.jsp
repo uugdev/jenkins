@@ -90,6 +90,10 @@ label {
 	font-weight: normal !important;
 }
 
+li.active>a {
+	background-color: #5b6e7a !important;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
