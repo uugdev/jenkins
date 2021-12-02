@@ -129,7 +129,6 @@ hr {
 <div class="wrap">
 <div class="container">
 	<div class="list-group-item list-group-item-danger">
-	<c:if test="${tradeDetail.REPORT_NO eq review.RESPONDENT_NO }">
 		<c:choose>
 			<c:when test="${tradeDetail.REPORT_CATEGORY eq 'A' }">
 				<td>부적절한 홍보 게시글</td>
@@ -144,7 +143,6 @@ hr {
 				<td>기타</td>
 			</c:when>
 		</c:choose>
-	</c:if>
 	</div>
 	<div class="list-group-item"><label for="${tradeDetail.REPORT_NO }">${tradeDetail.REPORT_CONTENT }</label></div>
 	<h1>

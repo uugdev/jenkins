@@ -69,7 +69,7 @@ public interface AdminTradeReportDao {
 	 * @param tradeNo - 게시글 번호
 	 * @return 상세 페이지에 필요한 정보
 	 */
-	public HashMap<String, Object> selectTradeByTradeNo(int tradeNo);
+	public HashMap<String, Object> selectTradeByTradeNo(TradeReport tradeReport);
 
 	/**
 	 * 댓글 목록을 조회한다

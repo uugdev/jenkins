@@ -58,7 +58,7 @@ public interface AdminTradeReportService {
 	 * @param tradeNo - 조회한 게시글 번호
 	 * @return tradeNo에 해당하는 거래 게시글 HashMap
 	 */
-	public HashMap<String, Object> getTradeDetail(int tradeNo);
+	public HashMap<String, Object> getTradeDetail(TradeReport tradeReport);
 
 	/**
 	 * 댓글 목록을 조회한다

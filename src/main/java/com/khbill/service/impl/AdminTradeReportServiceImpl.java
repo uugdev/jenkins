@@ -69,9 +69,9 @@ public class AdminTradeReportServiceImpl implements AdminTradeReportService {
 	}
 	
 	@Override
-	public HashMap<String, Object> getTradeDetail(int tradeNo) {
+	public HashMap<String, Object> getTradeDetail(TradeReport tradeReport) {
 		
-		return adminTradeReportDao.selectTradeByTradeNo(tradeNo);
+		return adminTradeReportDao.selectTradeByTradeNo(tradeReport);
 	}
 	
 	@Override

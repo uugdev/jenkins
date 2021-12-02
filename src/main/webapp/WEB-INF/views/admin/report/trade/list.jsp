@@ -217,7 +217,6 @@ input[type=checkbox] {
 	<td><input type="checkbox" name="select" id="${trade.REPORT_NO }" value="${trade.REPORT_NO }" class="check" /></td>
 	<td><label for="${trade.REPORT_NO}">${trade.REPORT_NO }</label></td>
 	
-	<c:if test="${trade.USER_NO eq trade.RESPONDENT_NO }">
 		<c:choose>
 			<c:when test="${trade.REPORT_CATEGORY eq 'A' }">
 				<td>부적절한 홍보 게시글</td>
@@ -232,10 +231,9 @@ input[type=checkbox] {
 				<td>기타</td>
 			</c:when>
 		</c:choose>
-	</c:if>
 	<td><label for="${trade.REPORT_NO }" class="ellipsis2">${trade.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${trade.TRADE_NO }"><a href="/admin/report/trade/detail?tradeNo=${trade.TRADE_NO }" class="ellipsis2">${trade.TRADE_TITLE }</a></label></td>
+	<td><label for="${trade.TRADE_NO }"><a href="/admin/report/trade/detail?reportNo=${trade.REPORT_NO }&tradeNo=${trade.TRADE_NO }" class="ellipsis2">${trade.TRADE_TITLE }</a></label></td>
 		
 	<c:if test="${trade.USER_NO ne 0}">
 		<td><label for="${trade.TRADE_NO }">${trade.USER_NICK }</label></td>

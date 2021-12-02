@@ -84,13 +84,17 @@ public class AdminTradeReportController {
 	//신고된 후기 게시글 상세
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String adminTradeReportDetail(
-			int tradeNo, Model model, HttpSession session
+			int reportNo, int tradeNo, Model model, HttpSession session
 		) {
 		logger.info("/admin/report/trade/detail");
 
 		boolean adminLogin = (boolean) session.getAttribute("adminLogin");
 		
-		HashMap<String, Object> tradeDetail = adminTradeReportService.getTradeDetail(tradeNo);
+		TradeReport tradeReport = new TradeReport();
+		tradeReport.setReportNo(reportNo);
+		tradeReport.setTradeNo(tradeNo);
+		
+		HashMap<String, Object> tradeDetail = adminTradeReportService.getTradeDetail(tradeReport);
 		List<HashMap<String, Object>> tradeComment = adminTradeReportService.getTradeCommentDetail(tradeNo);
 
 		//모델값 전달

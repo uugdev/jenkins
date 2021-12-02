@@ -67,10 +67,10 @@
 	</delete>
 	
 		
-	<select id="selectTradeByTradeNo" resultType="HashMap" parameterType="int">
+	<select id="selectTradeByTradeNo" resultType="HashMap" parameterType="com.khbill.dto.TradeReport">
 		SELECT 
 		    t.user_no, t.trade_no, t.trade_title, t.trade_content, t.trade_category
-		    , f.file_stored, u.user_nick, X.report_category, X.report_content
+		    , f.file_stored, u.user_nick, X.report_category, X.report_content, X.report_no
 		    , w.grade_url, t.trade_date, t.trade_hit, (
 		SELECT count(trade_com_no)
 		FROM ztrade_comment
@@ -83,7 +83,7 @@
 		AND t.user_no = w.user_no
 		AND t.trade_no = x.trade_no (+)
 		
-		AND t.trade_no = #{tradeNo }
+		AND x.report_no = #{reportNo }
 	</select>
 		
 	<select id="selectTradeCommentByTradeNo" resultType="HashMap" parameterType="int">
