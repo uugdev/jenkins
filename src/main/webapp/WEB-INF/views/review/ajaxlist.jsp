@@ -22,7 +22,9 @@
 		<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${review.REVIEW_TITLE }</a>
 	</c:if>
 	<c:if test="${not empty review.REVIEW_COM_CNT }">
-		<strong><span>[${review.REVIEW_COM_CNT}]</span></strong>
+<%-- 		<strong><span>[${review.REVIEW_COM_CNT}]</span></strong> --%>
+		<strong><a href="/review/detail?reviewNo=${review.REVIEW_NO }&commentFocus=true">[${review.REVIEW_COM_CNT}]</a></strong>
+		
 	</c:if>
 	</td>
 	<c:if test="${review.USER_NICK eq null }">

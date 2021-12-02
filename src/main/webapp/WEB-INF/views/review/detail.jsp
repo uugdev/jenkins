@@ -13,8 +13,20 @@
 <!-- header end -->
 
 <script>
+function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"), results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 
 $(document).ready(function() {
+	
+	var patId = getParameterByName('commentFocus');
+	
+	if(patId == 'true') {
+		document.getElementById('commentBody').scrollIntoView();
+	}
 
 	$('.layerpopup').click(function(e) {
 		$('#layer').show();
@@ -151,9 +163,9 @@ function adjustHeight() {
 var reviewComCount = ${review.REVIEW_COM_COUNT }
 
 function insertComment() {
-	var textarea = $("#reviewComContent").val();
 	
-// 	console.log(textarea)
+	var textarea = $("#reviewComContent").val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
 	
 	$.ajax({
 		type: "post"
@@ -161,7 +173,7 @@ function insertComment() {
 		, dataType: "json"
 		, data: {
 			reviewNo: ${review.REVIEW_NO }
-			, reviewComContent: textarea
+			, reviewComContent: content
 		}
 		, success: function(data){
 			if(data.success) {
@@ -183,15 +195,20 @@ function insertComment() {
 				'<td style="width: 15%; padding: 5px; text-align: left;">' +
 				'<img alt="#" src="'+data.gradeUrl+'" width="20px;" height="20px;">'+data.userNick+'</td>' +
 				
-				'<td id="td'+data.addComment.reviewComNo+'" style="text-align: left;">'+textarea+'</td>' +
+				'<td id="td'+data.addComment.reviewComNo+'" style="text-align: left;">'+content+'</td>' +
 				'<td id="dateTd'+data.addComment.reviewComNo+'">'+ reviewComDate+'</td>' +
 				'<td style="text-align: center;">' +
-				'<button class="btn btn-default btn-xs" onclick="deleteComment('+data.addComment.reviewComNo+');">삭제</button> ' +
-				'<button class="btn btn-default btn-xs" onclick="updateComment('+data.addComment.reviewComNo+');">수정</button>' +
+				'<button class="btn_d" onclick="deleteComment('+data.addComment.reviewComNo+');">삭제</button> ' +
+				'<button class="btn_u" onclick="updateComment('+data.addComment.reviewComNo+');">수정</button>' +
 				'</td>' +
 				'</tr>');
 			
 				$('#reviewComContent').val('');
+				
+				var textEle = $('#reviewComContent');
+				textEle[0].style.height = '45px';
+				var textEleHeight = textEle.prop('scrollHeight');
+				textEle.css('height', textEleHeight);
 				
 			} else {
 				alert("댓글 작성 실패");
@@ -205,7 +222,10 @@ function insertComment() {
 
 function updateComment(reviewComNo) {
 	
-    var reviewText = $("#td"+reviewComNo).text();
+    var reviewText = $("#td"+reviewComNo).html();
+    var content = reviewText.replace(/<br>/ig, '\n');
+    
+    console.log("왜 수정이 안되는 거니")
     
 	$("[data-reviewComNo='"+reviewComNo+"']").css("display", "none");
 	$("[data-updateReviewComNo='"+reviewComNo+"']").append(
@@ -214,18 +234,25 @@ function updateComment(reviewComNo) {
 		'<span class="comment_inbox_name pull-left" id="userNick">' +
 		'<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }' +
 		'</span>'+
-		'<textarea data-v-3b426d7d="" rows="1" class="comment_inbox_text" onkeyup="adjustHeight();" style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+reviewComNo+'">'+reviewText+'</textarea>' + 
+		'<textarea  onkeyup="adjustHeight(this);" rows="1" class="comment_inbox_text" style="overflow: hidden;'+ 
+			'overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+reviewComNo+'">'+content+'</textarea>' + 
 		'<div class="register_box">' +
 		'<button id="btnCommUpdateCancel" onclick="cancelCom('+reviewComNo+');">취소</button>' +
 		'<button id="btnCommUpdate" onclick="updateCom('+reviewComNo+');">등록</button>　' +
 		'</div>' +
 		'</div>' +
 		'</div>');
+	
+	var textEle = $('#reviewComUpdateContent' + reviewComNo);
+	textEle[0].style.height = '45px';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight);
 }
 
 function updateCom(reviewComNo) {
 	
 	var textarea = $("#reviewComUpdateContent"+ reviewComNo).val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
 	
 	$.ajax({
 		type: "post"
@@ -233,7 +260,7 @@ function updateCom(reviewComNo) {
 		, dataType: "json"
 		, data: {
 			reviewComNo: reviewComNo
-			, reviewComContent: textarea
+			, reviewComContent: content
 		}
 		, success: function(data){
 			if(data.success) {
@@ -305,6 +332,11 @@ $(function() {
 	
 })/* $(function(){}) end */
 
+
+function adjustHeight(obj) {
+    obj.style.height = '45px';
+    obj.style.height = (obj.scrollHeight) + 'px';
+};
 </script>
 
 <style type="text/css">
@@ -688,10 +720,7 @@ comment_inbox {
 	text-align: left;
 }
 
-
-#btn_register ,
-#btnCommUpdate, 
-#btnCommUpdateCancel {
+#btn_register, #btnCommUpdate, #btnCommUpdateCancel, .btn_u, .btn_d  {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -722,9 +751,20 @@ comment_inbox {
     background-color: #ddd;
 }
 
-#btnCommUpdate {
-	margin-right: -15px;
+.btn_d {
+    border: 1px solid #ddd;
+    background-color: #ddd;
 }
+
+#btnCommUpdate {
+ 	margin-right: -15px;
+}
+
+.btn_d, .btn_u {
+	padding: 2px 5px;
+	width: 44px;
+}
+
 </style>
 
 <div class="wrap">
@@ -831,9 +871,9 @@ comment_inbox {
 	<tr>
 		<th style="width: 1.6%;"></th>
 		<th style="width: 15%;">닉네임</th>
-		<th style="width: 58%;">댓글</th>
+		<th style="width: 57.5%;">댓글</th>
 		<th style="width: 13%;">작성일</th>
-		<th style="width: 10%;"></th>
+		<th style="width: 10.5%;"></th>
 	</tr>
 	</thead>
 	
@@ -852,14 +892,14 @@ comment_inbox {
 				</c:if>
 				
 				<td id="td${reviewComment.REVIEW_COM_NO }" style="text-align: left;">${reviewComment.REVIEW_COM_CONTENT }</td>
-				<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10%;">
+				<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10.5%;">
 					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE}" pattern="yy-MM-dd hh:mm:ss" />
 				</td>
 				
 				<td style="width: 10%;">
 					<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
-						<button class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-						<button class="btn btn-default btn-xs" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
+						<button class="btn_d" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
+						<button class="btn_u" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
 					</c:if>
 				</td>
 			</tr>
@@ -876,7 +916,7 @@ comment_inbox {
 		<span class="comment_inbox_name pull-left" id="userNick">
 			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }
 		</span>
-			<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
+			<textarea onkeyup="adjustHeight(this);" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
 				style="overflow: hidden; overflow-wrap: break-word; 
 				height: 45px;" id="reviewComContent" onkeyup="adjustHeight();"></textarea>
 		<div class="register_box">
