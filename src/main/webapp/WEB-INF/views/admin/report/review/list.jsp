@@ -217,25 +217,23 @@ input[type=checkbox] {
 	<td><input type="checkbox" name="select" id="${review.REPORT_NO }" value="${review.REPORT_NO }" class="check" /></td>
 	<td><label for="${review.REPORT_NO}">${review.REPORT_NO }</label></td>
 	
-	<c:if test="${review.USER_NO eq review.RESPONDENT_NO }">
-		<c:choose>
-			<c:when test="${review.REPORT_CATEGORY eq 'A' }">
-				<td>부적절한 홍보 게시글</td>
-			</c:when>
-			<c:when test="${review.REPORT_CATEGORY eq 'B' }">
-				<td>음란성 또는 청소년에게 부적합한 내용</td>
-			</c:when>
-			<c:when test="${review.REPORT_CATEGORY eq 'C' }">
-				<td>명예훼손/사생활 침해 및 저작권침해등</td>
-			</c:when>
-			<c:when test="${review.REPORT_CATEGORY eq 'D' }">
-				<td>기타</td>
-			</c:when>
-		</c:choose>
-	</c:if>
+	<c:choose>
+		<c:when test="${review.REPORT_CATEGORY eq 'A' }">
+			<td>부적절한 홍보 게시글</td>
+		</c:when>
+		<c:when test="${review.REPORT_CATEGORY eq 'B' }">
+			<td>음란성 또는 청소년에게 부적합한 내용</td>
+		</c:when>
+		<c:when test="${review.REPORT_CATEGORY eq 'C' }">
+			<td>명예훼손/사생활 침해 및 저작권침해등</td>
+		</c:when>
+		<c:when test="${review.REPORT_CATEGORY eq 'D' }">
+			<td>기타</td>
+		</c:when>
+	</c:choose>
 	<td><label for="${review.REPORT_NO }" class="ellipsis2">${review.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reviewNo=${review.REVIEW_NO }" class="ellipsis2">${review.REVIEW_TITLE }</a></label></td>
+	<td><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reportNo=${review.REPORT_NO }" class="ellipsis2">${review.REVIEW_TITLE }</a></label></td>
 		
 	<c:if test="${review.USER_NO ne 0}">
 		<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>

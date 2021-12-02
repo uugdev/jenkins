@@ -7,7 +7,7 @@
 
 	<sql id="selectReviewReport">
         SELECT 
-            X.report_no, X.report_category, X.report_content, X.respondent_no
+            X.report_no, X.report_category, X.reporter_no, X.report_content, X.respondent_no
             , R.review_no, U.user_no, U.user_nick, R.review_title, X.report_date, X.report_status
         FROM zreview_report X 
         INNER JOIN zreview R
@@ -65,12 +65,12 @@
 		WHERE report_no = #{reportNo }
 	</delete>
 	
-	<select id="selectReviewByReviewNo" parameterType="com.khbill.dto.Review" resultType="HashMap">
+	<select id="selectReviewByReviewNo" parameterType="int" resultType="HashMap">
 		SELECT * FROM (
 		   SELECT 
 		        R.review_no, item_no, U.user_no, user_nick, file_no
 		        , review_title, review_content, review_date, review_hit
-		        , X.report_category, X.report_content
+		        , X.report_category, X.report_content, X.report_no
 		    FROM zuser U
 		    INNER JOIN zreview R
 		        ON U.user_no = R.user_no
@@ -78,7 +78,7 @@
 		       ON R.review_no = X.review_no
 		    ORDER BY user_no
 		) ZREVIEW
-		WHERE review_no = #{reviewNo }
+		WHERE report_no = #{reportNo }
 	</select>
 	 
 	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">

@@ -73,9 +73,9 @@ public class AdminReviewReportServiceImpl implements AdminReviewReportService {
 	}
 
 	@Override
-	public HashMap<String, Object> getReviewDetail(Review review) {
+	public HashMap<String, Object> getReviewDetail(int reportNo) {
 		
-		return adminReviewReportDao.selectReviewByReviewNo(review);
+		return adminReviewReportDao.selectReviewByReviewNo(reportNo);
 	}
 
 	@Override

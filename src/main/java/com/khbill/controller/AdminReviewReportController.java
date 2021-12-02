@@ -88,12 +88,12 @@ private static final Logger logger = LoggerFactory.getLogger(AdminReviewReportCo
 	//신고된 후기 게시글 상세
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String adminReviewReportDetail(
-			Review review, ReviewReport reviewReport, ReviewComment reviewComment
+			int reportNo, ReviewReport reviewReport, ReviewComment reviewComment
 			, Item item, File file, Model model, HttpSession session
 		) {
 		logger.info("/admin/report/review/detail");
 		
-		HashMap<String, Object> reviewMap = adminReviewReportService.getReviewDetail(review);
+		HashMap<String, Object> reviewMap = adminReviewReportService.getReviewDetail(reportNo);
 		boolean adminLogin = (boolean) session.getAttribute("adminLogin");
 		
 		//상품 정보 전달

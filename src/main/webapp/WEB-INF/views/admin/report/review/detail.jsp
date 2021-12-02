@@ -320,7 +320,6 @@ table, th {
 <div class="recipeWrap">
 <div class="list-group">
   <div class="list-group-item list-group-item-danger">
-		<c:if test="${review.REPORT_NO eq review.RESPONDENT_NO }">
 			<c:choose>
 				<c:when test="${review.REPORT_CATEGORY eq 'A' }">
 					<td>부적절한 홍보 게시글</td>
@@ -335,7 +334,6 @@ table, th {
 					<td>기타</td>
 				</c:when>
 			</c:choose>
-		</c:if>
   </div>
   <div class="list-group-item"><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></div>
 </div>

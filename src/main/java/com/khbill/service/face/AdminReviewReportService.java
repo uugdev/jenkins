@@ -62,7 +62,7 @@ public interface AdminReviewReportService {
 	 * @param review - 상세 조회할 게시글 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	public HashMap<String, Object> getReviewDetail(Review review);
+	public HashMap<String, Object> getReviewDetail(int reportNo);
 	
 	/**
 	 *  후기 글번호롤 상품조회
