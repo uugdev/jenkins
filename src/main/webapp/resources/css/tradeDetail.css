@@ -108,5 +108,10 @@ hr {
 }
 
 #mainContainer {
-	margin-top: 20px;
+	background-color: white;
+}
+
+.wrap {
+    background: #f2f2f2;
+    padding: 100px;
 }

@@ -79,7 +79,12 @@ td:nth-child(2) {
 				<div style="border: 1px solid #ccc; border-top: none; box-sizing: border-box; padding: 0 5px 10px; ">
 					<div style="padding-top: 8px; display:flex; align-items: flex-start; justify-content: space-between;">
 							<span class="ellipsis2" style="text-align: left;">제목: ${list.TRADE_TITLE}</span>
-							<span class="">조회수: ${list.TRADE_HIT}</span>
+							<span class="">
+							<c:if test="${!empty list.TRADE_COM_CNT }">
+								<strong><a href="/trade/detail?tradeNo=${list.TRADE_NO }&commentFocus=true">[${list.TRADE_COM_CNT }]</a></strong>
+							</c:if>
+							 조회수: ${list.TRADE_HIT}
+							</span>
 					</div>
 		
 					<div style="display:flex; align-items: flex-start; justify-content: space-between;">
