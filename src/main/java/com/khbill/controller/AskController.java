@@ -105,12 +105,17 @@ public class AskController {
 		
 		int detailUserNo = ask.getUserNo();
 		
+		//게시글작성자
 		String grade = askService.getGradeUrlByUserNo(detailUserNo);
 		
 		int userNo = 0;
         if(session.getAttribute("userNo") != null ){
             userNo = (Integer) session.getAttribute("userNo");
         }
+
+        //세션
+        String loginUserGrade = askService.getGradeUrlByUserNo(userNo);
+        model.addAttribute("loginUserGrade", loginUserGrade);
 		
 		Vote status = askService.getLoginUserVoteState(userNo, askNo);
 		boolean result = askService.getVoteState(askNo, userNo);

@@ -186,7 +186,7 @@ form {
 				</div>
 				<div class=" commaInput">
 					<label for="itemPrice">가격</label><br> <input type="text"
-						id="itemPrice" name="itemPrice" class="" maxlength="10"
+						id="itemPrice" name="itemPrice" class="" maxlength="11"
 						placeholder="가격을 입력해주세요" />
 				</div>
 			</div>

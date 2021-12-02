@@ -53,11 +53,9 @@ function getParameterByName(name) {
 	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
-function adjustHeight() {
-    var textEle = $('textarea');
-    textEle[0].style.height = '45px';
-    var textEleHeight = textEle.prop('scrollHeight');
-    textEle.css('height', textEleHeight);
+function adjustHeight(obj) {
+    obj.style.height = '45px';
+    obj.style.height = (obj.scrollHeight) + 'px';
 };
 
 
@@ -313,6 +311,7 @@ function insertComment() {
 	
 	
 	var textarea = $("#askComContent").val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
 
 	if(textarea == '') {
 		
@@ -337,7 +336,7 @@ function insertComment() {
 		, dataType: "json"
 		, data: {
 			askNo: ${ask.askNo }
-			, askComContent: textarea
+			, askComContent: content
 		}
 		, success: function(data){
 			if(data.success) {
@@ -357,12 +356,18 @@ function insertComment() {
 					'<td id="td'+ data.addComment.askComNo +'" style="text-align: left;">'+ data.addComment.askComContent +'</td>' +
 					'<td id="dateTd'+ data.addComment.askComNo +'" style="width: 10%; padding: 5px;">'+ askComDate +'</td>' +
 					'<td>' +
-					'<button class="btn btn-default btn-xs" onclick="deleteComment('+ data.addComment.askComNo +');">삭제</button> ' +
-					'<button class="btn btn-default btn-xs" onclick="updateComment('+ data.addComment.askComNo +');">수정</button>' +
+					'<button class="btn btn_d btn-xs" onclick="deleteComment('+ data.addComment.askComNo +');">삭제</button> ' +
+					'<button class="btn btn_u btn-xs" onclick="updateComment('+ data.addComment.askComNo +');">수정</button>' +
 					'</td>' +
 					'</tr>');
 				
 				$('#askComContent').val('');
+				
+				var textEle = $('#askComContent');
+				textEle[0].style.height = '45px';
+				var textEleHeight = textEle.prop('scrollHeight');
+				textEle.css('height', textEleHeight);
+				
 						
 			} else {
 				alert("댓글 작성 실패");
@@ -377,27 +382,41 @@ function insertComment() {
 
 function updateComment(askComNo) {
 	
-    var askText = $("#td"+askComNo).text();
+    var askText = $("#td"+askComNo).html();
+    var content = askText.replace(/<br>/ig, '\n');
+    
+    
+    console.log(content);
+    
     
 	$("[data-askComNo='"+askComNo+"']").css("display", "none");
 	$("[data-updateAskComNo='"+askComNo+"']").append('<div class="CommentWriter" style="width: 1020px;">' +
 			'<div class="comment_inbox">' +
 			'<span class="comment_inbox_name pull-left" id="userNick">' +
 			'<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>' +
-			'<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" onkeyup="adjustHeight();" rows="1"' +
+			'<textarea placeholder="댓글을 남겨보세요" onkeyup="adjustHeight(this);" rows="1"' +
 			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
-			'id="askComUpdateContent'+ askComNo +'">'+ askText +'</textarea>' +
+			'id="askComUpdateContent'+ askComNo +'">'+ content +'</textarea>' +
 			'<div class="register_box">' +
 			'<button id="btnCommUpdate" onclick="updateCom('+ askComNo +');">수정</button>　' +
 			'<button id="btnCommUpdateCancel" onclick="cancelCom('+ askComNo +');">취소</button>' +
 			'</div>' +
 			'</div>' +
 			'</div>');
+	
+	var textEle = $('#askComUpdateContent' + askComNo);
+	textEle[0].style.height = '45px';
+	var textEleHeight = textEle.prop('scrollHeight');
+	textEle.css('height', textEleHeight);
+	
+	
+	
 }
 
 function updateCom(askComNo) {
 	
 	var textarea = $("#askComUpdateContent"+ askComNo).val();
+	var content = textarea.replace(/(\n|\r\n)/g, '<br>');
 	
 	$.ajax({
 		type: "post"
@@ -405,7 +424,7 @@ function updateCom(askComNo) {
 		, dataType: "json"
 		, data: {
 			askComNo: askComNo
-			, askComContent: textarea
+			, askComContent: content
 		}
 		, success: function(data){
 			if(data.success) {
@@ -873,9 +892,7 @@ comment_inbox {
 	text-align: left;
 }
 
-#btn_register ,
-#btnCommUpdate, 
-#btnCommUpdateCancel {
+#btn_register, #btnCommUpdateCancel, #btnCommUpdate, .btn_u, .btn_d {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -900,14 +917,19 @@ comment_inbox {
     color: #fff;
 }
 
+#btnCommUpdateCancel, .btn_d {
+    border: 1px solid #ddd;
+    background-color: #ddd;
+}
+
+.btn_d, .btn_u {
+	padding: 2px 5px;
+	width: 44px;
+}
 #btnCommUpdate {
 	margin-right: -10px;
 }
 
-#btnCommUpdateCancel {
-	background: #ddd;
-	border-color: #ddd;
-}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -1169,45 +1191,48 @@ comment_inbox {
 		<br> <br>
 		<hr>
 		<!-- 댓글 리스트 -->
-		<table class="table">
-			<thead>
-				<tr>
-					<th style="width: 1.3%;"></th>
-					<th style="width: 15%;">닉네임</th>
-					<th style="width: 58%;">댓글</th>
-					<th style="width: 13%;">작성일</th>
-					<th style="width: 10%;"></th>
-				</tr>
-			</thead>
-
-
-			<tbody id="commentBody">
-				<c:forEach items="${askComment}" var="askComment">
-					<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
-					<tr data-askComNo="${askComment.ASK_COM_NO }">
-						<td></td>
-						<c:if test="${askComment.USER_NICK ne null }">
-							<td style="text-align: left;"><img alt="#"
-								src="${askComment.GRADE_URL }" width="20px;" height="20px;">${askComment.USER_NICK }</td>
-						</c:if>
-						<c:if test="${askComment.USER_NICK eq null}">
-							<td class="pull-left">탈퇴한 회원</td>
-						</c:if>
-						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
-						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
-							<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
-						</td>
-						<td>
-							<c:if test="${userNo eq askComment.USER_NO }">
-								<button class="btn btn-default btn-xs btnDel" onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
-								<button class="btn btn-default btn-xs" onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
-							</c:if>
-						</td>
+		
+		<div>
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="width: 1.3%;"></th>
+						<th style="width: 15%;">닉네임</th>
+						<th style="width: 58%;">댓글</th>
+						<th style="width: 13%;">작성일</th>
+						<th style="width: 11%;"></th>
 					</tr>
-				</c:forEach>
-				<tr id="appendArea"></tr>
-			</tbody>
-		</table>
+				</thead>
+	
+	
+				<tbody id="commentBody">
+					<c:forEach items="${askComment}" var="askComment">
+						<tr data-updateAskComNo="${askComment.ASK_COM_NO }"></tr>
+						<tr data-askComNo="${askComment.ASK_COM_NO }">
+							<td></td>
+							<c:if test="${askComment.USER_NICK ne null }">
+								<td style="text-align: left;"><img alt="#"
+									src="${askComment.GRADE_URL }" width="20px;" height="20px;">${askComment.USER_NICK }</td>
+							</c:if>
+							<c:if test="${askComment.USER_NICK eq null}">
+								<td class="pull-left">탈퇴한 회원</td>
+							</c:if>
+							<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
+							<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
+								<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
+							</td>
+							<td>
+								<c:if test="${userNo eq askComment.USER_NO }">
+									<button class="btn btn_d btn-xs btnDel" onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
+									<button class="btn btn_u btn-xs" onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>
+					<tr id="appendArea"></tr>
+				</tbody>
+			</table>
+		</div>
 		<!-- 댓글 리스트 end -->
 
 
@@ -1219,8 +1244,8 @@ comment_inbox {
 			<div class="CommentWriter">
 				<div class="comment_inbox">
 					<span class="comment_inbox_name pull-left" id="userNick">
-						<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>
-					<textarea data-v-3b426d7d="" placeholder="댓글을 남겨보세요" rows="1" 
+						<img alt="#" src="${loginUserGrade}" style="width: 20px; height: 20px;">${userNick}</span>
+					<textarea onkeyup="adjustHeight(this);"  placeholder="댓글을 남겨보세요" rows="1" 
 					class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; 
 					height: 45px;" id="askComContent" onkeyup="adjustHeight();"></textarea>
 			

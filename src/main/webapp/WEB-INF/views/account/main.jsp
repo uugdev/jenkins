@@ -421,7 +421,7 @@ var myChart2 = new Chart(context2, {
 								<p>지출 가능 금액 설정</p>
 								<span class="close1">❌</span>
 							</div>
-							<input type="text" name="extraMoney" id="extraMoney" value="" />
+							<input type="text" name="extraMoney" id="extraMoney" value="" maxlength="11"/>
 							<span style="font-size: 24px;">원</span>
 							<div class="btnWrap1">
 								<button id="update">저장</button>
