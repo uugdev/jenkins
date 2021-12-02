@@ -22,9 +22,7 @@
 		<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${review.REVIEW_TITLE }</a>
 	</c:if>
 	<c:if test="${not empty review.REVIEW_COM_CNT }">
-<%-- 		<strong><span>[${review.REVIEW_COM_CNT}]</span></strong> --%>
 		<strong><a href="/review/detail?reviewNo=${review.REVIEW_NO }&commentFocus=true">[${review.REVIEW_COM_CNT}]</a></strong>
-		
 	</c:if>
 	</td>
 	<c:if test="${review.USER_NICK eq null }">
@@ -68,9 +66,9 @@
 
 <div class="list-search">
 <div class="input_search_area">
-	<div class="input_component" style="width: 400px">
-	<input type="text" id="search" name="search" value="${param.search }" placeholder="검색어를 입력해주세요" style="width: 200px;" />
-	<button id="btnSearch" class="btn">검색</button>
+	<div class="form-inline text-center">
+	<input class="form-control" type="text" id="search" value="${param.search }" placeholder="검색어를 입력해주세요" />
+	<button id="btnSearch" class="btn btnSearch">검색</button>
 	</div>
 </div>
 </div>
