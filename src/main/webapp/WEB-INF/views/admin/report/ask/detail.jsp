@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/reportPopup.css">
 <!-- header end -->
 
-
 <style type="text/css">
 .layerbox {
 	position: relative;
@@ -380,22 +379,20 @@ table, th {
 <div class="recipeWrap">
 <div class="list-group">
 	<div class="list-group-item list-group-item-danger">
-		<c:if test="${askDetail.REPORT_NO eq askDetail.RESPONDENT_NO }">
-			<c:choose>
-				<c:when test="${askDetail.REPORT_CATEGORY eq 'A' }">
-					<td>부적절한 홍보 게시글</td>
-				</c:when>
-				<c:when test="${askDetail.REPORT_CATEGORY eq 'B' }">
-					<td>음란성 또는 청소년에게 부적합한 내용</td>
-				</c:when>
-				<c:when test="${askDetail.REPORT_CATEGORY eq 'C' }">
-					<td>명예훼손/사생활 침해 및 저작권침해등</td>
-				</c:when>
-				<c:when test="${askDetail.REPORT_CATEGORY eq 'D' }">
-					<td>기타</td>
-				</c:when>
-			</c:choose>
-		</c:if>
+		<c:choose>
+			<c:when test="${askDetail.REPORT_CATEGORY eq 'A' }">
+				<td>부적절한 홍보 게시글</td>
+			</c:when>
+			<c:when test="${askDetail.REPORT_CATEGORY eq 'B' }">
+				<td>음란성 또는 청소년에게 부적합한 내용</td>
+			</c:when>
+			<c:when test="${askDetail.REPORT_CATEGORY eq 'C' }">
+				<td>명예훼손/사생활 침해 및 저작권침해등</td>
+			</c:when>
+			<c:when test="${askDetail.REPORT_CATEGORY eq 'D' }">
+				<td>기타</td>
+			</c:when>
+		</c:choose>
 	</div>
 	<div class="list-group-item"><label for="${askDetail.REPORT_NO }">${askDetail.REPORT_CONTENT }</label></div>
 </div>

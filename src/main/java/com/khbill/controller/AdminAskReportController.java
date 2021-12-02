@@ -90,19 +90,22 @@ private static final Logger logger = LoggerFactory.getLogger(AdminAskReportContr
 	//신고된 후기 게시글 상세
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String adminAskReportDetail(
-			Ask ask, int askNo, AskReport askReport, AskComment askComment
+			int askNo, int reportNo, AskComment askComment
 			, Vote vote, Model model, HttpSession session
 		) {
 		logger.info("/admin/report/ask/detail");
 		
+		
 		boolean adminLogin = (boolean) session.getAttribute("adminLogin");
-		HashMap<String, Object> askDetail = adminAskReportService.getAskDetail(askNo);
+		HashMap<String, String> askDetail = adminAskReportService.getAskDetail(reportNo);
 		List<HashMap<String, Object>> askCommentList = adminAskReportService.getAskComList(askNo);
 		
 		String check = adminAskReportService.voteCheck(vote);
 		
+		int userNo = Integer.parseInt(String.valueOf(askDetail.get("USER_NO")));
+		
 		Vote voteSet = new Vote();
-		voteSet.setUserNo(ask.getUserNo());
+		voteSet.setUserNo(userNo);
 		voteSet.setAskNo(askNo);
 		vote = adminAskReportService.getVote(voteSet);
 

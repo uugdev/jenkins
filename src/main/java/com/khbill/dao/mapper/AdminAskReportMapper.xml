@@ -68,11 +68,11 @@
 	<select id="selectAskByAskNo" resultType="HashMap" parameterType="int">
 		SELECT * FROM (
 		    SELECT DISTINCT
-		        A.ask_no, U.user_no, U.user_nick, A.product_no 
+		        A.ask_no, U.user_no, U.user_nick, A.product_no
 		        , I.item_brand, I.item_name, I.item_price, F.file_no, F.file_stored
 		        , A.ask_title, A.ask_content, A.ask_date, A.ask_hit
 		        , V.vote_start, V.vote_end
-		        , X.report_category, X.report_content
+		        , X.report_category, X.report_content, X.report_no
 		    FROM zuser U
 		    INNER JOIN zask A
 		        ON U.user_no = A.user_no
@@ -86,7 +86,7 @@
 		        ON A.ask_no = X.ask_no
 		    ORDER BY user_no
 		) ZASK
-		WHERE ask_no = #{askNo }
+		WHERE report_no = #{reportNo }
 	</select>
 	
 	<select id="selectAskCommentByAskNo" resultType="HashMap" parameterType="int">

@@ -63,7 +63,7 @@ public interface AdminAskReportService {
 	 * @param ask - 상세 조회할 게시글 번호 DTO
 	 * @return 조회된 상세 게시글 정보
 	 */
-	public HashMap<String, Object> getAskDetail(int askNo);
+	public HashMap<String, String> getAskDetail(int reportNo);
 
 	/**
 	 * 댓글 목록을 조회한다
@@ -73,10 +73,10 @@ public interface AdminAskReportService {
 	 */
 	public List<HashMap<String, Object>> getAskComList(int askNo);
 
-	public Vote getVote(Vote voteSet);
-
 	public String voteCheck(Vote vote);
 	
+	public Vote getVote(Vote voteSet);
+
 	/**
 	 * y,n 총 투표수 가져오기
 	 * 

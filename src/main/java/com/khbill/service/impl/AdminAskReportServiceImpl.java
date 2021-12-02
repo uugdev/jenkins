@@ -76,9 +76,9 @@ public class AdminAskReportServiceImpl implements AdminAskReportService {
 	}
 
 	@Override
-	public HashMap<String, Object> getAskDetail(int askNo) {
+	public HashMap<String, String> getAskDetail(int reportNo) {
 
-		return adminAskReportDao.selectAskByAskNo(askNo);
+		return adminAskReportDao.selectAskByAskNo(reportNo);
 	}
 
 

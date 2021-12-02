@@ -212,25 +212,23 @@ input[type=checkbox] {
 	<td><input type="checkbox" name="select" id="${ask.REPORT_NO }" value="${ask.REPORT_NO }" class="check" /></td>
 	<td><label for="${ask.REPORT_NO}">${ask.REPORT_NO }</label></td>
 	
-	<c:if test="${ask.USER_NO eq ask.RESPONDENT_NO }">
-		<c:choose>
-			<c:when test="${ask.REPORT_CATEGORY eq 'A' }">
-				<td>부적절한 홍보 게시글</td>
-			</c:when>
-			<c:when test="${ask.REPORT_CATEGORY eq 'B' }">
-				<td>음란성 또는 청소년에게 부적합한 내용</td>
-			</c:when>
-			<c:when test="${ask.REPORT_CATEGORY eq 'C' }">
-				<td>명예훼손/사생활 침해 및 저작권침해등</td>
-			</c:when>
-			<c:when test="${ask.REPORT_CATEGORY eq 'D' }">
-				<td>기타</td>
-			</c:when>
-		</c:choose>
-	</c:if>
+	<c:choose>
+		<c:when test="${ask.REPORT_CATEGORY eq 'A' }">
+			<td>부적절한 홍보 게시글</td>
+		</c:when>
+		<c:when test="${ask.REPORT_CATEGORY eq 'B' }">
+			<td>음란성 또는 청소년에게 부적합한 내용</td>
+		</c:when>
+		<c:when test="${ask.REPORT_CATEGORY eq 'C' }">
+			<td>명예훼손/사생활 침해 및 저작권침해등</td>
+		</c:when>
+		<c:when test="${ask.REPORT_CATEGORY eq 'D' }">
+			<td>기타</td>
+		</c:when>
+	</c:choose>
 	<td><label for="${ask.REPORT_NO }" class="ellipsis2">${ask.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
+	<td><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?reportNo=${ask.REPORT_NO }&askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
 		
 	<c:if test="${ask.USER_NO ne 0}">
 		<td><label for="${ask.ASK_NO }">${ask.USER_NICK }</label></td>
@@ -238,7 +236,7 @@ input[type=checkbox] {
 	<c:if test="${ask.USER_NO eq 0}">
 		<td>탈퇴한 회원입니다</td>
 	</c:if>
-			
+
 	<td><fmt:formatDate value="${ask.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
 	
 	<c:if test="${ask.REPORT_STATUS == 'n' }">

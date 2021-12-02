@@ -72,7 +72,7 @@ public interface AdminAskReportDao {
 	 * @param askNo
 	 * @return
 	 */
-	public HashMap<String, Object> selectAskByAskNo(int askNo);
+	public HashMap<String, String> selectAskByAskNo(int reportNo);
 
 	/**
 	 * 질문 게시글에 댓글 list를 조회한다
