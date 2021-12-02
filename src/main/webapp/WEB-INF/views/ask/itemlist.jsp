@@ -66,6 +66,7 @@ td:nth-child(2) {
 #photoList li:nth-child(3n+0) {
 	margin-right: 0;
 }
+
 </style>
 
 <!-- <div> -->
@@ -86,7 +87,7 @@ td:nth-child(2) {
 							${list.ASK_TITLE}</span>
 					</a>
 					<c:if test="${list.ASK_COM_CNT ne null}">
-						<strong><span><a
+						<strong><span class="tomato"><a
 								href="/ask/detail?askNo=${list.ASK_NO}&commentFocus=true">&nbsp;[${list.ASK_COM_CNT}]</a></span></strong>
 					</c:if>
 				</div>

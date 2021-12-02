@@ -274,6 +274,19 @@ a:hover {
 	background: #5b6e7a;
 	color: #f3f3f3;
 }
+
+.tomato > a {
+	color: tomato;
+}
+
+.tomato > a:hover {
+	color: #ffaa9a;
+}
+
+li {
+	cursor: default !important;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -282,9 +295,7 @@ a:hover {
 	<div class="container">
 		<div class="title">
 			<h1>머니토론</h1>
-			<p>머니토론주제를 올려주세요<br>
-				회원들의 선택은 머니?
-			</p>
+			<p>회원들의 선택은 머니?</p>
 		</div>
 		<div class="listTable">
 			<div class="pull-right" style="margin-bottom: 20px;">
