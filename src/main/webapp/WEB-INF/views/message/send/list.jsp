@@ -10,14 +10,20 @@
 <!-- 개별 스타일 및 스크립트 영역 -->
 <script type="text/javascript">
 function message () {
-	var answer = confirm('쪽지를 보내시겠습니까?');
 	
-	if(answer) {
-		
-		window.open('/message/mem/write', '쪽지 보내기', 'width=620, height=500, left=400, top=500, resizable=no');
-	} else {
-		return false;
-	}
+	action_popup.confirm("쪽지를 보내시겠습니까?", function(result) {
+			
+		if( result == true){
+			window.open('/message/mem/write', '쪽지 보내기', 'height=500, width=620, left=400, top=500, resizable=no');
+		} else {
+			return false;
+		}
+	})
+	
+	$(".modal_close").on("click", function() {
+		action_popup.close(this);
+	});
+
 }
 
 </script>
