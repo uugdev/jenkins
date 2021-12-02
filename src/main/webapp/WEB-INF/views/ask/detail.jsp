@@ -945,7 +945,7 @@ comment_inbox {
 				</div>
 				<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
-						<span class="confirmation username">닉네임 : 
+						<span class="confirmation username">
 						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<c:if test="${ask.userNo eq 0 }">
@@ -953,7 +953,7 @@ comment_inbox {
 					</c:if>
 					<c:if
 						test="${ask.userNo ne 0 and userNo ne ask.userNo and !empty sessionScope.userNo }">
-						<span class="confirmation username layerpopup">닉네임 :
+						<span class="confirmation username layerpopup">
 						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 					</c:if>
 					<div id="layer">
