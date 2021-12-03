@@ -68,12 +68,12 @@ $(function(){
 						<c:when test="${adminLogin }">
 							<li><a href="/main" style="padding: 3px; margin: 12px 0 0 0;">MEMBER PAGE</a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
-							<li><a href="/admin/logout" style="padding: 3px; margin: 12px 15px 0 0;">LOGOUT</a></li>
+							<li><a href="/admin/logout" style="padding: 3px; margin: 12px 34px 0 0;">LOGOUT</a></li>
 						</c:when>
 						<c:when test="${empty adminLogin }">
 							<li><a href="/main" style="padding: 3px; margin: 12px 0 0 0;">MEMBER PAGE</a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
-							<li><a href="/admin/login" style="padding: 3px; margin: 12px 15px 0 0;">LOGIN</a></li>
+							<li><a href="/admin/login" style="padding: 3px; margin: 12px 34px 0 0;">LOGIN</a></li>
 						</c:when>
 					</c:choose>
 				</ul>
@@ -81,17 +81,17 @@ $(function(){
 			<div id="adminBoardNav" class="blockNav container"
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/admin/ask/list" style="margin-left: 433px;">질문게시판</a>
-					<a href="/admin/review/list">후기게시판</a>
-					<a href="/admin/trade/list">거래게시판</a>
+					<a href="/admin/ask/list" style="margin-left: 435px;">머니토론</a>
+					<a href="/admin/review/list">영수증</a>
+					<a href="/admin/trade/list">오이장터</a>
 				</p>
 			</div>
 			<div id="adminReportNav" class="blockNav container"
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/admin/report/ask/list" style="margin-left: 425px;">질문게시글 신고</a>
-					<a href="/admin/report/review/list">후기게시글 신고</a>
-					<a href="#">거래게시글 신고</a>
+					<a href="/admin/report/ask/list" style="margin-left: 466px;">머니토론 신고</a>
+					<a href="/admin/report/review/list">영수증 신고</a>
+					<a href="/admin/report/trade/list">오이장터 신고</a>
 				</p>
 			</div>
 			<div id="adminCscenterNav" class="blockNav container"

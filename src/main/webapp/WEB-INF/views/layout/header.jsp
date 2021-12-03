@@ -103,9 +103,9 @@ $(document).ready(function() {
 			<div id="boardNav" class="blockNav container"
 				 style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/ask/list" style="margin-left: 228px;">질문 게시판</a>
-					<a href="/review/list">후기 게시판</a>
-					<a href="/trade/list">거래 게시판</a>
+					<a href="/ask/list" style="margin-left: 228px;">머니토론</a>
+					<a href="/review/list">영수증</a>
+					<a href="/trade/list">오이장터</a>
 				</p>
 			</div>
 			<div id="qnaNav" class="blockNav container"
