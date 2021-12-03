@@ -482,11 +482,11 @@ table, th {
 </div><!-- .recipeWrap end -->	
 
 <!-- 댓글 리스트 -->
-<table class="table table-hover table-condensed">
+<table class="table table-hover table-condensed" style="margin-top: 50px;">
 <thead>
 	<tr>
 		<th style="width: 4%;"></th>
-		<th style="width: 15%;">작성자</th>
+		<th style="width: 15%;">닉네임</th>
 		<th style="width: 58%;">댓글</th>
 		<th style="width: 13%;">작성일</th>
 		<th style="width: 10%;"></th>
@@ -534,7 +534,7 @@ table, th {
 </tbody>
 </table>
 		
-<div class="text-center" style="margin-bottom: 100px;">
+<div class="text-center" style="margin-bottom: 100px; margin-top: 50px;">
 	<a href="/admin/report/trade/list"><button id="btnList">목록</button></a>
 </div>
 <br>
