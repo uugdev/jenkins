@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -23,7 +24,19 @@
 			<c:if test="${map.MSG_CHECK eq 'n'}" >읽지 않음</c:if>
 			<c:if test="${map.MSG_CHECK eq 'y'}" >읽음</c:if>
 		</td>
-		<td><fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd HH:mm" /></td>
+		<fmt:formatDate value="${map.MSG_DATE  }" pattern="yyyyMMdd" var="timeStr" />
+		<fmt:formatDate value="<%=new Date()%>" pattern="yyyyMMdd" var="nowStr" />
+
+			<td>
+				<c:choose>
+					<c:when test="${timeStr lt nowStr }">
+						<fmt:formatDate value="${map.MSG_DATE }" pattern="yy-MM-dd" />
+					</c:when>
+					<c:when test="${timeStr eq nowStr }">
+						<fmt:formatDate value="${map.MSG_DATE }" pattern="HH:mm" />
+					</c:when>
+				</c:choose>
+			</td>
 	</tr>
 	</c:forEach>
 	</tbody>

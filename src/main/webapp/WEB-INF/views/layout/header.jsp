@@ -16,8 +16,12 @@ $(document).ready(function() {
             , dataType: "json"
             , success: function ( data ) {
                 
-            	$("#test").html('MESSAGE('+ data.unreadMsg +')');
+            	if(data.unreadMsg != 0) {
+            		$("#test").html('<img width="17px" height="17px" alt="#" margin-right="2px" src="/resources/img/notification.png">MESSAGE(<span class="countmessage">'+ data.unreadMsg +'</span>)');
+            	} else {
+            		$("#test").html('MESSAGE('+ data.unreadMsg +')');
 
+            	}
             }
             , error: function () {
                 console.log("AJAX 실패")
@@ -83,7 +87,8 @@ $(document).ready(function() {
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose>
 						<c:when test="${login }">
-							<li><a href="/message/receive/list" style="padding: 3px; margin: 12px 0 0 0;"><span id="test">MESSAGE(${unreadMsg })</span></a></li>
+							<li><a href="/message/receive/list" style="padding: 3px; margin: 12px 0 0 0;">
+							<span id="test">MESSAGE(${unreadMsg })</span></a></li>
 							<li style="padding: 0; margin: 14px 0 0 0;"> ｜ </li>
 							<li><a href="/member/logout" style="padding: 3px; margin: 12px 34px 0 0;">LOGOUT</a></li>
 						</c:when>

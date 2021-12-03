@@ -86,3 +86,8 @@ div#boardNav.blockNav a, div#qnaNav.blockNav a, div#adminBoardNav.blockNav a, di
 	text-decoration-line: none;
 	padding-right: 25px;
 }
+
+.countmessage {
+	color: tomato;
+	font-weight: bold;	
+}
