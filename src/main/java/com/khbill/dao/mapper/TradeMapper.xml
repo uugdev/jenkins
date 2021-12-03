@@ -69,7 +69,7 @@
 	    WHERE 1=1
 	    AND t.user_no = u.user_no (+)
 	    AND t.file_no = f.file_no (+)
-        AND t.user_no = w.user_no
+        AND t.user_no = w.user_no (+)
 	
 	    AND t.trade_no = #{tradeNo }
 	</select>
@@ -172,11 +172,14 @@
 	</select>
 	
 	<select id="selectTradeCommentByUserNo" parameterType="int" resultType="com.khbill.dto.TradeComment">
-	    SELECT TRADE_COM_NO, USER_NO, TRADE_NO, TRADE_COM_CONTENT, TRADE_COM_DATE, TRADE_COM_SECRET, TRADE_COM_LIKE, TRADE_COM_HATE
-        FROM ztrade_comment
-	    WHERE user_no = #{userNo }
-        AND rownum = 1
-        ORDER BY trade_com_no DESC
+	    SELECT * FROM
+	        (
+		    SELECT TRADE_COM_NO, USER_NO, TRADE_NO, TRADE_COM_CONTENT, TRADE_COM_DATE, TRADE_COM_SECRET, TRADE_COM_LIKE, TRADE_COM_HATE
+	        FROM ztrade_comment
+		    WHERE user_no = #{userNo }
+	        ORDER BY trade_com_no DESC
+	        )
+	    WHERE rownum = 1
 	</select>
 	
 	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
@@ -256,11 +259,13 @@
 	</select>
 	
 	<select id="selectTradeNoByUserNo" parameterType="int" resultType="String">
-		SELECT trade_no
-		FROM ztrade
-		WHERE user_no = #{userNo }
-        AND rownum = 1
-        ORDER BY trade_no DESC
+	    SELECT * FROM (
+			SELECT trade_no
+			FROM ztrade
+			WHERE user_no = #{userNo }
+	        ORDER BY trade_no DESC
+	        )
+	    WHERE rownum = 1
 	</select>
 	
 </mapper>
