@@ -11,7 +11,7 @@
 	<thead>
 		<tr>
 			<th style="width: 10%; text-align: center;">글번호</th>
-			<th style="width: 54%; text-align: left;">제목</th>
+			<th style="width: 54%; text-align: center;">제목</th>
 			<th style="width: 15%; text-align: center; padding-right: 18px;">닉네임</th>
 			<th style="width: 10%; text-align: center;">작성일</th>
 			<th style="width: 10%; text-align: center;">조회수</th>
