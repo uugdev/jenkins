@@ -218,6 +218,44 @@ body {
     color: #000;
 }
 
+a:hover {
+    color: #85969E;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a {
+    color: #000;
+}
+
+.btnSearch:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.btnSearch {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+.tomato > a {
+	color: tomato;
+}
+
+.tomato > a:hover {
+	color: #ffaa9a;
+}
+
+li {
+	cursor: default !important;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->

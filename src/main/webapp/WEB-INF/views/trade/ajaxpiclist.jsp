@@ -59,21 +59,35 @@ td:nth-child(2) {
 
 <!-- <div> -->
 <!-- <div id="ajaxArea"> -->
-
 	<ul id="photoList">
 		<c:forEach items="${tradeList }" var="list">
 			<li>
 				<div style="width: 100%; height: 250px;">
 						<c:if test="${empty list.FILE_STORED}">
-							<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="좋은 상품">좋은 상품</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-							<a href="/trade/detail?tradeNo=${list.TRADE_NO}">
-								<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
-							</a>
+							<c:if test="${list.REPORT_STATUS eq 'n' }">
+								<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="좋은 상품">좋은 상품</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+								<a href="/trade/detail?tradeNo=${list.TRADE_NO}">
+									<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
+								</a>
+							</c:if>
+							<c:if test="${list.REPORT_STATUS eq 'y' }">
+								<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="좋은 상품">좋은 상품</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+								<a onclick="reportStatusY();">
+									<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
+								</a>
+							</c:if>
 						</c:if>
 						<c:if test="${!empty list.FILE_STORED}">
-							<a href="/trade/detail?tradeNo=${list.TRADE_NO}">
-								<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
-							</a>
+							<c:if test="${list.REPORT_STATUS eq 'n' }">
+								<a href="/trade/detail?tradeNo=${list.TRADE_NO}">
+									<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
+								</a>
+							</c:if>
+							<c:if test="${list.REPORT_STATUS eq 'y' }">
+								<a onclick="reportStatusY();">
+									<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
+								</a>
+							</c:if>
 						</c:if>
 				</div>
 				<div style="border: 1px solid #ccc; border-top: none; box-sizing: border-box; padding: 0 5px 10px; ">
@@ -81,7 +95,12 @@ td:nth-child(2) {
 							<span class="ellipsis2" style="text-align: left;">제목: ${list.TRADE_TITLE}</span>
 							<span class="">
 							<c:if test="${!empty list.TRADE_COM_CNT }">
-								<strong><a href="/trade/detail?tradeNo=${list.TRADE_NO }&commentFocus=true">[${list.TRADE_COM_CNT }]</a></strong>
+								<c:if test="${list.REPORT_STATUS eq 'y' }">
+									<strong class="tomato"><a onclick="reportStatusY();">[${list.TRADE_COM_CNT }]</a></strong>
+								</c:if>
+								<c:if test="${list.REPORT_STATUS eq 'n' }">
+									<strong class="tomato"><a href="/trade/detail?tradeNo=${list.TRADE_NO }&commentFocus=true">[${list.TRADE_COM_CNT }]</a></strong>
+								</c:if>
 							</c:if>
 							 조회수: ${list.TRADE_HIT}
 							</span>
@@ -105,7 +124,7 @@ td:nth-child(2) {
 	
 	<div class="form-inline text-center">
 		<input class="form-control" type="text" id="search" value="${param.search }" />
-		<button id="btnSearch" class="btn">검색</button>
+		<button id="btnSearch" class="btnSearch">검색</button>
 	</div>
 	<c:import url="/WEB-INF/views/review/paging.jsp" />
 	

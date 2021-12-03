@@ -453,6 +453,28 @@ comment_inbox {
 	width: 44px;
 }
 
+.btnWrap button {
+    width: 83px;
+    height: 35px;
+    background: transparent;
+    border: 1px solid #333;
+    font-weight: 600;
+    margin-left: 3px;
+}
+
+h1 {
+	margin: 30px 0 30px;
+}
+
+.logo {
+	margin: 25px 0 15px;
+	text-align: center;
+}
+
+.logo img {
+	width: 200px;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -460,48 +482,60 @@ comment_inbox {
 <div class="wrap">
 	<div id="mainContainer" class="container">
 	
-		<h1>
+		<div class="logo">
+			<img alt="#" src="https://i.imgur.com/fdRrD3i.png">
+		</div>
+		<div style="font-size: 20px;">
+		<p>
 			<c:if test="${tradeDetail.TRADE_CATEGORY eq 1 }">
 				[삽니다] 
 			</c:if>
 			<c:if test="${tradeDetail.TRADE_CATEGORY eq 0 }">
 				[팝니다] 
 			</c:if>
-			${tradeDetail.TRADE_TITLE }
-		</h1>
-		<span style="float: left;">
-		<c:if test="${!empty tradeDetail.GRADE_URL }">
-			<img alt="#" src="${tradeDetail.GRADE_URL }" width="20px" height="20px;">
-		</c:if>
-		<c:if test="${tradeDetail.USER_NO eq null }">
-			탈퇴(된)한 회원
-		</c:if>
-		<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO || empty sessionScope.userNo  }">
-			${tradeDetail.USER_NICK }
-		</c:if>
-		<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
-			<a class="layerpopup">${tradeDetail.USER_NICK }</a>
-				<div id="layer">
-					<ul>
-						<li><a onclick="userinfo();">회원정보 보기</a></li>
-						<li><a onclick="message();">쪽지 보내기</a></li>
-						<li><a id="layerClose">닫기</a></li>
-					</ul>
-				</div>
-		</c:if>
-			| <fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="YYYY-MM-dd HH:ss" />
-		</span>
-		<span style="float: right;">
+		</p>
+		</div>
 		
+		<p style="font-size: 32px;">
+			${tradeDetail.TRADE_TITLE }
+		</p>
+		
+		<div>
+			<c:if test="${!empty tradeDetail.GRADE_URL }">
+				<img alt="#" src="${tradeDetail.GRADE_URL }" width="20px" height="20px;">
+			</c:if>
+			<c:if test="${tradeDetail.USER_NO eq null }">
+				탈퇴(된)한 회원
+			</c:if>
+			<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO || empty sessionScope.userNo  }">
+				${tradeDetail.USER_NICK }
+			</c:if>
+			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
+				<a class="layerpopup">${tradeDetail.USER_NICK }</a>
+					<div id="layer">
+						<ul>
+							<li><a onclick="userinfo();">회원정보 보기</a></li>
+							<li><a onclick="message();">쪽지 보내기</a></li>
+							<li><a id="layerClose">닫기</a></li>
+						</ul>
+					</div>
+			</c:if>
+			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			<span><fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="yy-MM-dd HH:mm"/></span>
+			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>				
+			<span>조회 <span id="cntCom">${tradeDetail.TRADE_HIT }</span></span>
+			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${tradeDetail.TRADE_COM_COUNT}</span>
+		</div>
+		<div class="btnWrap" style="text-align: right;">
 			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
 				<button id="scrap">스크랩</button>
 				<c:if test="${tradeDetail.USER_NO ne null }">
 					<button id="report" class="popupOpen1">신고</button>
 				</c:if>
 			</c:if>
-			 | 조회 ${tradeDetail.TRADE_HIT } | 댓글 <span id="tradeComCount">${tradeDetail.TRADE_COM_COUNT }</span>
-		</span>
-		<hr style="margin-top: 40px;">
+		</div>
+		
+		<hr style="margin-top: 30px; border: 1px dashed;">
 		
 		<div id="detailMain" style="height: auto; padding-top: 20px; padding-bottom: 20px;">
 			<c:if test="${tradeDetail.FILE_STORED ne null }">

@@ -46,7 +46,7 @@ $(document).ready(function() {
 	
 		<form id="writeForm" action="/trade/write" method="post" enctype="multipart/form-data">
 		
-			<input type="text" style="width: 60%;" name="tradeTitle" placeholder="제목을 입력해주세요"/>
+			<input type="text" style="width: 60%;" maxlength="33" name="tradeTitle" placeholder="제목을 입력해주세요"/>
 			<select name="tradeCategory">
 				<option value="0">팝니다</option>
 				<option value="1">삽니다</option>
