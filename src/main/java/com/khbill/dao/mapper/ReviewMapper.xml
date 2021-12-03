@@ -164,6 +164,16 @@
 		WHERE review_no = #{reviewNo }
 	</update>
 	
+	<select id="selectReviewNoByUserNo" parameterType="int" resultType="int">
+		SELECT * FROM (
+			SELECT review_no
+			FROM zreview
+			WHERE user_no = #{userNo }
+			ORDER BY review_no DESC		
+		)
+		WHERE rownum = 1
+	</select>
+	
 	
 	<delete id="deleteReview" parameterType="com.khbill.dto.Review">
 		DELETE zreview

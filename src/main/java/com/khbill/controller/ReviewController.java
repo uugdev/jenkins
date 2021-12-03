@@ -153,9 +153,9 @@ public class ReviewController {
 		
 		review.setUserNo(userNo);
 		
-		reviewService.setReviewWrite(review, item, file);
+		int reviewNo = reviewService.setReviewWrite(review, item, file);
 
-		return "redirect:/review/list";
+		return "redirect:/review/detail?reviewNo=" + reviewNo;
 	}
 	
 	//후기 게시글 수정 - GET

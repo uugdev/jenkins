@@ -124,6 +124,8 @@ public interface ReviewDao {
 	 */
 	public void updateUserPoint(Review review);
 	
+	
+	
 	/**
 	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
 	 * 
@@ -147,8 +149,13 @@ public interface ReviewDao {
 	 */
 	public void update(Review review);
 
-	
-	
+	/**
+	 * 유저가 insert한 거래 게시글 번호 조회
+	 * 
+	 * @param userNo - 글쓴 유저의 유저번호
+	 * @return reviewNo
+	 */
+	public int selectReviewNoByUserNo(int userNo);
 	
 	//---delete -----------------------------------
 	
@@ -248,6 +255,5 @@ public interface ReviewDao {
 	 * @param reviewNo
 	 */
 	public Review selectDeleteReviewByReviewNo(int reviewNo);
-
 
 }

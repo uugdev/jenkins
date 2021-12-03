@@ -186,20 +186,17 @@ function insertComment() {
 			var reviewComDate = moment(data.addComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
 				
 			$('#appendArea').before('<tr data-updateReviewComNo="'+data.addComment.reviewComNo+'"></tr>' +
-				'<tr data-reviewComNo="'+data.addComment.reviewComNo+'" style="text-align: left;">' +
+				'<tr data-reviewComNo="'+data.addComment.reviewComNo+'">' +
 				'<td></td>' +
-				
-				/* 새롭게 삽입한 부분 - 회원 등급 아이콘 삽입부분 */
-				'<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">' +
-				'</td>' +
-				'<td style="width: 15%; padding: 5px; text-align: left;">' +
-				'<img alt="#" src="'+data.gradeUrl+'" width="20px;" height="20px;">'+data.userNick+'</td>' +
-				
-				'<td id="td'+data.addComment.reviewComNo+'" style="text-align: left;">'+content+'</td>' +
-				'<td id="dateTd'+data.addComment.reviewComNo+'">'+ reviewComDate+'</td>' +
-				'<td style="text-align: center;">' +
-				'<button class="btn_d" onclick="deleteComment('+data.addComment.reviewComNo+');">삭제</button> ' +
-				'<button class="btn_u" onclick="updateComment('+data.addComment.reviewComNo+');">수정</button>' +
+
+				'<td style="width: 15%; padding: 5px; text-align: left;"> ' +
+				'<img alt="#" src="'+data.gradeUrl+'" width="20px;" height="20px;">' +data.userNick+'</td>' +
+// 				'<td id="td'+ data.addComment.reviewComNo +'" style="text-align: left;">'+ data.addComment.reviewComContent +'</td>' +
+				'<td id="td'+ data.addComment.reviewComNo +'" style="text-align: left;">'+ content+'</td>' +
+				'<td id="dateTd'+data.addComment.reviewComNo +'" style="width: 10%; padding: 5px;">'+ reviewComDate+'</td>' +
+				'<td>' +
+				'<button class="btn btn_d btn-xs" onclick="deleteComment('+data.addComment.reviewComNo+');">삭제</button> ' +
+				'<button class="btn btn_u btn-xs" onclick="updateComment('+data.addComment.reviewComNo+');">수정</button>' +
 				'</td>' +
 				'</tr>');
 			
@@ -232,7 +229,7 @@ function updateComment(reviewComNo) {
 		'<div class="CommentWriter" style="width: 1020px;>' +
 		'<div class="comment_inbox">' +
 		'<span class="comment_inbox_name pull-left" id="userNick">' +
-		'<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }' +
+		'<img alt="#" src="${grade }" style="width: 20px; height: 20px;">&nbsp;${userNick }' +
 		'</span>'+
 		'<textarea  onkeyup="adjustHeight(this);" rows="1" class="comment_inbox_text" style="overflow: hidden;'+ 
 			'overflow-wrap: break-word; height: 45px;" id="reviewComUpdateContent'+reviewComNo+'">'+content+'</textarea>' + 
@@ -782,10 +779,12 @@ comment_inbox {
 				탈퇴한 회원
 			</c:if>
 			<c:if test="${sessionScope.userNo eq review.USER_NO || empty sessionScope.userNo }">
+			<c:if test="${review.USER_NO ne null }">
 				<span class="confirmation username">
 					<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">
 						${review.USER_NICK }
 				</span>
+			</c:if>
 			</c:if>
 			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<span class="confirmation username layerpopup">
@@ -871,9 +870,9 @@ comment_inbox {
 	<tr>
 		<th style="width: 1.6%;"></th>
 		<th style="width: 15%;">닉네임</th>
-		<th style="width: 57.5%;">댓글</th>
+		<th style="width: 58%;">댓글</th>
 		<th style="width: 13%;">작성일</th>
-		<th style="width: 10.5%;"></th>
+		<th style="width: 10%;"></th>
 	</tr>
 	</thead>
 	
@@ -887,13 +886,13 @@ comment_inbox {
 				</c:if>
 				<c:if test="${reviewComment.USER_NICK ne null }">
 					<td style="text-align: left;">
-						<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">${reviewComment.USER_NICK }
+						<img alt="#" src="${reviewComment.GRADE_URL}" style="width: 20px; height: 20px;">&nbsp;${reviewComment.USER_NICK }
 					</td>
 				</c:if>
 				
 				<td id="td${reviewComment.REVIEW_COM_NO }" style="text-align: left;">${reviewComment.REVIEW_COM_CONTENT }</td>
-				<td id="dateTd${reviewComment.REVIEW_COM_NO }" style="width: 10.5%;">
-					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE}" pattern="yy-MM-dd hh:mm:ss" />
+				<td id="dateTd${reviewComment.REVIEW_COM_NO }">
+					<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE}" pattern="yy-MM-dd HH:mm:ss" />
 				</td>
 				
 				<td style="width: 10%;">
@@ -914,7 +913,7 @@ comment_inbox {
 <div class="CommentWriter">
 	<div class="comment_inbox">
 		<span class="comment_inbox_name pull-left" id="userNick">
-			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">${userNick }
+			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">&nbsp;${userNick }
 		</span>
 			<textarea onkeyup="adjustHeight(this);" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
 				style="overflow: hidden; overflow-wrap: break-word; 
@@ -929,24 +928,20 @@ comment_inbox {
 
 <br>
 
-<div class="text-center" style="margin-bottom: 100px;">
-	<c:if test="${userNo eq review.USER_NO }">
-		<a href="/review/update?reviewNo=${review.REVIEW_NO }">
-		<button id="btnUpdate">수정</button></a>
-		<button type="button" id="btnDelete">삭제</button>
-	</c:if>
-	<a href="/review/list"><button id="btnList">목록으로</button></a>
+<div class="text-right">
+	<button type="button" id="btnList" class="button" 
+		style="float: left; margin-bottom: 20px;" onclick="location.href='/review/list';" >목록</button>
+		<c:if test="${sessionScope.userNo eq review.USER_NO }">
+			<a href="/review/update?reviewNo=${review.REVIEW_NO }">
+			<button type="button" id="btnUpdate" class="button" >수정</button></a>
+			<button type="button" id="btnDelete">삭제</button>
+		</c:if>
 </div>
 
+<c:import url="/WEB-INF/views/layout/footer.jsp" /><!-- footer start -->
 
-<!-- footer start -->
-<c:import url="/WEB-INF/views/layout/footer.jsp" />
-</div>
-<!-- .container end -->
-
-</div>
-<!-- .wrap end -->
-
+</div><!-- .container end -->
+</div><!-- .wrap end -->
 
 
 <!-- 신고 처리 코드 영역 -->

@@ -30,12 +30,13 @@
 	</insert>
 	
 	<select id="selectReviewCommentByUserNo" parameterType="int" resultType="com.khbill.dto.ReviewComment">
-		SELECT 
-        	REVIEW_COM_NO, USER_NO, REVIEW_NO, REVIEW_COM_CONTENT, REVIEW_COM_DATE, REVIEW_COM_LIKE, REVIEW_COM_HATE
-		FROM zreview_comment
-		WHERE user_no = #{userNo }
-		AND rownum = 1
-		ORDER BY REVIEW_COM_NO DESC
+		SELECT * FROM (
+		    SELECT REVIEW_COM_NO, USER_NO, REVIEW_NO, REVIEW_COM_CONTENT, REVIEW_COM_DATE, REVIEW_COM_LIKE, REVIEW_COM_HATE
+		    FROM zreview_comment
+		    WHERE user_no = #{userNo }
+		    ORDER BY REVIEW_COM_NO DESC
+		    )
+		WHERE rownum = 1
 	</select>
 	
 	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">

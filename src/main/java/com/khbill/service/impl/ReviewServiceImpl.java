@@ -99,13 +99,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	   @Override
-	   public void setReviewWrite(Review review, Item item, MultipartFile file) {
+	   public int setReviewWrite(Review review, Item item, MultipartFile file) {
 	      
 	      //빈 파일
-	      if( file.getSize() <= 0 ) {
-	         return;
-	      }
+//	      if( file.getSize() <= 0 ) {
+//	         return;
+//	      }
 	      
+		  int userNo = review.getUserNo();
 	      int itemNo = item.getItemNo();
 	      int fileNo = reviewDao.getNextFileNo();
 	      
@@ -145,6 +146,8 @@ public class ReviewServiceImpl implements ReviewService {
 	      reviewDao.insertFile(reviewFile);
 	      reviewDao.insertReview(review);
 	      reviewDao.updateUserPoint(review);
+	      
+	      return reviewDao.selectReviewNoByUserNo(userNo);
 	   }
 
 	@Override

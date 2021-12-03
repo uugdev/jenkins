@@ -95,7 +95,7 @@ public interface ReviewService {
 	 * @param file - 전달 받은 파일 객체
 	 * @return
 	 */
-	public void setReviewWrite(Review review, Item item, MultipartFile file);
+	public int setReviewWrite(Review review, Item item, MultipartFile file);
 
 	/**
 	 * 게시글번호를 이용하여 업로드된 파일의 정보를 조회한다
