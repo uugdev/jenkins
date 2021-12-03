@@ -213,10 +213,7 @@ public class ReviewServiceImpl implements ReviewService {
 		com.khbill.dto.File file = new com.khbill.dto.File();
 		
 		item.setItemNo(review.getItemNo());
-		System.out.println(item.getItemNo());
-		
 		file.setFileNo(item.getFileNo());
-		System.out.println(item.getFileNo());
 		
 		int userNo = review.getUserNo();
 		int fileNo = file.getFileNo();
@@ -237,7 +234,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public Review getReviewByReviewNo(int reviewNo) {
 		return reviewDao.selectDeleteReviewByReviewNo(reviewNo);
 	}
-
 
 	@Override
 	public boolean scrap(ReviewScrap reviewScrap) {
@@ -318,7 +314,4 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		return resultComment;
 	}
-
-
-
 }
