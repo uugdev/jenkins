@@ -19,19 +19,17 @@
 	</sql>
 
 	<select id="selectAskList" resultType="HashMap" parameterType="com.khbill.util.Paging">
-		SELECT A.ask_no, U.user_no, A.user_nick, A.ask_title, A.ask_content, A.ask_date, A.ask_hit, u.grade_url
-		FROM USERWITHURL U, (
-            SELECT rownum rnum, ask_no, U.user_no, user_nick, ask_title, ask_content, product_no, ask_date, ask_hit
-            FROM zask A, zuser U
-            WHERE 1=1
-            AND U.user_no(+) = A.user_no 
-            AND ask_title LIKE '%' || #{search} || '%'
-            ORDER BY ask_no DESC
-        ) A
-        WHERE 1=1
-        AND U.user_no(+) = A.user_no
-        AND rnum BETWEEN #{startNo } AND #{endNo }
-		ORDER BY A.ask_no DESC
+		SELECT * FROM (
+	    	SELECT rownum rnum, Z.* FROM (
+	        	SELECT a.ask_no, u.user_no, u.user_nick, a.ask_title, a.ask_content, a.product_no, a.ask_date, a.ask_hit
+	        	FROM zask a
+	        	LEFT OUTER JOIN zuser u
+	        	ON a.user_no = u.user_no
+	        	WHERE ask_title LIKE '%' || #{search} || '%'
+	        	ORDER BY a.ask_no DESC
+	    	)Z
+		) R
+		WHERE rnum between #{startNo} AND #{endNo}
 	</select>
 
 	<select id="selectCntAll" resultType="int" parameterType="com.khbill.util.Paging">

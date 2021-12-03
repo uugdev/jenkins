@@ -447,7 +447,7 @@ table, th {
 			</div>
 
 			<span class="bar">|</span> <span> <fmt:formatDate
-					value="${ask.askDate }" pattern="yy-MM-dd HH:mm" />
+					value="${ask.askDate }" pattern="yy-MM-dd HH:mm:ss" />
 			</span> <span class="bar">|</span> <span>조회 <span id="cntCom">${ask.askHit }</span>
 			</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
 
@@ -619,7 +619,7 @@ table, th {
 							<td style="text-align: left;">${askComment.USER_NICK }</td>
 						</c:if>
 						<c:if test="${askComment.USER_NICK eq null}">
-							<td class="pull-left">탈퇴한 회원</td>
+							<td style="text-align: left;">탈퇴한 회원</td>
 						</c:if>
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">

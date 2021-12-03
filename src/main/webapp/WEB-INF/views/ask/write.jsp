@@ -177,12 +177,12 @@ form {
 			</div>
 			<div class="">
 				<label for="itemName">상품명</label><input type="text" id="itemName"
-					name="itemName" class="" placeholder="상품명을 입력해주세요" />
+					name="itemName" class="" placeholder="상품명을 입력해주세요" maxlength="32"/>
 			</div>
 			<div class="inlineWrap">
 				<div>
 					<label for="itemBrand">브랜드</label><br> <input type="text"
-						id="itemBrand" name="itemBrand" class="" placeholder="브랜드를 입력해주세요" />
+						id="itemBrand" name="itemBrand" class="" placeholder="브랜드를 입력해주세요" maxlength="32" />
 				</div>
 				<div class=" commaInput">
 					<label for="itemPrice">가격</label><br> <input type="text"
