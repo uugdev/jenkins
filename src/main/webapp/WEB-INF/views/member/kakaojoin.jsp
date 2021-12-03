@@ -43,7 +43,7 @@ $(document).ready(function () {
 	$("#kakaojoin").click(function(){
 		var userNick = $("#userNick").val();
 	
-		var nickRegex = /^[ㄱ-ㅎ가-힣a-zA-z0-9]{4,8}$/;
+		var nickRegex = /^[ㄱ-ㅎㅏ-ㅢ가-힣a-zA-z0-9]{3,8}$/;
 
 
 		var nickregex = nickRegex.exec(userNick);
@@ -97,7 +97,7 @@ function checkNick(){
 function checkUserNick() {
 	var userNick = $("#userNick").val();
 
-    var idRegExp = /^[ㄱ-ㅎ가-힣a-zA-z0-9]{4,8}$/;
+    var idRegExp = /^[ㄱ-ㅎㅏ-ㅢ가-힣a-zA-z0-9]{3,8}$/;
     if (!idRegExp.test(userNick)) {
         $(".nick_already").css("display","none");
         $(".nick_ok").css("display", "none");
@@ -127,7 +127,11 @@ function viewKorean(){
 	 $("#won").text(result);
 }
 
-
+function checkMaxLength(object){
+	if(object.value.length > object.maxLength){
+		object.value = object.value.slice(0, object.maxLength);
+	}
+}
 
 </script>
 
@@ -249,7 +253,7 @@ body {
 	<td><input type="text" id="userNick" name="userNick" placeholder="닉네임을 입력하세요" autocomplete="off" maxlength="8" required oninput="checkUserNick()" /><br>
 	<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 	<span class="nick_already">사용 중인 닉네임입니다.</span>
-	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~8자리로 입력해야 합니다!</span></td>
+	<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 3~8자리로 입력해야 합니다!</span></td>
 </tr>
 <tr>
 	<th><label for="userMail">이메일<span class="required">&nbsp;*</span></label></th>
@@ -258,7 +262,7 @@ body {
 <tr>
 	<th><label for="extraMoney">여유자금<span class="required">&nbsp;*</span></label><br>
 	<span style="color: #C2BDB9; font-size: 12px; font-weight: lighter;">(단위 : ￦)</span></th>
-	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" min="0" oninput="viewKorean()" required/>
+	<td><input type="number" id="extraMoney" name="extraMoney" placeholder="여유자금을 입력하세요" autocomplete="off" min="0" maxlength="9" oninput="viewKorean(); checkMaxLength(this);" required/>
 	<span id="won" class="pull-right"></span></td>
 </tr>
 <tr>

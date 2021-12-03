@@ -43,12 +43,17 @@ public class MemberController {
 	@RequestMapping(value="/member/login", method=RequestMethod.GET)
 	public void login(HttpServletRequest req, HttpSession session) {
 				
-		String add = req.getHeader("Referer").substring(21); //localhost:8888 referer
-		logger.info("[GET] member add : {}", add);
-		session.setAttribute("referer", add);
-		if( session.getAttribute("referer").equals("/member/login") || session.getAttribute("referer").equals("/member/joinSuccess") 
-				|| session.getAttribute("referer").equals("/member/findId") || session.getAttribute("referer").equals("/member/findPw")) {
-			session.removeAttribute("referer");
+		if( req.getHeader("Referer") != null ) {
+			String add = req.getHeader("Referer").substring(21); //localhost:8888 referer			
+			logger.info("[GET] member add : {}", add);
+			session.setAttribute("referer", add);
+			if( session.getAttribute("referer").equals("/member/login") || session.getAttribute("referer").equals("/member/joinSuccess") 
+					|| session.getAttribute("referer").equals("/member/findId") || session.getAttribute("referer").equals("/member/findPw")
+					|| session.getAttribute("referer").equals("/member/join") || session.getAttribute("referer").equals("/member/kakaojoin")) {
+				session.removeAttribute("referer");
+				session.setAttribute("referer", "/main");
+			}
+		} else {
 			session.setAttribute("referer", "/main");
 		}
 		logger.info("[GET] referer : {}", session.getAttribute("referer"));
@@ -98,7 +103,7 @@ public class MemberController {
 					try {
 						PrintWriter out = resp.getWriter();
 						out.append("<script>");
-						out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(userInfo.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
+						out.append("alert('관리자에 의해 로그인이 차단된 회원입니다. "+format.format(userInfo.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
 						out.append("</script>");
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -164,7 +169,7 @@ public class MemberController {
 						try {
 							PrintWriter out = resp.getWriter();
 							out.append("<script>");
-							out.append("alert('관리자에 의해 로그인이 차단된 회원입니다.              "+format.format(kuser.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
+							out.append("alert('관리자에 의해 로그인이 차단된 회원입니다. "+format.format(kuser.getUnablePeriod())+"까지 로그인하실 수 없습니다.'); location.href='/member/login';");
 							out.append("</script>");
 						} catch (IOException e) {
 							e.printStackTrace();

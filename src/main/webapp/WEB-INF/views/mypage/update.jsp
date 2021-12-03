@@ -62,7 +62,7 @@ $(document).ready(function() {
 		var userNick = $("#userNick").val();
 		
 		var pwRegex = /^[a-zA-z0-9]{8,16}$/;
-		var nickRegex = /^[가-힣a-zA-z0-9]{4,8}$/;
+		var nickRegex = /^[ㄱ-ㅎㅏ-ㅢ가-힣a-zA-z0-9]{3,8}$/;
 		
 		var pwregex = pwRegex.exec(userPw);
 		if(pwregex == null){
@@ -171,7 +171,7 @@ function checkNick(){
 function checkUserNick() {
 	var userNick = $("#userNick").val();
 
-    var idRegExp = /^[가-힣a-zA-z0-9]{4,8}$/;
+    var idRegExp = /^[ㄱ-ㅎㅏ-ㅢ가-힣a-zA-z0-9]{3,8}$/;
     if (!idRegExp.test(userNick)) {
         $(".nick_already").css("display","none");
         $(".nick_ok").css("display", "none");
@@ -312,23 +312,23 @@ input[type=password]{
 					<c:if test="${kakaoUser == '' || empty kakaoUser}">
 						<tr>
 							<td><strong>비밀번호</strong></td>
-							<td ><input type="password" id="userPw" name="userPw" value="${user.userPw }" required oninput="checkUserPw()"><br>
+							<td ><input type="password" id="userPw" name="userPw" value="${user.userPw }" maxlength="16" required oninput="checkUserPw()"><br>
 							<span class="pw regex"></span></td>
 						</tr>			
 					</c:if>
 					<c:if test="${kakaoUser == '' || empty kakaoUser}">
 						<tr>
 							<td><strong>비밀번호확인</strong></td>
-							<td ><input type="password" id="userPwCheck" name="userPwCheck" value="${user.userPw }" required onkeyup="checkPwSame()"><br>
+							<td ><input type="password" id="userPwCheck" name="userPwCheck" value="${user.userPw }" maxlength="16" required onkeyup="checkPwSame()"><br>
 							<span class="pwchk regex"></span></td>
 						</tr>			
 					</c:if>
 					<tr>
 						<td><strong>닉네임</strong></td>
-						<td><input type="text" id="userNick" name="userNick" value="${user.userNick }" required oninput="checkUserNick()"><br>
+						<td><input type="text" id="userNick" name="userNick" value="${user.userNick }" required maxlength="8" oninput="checkUserNick()"><br>
 						<span class="nick_ok">사용 가능한 닉네임입니다.</span>
 						<span class="nick_already">사용 중인 닉네임입니다.</span>
-						<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 4~8자리로 입력해야 합니다!</span></td>
+						<span class="nick_check">닉네임은 한글, 영어 대소문자와 숫자 3~8자리로 입력해야 합니다!</span></td>
 					</tr>
 					<tr>
 						<td><strong>이메일</strong></td>

@@ -99,7 +99,7 @@ body {
 </tr>
 </table>
 <div class="text-center">
-	<button id="btnList">목록으로</button>
+	<button id="btnList">목록</button>
 </div><!-- .text-center end -->
 </div><!-- .detail end -->
 

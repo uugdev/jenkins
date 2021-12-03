@@ -146,11 +146,15 @@ body {
 	</td>
 </tr>
 </table>
-<div class="text-center">
+<div class="pull-left">
+	<button id="btnList">목록</button>
+</div>
+<div class="pull-right">
 	<button id="btnUpdate">수정</button>
 	<button id="btnDelete">삭제</button>
-	<button id="btnList">목록으로</button>
-</div><!-- .text-center end -->
+</div>
+
+<div class="clearfix"></div>
 
 </div><!-- .detail end -->
 
