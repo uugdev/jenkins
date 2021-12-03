@@ -1217,14 +1217,14 @@ comment_inbox {
 									src="${askComment.GRADE_URL }" width="20px;" height="20px;">${askComment.USER_NICK }</td>
 							</c:if>
 							<c:if test="${askComment.USER_NICK eq null}">
-								<td class="pull-left">탈퇴한 회원</td>
+								<td style="text-align: left;">탈퇴한 회원</td>
 							</c:if>
 							<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 							<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
 								<fmt:formatDate value="${askComment.ASK_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" />
 							</td>
 							<td>
-								<c:if test="${userNo eq askComment.USER_NO }">
+								<c:if test="${userNo ne null and userNo eq askComment.USER_NO }">
 									<button class="btn btn_d btn-xs btnDel" onclick="deleteComment(${askComment.ASK_COM_NO });">삭제</button>
 									<button class="btn btn_u btn-xs" onclick="updateComment(${askComment.ASK_COM_NO });">수정</button>
 								</c:if>

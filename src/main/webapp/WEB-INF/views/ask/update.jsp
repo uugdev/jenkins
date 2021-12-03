@@ -164,13 +164,13 @@ form {
 			</div>
 			<div class="">
 				<label for="itemName">상품명</label> <input type="text" id="itemName"
-					name="itemName" class="" value="${item.itemName }"
+					name="itemName" maxlength="32" class="" value="${item.itemName }"
 					readonly="readonly" />
 			</div>
 			<div class="inlineWrap">
 				<div class="">
 					<label for="itemBrand">브랜드</label><br> <input type="text" id="itemBrand"
-						name="itemBrand" class="" value="${item.itemBrand }"
+						name="itemBrand" maxlength="32" class="" value="${item.itemBrand }"
 						readonly="readonly" />
 				</div>
 				<div class="">
