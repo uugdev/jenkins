@@ -453,37 +453,39 @@ function cancelCom(askComNo) {
 
 
 function deleteComment(askComNo) {
-	$.ajax({
-		type: "post"
-		, url: "/ask/comment/delete"
-		, dataType: "json"
-		, data: {
-			askComNo: askComNo
-		}
-		, success: function(data){
-			if(data.success) {
-				
-				action_popup.confirm("댓글을 삭제하시겠습니까?", function (del) {
-					
-					if(del) {
+
+	action_popup.confirm("댓글을 삭제하시겠습니까?", function (res) {
+        if (res) {
+	
+	
+			$.ajax({
+				type: "post"
+				, url: "/ask/comment/delete"
+				, dataType: "json"
+				, data: {
+					askComNo: askComNo
+				}
+				, success: function(data){
+					if(data.success) {
 						$("[data-askComNo='"+askComNo+"']").remove();
+						
+					} else {
+						alert("댓글 삭제 실패");
 					}
-				
-				})
-				
-				/* 닫는 창으로 꼭 필요함 */
-			    $(".modal_close").on("click", function () {
-			        action_popup.close(this);
-			    });
-				
-			} else {
-				alert("댓글 삭제 실패");
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
-	});
+				}
+				, error: function() {
+					console.log("error");
+				}
+			});
+	
+        }
+        
+	})
+	
+	/* 닫는 창으로 꼭 필요함 */
+    $(".modal_close").on("click", function () {
+        action_popup.close(this);
+    });
 }
 </script>
 
