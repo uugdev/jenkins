@@ -25,6 +25,25 @@ $(document).ready(function() {
 	$("#btnWrite").click(function() {
 		submitContents($("#btnWrite"));
 		
+        var nullCheck = ["tradeTitle", "tradeContent"];
+
+		//입력 값 널 체크
+		for (var i = 0; i < nullCheck.length; i++) {
+		    //alert(arr[i]);
+		    if ($.trim($('#' + nullCheck[i]).val()) == '') {
+		        action_popup.alert('빈 칸을 모두 입력해 주세요.');
+		        $('#' + nullCheck[i]).focus();
+		
+		        /* 닫는 창으로 꼭 필요함 */
+		        $(".modal_close").on("click",function() {
+		        	action_popup.close(this);
+		        });
+		
+		        return;
+		
+			} //if end
+		} //for end
+		
 		$("form").submit();
 	})
 	
@@ -36,17 +55,18 @@ $(document).ready(function() {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
+	<div class="title">
+		<h1>오이장터</h1>
+		<p>장터 글을 원하는데로 작성하세요!</p>
+	</div>
 <div class="container">
-
-	
 	<div id="writeMain">
 	
-		<h1>거래 게시글 작성</h1>
-		<hr style="margin-top: 20px;">
+		<span>제목</span>
 	
 		<form id="writeForm" action="/trade/write" method="post" enctype="multipart/form-data">
 		
-			<input type="text" style="width: 60%;" maxlength="33" name="tradeTitle" placeholder="제목을 입력해주세요"/>
+			<input type="text" style="width: 60%;" maxlength="33" id="tradeTitle" name="tradeTitle" placeholder="제목을 입력해주세요"/>
 			<select name="tradeCategory">
 				<option value="0">팝니다</option>
 				<option value="1">삽니다</option>
@@ -55,7 +75,7 @@ $(document).ready(function() {
 		
 			<div class="form-group">
 				<label for="tradeContent"></label>
-				<textarea rows="10" style="width: 100%; height: 400px;" id="tradeContent" name="tradeContent"></textarea>
+				<textarea rows="10" style="width: 100%; height: 400px;" id="tradeContent" name="tradeContent" maxlength="1333"></textarea>
 			</div>
 			
 			<div class="form-group" style="float: left;">

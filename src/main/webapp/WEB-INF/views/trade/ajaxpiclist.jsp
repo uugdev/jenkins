@@ -80,20 +80,20 @@ td:nth-child(2) {
 						<c:if test="${!empty list.FILE_STORED}">
 							<c:if test="${list.REPORT_STATUS eq 'n' }">
 								<a href="/trade/detail?tradeNo=${list.TRADE_NO}">
-									<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
+									<img style="height: 100%; width: 100%; object-fit: cover;" alt="#" src="/upload/${list.FILE_STORED}">
 								</a>
 							</c:if>
 							<c:if test="${list.REPORT_STATUS eq 'y' }">
 								<a onclick="reportStatusY();">
-									<img style="height: 100%;" alt="#" src="/upload/${list.FILE_STORED}">
+									<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
 								</a>
 							</c:if>
 						</c:if>
 				</div>
 				<div style="border: 1px solid #ccc; border-top: none; box-sizing: border-box; padding: 0 5px 10px; ">
 					<div style="padding-top: 8px; display:flex; align-items: flex-start; justify-content: space-between;">
-							<span class="ellipsis2" style="text-align: left;">제목: ${list.TRADE_TITLE}</span>
-							<span class="">
+						<span class="ellipsis2" style="text-align: left;">
+							제목: ${list.TRADE_TITLE}
 							<c:if test="${!empty list.TRADE_COM_CNT }">
 								<c:if test="${list.REPORT_STATUS eq 'y' }">
 									<strong class="tomato"><a onclick="reportStatusY();">[${list.TRADE_COM_CNT }]</a></strong>
@@ -102,13 +102,17 @@ td:nth-child(2) {
 									<strong class="tomato"><a href="/trade/detail?tradeNo=${list.TRADE_NO }&commentFocus=true">[${list.TRADE_COM_CNT }]</a></strong>
 								</c:if>
 							</c:if>
-							 조회수: ${list.TRADE_HIT}
-							</span>
+						</span>
+						<span>조회수: ${list.TRADE_HIT}</span>
 					</div>
 		
 					<div style="display:flex; align-items: flex-start; justify-content: space-between;">
-						<span>작성자: 
-							<img alt="#" src="${list.GRADE_URL}" style="width: 20px;">${list.USER_NICK}</span> 
+						<c:if test="${list.USER_NICK eq null }">
+							<span>탈퇴한 회원</span> 
+						</c:if>
+						<c:if test="${list.USER_NICK ne null }">
+							<span>작성자: <img alt="#" src="${list.GRADE_URL}" style="width: 20px;">${list.USER_NICK}</span> 
+						</c:if>
 						<span>작성일: <fmt:formatDate value="${list.TRADE_DATE}" pattern="yy-MM-dd" /></span>
 					</div>
 				</div>

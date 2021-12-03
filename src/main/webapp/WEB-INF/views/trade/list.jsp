@@ -207,7 +207,6 @@ td:nth-child(2) {
     margin-bottom: 50px;
     padding: 50px;
     padding-bottom: 20px;
-    margin-top: 10px;
 }
 
 body {
@@ -256,16 +255,24 @@ li {
 	cursor: default !important;
 }
 
+.title {
+	margin: 50px 0;
+}
+
+.title>p {
+	color: #85969E;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 	<div class="container">
-	
-		<h1>거래</h1>
-		<hr>
-			
+		<div class="title">
+			<h1><a href="/trade/list">오이장터</a></h1>
+			<p>오늘도 이것저것 사고팔 수 있는 장터</p>
+		</div>
 		<div class="listArea">
 			<div class="pull-right" style="margin-bottom: 10px;">
 				<a id="latestList">최신순</a>

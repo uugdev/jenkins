@@ -111,13 +111,14 @@ $(document).ready(function() {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
+	<div class="title">
+		<h1>오이장터</h1>
+		<p>장터 글을 원하는데로 수정하세요!</p>
+	</div>
 <div class="container">
-
-	
 	<div id="writeMain">
 	
-		<h1>거래 게시글 수정</h1>
-		<hr style="margin-top: 20px;">
+		<span>제목</span>
 	
 		<form id="updateForm" action="/trade/update" method="post" enctype="multipart/form-data">
 		
@@ -159,8 +160,8 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="text-right">
-				<button type="button" id="btnCancel" class="btn btn-default">취소</button>
-				<button type="button" id="btnUpdate" class="btn btn-info">수정</button>
+				<button type="button" id="btnCancel" class="button">취소</button>
+				<button type="button" id="btnUpdate" class="button">수정</button>
 			</div>
 		
 		</form>

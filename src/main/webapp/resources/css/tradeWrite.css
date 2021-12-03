@@ -1,10 +1,24 @@
 #writeMain {
 	text-align: left;
-	margin-top: 40px;
+	padding-top: 20px;
 }
 
-#writeForm {
+#writeForm, #updateForm {
 	font-size: 18px;
+}
+
+.container {
+	background-color: white;
+}
+
+.wrap {
+	padding: 40px 30px 60px 30px;
+	background-color: #f2f2f2;
+}
+
+#writeMain > span {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .button {
@@ -21,4 +35,29 @@
     background: #fff;
     color: #5b6e7a;
     transition: all .2s ease-in-out;
+}
+
+.text-right {
+	margin-top: 42px;
+}
+
+.title {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.title>p {
+	color: #85969E;
+}
+
+input[name="tradeTitle"] {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    height: 32px;
+    margin-bottom: 10px;
+    cursor: auto;
+}
+
+#fileArea {
+	margin-bottom: 16px;
 }

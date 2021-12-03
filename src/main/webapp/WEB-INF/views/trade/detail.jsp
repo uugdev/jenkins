@@ -379,104 +379,6 @@ function adjustHeight(obj) {
 
 </script>
 
-<style>
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.CommentWriter {
-	margin: 12px 0 29px;
-    padding: 20px;
-    border: 2px solid #9f9d9d;
-    border-radius: 6px;
-    box-sizing: border-box;
-    background: #fff;
-}
-.CommentWriter .comment_inbox_text {
-    overflow-x: hidden;
-    overflow-y: auto;
-    display: block;
-    width: 100%;
-    min-height: 17px;
-    padding-right: 1px;
-    border: 0;
-    font-size: 13px;
-    -webkit-appearance: none;
-    resize: none;
-    box-sizing: border-box;
-    background: transparent;
-    color: var(--skinTextColor);
-    outline: 0;
-}
-.CommentWriter .register_box {
-    text-align: right;
-}
-
-comment_inbox {
-	text-align: left;
-}
-
-#btn_register, #btnCommUpdateCancel, #btnCommUpdate, .btn_u, .btn_d {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid #5b6e7a;
-    border-radius: 4px;
-    background-color: #5b6e7a;
-    width: 65px;
-    color: #fff;
-}
-
-#btnCommUpdateCancel, .btn_d {
-    border: 1px solid #ddd;
-    background-color: #ddd;
-}
-
-.btn_d, .btn_u {
-	padding: 2px 5px;
-	width: 44px;
-}
-
-.btnWrap button {
-    width: 83px;
-    height: 35px;
-    background: transparent;
-    border: 1px solid #333;
-    font-weight: 600;
-    margin-left: 3px;
-}
-
-h1 {
-	margin: 30px 0 30px;
-}
-
-.logo {
-	margin: 25px 0 15px;
-	text-align: center;
-}
-
-.logo img {
-	width: 200px;
-}
-
-</style>
-
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
@@ -496,7 +398,7 @@ h1 {
 		</p>
 		</div>
 		
-		<p style="font-size: 32px;">
+		<p style="font-size: 32px; margin-bottom: 20px;">
 			${tradeDetail.TRADE_TITLE }
 		</p>
 		
@@ -505,7 +407,7 @@ h1 {
 				<img alt="#" src="${tradeDetail.GRADE_URL }" width="20px" height="20px;">
 			</c:if>
 			<c:if test="${tradeDetail.USER_NO eq null }">
-				탈퇴(된)한 회원
+				탈퇴한 회원
 			</c:if>
 			<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO || empty sessionScope.userNo  }">
 				${tradeDetail.USER_NICK }
@@ -524,7 +426,8 @@ h1 {
 			<span><fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="yy-MM-dd HH:mm"/></span>
 			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>				
 			<span>조회 <span id="cntCom">${tradeDetail.TRADE_HIT }</span></span>
-			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${tradeDetail.TRADE_COM_COUNT}</span>
+			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+			댓글<span id="tradeComCount"> ${tradeDetail.TRADE_COM_COUNT}</span>
 		</div>
 		<div class="btnWrap" style="text-align: right;">
 			<c:if test="${sessionScope.userNo ne tradeDetail.USER_NO and !empty sessionScope.userNo }">
@@ -537,9 +440,9 @@ h1 {
 		
 		<hr style="margin-top: 30px; border: 1px dashed;">
 		
-		<div id="detailMain" style="height: auto; padding-top: 20px; padding-bottom: 20px;">
+		<div id="detailMain">
 			<c:if test="${tradeDetail.FILE_STORED ne null }">
-				<img alt="#" src="/upload/${tradeDetail.FILE_STORED }">
+				<img alt="#" src="/upload/${tradeDetail.FILE_STORED }" class="img-responsive center-block">
 			</c:if>
 			<div id="writeContent">
 				${tradeDetail.TRADE_CONTENT }
@@ -555,7 +458,7 @@ h1 {
 				<thead>
 					<tr>
 						<th style="width: 4%;"></th>
-						<th style="width: 15%;">작성자</th>
+						<th style="width: 15%;">닉네임</th>
 						<th style="width: 58%;">댓글</th>
 						<th style="width: 13%;">작성일</th>
 						<th style="width: 10%;"></th>
@@ -587,7 +490,7 @@ h1 {
 											<td style="text-align: center;">
 												<img alt="#" src="https://i.imgur.com/uktz9Zo.png" width="20px;" height="20px;">
 											</td>
-											<td>탈퇴(된)한 회원</td>
+											<td>탈퇴한 회원</td>
 			                			</c:if>
 			                			<c:if test="${tradeComment.USER_NICK ne null }">
 											<td style="text-align: center;">
@@ -620,7 +523,7 @@ h1 {
 								<!-- 비밀글이 아닐 경우 -->
 									<td></td>
 									<c:if test="${tradeComment.USER_NICK eq null }">
-										<td>탈퇴(된)한 회원</td>
+										<td>탈퇴한 회원</td>
 									</c:if>
 									<c:if test="${tradeComment.USER_NICK ne null }">
 										<td style="text-align: left;">
@@ -676,7 +579,7 @@ h1 {
 			</c:if>
 			
 			<div class="text-right">
-				<button class="button" style="float: left; margin-bottom: 20px;" type="button" onclick="location.href='/trade/list';" >목록으로</button>
+				<button class="button" style="float: left; margin-bottom: 20px;" type="button" onclick="location.href='/trade/list';" >목록</button>
 				<c:if test="${sessionScope.userNo eq tradeDetail.USER_NO }">
 					<button class="button" type="button" onclick="location.href='/trade/update?tradeNo=${tradeDetail.TRADE_NO}';" >수정</button>
 					<button class="button" type="button" onclick='tradeDelete();'>삭제</button>

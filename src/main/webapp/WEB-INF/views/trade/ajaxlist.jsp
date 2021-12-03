@@ -54,8 +54,8 @@
 					</c:if>
 				</td>
 				<c:if test="${board.USER_NICK eq null }">
-					<td>
-						탈퇴(된)한 회원
+					<td style="text-align: left;">
+						탈퇴한 회원
 					</td>
 				</c:if>
 				<c:if test="${board.USER_NICK ne null }">
