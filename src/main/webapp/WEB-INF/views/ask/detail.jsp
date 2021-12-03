@@ -947,7 +947,7 @@ comment_inbox {
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
 						<c:if test="${ask.userNo ne 0 }">
 							<span class="confirmation username">
-							<img alt="#" src="${grade}" style="width: 20px;">${ask.userNick }</span>
+							<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
 						</c:if>
 					</c:if>
 					<c:if test="${ask.userNo eq 0 }">
