@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -103,8 +104,8 @@ body {
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 	<div class="titlearea">
-		<h2>작성한 글</h2>
-		<p>후기게시판에 작성한 글</p>
+		<h2>지출내역서</h2>
+		<p>나의 지출내역 모아보기</p>
 		
 	</div>
 	<div class="col-md-9" style="height: 500px;">
@@ -124,7 +125,18 @@ body {
 				<td><input type="checkbox" id="${review.reviewNo }" value="${review.reviewNo }" class="chk" /></td>
 				<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.reviewNo }">${review.reviewTitle }</a></td>
 				<td>${review.reviewHit }</td>
-				<td><fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd HH:mm" /></td>
+				<fmt:formatDate value="${review.reviewDate }" pattern="yyyyMMdd" var="timeStr" />
+				<fmt:formatDate value="<%=new Date()%>" pattern="yyyyMMdd" var="nowStr" />
+				<td>
+					<c:choose>
+						<c:when test="${timeStr lt nowStr }">
+							<fmt:formatDate value="${review.reviewDate }" pattern="yy-MM-dd" />
+						</c:when>
+						<c:when test="${timeStr eq nowStr }">
+							<fmt:formatDate value="${review.reviewDate }" pattern="HH:mm" />
+						</c:when>
+					</c:choose>
+				</td>
 			</tr>
 			</c:forEach>
 		</table>

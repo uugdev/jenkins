@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -81,6 +82,8 @@ body {
 	border: 0px;
 	background: #5b6e7a;
 	color: #f3f3f3;
+	width: 120px;
+	
 
 }
 
@@ -89,6 +92,7 @@ body {
 	background: #fff;
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
+	
 }
 
 .btnUpdateY, .btnUpdateN {
@@ -99,7 +103,7 @@ body {
 
 .tablearea {
 	background-color: #fff;
-	padding: 20px 50px 20px 50px;
+	padding: 20px 30px 20px 30px;
 	
 }
 
@@ -119,46 +123,53 @@ body {
 
 <div class="col-md-9" style="height: 650px;">
 	<div class="titlearea">
-		<h2>결제 체크 리스트</h2>
-		<p>작성하신 질문글의 상품 구매여부를 체크해주세요.</p>
+		<h2>지출 내역</h2>
+		<p>작성하신 머니토론의 결과를 체크해주세요.</p>
 		
 	</div>
 	<div class="tablearea">
 		<div style="height: 30px; background-color: #fff;"></div>
 		<table class="table table-striped table-hover">
 			<tr>
-				<th style="width:20%"><strong>상품명</strong></th>
+				<th style="width:28%"><strong>상품명</strong></th>
 				<th style="width:12%"><strong>가격</strong></th>
-				<th style="width:8%"><strong>조회수</strong></th>
-				<th style="width:12%"><strong>작성일</strong></th>
-				<th style="width:12%"><strong>투표 마감일</strong></th>
-				<th style="width:27%"><strong>상태</strong></th>
+				<th style="width:10%"><strong>작성일</strong></th>
+				<th style="width:16%"><strong>투표 마감시각</strong></th>
+				<th style="width:34%"><strong>상태</strong></th>
 			</tr>
 			
 			<c:forEach items="${list }" var="list">
 			<tr>
 				<td><a href="<%=request.getContextPath() %>/ask/detail?askNo=${list.ITEM_NO }">${list.ITEM_NAME }</a></td>
 				<td><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.ITEM_PRICE }" />원</td>
-				<td>${list.ASK_HIT }</td>
-				<td><fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" /></td>
-				<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd" /></td>
-				<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
+				<fmt:formatDate value="${list.ASK_DATE }" pattern="yyyyMMdd" var="timeStr" />
+				<fmt:formatDate value="<%=new Date()%>" pattern="yyyyMMdd" var="nowStr" />
+	
 				<td>
-						<button class="btnUpdateY contentbtn" onclick="itemstatustoY(${list.ITEM_NO});">살게요</button>
-						<button class="btnUpdateN contentbtn" onclick="itemstatustoN(${list.ITEM_NO});">안살게요</button>
+					<c:choose>
+						<c:when test="${timeStr lt nowStr }">
+							<fmt:formatDate value="${list.ASK_DATE }" pattern="yy-MM-dd" />
+						</c:when>
+						<c:when test="${timeStr eq nowStr }">
+							<fmt:formatDate value="${list.ASK_DATE }" pattern="HH:mm" />
+						</c:when>
+					</c:choose>
 				</td>
+				
+				<td><fmt:formatDate value="${list.VOTE_END }" pattern="yy-MM-dd HH:mm" /></td>
+				<c:if test="${list.ITEM_STATUS == 'n'&& empty list.ITEM_DATE}">
+					<td><button class="btnUpdateY contentbtn" onclick="itemstatustoY(${list.ITEM_NO});">살게요</button>
+					<button class="btnUpdateN contentbtn" onclick="itemstatustoN(${list.ITEM_NO});">안살게요</button></td>
 				</c:if>
 				<c:if test="${list.ITEM_STATUS == 'n'&& not empty list.ITEM_DATE}">
-					<td>안살래요</td>
+					<td><span style="font-size: 15px; font-weight:bold; color:#667F92;">안살래요</span></td>
 				</c:if>
 				<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && empty list.REVIEW_NO }">
-					<td>
-						<button class="btnWrite contentbtn" onclick="writereview(${list.ITEM_NO});">후기 쓰기</button>
-						<button class="btnCancel contentbtn" onclick="itemcancel(${list.ITEM_NO });">마음이 바뀌었어요</button>
-					</td>
+					<td><button class="btnWrite contentbtn" onclick="writereview(${list.ITEM_NO});">지출내역서 쓰기</button>
+					<button class="btnCancel contentbtn" onclick="itemcancel(${list.ITEM_NO });">마음이 바뀌었어요</button></td>
 				</c:if>	
 				<c:if test="${list.ITEM_STATUS == 'y' && not empty list.ITEM_DATE && not empty list.REVIEW_NO }">
-					<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail contentbtn">작성한 후기 보기</button></a></td>
+					<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${list.REVIEW_NO }"><button class="btnDetail contentbtn">지출내역서 보기</button></a></td>
 				</c:if>
 			</tr>
 			</c:forEach>

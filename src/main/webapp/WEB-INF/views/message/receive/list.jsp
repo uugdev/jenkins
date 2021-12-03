@@ -161,7 +161,7 @@ $(document).ready(function(){
 	    }
 	});
 	
-	$("#btnDelete").click(function() {
+	$(document).on('click', '#btnDelete', function(){
 		var delchk = [];
    
 	    $('.chk:checked').each(function(){

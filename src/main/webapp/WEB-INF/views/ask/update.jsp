@@ -89,9 +89,14 @@ input {
 
 input:focus {outline:none;}
 
-
 #askTitle {
 	width: 100%;
+	border: 1px solid #ccc;
+}
+
+#askTitle:focus {
+	outline-style: solid;
+
 }
 
 #itemName {
@@ -160,7 +165,7 @@ form {
 			<input type="hidden" id="askNo" name="askNo" value="${ask.askNo }" />
 			<div class="">
 				<label for="askTitle">제목</label> <input type="text" id="askTitle"
-					name="askTitle" class=""  maxlength="32"  value="${ask.askTitle }" />
+					name="askTitle" class="form-control"  maxlength="32"  value="${ask.askTitle }" />
 			</div>
 			<div class="">
 				<label for="itemName">상품명</label> <input type="text" id="itemName"
