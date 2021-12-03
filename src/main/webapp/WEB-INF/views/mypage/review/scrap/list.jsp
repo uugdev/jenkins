@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -100,8 +101,8 @@ body {
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 	<div class="titlearea">
-		<h2>스크랩한 후기</h2>
-		<p>후기게시판에서 스크랩한 글 목록</p>
+		<h2>지출내역서</h2>
+		<p>스크랩한 지출내역서</p>
 	</div>
 	<div class="col-md-9" style="height: 500px;">
 		<div class="tablearea">
@@ -122,7 +123,18 @@ body {
 					<td>${review.REVIEW_NO }</td>
 					<td><a href="<%=request.getContextPath() %>/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a></td>
 					<td>${review.REVIEW_HIT }</td>
-					<td><fmt:formatDate value="${reveiew.REVIEW_DATE}" pattern="yy-MM-dd" /></td>
+					<fmt:formatDate value="${review.REVIEW_DATE }" pattern="yyyyMMdd" var="timeStr" />
+					<fmt:formatDate value="<%=new Date()%>" pattern="yyyyMMdd" var="nowStr" />
+					<td>
+						<c:choose>
+							<c:when test="${timeStr lt nowStr }">
+								<fmt:formatDate value="${review.REVIEW_DATE }" pattern="yy-MM-dd" />
+							</c:when>
+							<c:when test="${timeStr eq nowStr }">
+								<fmt:formatDate value="${review.REVIEW_DATE }" pattern="HH:mm" />
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				</c:forEach>
 			</table>

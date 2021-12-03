@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -104,8 +105,8 @@ body {
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
 	<div class="titlearea">
-		<h2>작성한 글</h2>
-		<p>거래게시판에 작성한 글</p>
+		<h2>오이장터</h2>
+		<p>나의 거래내역 모아보기</p>
 	</div>
 	<div class="col-md-9" style="height: 500px;">
 		<div class="tablearea">
@@ -131,7 +132,18 @@ body {
 					</c:if>
 					<td><a href="<%=request.getContextPath() %>/trade/detail?tradeNo=${trade.tradeNo }">${trade.tradeTitle }</a></td>
 					<td>${trade.tradeHit }</td>
-					<td><fmt:formatDate value="${trade.tradeDate }" pattern="yy-MM-dd HH:mm" /></td>
+					<fmt:formatDate value="${trade.tradeDate }" pattern="yyyyMMdd" var="timeStr" />
+					<fmt:formatDate value="<%=new Date()%>" pattern="yyyyMMdd" var="nowStr" />
+					<td>
+						<c:choose>
+							<c:when test="${timeStr lt nowStr }">
+								<fmt:formatDate value="${trade.tradeDate }" pattern="yy-MM-dd" />
+							</c:when>
+							<c:when test="${timeStr eq nowStr }">
+								<fmt:formatDate value="${trade.tradeDate }" pattern="HH:mm" />
+							</c:when>
+						</c:choose>
+					</td>
 				</tr>
 				</c:forEach>
 			</table>
