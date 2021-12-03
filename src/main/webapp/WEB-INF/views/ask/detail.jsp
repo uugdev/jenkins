@@ -346,7 +346,7 @@ function insertComment() {
 			$('#cntCom').html(++cntCom, cntCom);
 			
 			var userNo = '<%=session.getAttribute("userNo")%>';
-			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD hh:mm:ss");
+			var askComDate = moment(data.addComment.askComDate).format("YY-MM-DD HH:mm:ss");
 				
 			$('#appendArea').before('<tr data-updateAskComNo="'+ data.addComment.askComNo +'"></tr>' +
 					'<tr data-askComNo="'+ data.addComment.askComNo +'">'+
@@ -393,7 +393,7 @@ function updateComment(askComNo) {
 	$("[data-updateAskComNo='"+askComNo+"']").append('<div class="CommentWriter" style="width: 1020px;">' +
 			'<div class="comment_inbox">' +
 			'<span class="comment_inbox_name pull-left" id="userNick">' +
-			'<img alt="#" src="${grade}" style="width: 20px; height: 20px;">${userNick}</span>' +
+			'<img alt="#" src="${loginUserGrade}" style="width: 20px; height: 20px;">${userNick}</span>' +
 			'<textarea placeholder="댓글을 남겨보세요" onkeyup="adjustHeight(this);" rows="1"' +
 			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
 			'id="askComUpdateContent'+ askComNo +'">'+ content +'</textarea>' +
@@ -945,8 +945,10 @@ comment_inbox {
 				</div>
 				<div class="layerbox">
 					<c:if test="${userNo eq ask.userNo || empty sessionScope.userNo }">
-						<span class="confirmation username">
-						<img alt="#" src="${grade}" style="width: 20px;">${user.userNick }</span>
+						<c:if test="${ask.userNo ne 0 }">
+							<span class="confirmation username">
+							<img alt="#" src="${grade}" style="width: 20px;">${ask.userNick }</span>
+						</c:if>
 					</c:if>
 					<c:if test="${ask.userNo eq 0 }">
 						탈퇴한 회원
