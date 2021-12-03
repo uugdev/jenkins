@@ -81,7 +81,7 @@ td:nth-child(2) {
 		<c:if test="${review.REPORT_STATUS eq 'y' }">
 			<div style="width: 100%; height: 250px;">
 				<a style="cursor: pointer;" onclick="reportStatusY();">
-				<img style="height: 100%; width: 100%; object-fit: cover;" alt="#" src="/upload/${review.FILE_STORED}">
+				<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
 				</a>		
 			</div>
 		</c:if>
