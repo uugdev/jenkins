@@ -302,10 +302,13 @@
 
 
 	<select id="selectAskCommentByUserNo" parameterType="int" resultType="com.khbill.dto.AskComment">
-	SELECT * FROM zask_comment
-	    WHERE user_no = #{userNo }
-        AND rownum = 1
-        ORDER BY ask_com_no DESC
+        SELECT * FROM (
+	        SELECT *
+	        FROM zask_comment
+	        WHERE user_no = #{userNo}
+	        ORDER BY ask_com_no DESC
+	        )
+	    WHERE rownum = 1
 	</select>
 	
 	<select id="selectUserNickByUserNo" parameterType="int" resultType="String">
@@ -397,11 +400,13 @@
 
 
 	<select id="selectAskNoByUserNo" parameterType="int" resultType="int">
-		SELECT ask_no
-		FROM zask
-		WHERE user_no = #{userNo }
-        AND rownum = 1
-        ORDER BY ask_no DESC
+		SELECT * FROM (
+        	SELECT ask_no
+        	FROM zask
+        	WHERE user_no = #{userNo}
+        	ORDER BY ask_no DESC
+        )
+    	WHERE rownum = 1
 	</select>
 
 </mapper>
