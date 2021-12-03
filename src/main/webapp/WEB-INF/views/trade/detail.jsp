@@ -324,7 +324,7 @@ function deleteComment(tradeComNo) {
 	
 }
 
-function sendMessage() {
+function message() {
 	
     action_popup.confirm("쪽지를 보내시겠습니까?", function (res) {
         if (res) {
