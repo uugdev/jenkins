@@ -319,23 +319,23 @@ table, th {
 
 <div class="recipeWrap">
 <div class="list-group">
-  <div class="list-group-item list-group-item-danger">
-			<c:choose>
-				<c:when test="${review.REPORT_CATEGORY eq 'A' }">
-					<td>부적절한 홍보 게시글</td>
-				</c:when>
-				<c:when test="${review.REPORT_CATEGORY eq 'B' }">
-					<td>음란성 또는 청소년에게 부적합한 내용</td>
-				</c:when>
-				<c:when test="${review.REPORT_CATEGORY eq 'C' }">
-					<td>명예훼손/사생활 침해 및 저작권침해등</td>
-				</c:when>
-				<c:when test="${review.REPORT_CATEGORY eq 'D' }">
-					<td>기타</td>
-				</c:when>
-			</c:choose>
-  </div>
-  <div class="list-group-item"><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></div>
+ 	<div class="list-group-item list-group-item-danger">
+		<c:choose>
+			<c:when test="${review.REPORT_CATEGORY eq 'A' }">
+				<td>부적절한 홍보 게시글</td>
+			</c:when>
+			<c:when test="${review.REPORT_CATEGORY eq 'B' }">
+				<td>음란성 또는 청소년에게 부적합한 내용</td>
+			</c:when>
+			<c:when test="${review.REPORT_CATEGORY eq 'C' }">
+				<td>명예훼손/사생활 침해 및 저작권침해등</td>
+			</c:when>
+			<c:when test="${review.REPORT_CATEGORY eq 'D' }">
+				<td>기타</td>
+			</c:when>
+		</c:choose>
+ 	</div>
+	<div class="list-group-item"><label for="${review.REPORT_NO }">${review.REPORT_CONTENT }</label></div>
 </div>
 	<div class="title">
 		<P style="text-align: center;">${review.REVIEW_TITLE }</P>
@@ -437,7 +437,7 @@ table, th {
 </div><!-- 댓글 처리 end -->
 
 <div class="text-center" style="margin-bottom: 100px;">
-	<a href="/admin/report/review/list"><button id="btnList">목록으로</button></a>
+	<a href="/admin/report/review/list"><button id="btnList">목록</button></a>
 </div>
 <br>
 

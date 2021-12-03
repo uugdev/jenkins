@@ -149,7 +149,7 @@ table, th {
 	/*  	width: 700px; */
 	width: 100%;
 	margin: 100px auto 0;
-	padding: 30px;
+	padding: 50px;
 	background: #fff;
 	border-bottom-left-radius: 20px;
 	border-bottom-right-radius: 20px;
@@ -567,7 +567,7 @@ table, th {
 </div><!-- 댓글 처리 end -->
 	
 <div class="text-center" style="margin-bottom: 150px;">
-	<a href="/admin/report/ask/list"><button id="btnList">목록으로</button></a>
+	<a href="/admin/report/ask/list"><button id="btnList">목록</button></a>
 </div>
 <br>
 

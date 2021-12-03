@@ -186,20 +186,20 @@ input[type=checkbox] {
 <div class="container">
 
 <div class="title">
-	<h1>질문 신고게시판 목록</h1>
+	<h1>머니토론 신고 목록</h1>
 </div>
 
 <div class="listTable">
 <span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;" placeholder="제목을 입력해주세요"/>
 	<button id="btnSearch" class="pull-right btn">검색</button>
 </div>
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
 	<th><input type="checkbox" name="select" id="selectAll" /></th>
-	<th>신고글 번호</th>
+	<th>글 번호</th>
 	<th>신고사유</th>
 	<th>신고 내용</th>
 	<th>게시글 제목</th>
