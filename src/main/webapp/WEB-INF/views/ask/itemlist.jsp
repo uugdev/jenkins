@@ -82,13 +82,27 @@ td:nth-child(2) {
 			</div>
 			<div style="box-sizing: border-box; padding: 0 5px 10px;">
 				<div style="padding-top: 8px; display: flex;">
-					<a href="/ask/detail?askNo=${list.ASK_NO}"> <span
-						class="ellipsis" style="text-align: left;">제목:
-							${list.ASK_TITLE}</span>
-					</a>
-					<c:if test="${list.ASK_COM_CNT ne null}">
-						<strong><span class="tomato"><a
-								href="/ask/detail?askNo=${list.ASK_NO}&commentFocus=true">&nbsp;[${list.ASK_COM_CNT}]</a></span></strong>
+					<c:if test="${list.REPORT_STATUS eq 'n' }">
+						<a href="/ask/detail?askNo=${list.ASK_NO}"> <span
+							class="ellipsis" style="text-align: left;">제목:
+								${list.ASK_TITLE}</span>
+						</a>
+					</c:if>
+					<c:if test="${list.REPORT_STATUS eq 'y' }">
+						<a style="cursor: pointer;" onclick="reportStatusY();">
+							<span class="ellipsis" style="text-align: left;">제목:
+								${list.ASK_TITLE}</span>
+						</a>
+					</c:if>
+					<c:if test="${not empty list.ASK_COM_CNT }">
+						<c:if test="${list.REPORT_STATUS eq 'n' }">
+							<strong><span class="tomato"><a href="/ask/detail?askNo=${list.ASK_NO }&commentFocus=true">&nbsp;[${list.ASK_COM_CNT}]</a></span></strong>
+						</c:if>
+					</c:if>
+					<c:if test="${not empty list.ASK_COM_CNT }">
+						<c:if test="${list.REPORT_STATUS eq 'y' }">
+							<strong><span class="tomato"><a style="cursor: pointer;" onclick="reportStatusY();">&nbsp;[${list.ASK_COM_CNT}]</a></span></strong>
+						</c:if>
 					</c:if>
 				</div>
 

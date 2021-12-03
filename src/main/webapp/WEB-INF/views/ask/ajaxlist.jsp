@@ -28,7 +28,14 @@
 					<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${ask.ASK_TITLE }</a>
 				</c:if>
 				<c:if test="${not empty ask.ASK_COM_CNT }">
-					<strong><span class="tomato"><a href="/ask/detail?askNo=${ask.ASK_NO }&commentFocus=true">[${ask.ASK_COM_CNT}]</a></span></strong>
+					<c:if test="${ask.REPORT_STATUS eq 'n' }">
+						<strong><span class="tomato"><a href="/ask/detail?askNo=${ask.ASK_NO }&commentFocus=true">[${ask.ASK_COM_CNT}]</a></span></strong>
+					</c:if>
+				</c:if>
+				<c:if test="${not empty ask.ASK_COM_CNT }">
+					<c:if test="${ask.REPORT_STATUS eq 'y' }">
+						<strong><span class="tomato"><a style="cursor: pointer;" onclick="reportStatusY();">[${ask.ASK_COM_CNT}]</a></span></strong>
+					</c:if>
 				</c:if>
 				</td>
 				
