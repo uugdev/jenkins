@@ -38,7 +38,8 @@ $(document).ready(function () {
 		
 			if( result == true){
 				submitContents($("#btnWrite"));
-				$("form").submit();		 
+				$("form").submit();
+
 			} else {
 				return false;
 	

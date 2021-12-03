@@ -21,7 +21,6 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
-import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -219,13 +218,13 @@ public class ReviewServiceImpl implements ReviewService {
 		file.setFileNo(item.getFileNo());
 		System.out.println(item.getFileNo());
 		
-		int itemNo = item.getItemNo();
+		int userNo = review.getUserNo();
 		int fileNo = file.getFileNo();
 		
+		reviewDao.updateUserPointDelete(userNo);
 		reviewDao.deleteReport(review);
 		reviewDao.deleteScrap(review);
 		reviewDao.deleteReview(review);
-//		reviewDao.deleteItem(itemNo); 
 		reviewDao.deleteFile(fileNo);
 	}
 

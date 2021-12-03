@@ -74,12 +74,21 @@ td:nth-child(2) {
 <ul id="photoList">
 	<c:forEach items="${list}" var="list">
 		<li>
-			<div style="width: 100%; height: 250px;">
-				<a href="/ask/detail?askNo=${list.ASK_NO}"> <img
-					style="height: 100%; width: 100%;" alt="#"
-					src="/upload/${list.FILE_STORED}">
-				</a>
-			</div>
+			<c:if test="${list.REPORT_STATUS eq 'n' }">
+				<div style="width: 100%; height: 250px;">
+					<a href="/ask/detail?askNo=${list.ASK_NO}"> <img
+						style="height: 100%; width: 100%; object-fit: cover;"  alt="#"
+						src="/upload/${list.FILE_STORED}">
+					</a>
+				</div>
+			</c:if>
+			<c:if test="${list.REPORT_STATUS eq 'y' }">
+				<div style="width: 100%; height: 250px;">
+					<a style="cursor: pointer;" onclick="reportStatusY();">
+						<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
+					</a>
+				</div>
+			</c:if>
 			<div style="box-sizing: border-box; padding: 0 5px 10px;">
 				<div style="padding-top: 8px; display: flex;">
 					<c:if test="${list.REPORT_STATUS eq 'n' }">

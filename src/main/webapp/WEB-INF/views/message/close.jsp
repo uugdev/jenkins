@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
 <script type="text/javascript">
-
+opener.location.reload();
 window.open("about:blank", "_self").close();
 
 </script>

@@ -85,23 +85,23 @@ h4 {
 			<li><a href="/mypage/item/list">결제 체크하기</a>
 			<li><a>작성한 글</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
-					<li><a href="/mypage/review/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
-					<li><a href="/mypage/trade/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
+					<li><a href="/mypage/ask/list">>&nbsp;&nbsp;&nbsp;&nbsp;머니토론</a></li>
+					<li><a href="/mypage/review/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지출내역서</a></li>
+					<li><a href="/mypage/trade/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오이장터</a></li>
 				</ul>
 			</li>
 			<li><a>작성한 댓글</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/comment/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
-					<li><a href="/mypage/review/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
-					<li><a href="/mypage/trade/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
+					<li><a href="/mypage/ask/comment/list">>&nbsp;&nbsp;&nbsp;&nbsp;머니토론</a></li>
+					<li><a href="/mypage/review/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지출내역서</a></li>
+					<li><a href="/mypage/trade/comment/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오이장터</a></li>
 				</ul>
 			</li>
 			<li><a>스크랩</a>
 				<ul class="M02">
-					<li><a href="/mypage/ask/scrap/list">>&nbsp;&nbsp;&nbsp;&nbsp;질문 게시판</a></li>
-					<li><a href="/mypage/review/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;후기 게시판</a></li>
-					<li><a href="/mypage/trade/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;거래 게시판</a></li>
+					<li><a href="/mypage/ask/scrap/list">>&nbsp;&nbsp;&nbsp;&nbsp;머니토론</a></li>
+					<li><a href="/mypage/review/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;지출내역서</a></li>
+					<li><a href="/mypage/trade/scrap/list">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오이장터</a></li>
 				</ul>
 			</li>
 		</ul>

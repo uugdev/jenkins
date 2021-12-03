@@ -22,7 +22,6 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
-import com.khbill.dto.Trade;
 import com.khbill.dto.User;
 import com.khbill.service.face.AskService;
 import com.khbill.service.face.ReviewService;
@@ -144,13 +143,10 @@ public class ReviewController {
 			, MultipartFile file, HttpSession session
 		) {
 		
-		logger.info("askNo=123 - {}", askNo);
-		
 		int userNo = (Integer) session.getAttribute("userNo");
 		user.setUserNick((String) session.getAttribute("userNick"));
 		
 		item.setItemNo(askService.getItem(askNo).getItemNo());
-		
 		review.setUserNo(userNo);
 		
 		int reviewNo = reviewService.setReviewWrite(review, item, file);
@@ -174,15 +170,9 @@ public class ReviewController {
 		
 		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
 		item = reviewService.getReviewItem(itemNo);
-		logger.info("아이템 번호: {}", itemNo);
 	
 		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
 		file = reviewService.getReviewFile(fileNo);
-		logger.info("파일 번호: {}", fileNo);
-		
-		logger.info("review: {}", reviewMap);
-		logger.info("item : {}", item);
-		logger.info("file : {}", file);
 		
 		//게시글 상세 모델값 전달
 		model.addAttribute("review", reviewMap);
@@ -211,7 +201,6 @@ public class ReviewController {
 		logger.info("file{}", review.getFileNo());
 		
 		return "redirect:/review/detail?reviewNo="+review.getReviewNo();
-		
 	}
 	
 	//후기 게시글 삭제

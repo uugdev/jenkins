@@ -8,7 +8,6 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
-import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewDao {
@@ -193,13 +192,19 @@ public interface ReviewDao {
 	 * @param fileNo
 	 */
 	public void deleteFile(int fileNo);
+
+	/**
+	 * 글삭제를한 회원들에게 점수를 회수
+	 * 
+	 * @param review - 삭제할 게시글의 글객체
+	 */
+	public void updateUserPointDelete(int userNo);
 	/**
 	 * 게시글번호로 댓글 삭제
 	 * 
 	 * @param review - 삭제할 내용을 가진 게시글 객체
 	 */
 	public void deleteReviewCommentByReviewNo(Review review);
-
 	
 	//------ scrap ----------------------------------------
 
@@ -255,5 +260,7 @@ public interface ReviewDao {
 	 * @param reviewNo
 	 */
 	public Review selectDeleteReviewByReviewNo(int reviewNo);
+
+
 
 }
