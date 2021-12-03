@@ -185,7 +185,7 @@ public class ReviewController {
 	//후기 게시글 수정 - POST
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String reviewUpdateProc(
-			Review review, User user, Item item
+			Review review, User user
 			, MultipartFile file, HttpSession session
 		) {
 		logger.info("/review/update [POST]");
