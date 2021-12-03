@@ -15,22 +15,31 @@
 <c:forEach items="${reviewList }" var="review">
 <tr>
 	<td>${review.REVIEW_NO }
-	<c:if test="${review.REPORT_STATUS eq 'n' }">
-		<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
-	</c:if>
 	<c:if test="${review.REPORT_STATUS eq 'y' }">
 		<td style="text-align: left;"><a style="cursor: pointer;" onclick="reportStatusY();">${review.REVIEW_TITLE }</a>
 	</c:if>
-	<c:if test="${not empty review.REVIEW_COM_CNT }">
-		<strong><a href="/review/detail?reviewNo=${review.REVIEW_NO }&commentFocus=true">[${review.REVIEW_COM_CNT}]</a></strong>
+	<c:if test="${review.REPORT_STATUS eq 'n' }">
+		<td style="text-align: left;"><a href="/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 	</c:if>
+	
+	<c:if test="${review.REPORT_STATUS eq 'y' }">
+		<c:if test="${not empty review.REVIEW_COM_CNT }">
+			<strong><span class="tomato"><a onclick="reportStatusY();">&nbsp;[${review.REVIEW_COM_CNT}]</a></span></strong>
+		</c:if>
+	</c:if>
+	<c:if test="${review.REPORT_STATUS eq 'n' }">
+		<c:if test="${not empty review.REVIEW_COM_CNT }">
+			<strong><span class="tomato"><a href="/review/detail?reviewNo=${review.REVIEW_NO }&commentFocus=true">&nbsp;[${review.REVIEW_COM_CNT}]</a></span></strong>
+		</c:if>
+	</c:if>
+	
 	</td>
 	<c:if test="${review.USER_NICK eq null }">
-		<td>탈퇴한 회원</td>
+		<td style="text-align: left;">탈퇴한 회원</td>
 	</c:if>
 	<c:if test="${review.USER_NICK ne null }">
 		<td style="text-align: left;">
-			<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;"> ${review.USER_NICK }
+			<img alt="#" src="${review.GRADE_URL}" style="width: 20px; height: 20px;">&nbsp;${review.USER_NICK }
 		</td>
 	</c:if>
 
@@ -62,14 +71,14 @@
 </c:if>
 <div class="clearfix"></div>
 
-<c:import url="/WEB-INF/views/review/paging.jsp" />
-
 <div class="list-search">
 <div class="input_search_area">
 	<div class="form-inline text-center">
-	<input class="form-control" type="text" id="search" value="${param.search }" placeholder="검색어를 입력해주세요" />
+	<input class="form-control" type="text" id="search" value="${param.search }" placeholder="제목을 입력해주세요" />
 	<button id="btnSearch" class="btn btnSearch">검색</button>
 	</div>
 </div>
 </div>
+<c:import url="/WEB-INF/views/review/paging.jsp" />
+
 <div class="clearfix"></div>

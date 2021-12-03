@@ -882,7 +882,7 @@ comment_inbox {
 			<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
 				<td></td>
 				<c:if test="${reviewComment.USER_NICK eq null }">
-					<td class="pull-left">탈퇴한 회원</td>
+					<td style="">탈퇴한 회원</td>
 				</c:if>
 				<c:if test="${reviewComment.USER_NICK ne null }">
 					<td style="text-align: left;">

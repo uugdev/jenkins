@@ -49,67 +49,162 @@ $(document).ready(function() {
 })
 </script>
 
+<style type="text/css">
+#item {
+	width: 400px;
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+#itemImg {
+	width: 100%;
+	height: 100%;
+}
+
+.btnWrap:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.btnWrap {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+input {
+	border: none;
+	border-bottom: 1px solid #ccc;
+	height: 32px;
+	margin-bottom: 50px;
+	cursor: auto;
+}
+
+input:focus {outline:none;}
+
+
+#reviewTitle {
+	width: 100%;
+}
+
+#itemName {
+	width: 100%;
+}
+
+label {
+	font-size: 20px;
+}
+
+#itemBrand, #itemPrice {
+	width: 390px;
+}
+
+.inlineWrap {
+	display: flex;
+	justify-content: space-between;
+}
+
+#file {
+	border: none;
+	margin: 0;
+}
+
+.voteWrap {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+
+.title {
+	margin: 50px 0;
+}
+
+.title>p {
+	color: #85969E;
+}
+
+body {
+    background: #f2f2f2;
+}
+
+form {
+
+    width: 100%;
+    background: #fff;
+    margin: auto;
+    margin-bottom: 100px;
+    padding: 50px;
+}
+</style>
+
 <div class="wrap">
-<div class="container">
+<div class="container" style="width: 950px;">
 
-<h1>후기 글쓰기 수정페이지</h1>
-<hr>
+<div class="title">
+	<h1>지출내역서</h1>
+	<p>구매한 제품의 지출내역을 수정해주세요</p>
+</div>
 
-<form action="/review/update" method="post" enctype="multipart/form-data">
-<input type="hidden" name="reviewNo" value="${review.REVIEW_NO }">
-
-<div class="form-group">
-	<label for="userNick">작성자</label>
-	<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>
+<form action="/review/update" method="post" enctype="multipart/form-data" style="text-align: left;">
+	<input type="hidden" name="reviewNo" value="${review.REVIEW_NO }">
+<!-- 	<div> -->
+<!-- 		<label for="userNick">작성자</label> -->
+<%-- 		<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/> --%>
+<!-- 	</div> -->
+	<div>
+		<label for="reviewTitle">제목</label>
+		<input type="text" id="reviewTitle" value="${review.REVIEW_TITLE }" name="reviewTitle" maxlength="32" />
+	</div>
 	
-</div>
-<div class="form-group">
-	<label for="reviewTitle">제목</label>
-	<input type="text" id="reviewTitle" value="${review.REVIEW_TITLE }" name="reviewTitle" class="form-control"/>
-</div>
-
-
-<div class="form-group">
-	<label for="itemBrand">브랜드</label>
-	<input type="text" id="itemBrand" value="${item.itemBrand }" name="itemBrand" class="form-control" readonly="readonly"/>
-</div>
-<div class="form-group">
-	<label for="itemName">상품명</label>
-	<input type="text" id="itemName" value="${item.itemName }" name="itemName" class="form-control" readonly="readonly"/>
-</div>
-<div class="form-group">
-	<label for="itemPrice">가격</label>
-<%-- 	<input type="text" id="itemPrice" value="${item.itemPrice }" name="itemPrice" class="form-control" readonly="readonly"/> --%>
-	<input type="text" id="itemPrice" name="itemPrice" class="form-control" value="<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${item.itemPrice }"/>" readonly="readonly"/>
-</div>
-
-
-<div id="fileBox">	
-<div id="originFile">
-	<a href="/review/download?fileNo=${file.fileNo }">${file.fileStored }</a>
-	<span id="delFile">X</span>
-</div>
-<br>
+	<div>
+		<label for="itemName">상품명</label>
+		<input type="text" id="itemName" value="${item.itemName }" name="itemName" readonly="readonly"/>
+	</div>
 	
-<div id="newFile">
-	<label for="file">새로운 첨부파일</label>
-	<input type="file" name="file" id="file" /><br>
-	<small>** 새로운 파일을 첨부하면 기존파일이 삭제됩니다</small>
-</div>
-</div>
-
-
-<div class="form-group">
-	<label for="reviewContent">본문</label>
-	<textarea rows="10" style="width: 100%;" id="reviewContent" name="reviewContent">${review.REVIEW_CONTENT }</textarea>
-</div>
-
-
-<div class="text-center">
-	<button class="btn btn-primary" id="btnWrite">작성</button>
-	<input type="reset" id="cancel" class="btn btn-danger" value="취소"/>
-</div>
+	<div class="inlineWrap">
+		<div>
+			<label for="itemBrand">브랜드</label><br>
+			<input type="text" id="itemBrand" value="${item.itemBrand }" name="itemBrand" readonly="readonly"/>
+		</div>
+		<div>
+			<label for="itemPrice">가격</label><br>
+			<input type="text" id="itemPrice" name="itemPrice"
+			value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>" readonly="readonly"/>
+		</div>
+	</div>
+	
+	<div id="fileBox">	
+		<div id="originFile">
+			<label for="file">기존 첨부파일</label><br>
+			<a href="/review/download?fileNo=${file.fileNo }">${file.fileStored }</a>
+			<span id="delFile">X</span>
+		</div>
+		<br>
+			
+		<div id="newFile">
+			<label for="file">새로운 첨부파일</label>
+				<small> *새로운 파일을 첨부하면 기존파일이 삭제됩니다*</small>
+			<input type="file" name="file" id="file" />
+		</div>
+	</div>
+	<br>
+	
+	<div class="form-group">
+		<label for="reviewContent">본문</label>
+		<textarea rows="10" style="width: 100%; height: 400px;"  id="reviewContent" name="reviewContent">${review.REVIEW_CONTENT }</textarea>
+	</div>
+	
+	
+	<div class="text-center">
+		<button class="btn btnWrap" id="btnWrite">작성</button>
+		<input type="reset" id="cancel" class="btn btnWrap" value="취소"/>
+	</div>
 </form>
 
 

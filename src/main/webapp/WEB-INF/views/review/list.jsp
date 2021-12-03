@@ -210,6 +210,7 @@ body {
 	margin-bottom: 50px;
 	padding: 50px;
 	padding-bottom: 20px;
+	margin-top: 10px;
 }
 
 th {
@@ -245,21 +246,76 @@ th {
 	transition: all .2s ease-in-out;
 }
 
+td:nth-child(2) {
+	text-align: left;
+}
+
+.ellipsis2 {
+	display: -webkit-box;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	/* 	line-height: 24px; */
+	/* 	max-height: 1.2em; */
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	width: 162px;
+}
+
+a {
+	color: #000;
+}
+
+a:hover {
+	color: #85969E;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.btnSearch:hover {
+	border: 1px solid #5b6e7a;
+	background: #fff;
+	color: #5b6e7a;
+	transition: all .2s ease-in-out;
+}
+
+.btnSearch {
+	height: 35px;
+	width: 65px;
+	border-radius: 0px;
+	border: 0px;
+	background: #5b6e7a;
+	color: #f3f3f3;
+}
+
+.tomato > a {
+	color: tomato;
+}
+
+.tomato > a:hover {
+	color: #ffaa9a;
+}
+
+li {
+	cursor: default !important;
+}
+
 </style>
 
 <div class="wrap">
 <div class="container">
 	
 <div class="title">	
-<h1 style="text-align: center;">후기</h1>
-<p>질문한 제품을 구매하셨다면 후기를 남겨주세요.</p>
+<h1 style="text-align: center;">지출내역서</h1>
+<p>선택한 머니가 있다면  후기를 남겨주세요.</p>
 </div>
 
 <div class="listTable">
 <div class="pull-right" style="margin-bottom: 20px;">
-	<a id="hitList">조회순</a>
 	<a id="latestList">최신순</a>
-	<a id="itemList">이미지순</a>
+	<a id="hitList">조회순</a>
+	<a id="itemList">이미지</a>
 </div>
 	
 <div id="result">
