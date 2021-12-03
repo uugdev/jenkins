@@ -81,14 +81,14 @@ td:nth-child(2) {
 		<c:if test="${review.REPORT_STATUS eq 'y' }">
 			<div style="width: 100%; height: 250px;">
 				<a style="cursor: pointer;" onclick="reportStatusY();">
-				<img style="height: 100%; width: 100%;" alt="#" src="/upload/${review.FILE_STORED}">
+				<img style="height: 100%; width: 100%; object-fit: cover;" alt="#" src="/upload/${review.FILE_STORED}">
 				</a>		
 			</div>
 		</c:if>
 		<c:if test="${review.REPORT_STATUS eq 'n' }">
 			<div style="width: 100%; height: 250px;">
 				<a href="/review/detail?reviewNo=${review.REVIEW_NO}">
-				<img style="height: 100%; width: 100%;" alt="#" src="/upload/${review.FILE_STORED}">
+				<img style="height: 100%; width: 100%; object-fit: cover;" alt="#" src="/upload/${review.FILE_STORED}">
 				</a>		
 			</div>
 		</c:if>

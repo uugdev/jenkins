@@ -329,7 +329,6 @@ $(function() {
 	
 })/* $(function(){}) end */
 
-
 function adjustHeight(obj) {
     obj.style.height = '45px';
     obj.style.height = (obj.scrollHeight) + 'px';
@@ -882,7 +881,7 @@ comment_inbox {
 			<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
 				<td></td>
 				<c:if test="${reviewComment.USER_NICK eq null }">
-					<td style="">탈퇴한 회원</td>
+					<td style="text-align: left;">탈퇴한 회원</td>
 				</c:if>
 				<c:if test="${reviewComment.USER_NICK ne null }">
 					<td style="text-align: left;">
@@ -896,10 +895,10 @@ comment_inbox {
 				</td>
 				
 				<td style="width: 10%;">
-					<c:if test="${sessionScope.userNo eq reviewComment.USER_NO }">
-						<button class="btn_d" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
-						<button class="btn_u" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
-					</c:if>
+				<c:if test="${sessionScope.userNo eq reviewComment.USER_NO and !empty userNo }">
+					<button class="btn_d" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
+					<button class="btn_u" onclick="updateComment(${reviewComment.REVIEW_COM_NO });">수정</button>
+				</c:if>
 				</td>
 			</tr>
 		</c:forEach>
@@ -925,16 +924,17 @@ comment_inbox {
 	</div>
 </div>
 </c:if>
-
 <br>
 
-<div class="text-right">
+<div class="text-right" style="margin-bottom: 100px;">
 	<button type="button" id="btnList" class="button" 
 		style="float: left; margin-bottom: 20px;" onclick="location.href='/review/list';" >목록</button>
-		<c:if test="${sessionScope.userNo eq review.USER_NO }">
-			<a href="/review/update?reviewNo=${review.REVIEW_NO }">
-			<button type="button" id="btnUpdate" class="button" >수정</button></a>
-			<button type="button" id="btnDelete">삭제</button>
+		<c:if test="${login }">
+			<c:if test="${sessionScope.userNo eq review.USER_NO }">
+				<a href="/review/update?reviewNo=${review.REVIEW_NO }">
+				<button type="button" id="btnUpdate" class="button" >수정</button></a>
+				<button type="button" id="btnDelete">삭제</button>
+			</c:if>
 		</c:if>
 </div>
 

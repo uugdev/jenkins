@@ -169,11 +169,16 @@
 			SELECT review_no
 			FROM zreview
 			WHERE user_no = #{userNo }
-			ORDER BY review_no DESC		
+			ORDER BY review_no DESC
 		)
 		WHERE rownum = 1
 	</select>
 	
+	<update id="updateUserPointDelete" parameterType="com.khbill.dto.User">
+		UPDATE zuser
+		SET user_point = user_point - 200
+		WHERE user_no = #{userNo }
+	</update>
 	
 	<delete id="deleteReview" parameterType="com.khbill.dto.Review">
 		DELETE zreview
@@ -185,6 +190,7 @@
 		WHERE item_no = #{itemNo }
 	</delete>
 		
+	
 	<delete id="deleteFile" parameterType="int">
 		DELETE zfile
 		WHERE file_no = #{fileNo }
@@ -222,7 +228,6 @@
 		WHERE review_no = #{reviewNo } 
 			AND user_no = #{userNo }
 	</select>
-	
 	
 	<select id="selectReviewByReview" resultType="com.khbill.dto.Review" parameterType="int">
 		SELECT 
