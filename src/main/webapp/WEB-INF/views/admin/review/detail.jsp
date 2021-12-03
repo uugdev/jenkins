@@ -447,7 +447,8 @@ table, th {
 		</div>
 		
 		<div id="item">
-			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
+			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" 
+				class="img-responsive center-block" alt="Responsive image" />
 		</div>
 
 		<div style="border-top: 1px solid #000;">

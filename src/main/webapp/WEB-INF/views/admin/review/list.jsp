@@ -110,7 +110,7 @@ input[type=checkbox] {
 <div class="listTable">
 <span class="pull-left">총 ${paging.totalCount }개</span>
 <div class="pull-right" style="width: 300px; margin: 0 auto;">
-	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;"/>
+	<input class="form-control pull-left" type="text" id="search" name="search" value="${param.search }" style="width: 80%;" placeholder="제목을 입력해주세요"/>
 	<button id="btnSearch" class="pull-right btn">검색</button>
 </div>
 <div class="clearfix"></div>
@@ -129,7 +129,7 @@ input[type=checkbox] {
 	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
 	<td><label for="${review.REVIEW_NO}">${review.REVIEW_NO }</label></td>
 	<td style="text-align: left;"><label for="${review.REVIEW_NO }">
-			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
+			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }"><span style=" padding-left: 30px;">${review.REVIEW_TITLE }</span></a>
 		</label></td>
 		
 		<c:if test="${review.USER_NO ne null}">
