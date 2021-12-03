@@ -2,15 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<!doctype html>
-<html lang="ko">
-<head>
-    <%--page title--%>
-    <title>이건못참조</title>
-	<c:import url="/WEB-INF/views/layout/head.jsp" />
-</head>
-<body>
-<%--header--%>
+<c:import url="/WEB-INF/views/layout/head.jsp" />
 <c:import url="/WEB-INF/views/layout/header.jsp" />
 
 <!-- 스마트 에디터 2 라이브러리 로드 -->
@@ -26,24 +18,27 @@ function submitContents(elClickedObj) {
 }
 
 $(document).ready(function() {
-	$("#btnWrite").click(function() {
-		submitContents($("#btnWrite"));
+	$("#btnUpdate").click(function() {
+		submitContents($("#btnUpdate"));
 		
-		var limit = uncomma($('input[name=itemPrice]').val()); //건들지마
-		var price = parseInt(limit); //건들지마
-		var result = confirm("게시글을 수정하시겠습니까?");
+		action_popup.confirm("게시글을 수정하시겠습니까?",
 		
-		if (result == true) {
-			$('input[name=itemPrice]').val(price);
-			$("form").submit();
-		} else {
-			
-			$("#reviewContent").focus();
-		}
+		function(result) {
+			if (result == true) {
+				$("form").submit();
+				
+			} else {
+				$("#reviewContent").focus();
+			}
+		})
 		
+		/* 닫는 창으로 꼭 필요함 */
+		$(".modal_close").on("click", function() {
+			action_popup.close(this);
+		});
 	})
 	
-	$("#cancel").click(function() {
+	$("#btnCancel").click(function() {
 		history.go(-1);
 	})
 })
@@ -172,10 +167,10 @@ form {
 			<label for="itemBrand">브랜드</label><br>
 			<input type="text" id="itemBrand" value="${item.itemBrand }" name="itemBrand" readonly="readonly"/>
 		</div>
-		<div>
+	<div class=" commaInput">
 			<label for="itemPrice">가격</label><br>
 			<input type="text" id="itemPrice" name="itemPrice"
-			value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>" readonly="readonly"/>
+				value="<fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>" readonly="readonly"/>
 		</div>
 	</div>
 	
@@ -202,8 +197,9 @@ form {
 	
 	
 	<div class="text-center">
-		<button class="btn btnWrap" id="btnWrite">작성</button>
-		<input type="reset" id="cancel" class="btn btnWrap" value="취소"/>
+<!-- 		<input type="reset" id="cancel" class="btn btnWrap" value="취소"/> -->
+		<button type="button" id="btnCancel" class="btn btnWrap">취소</button>
+		<button type="button" id="btnUpdate" class="btn btnWrap">수정</button>
 	</div>
 </form>
 
@@ -216,30 +212,28 @@ nhn.husky.EZCreator.createInIFrame({
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 });
-
-
 //---인풋창 3자리마다콤마찍기---
 var $input = $(".commaInput [type='text']");
-//입력 값 알아내기
+// 입력 값 알아내기
 $input.on('keyup', function() {
-  var _this = this;
-  numberFormat(_this)
+	var _this = this;
+	numberFormat(_this)
 });
-//콤마 찍기
+// 콤마 찍기
 function comma(str) {
-  str = String(str);
-  return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-  
+	str = String(str);
+	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+
 }
 //---인풋창 3자리마다콤마찍기end---
 
 //--------- 콤마 풀기
 function uncomma(str) {
-  str = String(str);
-  return str.replace(/[^\d]+/g, '');
+	str = String(str);
+	return str.replace(/[^\d]+/g, '');
 }
 function numberFormat(obj) {
-  obj.value = comma(uncomma(obj.value));
+	obj.value = comma(uncomma(obj.value));
 }
 //--------- 콤마 풀기end
 </script>
