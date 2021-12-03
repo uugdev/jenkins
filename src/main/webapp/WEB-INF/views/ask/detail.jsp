@@ -398,8 +398,8 @@ function updateComment(askComNo) {
 			'class="comment_inbox_text" style="overflow: hidden; overflow-wrap: break-word; height: 45px;"' +
 			'id="askComUpdateContent'+ askComNo +'">'+ content +'</textarea>' +
 			'<div class="register_box">' +
-			'<button id="btnCommUpdate" onclick="updateCom('+ askComNo +');">수정</button>　' +
 			'<button id="btnCommUpdateCancel" onclick="cancelCom('+ askComNo +');">취소</button>' +
+			'<button id="btnCommUpdate" style="margin-right: -14px;" onclick="updateCom('+ askComNo +');">수정</button>　' +
 			'</div>' +
 			'</div>' +
 			'</div>');
@@ -570,7 +570,7 @@ $(document).ready(function() {
 }
 
 .wrap {
-	margin-bottom: 50px;
+	padding: 100px;
 	background: #f2f2f2;
 }
 
@@ -643,7 +643,7 @@ table, th {
 .recipeWrap {
 	/*  	width: 700px; */
 	width: 100%;
-	margin: 100px auto 0;
+	margin: 0 auto 0;
 	padding: 30px;
 	background: #fff;
 	border-bottom-left-radius: 20px;
@@ -835,22 +835,20 @@ table, th {
 }
 
 .btnGroup {
-	height: 35px;
-	width: 65px;
-	border-radius: 0px;
-	border: 0px;
-	background: #5b6e7a;
-	color: #f3f3f3;
-	margin-bottom: 100px;
+	background: #808080;
+    border-radius: 0px;
+    height: 35px;
+    border: 1px solid #808080;
+    color: #fff;
+    padding: 0 15px;
 }
 
 .btnGroup:hover {
-	border: 1px solid #5b6e7a;
+	border: 1px solid #808080;
 	background: #fff;
-	color: #5b6e7a;
+	color: #808080;
 	transition: all .2s ease-in-out;
 }
-
 
 /* 댓글 */
 
@@ -926,8 +924,8 @@ comment_inbox {
 	padding: 2px 5px;
 	width: 44px;
 }
-#btnCommUpdate {
-	margin-right: -10px;
+#btnCommUpdateCancel {
+	margin-right: 4px;
 }
 
 </style>
@@ -1262,15 +1260,12 @@ comment_inbox {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center"
-			style="margin-bottom: 100px; margin-top: 50px;">
-			<a href="/ask/list"><button class="btn btnGroup">목록</button></a>
+			<a href="/ask/list"><button class="btn btnGroup btnList" style="float: left;">목록</button></a>
 			<c:if test="${userNo eq ask.userNo }">
+				<button type="button" class="btn btnGroup btnDelete" id="btnDelete"  style="float: right;">삭제</button>
 				<a href="/ask/update?askNo=${ask.askNo }"><button
-						class="btn btnGroup">수정</button></a>
-				<button type="button" class="btn btnGroup" id="btnDelete">삭제</button>
+						class="btn btnGroup btnUpdate"  style="float: right; margin-right: 4px;">수정</button></a>
 			</c:if>
-		</div>
 
 	</div>
 	<%-- --%>

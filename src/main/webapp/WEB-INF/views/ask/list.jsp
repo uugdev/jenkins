@@ -294,7 +294,7 @@ li {
 <div class="wrap">
 	<div class="container">
 		<div class="title">
-			<h1>머니토론</h1>
+			<h1><a href="/ask/list">머니토론</a></h1>
 			<p>회원들의 선택은 머니?</p>
 		</div>
 		<div class="listTable">

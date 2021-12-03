@@ -49,6 +49,15 @@ function initChart(cntY, cntN) {
 } 
 
 function deleteComment(askComNo) {
+	
+		var result = confirm("정말 삭제하시겠습니까?") 
+
+		if (result == false) {
+			
+			return;
+			
+		}
+	
 	$.ajax({
 		type: "post"
 		, url: "/admin/ask/comment/delete"
@@ -138,7 +147,7 @@ function deleteComment(askComNo) {
 }
 
 .wrap {
-	margin-bottom: 50px;
+	padding: 100px;
 	background: #f2f2f2;
 }
 
@@ -211,7 +220,7 @@ table, th {
 .recipeWrap {
 	/*  	width: 700px; */
 	width: 100%;
-	margin: 100px auto 0;
+	margin: 0 auto 0;
 	padding: 30px;
 	background: #fff;
 	border-bottom-left-radius: 20px;
@@ -402,19 +411,18 @@ table, th {
 }
 
 .btnGroup {
-	height: 35px;
-	width: 65px;
-	border-radius: 0px;
-	border: 0px;
-	background: #5b6e7a;
-	color: #f3f3f3;
-	margin-bottom: 100px;
+	background: #808080;
+    border-radius: 0px;
+    height: 35px;
+    border: 1px solid #808080;
+    color: #fff;
+    padding: 0 15px;
 }
 
 .btnGroup:hover {
-	border: 1px solid #5b6e7a;
+	border: 1px solid #808080;
 	background: #fff;
-	color: #5b6e7a;
+	color: #808080;
 	transition: all .2s ease-in-out;
 }
 </style>
@@ -431,7 +439,7 @@ table, th {
 			</div>
 			<div class="layerbox">
 				<c:if test="${ask.userNo ne 0}">
-					<span class="confirmation username">닉네임 : ${user.userNick }</span>
+					<span class="confirmation username">${user.userNick }</span>
 				</c:if>
 				<c:if test="${ask.userNo eq 0 }">
 						탈퇴한 회원
@@ -598,7 +606,7 @@ table, th {
 		<br> <br>
 		<hr>
 		<!-- 댓글 리스트 -->
-		<table class="table table-striped table-hover table-condensed">
+		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
 					<th style="width: 4%;"></th>
@@ -624,7 +632,7 @@ table, th {
 						<td id="td${askComment.ASK_COM_NO }" style="text-align: left;">${askComment.ASK_COM_CONTENT }</td>
 						<td id="dateTd${askComment.ASK_COM_NO }" style="width: 10%;">
 							<fmt:formatDate value="${askComment.ASK_COM_DATE }"
-								pattern="yy-MM-dd hh:mm:ss" />
+								pattern="yy-MM-dd HH:mm:ss" />
 						</td>
 						<td>
 							<button class="btn btn-default btn-xs btnDel"
@@ -646,13 +654,11 @@ table, th {
 
 		<!-- 댓글 처리 end -->
 
-		<div class="text-center"
-			style="margin-bottom: 100px; margin-top: 50px;">
+
 			<a href="/admin/ask/list"><button class="btn btnGroup">목록</button></a>
 
 			<button type="button" class="btn btnGroup" id="btnDelete">삭제</button>
 
-		</div>
 
 	</div>
 	<%-- --%>

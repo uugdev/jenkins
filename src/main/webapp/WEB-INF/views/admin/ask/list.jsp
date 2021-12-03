@@ -98,21 +98,6 @@ input[type=checkbox] {
 	height: 15px;
 }
 
-a{
-	color: #000;
-	text-decoration: none;
-
-}
-
-
-
-a:hover {
-	color: #000;
-	text-decoration: none;
-
-}
-
-
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -121,7 +106,7 @@ a:hover {
 	<div class="container">
 
 		<div class="title">
-			<h1><a href="/admin/ask/list">머니토론 목록</a></h1>
+			<h1>머니토론 목록</h1>
 		</div>
 
 		<div class="listTable">
@@ -137,7 +122,7 @@ a:hover {
 					<th style="text-align: center; width: 6%;"><input
 						type="checkbox" name="select" id="selectAll" /></th>
 					<th style="width: 8%;">글번호</th>
-					<th style="text-align: left; width: 45%; padding-left: 30px;">제목</th>
+					<th style="text-align: center; width: 45%; padding-left: 30px;">제목</th>
 					<th style="text-align: center; width: 12%; padding-right: 30px;">닉네임</th>
 					<th style="text-align: center; width: 10%;">조회수</th>
 					<th style="text-align: center; width: 17%;">작성일</th>
