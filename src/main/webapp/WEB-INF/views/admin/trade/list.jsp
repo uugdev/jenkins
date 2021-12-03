@@ -94,16 +94,20 @@ li.active>a {
 	background-color: #5b6e7a !important;
 }
 
+.title {
+	margin: 50px 0 30px 0;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
 	<div class="container">
-	
-		<h3>거래 게시판 목록</h3>
-		<hr>
-		
+		<div class="title">
+			<h1><a href="/admin/trade/list" style="color: #000;">오이장터 목록</a></h1>
+		</div>
+			
 		<span class="pull-left">
 			총 ${paging.totalCount }개
 		</span>
@@ -154,7 +158,7 @@ li.active>a {
 						[삽니다]
 					</c:if>
 				</td>
-				<td>
+				<td style="text-align: left;">
 					<label for="${trade.TRADE_NO }">
 						<a href="/admin/trade/detail?tradeNo=${trade.TRADE_NO  }">${trade.TRADE_TITLE }</a>
 					</label>
@@ -162,7 +166,7 @@ li.active>a {
 				
 				<c:if test="${trade.USER_NICK eq null }">
 					<td>
-						탈퇴(된)한 회원
+						탈퇴한 회원
 					</td>
 				</c:if>
 				<c:if test="${trade.USER_NICK ne null }">
@@ -176,7 +180,7 @@ li.active>a {
 			</c:forEach>
 		</table>
 		
-		<button id="btnDelete" class="pull-left">삭제</button>
+		<button id="btnDelete" class="pull-left btn">삭제</button>
 		
 		<div class="clearfix"></div>
 		
