@@ -104,7 +104,7 @@ input[type=checkbox] {
 <div class="container">
 
 <div class="title">
-	<h1>후기게시판 목록</h1>
+	<h1>영수증 목록</h1>
 </div>
 
 <div class="listTable">
@@ -116,18 +116,19 @@ input[type=checkbox] {
 <div class="clearfix"></div>
 <table class="table table-hover table-condensed">
 <tr>
-	<th><input type="checkbox" name="select" id="selectAll" /></th>
-	<th>후기글 번호</th>
-	<th width="45%">제목</th>
-	<th>닉네임</th>
-	<th>조회수</th>
-	<th>작성일</th>
+	<th style="text-align: center; width: 6%;">
+		<input type="checkbox" name="select" id="selectAll" /></th>
+	<th style="width: 8%;">글 번호</th>
+	<th style="text-align: center; width: 45%; padding-left: 30px;">제목</th>
+	<th style="text-align: center; width: 12%; padding-right: 30px;">닉네임</th>
+	<th style="text-align: center; width: 10%;">조회수</th>
+	<th style="text-align: center; width: 17%;">작성일</th>
 </tr>
 <c:forEach items="${reviewList }" var="review">
 <tr>
 	<td><input type="checkbox" name="select" id="${review.REVIEW_NO }" value="${review.REVIEW_NO }" class="check" /></td>
 	<td><label for="${review.REVIEW_NO}">${review.REVIEW_NO }</label></td>
-	<td><label for="${review.REVIEW_NO }">
+	<td style="text-align: left;"><label for="${review.REVIEW_NO }">
 			<a href="/admin/review/detail?reviewNo=${review.REVIEW_NO }">${review.REVIEW_TITLE }</a>
 		</label></td>
 		
@@ -141,7 +142,7 @@ input[type=checkbox] {
 		</c:if>
 			
 	<td><label for="${review.USER_NO }">${review.REVIEW_HIT }</label></td>
-	<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yyyy-MM-dd"/></td>
+	<td><fmt:formatDate value="${review.REVIEW_DATE }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 </tr>
 </c:forEach>
 </table>

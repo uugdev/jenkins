@@ -68,6 +68,26 @@ function deleteComment(reviewComNo) {
 		}
 	});
 }
+
+$(function() {
+	
+	$(document).on("click", "#btnList", function(){
+		history.go(-1);
+	});
+	
+	$(document).on("click", "#btnDelete", function(){
+		action_popup.confirm("후기글을 삭제하시겠습니까?", function (res){
+			if(res){
+				location.href="/review/delete?reviewNo="+${review.REVIEW_NO };
+			}
+		})
+	});
+
+	$(".modal_close").on("click", function () {
+	       action_popup.close(this);
+	});
+	
+})/* $(function(){}) end */
 </script>
 
 <style type="text/css">
@@ -430,36 +450,23 @@ table, th {
 			<img id="itemImg" src="/upload/${file.fileStored}" alt="상품사진" class="img-responsive center-block" alt="Responsive image" />
 		</div>
 
-<%-- 			<div style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">${ask.askContent }</div> --%>
-			<div style="border-top: 1px solid #000;">
-				<div class="content">
-					${review.REVIEW_CONTENT }
-				</div>
-			</div>
-			<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
-				<p class="priceText">PRICE</p>
-				<p class="price">
-					￦ <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>
-				</p>
+		<div style="border-top: 1px solid #000;">
+			<div class="content">
+				${review.REVIEW_CONTENT }
 			</div>
 		</div>
-		<div class="barcode">
-			<img alt="#" src="/resources/img/askBarcode2.png">
-			<div class="bottom"></div>
+		<div class="priceWrap" style="text-align: center; padding: 20px 0; border-top: 1px solid #000;">
+			<p class="priceText">PRICE</p>
+			<p class="price">
+				￦ <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.itemPrice }"/>
+			</p>
 		</div>
-
-<!-- <div class="text-center"> -->
-<!-- 	<a href="/review/list"> -->
-<!-- 	<button class="btn btn-default">목록</button></a> -->
-<%-- 	<c:if test="${userNo eq review.USER_NO }"> --%>
-<%-- 		<a href="/review/update?reviewNo=${review.REVIEW_NO }"> --%>
-<!-- 			<button class="btn btn-primary">수정</button></a> -->
-<%-- 		<a href="/review/delete?reviewNo=${review.REVIEW_NO }"> --%>
-<!-- 			<button  type="button" class="btn btn-danger"  id="btnDelete">삭제</button></a> -->
-<%-- 	</c:if> --%>
-<!-- </div> -->
-
-<!-- 댓글 처리 -->
+	</div>
+	<div class="barcode">
+		<img alt="#" src="/resources/img/askBarcode2.png">
+		<div class="bottom"></div>
+	</div>
+	<!-- 댓글 처리 -->
 <hr>
 <div>
 	
@@ -467,25 +474,29 @@ table, th {
 	<table class="table table-striped table-hover table-condensed">
 	<thead>
 	<tr>
-		<!-- 		<th style="width: 5%;">번호</th> -->
-		<th style="width: 10%;">작성자</th>
-		<th style="width: 65%;">댓글</th>
-		<th style="width: 20%;">작성일</th>
-		<th style="width: 5%;"></th>
+		<th style="width: 4%;"></th>
+		<th style="width: 15%; padding-right: 47px;">닉네임</th>
+		<th style="width: 58%;">댓글</th>
+		<th style="width: 13%;">작성일</th>
+		<th style="width: 10%;"></th>
 	</tr>
 	</thead>
 
 	<tbody id="commentBody">
 	<c:forEach items="${commentList }" var="reviewComment">
 	<tr data-reviewComNo="${reviewComment.REVIEW_COM_NO }">
-<%-- 		 		<td style="width: 5%;">${reviewComment.rnum }</td> --%>
-		<td style="width: 10%;">${reviewComment.USER_NICK }</td>
-		<td style="width: 50%;">${reviewComment.REVIEW_COM_CONTENT }</td>
+		<td></td>
+		<c:if test="${reviewComment.USER_NICK eq null }">
+			<td style="text-align: left;">탈퇴한 회원</td>
+		</c:if>
+		<c:if test="${reviewComment.USER_NICK ne null }">
+			<td style="text-align: left;">${reviewComment.USER_NICK }</td>
+		</c:if>
+		<td style="width: 50%; text-align: left;">${reviewComment.REVIEW_COM_CONTENT }</td>
 		<td style="width: 20%;">
-			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd hh:mm:ss" /></td>
+			<fmt:formatDate value="${reviewComment.REVIEW_COM_DATE }" pattern="yy-MM-dd HH:mm:ss" /></td>
 		<td style="width: 5%;">
-			<button class="btn btn-default btn-xs"
-				onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
+			<button  id="deleteComment" class="btn btn-default btn-xs" onclick="deleteComment(${reviewComment.REVIEW_COM_NO });">삭제</button>
 		</td>
 	</tr>
 	</c:forEach>
@@ -495,8 +506,8 @@ table, th {
 </div><!-- 댓글 처리 end -->
 
 <div class="text-center" style="margin-bottom: 100px;">
+	<a href="/admin/review/list"><button id="btnList">목록</button></a>
 	<button type="button" id="btnDelete">삭제</button>
-	<a href="/admin/review/list"><button id="btnList">목록으로</button></a>
 </div>
 
 	
