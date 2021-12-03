@@ -285,27 +285,44 @@ function cancelCom(reviewComNo) {
 }
 
 function deleteComment(reviewComNo) {
-	$.ajax({
-		type: "post"
-		, url: "/review/comment/delete"
-		, dataType: "json"
-		, data: {
-			reviewComNo: reviewComNo
+	
+	action_popup.confirm("댓글을 삭제하시겠습니까?", function (del) {
+		if(del) {
+
+			/* ----------------------------------------- */
+			
+			$.ajax({
+				type: "post"
+				, url: "/review/comment/delete"
+				, dataType: "json"
+				, data: {
+					reviewComNo: reviewComNo
+				}
+				, success: function(data){
+					if(data.success) {
+						
+						$("#reviewComCount").html(--reviewComCount, reviewComCount);
+						$("[data-reviewComNo='"+reviewComNo+"']").remove();
+					
+						} else {
+							alert("댓글 삭제 실패");
+						}
+					}
+					, error: function() {
+						console.log("error");
+					}
+				});
+		
+		/* ----------------------------------------- */
+		
 		}
-		, success: function(data){
-			if(data.success) {
-				
-				$("#reviewComCount").html(--reviewComCount, reviewComCount);
-				$("[data-reviewComNo='"+reviewComNo+"']").remove();
-				
-			} else {
-				alert("댓글 삭제 실패"); 
-			}
-		}
-		, error: function() {
-			console.log("error");
-		}
+	})		
+
+	/* 닫는 창으로 꼭 필요함 */
+	$(".modal_close").on("click", function () {
+	    action_popup.close(this);
 	});
+		
 }
 
 

@@ -47,6 +47,12 @@ $(document).ready(function() {
 });
 
 function deleteComment(reviewComNo) {
+	
+	var result = confirm("정말 삭제하시겠습니까?") 
+	if (result == false) {
+		return;
+	}
+	
 	$.ajax({
 		type: "post"
 		, url: "/admin/review/comment/delete"
