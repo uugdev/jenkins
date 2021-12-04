@@ -86,6 +86,7 @@ input:focus {outline:none;}
 
 #reviewTitle {
 	width: 100%;
+	border: 1px solid #ccc;
 }
 
 #itemName {
@@ -148,10 +149,6 @@ form {
 
 <form action="/review/update" method="post" enctype="multipart/form-data" style="text-align: left;">
 	<input type="hidden" name="reviewNo" value="${review.REVIEW_NO }">
-<!-- 	<div> -->
-<!-- 		<label for="userNick">작성자</label> -->
-<%-- 		<input type="text" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/> --%>
-<!-- 	</div> -->
 	<div>
 		<label for="reviewTitle">제목</label>
 		<input type="text" id="reviewTitle" value="${review.REVIEW_TITLE }" name="reviewTitle" maxlength="32" />
@@ -178,13 +175,13 @@ form {
 		<div id="originFile">
 			<label for="file">기존 첨부파일</label><br>
 			<a href="/review/download?fileNo=${file.fileNo }">${file.fileStored }</a>
-			<span id="delFile">X</span>
+<!-- 			<span id="delFile">X</span> -->
 		</div>
 		<br>
 			
 		<div id="newFile">
-			<label for="file">새로운 첨부파일</label>
-				<small> *새로운 파일을 첨부하면 기존파일이 삭제됩니다*</small>
+			<label for="file">새로운 첨부파일</label><br>
+				<small> * 새로운 파일을 첨부하면 기존파일이 삭제됩니다 *</small>
 			<input type="file" name="file" id="file" />
 		</div>
 	</div>

@@ -413,7 +413,7 @@ table, th {
 	<table class="table table-hover table-condensed">
 	<thead>
 	<tr>
-		<th style="width: 20%;">작성자</th>
+		<th style="width: 20%;">닉네임</th>
 		<th style="width: 60%;">댓글</th>
 		<th style="width: 20%;">작성일</th>
 	</tr>

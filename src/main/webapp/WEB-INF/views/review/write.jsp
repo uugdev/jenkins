@@ -164,9 +164,6 @@ form {
 </div>
 
 <form action="/review/write?askNo=${param.askNo }" method="post" enctype="multipart/form-data" id="nullCheck" style="text-align: left;">
-<!-- 	<div class="form-group"> -->
-<!-- 		<label for="userNick">작성자</label> -->
-<!-- 	</div> -->
 	<input type="hidden" id="userNick" value="${userNick }" class="form-control" readonly="readonly"/>
 	<div class="">
 		<label for="reviewTitle">제목</label><br>
