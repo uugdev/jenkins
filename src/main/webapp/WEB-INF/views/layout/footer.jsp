@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<style>
+
+#in-footer p a:hover {
+    color: #85969E;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#in-footer p a {
+    color: #333;
+}
+
+</style>
+    
 <!-- confirm 모달을 쓸 페이지에 추가 start-->
 <section class="modal modal-section type-confirm">
     <div class="enroll_box">

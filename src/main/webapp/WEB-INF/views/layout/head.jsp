@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>: : : KH 영수증 : : :</title>
-<link rel="icon" type="image/x-icon" href="/resources/img/다이아.png">
+<link rel="icon" type="image/x-icon" href="https://i.imgur.com/nTCuJCz.png">
 
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -29,3 +29,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
+
+<div style="display: none;">Icons made by <a href="https://www.freepik.com" title="프리픽">프리픽</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
