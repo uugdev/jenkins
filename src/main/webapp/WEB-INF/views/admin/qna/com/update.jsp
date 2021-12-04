@@ -8,7 +8,18 @@
 <!-- header end -->
 
 <!-- 개별 스타일 및 스크립트 영역 -->
+<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
+<script type="text/javascript">
+function submitContents(elClickedObj) {
+	oEditors.getById["qnaComContent"].exec("UPDATE_CONTENTS_FIELD", []);
+	
+	try {
+		elClickedObj.form.submit();
+	} catch(e) {}
+}
+
+</script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -20,6 +31,7 @@ $(document).ready(function(){
 		var answer = confirm("문의 답변을 수정하시겠습니까?");
 		
 		if(answer == true){
+			submitContents($("#btnUpdate"));
 			$("form").submit;
 		} else {
 			return false;
@@ -71,23 +83,9 @@ th {
 	margin-bottom: 30px;
 	margin-top: 20px;
 	width: 100%;
-	height: 150px;
-	border: 3px solid #f3f3f3;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	height: 250px;
 }
 
-.answer {
-	width: 100%;
-	height: 100%;
-	font-size: 16px;
-	border: 0px;
-	text-align: center;
-}
-.answer:focus {
-	outline: none;
-}
 
 </style>
 
@@ -118,7 +116,7 @@ th {
 <div id="content">${qna.qnaContent }</div>
 
 <div id="answer">
-	<textarea name="qnaComContent" class="answer">${qnaComment.qnaComContent }</textarea>	
+	<textarea id="qnaComContent" name="qnaComContent" class="answer" style="width: 100%; height: 100%">${qnaComment.qnaComContent }</textarea>	
 </div>
 
 <div class="text-center">
@@ -130,6 +128,19 @@ th {
 </form>
 </div><!-- .container end -->
 </div><!-- .wrap end -->
+
+
+
+<script type="text/javascript">
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "qnaComContent",
+	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
+	fCreator: "createSEditor2"
+});
+</script>
+
 
 <!-- footer start -->
 <c:import url="/WEB-INF/views/layout/footer.jsp" />
