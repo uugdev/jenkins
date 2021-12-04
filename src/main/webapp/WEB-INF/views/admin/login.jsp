@@ -113,7 +113,7 @@ body {
 	<td style="width: 30%; vertical-align: middle;" rowspan="2"><button type="submit" id="btnSubmit">로그인</button></td>
 </tr>
 <tr>
-	<td><input type="text" id="adminPw" name="adminPw" placeholder="PASSWORD" /></td>
+	<td><input type="password" id="adminPw" name="adminPw" placeholder="PASSWORD" /></td>
 </tr>
 </table>
 
