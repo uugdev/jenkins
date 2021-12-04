@@ -85,7 +85,7 @@ td:nth-child(2) {
 			<c:if test="${list.REPORT_STATUS eq 'y' }">
 				<div style="width: 100%; height: 250px;">
 					<a style="cursor: pointer;" onclick="reportStatusY();">
-						<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
+						<img style="height: 100%;" alt="금지" src="https://i.imgur.com/OlYEpre.png">
 					</a>
 				</div>
 			</c:if>
