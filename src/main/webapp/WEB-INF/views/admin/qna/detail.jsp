@@ -77,13 +77,14 @@ th{
 	margin-bottom: 30px;
 	margin-top: 20px;
 	width: 100%;
-	height: 150px;
+	height: 250px;
 	border: 3px solid #f3f3f3;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 10px;
 	font-size: 16px;
+	overflow: auto;
 }
 
 </style>

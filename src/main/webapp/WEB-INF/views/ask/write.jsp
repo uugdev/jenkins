@@ -13,35 +13,46 @@
 	src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
-function submitContents(elClickedObj) {
-	oEditors.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
-
-	try {
-		elClickedObj.form.submit();
-	} catch (e) {
-	}
-}
 
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-	submitContents($("#btnWrite"));
+
+        var elClickedObj = $("#btnWrite");
+        oEditors.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        var askContent = $("#askContent").val();
+
+        if( askContent == ""  || askContent == null || askContent == '<p><br></p>' || askContent == '&nbsp;' || askContent == '<p>&nbsp;</p>')  {
+        	 action_popup.alert("빈 칸을 모두 입력해 주세요");
+        	 
+        	 /* 닫는 창으로 꼭 필요함 */
+			$(".modal_close").on("click",function() {
+			action_popup.close(this);
+             oEditors.getById["askContent"].exec("FOCUS"); //포커싱
+			});
+             return;
+        }
+
+        try {
+            elClickedObj.submit();
+        } catch(e) {}
 
         var nullCheck = [
         	"askTitle","itemBrand",
         	"itemName","itemPrice", 
-        	"file","askContent"
+        	"file"
        	];
 
 		//입력 값 널 체크
 		for (var i = 0; i < nullCheck.length; i++) {
 		    //alert(arr[i]);
 		    if ($.trim($('#' + nullCheck[i]).val()) == '') {
-		        action_popup.alert('빈 칸을 모두 입력해 주세요.');
+		        action_popup.alert('빈 칸을 모두 입력해 주세요');
 		        $('#' + nullCheck[i]).focus();
 		
 		        /* 닫는 창으로 꼭 필요함 */
 		        $(".modal_close").on("click",function() {
 		        	action_popup.close(this);
+		        	$('#' + nullCheck[i]).focus();
 		        });
 		
 		        return;
@@ -58,6 +69,7 @@ $(document).ready(function() {
                         $("form").submit();
 					} else {
                         $("#askContent").focus();
+                        
                     }
 
 				})
