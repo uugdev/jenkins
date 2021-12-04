@@ -299,7 +299,7 @@ li {
 		</div>
 		<div class="listTable">
 			<div class="pull-right" style="margin-bottom: 20px;">
-				<a id="latestList">최신순</a> <a id="hitList">조회순</a> <a id="itemList">이미지순</a>
+				<a id="latestList">최신순</a> <a id="hitList">조회순</a> <a id="itemList">이미지</a>
 			</div>
 
 			<div id="result"></div>
