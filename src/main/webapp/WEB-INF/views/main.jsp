@@ -35,7 +35,10 @@
                             <table class="table" id="popular_table">
                             	
                             	<tr>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[0].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[0].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
 	                                    <c:if test="${popularBoard[0].VOTE_END gt setDate }">
@@ -45,7 +48,10 @@
 	                                        [종료]<br> ${popularBoard[0].ASK_TITLE }
 	                                    </c:if>
                             		</td>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[1].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[1].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
 	                                    <c:if test="${popularBoard[1].VOTE_END gt setDate }">
@@ -59,6 +65,8 @@
                             	<tr>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[0].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[0].USER_NICK } /
                                         <c:if test="${popularBoard[0].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="HH:mm"/>
@@ -69,6 +77,8 @@
                             		</td>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[1].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[1].USER_NICK } / 
                                         <c:if test="${popularBoard[1].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[1].ASK_DATE }"  pattern="HH:mm"/>
@@ -80,7 +90,10 @@
                             	</tr>
                             	
                             	<tr>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[2].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[2].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
 	                                    <c:if test="${popularBoard[2].VOTE_END gt setDate }">
@@ -90,7 +103,10 @@
 	                                        [종료]<br> ${popularBoard[2].ASK_TITLE }
 	                                    </c:if>
                             		</td>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[3].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[3].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
 	                                    <c:if test="${popularBoard[3].VOTE_END gt setDate }">
@@ -104,6 +120,8 @@
                             	<tr>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[2].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[2].USER_NICK } / 
                                         <c:if test="${popularBoard[2].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="HH:mm"/>
@@ -114,6 +132,8 @@
                             		</td>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[3].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[3].USER_NICK } / 
                                         <c:if test="${popularBoard[3].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[3].ASK_DATE }"  pattern="HH:mm"/>
@@ -125,7 +145,10 @@
                             	</tr>
                             	
                             	<tr>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[4].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[4].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
 	                                    <c:if test="${popularBoard[4].VOTE_END gt setDate }">
@@ -135,7 +158,10 @@
 	                                        [종료]<br> ${popularBoard[4].ASK_TITLE }
 	                                    </c:if>
                             		</td>
-                            		<th rowspan="2"><img alt="#" src="/upload/${popularBoard[5].FILE_STORED }"></th>
+                            		<th rowspan="2" style="cursor: pointer;"
+                            			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
+                            			<img alt="#" src="/upload/${popularBoard[5].FILE_STORED }">
+                            		</th>
                             		<td style="cursor: pointer; text-align: left; width: 200px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
 	                                    <c:if test="${popularBoard[5].VOTE_END gt setDate }">
@@ -149,6 +175,8 @@
                             	<tr>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[4].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[4].USER_NICK } / 
                                         <c:if test="${popularBoard[4].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="HH:mm"/>
@@ -159,6 +187,8 @@
                             		</td>
                             		<td style="cursor: pointer; border-top: 0; height: 30px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
+	                                    <img alt="#" src="${popularBoard[5].GRADE_URL }"
+	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
 	                                    ${popularBoard[5].USER_NICK } / 
                                         <c:if test="${popularBoard[5].MMDDASK_DATE eq fmtDate }">
                                             <fmt:formatDate value="${popularBoard[5].ASK_DATE }"  pattern="HH:mm"/>
@@ -251,7 +281,9 @@
 				src="https://i.imgur.com/VoScoul.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>1등</h2>
-			<p>${userTen[0].userNick }</p>
+			<p style="width: 137px; margin: auto;">
+				<img alt="#" src="${userTen[0].GRADE_URL }" width="20px" height="20px"> ${userTen[0].USER_NICK }
+			</p>
 		</div>
 		<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="픽셀 부처">픽셀 부처</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		<div class="col-lg-4">
@@ -259,7 +291,9 @@
 				src="https://i.imgur.com/4XpO6Tc.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>2등</h2>
-			<p>${userTen[1].userNick }</p>
+			<p style="width: 137px; margin: auto;">
+				<img alt="#" src="${userTen[1].GRADE_URL }" width="20px" height="20px"> ${userTen[1].USER_NICK }
+			</p>
 		</div>
 		<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/pixel-buddha" title="Pixel Buddha">Pixel Buddha</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 		<div class="col-lg-4">
@@ -267,7 +301,9 @@
 				src="https://i.imgur.com/mIveggd.png"
 				alt="일반 자리 표시자 이미지" width="140" height="140">
 			<h2>3등</h2>
-			<p>${userTen[2].userNick }</p>
+			<p style="width: 137px; margin: auto;">
+				<img alt="#" src="${userTen[2].GRADE_URL }" width="20px" height="20px"> ${userTen[2].USER_NICK }
+			</p>
 		</div>
 	</div>
 
@@ -284,9 +320,11 @@
 						<c:forEach var="i" begin="0" end="5">
 							<tr>
 								<td style="text-align: left;">
-									<a href="/notice/detail?noticeNo=${noticeSix[i].noticeNo }">
-										<p style="margin-bottom: 0;">${noticeSix[i].noticeTitle }</p>
-									</a>
+									<p class="ellipsis3" style="margin-bottom: 0;">
+										<a href="/notice/detail?noticeNo=${noticeSix[i].noticeNo }">
+											${noticeSix[i].noticeTitle }
+										</a>
+									</p>
 								</td>
 							</tr>
 						</c:forEach>
@@ -302,7 +340,7 @@
 					<c:forEach var="i" begin="3" end="9">
 						<tr>
 							<td>${i+1 }</td>
-							<td>${userTen[i].userNick }</td>
+							<td><img alt="#" src="${userTen[i].GRADE_URL }" width="20px" height="20px"> ${userTen[i].USER_NICK }</td>
 						</tr>
 					</c:forEach>
 				</table>

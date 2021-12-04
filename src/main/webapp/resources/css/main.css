@@ -21,6 +21,16 @@
 	padding-left: 30px;
 }
 
+#notice_table td a:hover {
+    color: #85969E;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#notice_table td a {
+    color: #333;
+}
+
 #popular_table td {
 	height: 114px;
 	font-size: 16px;
@@ -32,7 +42,7 @@
 	margin-bottom: 0;
 }
 
-#popular_table img{
+#popular_table th img {
     width: 130px;
     height: 130px;
     object-fit:cover;
@@ -55,6 +65,13 @@
 /* 	-webkit-box-orient: vertical; */
 /* 	width: 270px; */
 	width: 260px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;  /* 말줄임 적용 */
+}
+
+.ellipsis3 {
+	width: 715px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;  /* 말줄임 적용 */

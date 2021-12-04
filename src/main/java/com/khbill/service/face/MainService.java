@@ -1,13 +1,12 @@
 package com.khbill.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.khbill.dto.Ask;
 import com.khbill.dto.Notice;
-import com.khbill.dto.User;
 
 public interface MainService {
 	
@@ -16,7 +15,7 @@ public interface MainService {
 	 * 
 	 * @return 포인트가 높은 유저 10명
 	 */
-	public List<User> getUserPointListTen();
+	public List<HashMap<String, String>>getUserPointListTen();
 	
 	/**
 	 * 최신 공지사항 6개 조회

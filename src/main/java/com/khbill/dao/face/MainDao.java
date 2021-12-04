@@ -1,9 +1,9 @@
 package com.khbill.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.khbill.dto.Notice;
-import com.khbill.dto.User;
 
 public interface MainDao {
 	
@@ -12,7 +12,7 @@ public interface MainDao {
 	 * 
 	 * @return 포인트가 높은 유저 10명
 	 */
-	public List<User> selectUserInfoOrderByPoint();
+	public List<HashMap<String, String>> selectUserInfoOrderByPoint();
 	
 	/**
 	 * 최신 공지사항 6개 조회

@@ -26,7 +26,7 @@ public class MainServiceImpl implements MainService {
 	@Autowired MainDao mainDao;
 
 	@Override
-	public List<User> getUserPointListTen() {
+	public List<HashMap<String, String>> getUserPointListTen() {
 		return mainDao.selectUserInfoOrderByPoint();
 	}
 

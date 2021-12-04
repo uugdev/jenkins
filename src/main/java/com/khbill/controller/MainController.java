@@ -1,5 +1,6 @@
 package com.khbill.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class MainController {
 				, HttpSession session
 			) {
 		
-		List<User> userTen = mainService.getUserPointListTen(); //유저 랭킹
+		List<HashMap<String, String>> userTen = mainService.getUserPointListTen(); //유저 랭킹
 		List<Notice> noticeSix = mainService.getNoticeListSix(); //공지사항
 		Map<String, Integer> moneyAndPercent = null; //아낀 돈, 퍼센트
 		String mainment = null; //메인 멘트
