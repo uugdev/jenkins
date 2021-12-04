@@ -328,9 +328,9 @@ function deleteComment(reviewComNo) {
 
 $(function() {
 	
-	$(document).on("click", "#btnList", function(){
-		history.go(-1);
-	});
+// 	$(document).on("click", "#btnList", function(){
+// 		location.href="/review/list";
+// 	});
 	
 	$(document).on("click", "#btnDelete", function(){
 		action_popup.confirm("후기글을 삭제하시겠습니까?", function (res){
