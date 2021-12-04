@@ -104,7 +104,7 @@ input[type=checkbox] {
 <div class="container">
 
 <div class="title">
-	<h1>영수증 목록</h1>
+	<h1>지출내역서 목록</h1>
 </div>
 
 <div class="listTable">
