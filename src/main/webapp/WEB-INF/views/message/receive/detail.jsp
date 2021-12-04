@@ -248,7 +248,7 @@ body {
 			</div>
 		</div> <!-- .titlearea end --> 
 		
-		<div class="messagearea" style="height: 300px;">
+		<div class="messagearea">
 			<span class="content">${msg.msgContent }</span>
 		</div>
 	</div>
