@@ -236,8 +236,7 @@ td {
 }
 
 .tablearea {
-	margin-bottom: 40px;
-
+	margin-bottom: 100px;
 }
 
 .contentbutton {

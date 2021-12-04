@@ -86,7 +86,8 @@ td {
 }
 
 .tablearea {
-	margin-bottom: 40px;
+	margin-bottom: 100px;
+	
 
 }
 
@@ -186,7 +187,7 @@ td {
 				</table>
 			</div>
 			
-			<div class="buttonarea" style="width:200px; height: 100px;">
+			<div class="buttonarea" style="width:200px;">
 				<button id="btnUpdate" class="left" onclick='userupdate();'>수정하기</button>
 				<form action="/mypage/delete" method="post">
 				<button type="button" id="btnDelete" onclick='userdelete();'>회원탈퇴</button>

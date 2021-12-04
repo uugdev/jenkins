@@ -13,30 +13,64 @@
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
 
 <script type="text/javascript">
-function submitContents(elClickedObj) {
-	oEditors.getById["tradeContent"].exec("UPDATE_CONTENTS_FIELD", []);
+// function submitContents(elClickedObj) {
+//     var elClickedObj = $("#form");
+//     oEditors.getById["tradeContent"].exec("UPDATE_CONTENTS_FIELD", []);
+//     var ir1 = $("#tradeContent").val();
+    
+//     alert(ir1);
+
+//     if( ir1 == ""  || ir1 == null || ir1 == '&nbsp;' || ir1 == '<p>&nbsp;</p>' || ir1 == '<p><br></p>')  {
+//          alert("내용을 입력하세요.");
+//          oEditors.getById["tradeContent"].exec("FOCUS"); //포커싱
+//          return;
+//     }
+    
+// 	oEditors.getById["tradeContent"].exec("UPDATE_CONTENTS_FIELD", []);
 	
-	try {
-		elClickedObj.form.submit();
-	} catch(e) {}
-}
+// 	try {
+// 		elClickedObj.form.submit();
+// 	} catch(e) {}
+// }
 
 $(document).ready(function() {
 	$("#btnWrite").click(function() {
-		submitContents($("#btnWrite"));
+// 		submitContents($("#btnWrite"));
 		
-        var nullCheck = ["tradeTitle", "tradeContent"];
+		//-------------------------------------------------------------------------------------------------------
+	    var elClickedObj = $("#btnWrite");
+	    oEditors.getById["tradeContent"].exec("UPDATE_CONTENTS_FIELD", []);
+	    var ir1 = $("#tradeContent").val();
+
+	    if( ir1 == ""  || ir1 == null || ir1 == '&nbsp;' || ir1 == '<p>&nbsp;</p>' || ir1 == '<p><br></p>')  {
+	        action_popup.alert('빈 칸을 모두 입력해 주세요.');
+	
+	        /* 닫는 창으로 꼭 필요함 */
+	        $(".modal_close").on("click",function() {
+	        	action_popup.close(this);
+		        oEditors.getById["tradeContent"].exec("FOCUS"); //포커싱
+	        });
+	
+	         return;
+	    }
+	    
+		try {
+			elClickedObj.form.submit();
+		} catch(e) {}
+		//-------------------------------------------------------------------------------------------------------
+		
+        var nullCheck = ["tradeTitle"];
 
 		//입력 값 널 체크
 		for (var i = 0; i < nullCheck.length; i++) {
 		    //alert(arr[i]);
 		    if ($.trim($('#' + nullCheck[i]).val()) == '') {
 		        action_popup.alert('빈 칸을 모두 입력해 주세요.');
-		        $('#' + nullCheck[i]).focus();
 		
 		        /* 닫는 창으로 꼭 필요함 */
 		        $(".modal_close").on("click",function() {
 		        	action_popup.close(this);
+			        $('#' + nullCheck[i]).focus();
 		        });
 		
 		        return;
