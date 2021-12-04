@@ -82,7 +82,7 @@ $(function(){
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
 					<a href="/admin/ask/list" style="margin-left: 435px;">머니토론</a>
-					<a href="/admin/review/list">영수증</a>
+					<a href="/admin/review/list">지출내역서</a>
 					<a href="/admin/trade/list">오이장터</a>
 				</p>
 			</div>
@@ -90,7 +90,7 @@ $(function(){
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
 					<a href="/admin/report/ask/list" style="margin-left: 466px;">머니토론 신고</a>
-					<a href="/admin/report/review/list">영수증 신고</a>
+					<a href="/admin/report/review/list">지출내역서 신고</a>
 					<a href="/admin/report/trade/list">오이장터 신고</a>
 				</p>
 			</div>
