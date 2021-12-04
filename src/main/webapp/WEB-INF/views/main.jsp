@@ -63,7 +63,7 @@
                             		</td>
                             	</tr>
                             	<tr>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[0].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[0].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -75,7 +75,7 @@
                                             <fmt:formatDate value="${popularBoard[0].ASK_DATE }"  pattern="MM-dd"/>
                                         </c:if>
                             		</td>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[1].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[1].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -118,7 +118,7 @@
                             		</td>
                             	</tr>
                             	<tr>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[2].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[2].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -130,7 +130,7 @@
                                             <fmt:formatDate value="${popularBoard[2].ASK_DATE }"  pattern="MM-dd"/>
                                         </c:if>
                             		</td>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[3].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[3].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -173,7 +173,7 @@
                             		</td>
                             	</tr>
                             	<tr>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[4].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[4].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -185,7 +185,7 @@
                                             <fmt:formatDate value="${popularBoard[4].ASK_DATE }"  pattern="MM-dd"/>
                                         </c:if>
                             		</td>
-                            		<td style="cursor: pointer; border-top: 0; height: 30px;"
+                            		<td style="cursor: pointer; border-top: 0; height: 30px; font-size: 14px;"
                             			onclick="location.href='/ask/detail?askNo=${popularBoard[5].ASK_NO }'">
 	                                    <img alt="#" src="${popularBoard[5].GRADE_URL }"
 	                                    	 style="width: 20px; height: 20px; vertical-align: sub;">
@@ -340,7 +340,10 @@
 					<c:forEach var="i" begin="3" end="9">
 						<tr>
 							<td>${i+1 }</td>
-							<td><img alt="#" src="${userTen[i].GRADE_URL }" width="20px" height="20px"> ${userTen[i].USER_NICK }</td>
+							<td style="text-align: left;">
+								<img alt="#" src="${userTen[i].GRADE_URL }" width="20px" height="20px"> 
+								${userTen[i].USER_NICK }
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
