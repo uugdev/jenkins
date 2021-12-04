@@ -59,6 +59,7 @@ $(document).ready(function(){
 body {
 	background-color: #f2f2f2;
 }
+
 .container {
 	width: 1200px;
 }
@@ -70,7 +71,7 @@ body {
 .tablearea {
 	background-color: #fff;
 	padding: 20px 50px 20px 50px;
-	
+	margin-bottom: 100px;
 }
 
 .titlearea > p {
@@ -106,7 +107,7 @@ body {
 		<h2>머니토론</h2>
 		<p>나의 토론주제 모아보기</p>
 	</div>
-	<div class="col-md-9" style="height: 500px;">
+	<div class="col-md-9">
 		<div class="tablearea">
 			<table class="table table-hover table-striped">
 			<thead>

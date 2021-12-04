@@ -69,7 +69,7 @@ body {
 .tablearea {
 	background-color: #fff;
 	padding: 20px 50px 20px 50px;
-	
+	margin-bottom: 100px;
 }
 
 .titlearea > p {
@@ -107,7 +107,7 @@ body {
 		<p>스크랩한 머니토론</p>
 	</div>
 	
-	<div class="col-md-9" style="height: 500px;">
+	<div class="col-md-9">
 		<div class="tablearea">
 			<table class="table table-striped table-hover">
 			<thead>
