@@ -153,13 +153,6 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
-function adjustHeight() {
-    var textEle = $('textarea');
-    textEle[0].style.height = '45px';
-    var textEleHeight = textEle.prop('scrollHeight');
-    textEle.css('height', textEleHeight);
-};
-
 var reviewComCount = ${review.REVIEW_COM_COUNT }
 
 function insertComment() {
@@ -261,10 +254,11 @@ function updateCom(reviewComNo) {
 		}
 		, success: function(data){
 			if(data.success) {
-				var reviewComDate = moment(data.reviewComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
-				
+
 				console.log(data.reviewComment.reviewComDate)
 				
+				var reviewComDate = moment(data.reviewComment.reviewComDate).format("YY-MM-DD HH:mm:ss");
+			
 				$("[data-reviewComNo='"+reviewComNo+"']").css("display", "table-row");
 				$("#td"+reviewComNo).html(data.reviewComment.reviewComContent);
 				$("#dateTd"+reviewComNo).html(reviewComDate);
@@ -938,7 +932,6 @@ comment_inbox {
 				height: 45px;" id="reviewComContent" onkeyup="adjustHeight();"></textarea>
 		<div class="register_box">
 			<button role="button" id="btn_register" onclick="insertComment();">등록</button>
-
 		</div>
 	</div>
 </div>
