@@ -6,11 +6,11 @@
 
 <table class="table table-hover">
 <tr>
-	<th width="13%">글 번호</th>
-	<th width="49%">제목</th>
-	<th width="18%">닉네임</th>
-	<th width="10%">작성일</th>
-	<th width="10%">조회</th>
+	<th style="width: 10%; text-align: center;">글 번호</th>
+	<th style="width: 54%; text-align: center;">제목</th>
+	<th style="width: 15%; text-align: center; padding-right: 18px;">닉네임</th>
+	<th style="width: 10%; text-align: center;">작성일</th>
+	<th style="width: 10%; text-align: center;"">조회</th>
 </tr>
 <c:forEach items="${reviewList }" var="review">
 <tr>
@@ -65,7 +65,7 @@
 </c:forEach>
 </table>
 
-<span class="pull-left">총 ${paging.totalCount }개</span>
+<span class="pull-left">total : ${paging.totalCount }</span>
 <c:if test="${login }">
 	<button id="btnWrite" class="pull-right">글쓰기</button>
 </c:if>

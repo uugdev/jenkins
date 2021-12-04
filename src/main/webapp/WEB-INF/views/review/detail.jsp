@@ -821,9 +821,12 @@ comment_inbox {
 		<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span><span>댓글 ${review.REVIEW_COM_CNT}</span>
 		<div class="btnWrap">
 
-			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
+<%-- 			<c:if test="${review.USER_NO ne null and sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }"> --%>
+			<c:if test="${sessionScope.userNo ne review.USER_NO and !empty sessionScope.userNo }">
 				<button id="scrap">스크랩</button>
-				<button id="report" class="popupOpen1">신고</button>
+				<c:if test="${review.USER_NO ne null }">
+					<button id="report" class="popupOpen1">신고</button>
+				</c:if>
 			</c:if>
 		</div>
 			
@@ -928,8 +931,7 @@ comment_inbox {
 			<img alt="#" src="${grade }" style="width: 20px; height: 20px;">&nbsp;${userNick }
 		</span>
 			<textarea onkeyup="adjustHeight(this);" placeholder="댓글을 남겨보세요" rows="1" class="comment_inbox_text" 
-				style="overflow: hidden; overflow-wrap: break-word; 
-				height: 45px;" id="reviewComContent" onkeyup="adjustHeight();"></textarea>
+				style="overflow: hidden; overflow-wrap: break-word; height: 45px;" id="reviewComContent" onkeyup="adjustHeight();"></textarea>
 		<div class="register_box">
 			<button role="button" id="btn_register" onclick="insertComment();">등록</button>
 		</div>
