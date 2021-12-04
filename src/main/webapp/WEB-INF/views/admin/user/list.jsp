@@ -125,7 +125,7 @@ function setUnablePeriodNull(clicked_id){
 
 .tableList {
 	text-align: center;
-	width: 100%;
+	width: 70%;
 	background: #fff;
 	margin: auto;
 	margin-bottom: 50px;
@@ -160,7 +160,6 @@ input[type=checkbox] {
 <!-- 개별 영역 끝 -->
 
 <div class="wrap">
-<div class="container">
 <div class="title">
 	<h1>회원 목록</h1>
 </div>
@@ -220,7 +219,6 @@ input[type=checkbox] {
 
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 </div><!-- .table end -->
-</div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->
