@@ -73,7 +73,7 @@ function statusToY(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusN"+reviewNo).before('<button id="status" class="btnStatusY'+ reviewNo +'" onclick="statusToN('+ reviewNo +');">완료</button>');
+				$(".btnStatusN"+reviewNo).before('<button id="statusY" class="btnStatusY'+ reviewNo +'" onclick="statusToN('+ reviewNo +');">완료</button>');
 				$(".btnStatusN"+reviewNo).remove();
 				
 // 				$(".btnStatusN"+reviewNo).attr("onclick", "statusToN("+ reviewNo + ")");
@@ -103,7 +103,7 @@ function statusToN(reviewNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusY"+reviewNo).before('<button id="status" class="btnStatusN'+ reviewNo +'" onclick="statusToY('+ reviewNo +');" >미완료</button>');
+				$(".btnStatusY"+reviewNo).before('<button id="statusN" class="btnStatusN'+ reviewNo +'" onclick="statusToY('+ reviewNo +');" >미완료</button>');
 				$(".btnStatusY"+reviewNo).remove();
 // 				$(".btnStatusY"+reviewNo).attr("onclick", "statusToY("+ reviewNo + ")");
 // 				$(".btnStatusY"+reviewNo).attr("class", "statusToN"+ reviewNo);
@@ -126,11 +126,12 @@ function statusToN(reviewNo) {
 <style type="text/css">
 .title {
 	margin: 50px 0 30px 0;
+	text-align: center;
 }
 
 .listTable {
 	text-align: center;
-	width: 100%;
+	width: 70%;
 	background: #fff;
 	margin: auto;
 	margin-bottom: 50px;
@@ -142,6 +143,7 @@ function statusToN(reviewNo) {
 }
 
 .table>tbody>tr>th {
+	text-align: center;
 	background: #f3f3f3;
 	vertical-align: middle;
 }
@@ -160,7 +162,7 @@ input[type=checkbox] {
 	height: 15px;
 }
 
-#status {
+#statusY {
 	display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -181,6 +183,33 @@ input[type=checkbox] {
     border: 1px solid transparent;
     border-radius: 4px;
     width: 65px;
+    background: dimgrey;
+    color: #fff;
+}
+
+#statusN {
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 65px;
+    background: tomato;
+    color: #fff;
 }
 </style>
 
@@ -188,7 +217,6 @@ input[type=checkbox] {
 
 
 <div class="wrap">
-<div class="container">
 
 <div class="title">
 	<h1>영수증 신고 목록</h1>
@@ -231,9 +259,9 @@ input[type=checkbox] {
 			<td>기타</td>
 		</c:when>
 	</c:choose>
-	<td><label for="${review.REPORT_NO }" class="ellipsis2">${review.REPORT_CONTENT }</label></td>
+	<td style="text-align: left; padding-left: 30px;"><label for="${review.REPORT_NO }" class="ellipsis2">${review.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reportNo=${review.REPORT_NO }" class="ellipsis2">${review.REVIEW_TITLE }</a></label></td>
+	<td style="text-align: left; padding-left: 30px;"><label for="${review.REVIEW_NO }"><a href="/admin/report/review/detail?reportNo=${review.REPORT_NO }" class="ellipsis2">${review.REVIEW_TITLE }</a></label></td>
 		
 	<c:if test="${review.USER_NO ne 0}">
 		<td><label for="${review.REVIEW_NO }">${review.USER_NICK }</label></td>
@@ -245,10 +273,10 @@ input[type=checkbox] {
 	<td><fmt:formatDate value="${review.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
 	
 	<c:if test="${review.REPORT_STATUS == 'n' }">
-		<td><button class="btnStatusN${review.REVIEW_NO }" id="status" onclick="statusToY(${review.REVIEW_NO});" >미완료</button></td>
+		<td><button class="btnStatusN${review.REVIEW_NO }" id="statusN" onclick="statusToY(${review.REVIEW_NO});" >미완료</button></td>
 	</c:if>
 	<c:if test="${review.REPORT_STATUS == 'y' }">
-		<td><button class="btnStatusY${review.REVIEW_NO }" id="status" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
+		<td><button class="btnStatusY${review.REVIEW_NO }" id="statusY" onclick="statusToN(${review.REVIEW_NO});">완료</button></td>
 	</c:if>
 	
 </tr>
@@ -262,7 +290,6 @@ input[type=checkbox] {
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 </div><!-- .listTable end -->
-</div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->

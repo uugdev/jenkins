@@ -73,7 +73,7 @@ function statusToY(askNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusN"+askNo).before('<button id="status" class="btnStatusY'+ askNo +'" onclick="statusToN('+ askNo +');">완료</button>');
+				$(".btnStatusN"+askNo).before('<button id="statusY" class="btnStatusY'+ askNo +'" onclick="statusToN('+ askNo +');">완료</button>');
 				$(".btnStatusN"+askNo).remove();
 				
 				console.log("완료로 바껴라")
@@ -100,7 +100,7 @@ function statusToN(askNo) {
 		, success: function(data){
 			if(data.changeStatus) {
 				
-				$(".btnStatusY"+askNo).before('<button id="status" class="btnStatusN'+ askNo +'" onclick="statusToY('+ askNo +');" >미완료</button>');
+				$(".btnStatusY"+askNo).before('<button id="statusN" class="btnStatusN'+ askNo +'" onclick="statusToY('+ askNo +');" >미완료</button>');
 				$(".btnStatusY"+askNo).remove();
 				
 				console.log(".btnStatusY"+askNo);
@@ -121,11 +121,12 @@ function statusToN(askNo) {
 <style type="text/css">
 .title {
 	margin: 50px 0 30px 0;
+	text-align: center;
 }
 
 .listTable {
 	text-align: center;
-	width: 100%;
+	width: 70%;
 	background: #fff;
 	margin: auto;
 	margin-bottom: 50px;
@@ -137,6 +138,7 @@ function statusToN(askNo) {
 }
 
 .table>tbody>tr>th {
+	text-align: center;
 	background: #f3f3f3;
 	vertical-align: middle;
 }
@@ -155,7 +157,7 @@ input[type=checkbox] {
 	height: 15px;
 }
 
-#status {
+#statusY {
 	display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -176,6 +178,33 @@ input[type=checkbox] {
     border: 1px solid transparent;
     border-radius: 4px;
     width: 65px;
+    background: dimgrey;
+    color: #fff;
+}
+
+#statusN {
+	display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    width: 65px;
+    background: tomato;
+    color: #fff;
 }
 </style>
 
@@ -183,8 +212,6 @@ input[type=checkbox] {
 
 
 <div class="wrap">
-<div class="container">
-
 <div class="title">
 	<h1>머니토론 신고 목록</h1>
 </div>
@@ -226,9 +253,9 @@ input[type=checkbox] {
 			<td>기타</td>
 		</c:when>
 	</c:choose>
-	<td><label for="${ask.REPORT_NO }" class="ellipsis2">${ask.REPORT_CONTENT }</label></td>
+	<td style="text-align: left; padding-left: 30px;"><label for="${ask.REPORT_NO }" class="ellipsis2">${ask.REPORT_CONTENT }</label></td>
 	
-	<td><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?reportNo=${ask.REPORT_NO }&askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
+	<td style="text-align: left; padding-left: 30px;"><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?reportNo=${ask.REPORT_NO }&askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
 		
 	<c:if test="${ask.USER_NO ne 0}">
 		<td><label for="${ask.ASK_NO }">${ask.USER_NICK }</label></td>
@@ -240,10 +267,10 @@ input[type=checkbox] {
 	<td><fmt:formatDate value="${ask.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
 	
 	<c:if test="${ask.REPORT_STATUS == 'n' }">
-		<td><button class="btnStatusN${ask.ASK_NO }" id="status" onclick="statusToY(${ask.ASK_NO});" >미완료</button></td>
+		<td><button class="btnStatusN${ask.ASK_NO }" id="statusN" onclick="statusToY(${ask.ASK_NO});" >미완료</button></td>
 	</c:if>
 	<c:if test="${ask.REPORT_STATUS == 'y' }">
-		<td><button class="btnStatusY${ask.ASK_NO }" id="status" onclick="statusToN(${ask.ASK_NO});">완료</button></td>
+		<td><button class="btnStatusY${ask.ASK_NO }" id="statusY" onclick="statusToN(${ask.ASK_NO});">완료</button></td>
 	</c:if>
 </tr>
 </c:forEach>
@@ -256,7 +283,6 @@ input[type=checkbox] {
 <c:import url="/WEB-INF/views/layout/paging.jsp" />
 
 </div><!-- .listTable end -->
-</div><!-- .container end -->
 </div><!-- .wrap end -->
 
 <!-- footer start -->
