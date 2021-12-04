@@ -263,6 +263,24 @@ li {
 	color: #85969E;
 }
 
+th {
+	background: #f3f3f3;
+}
+
+.table>tbody>tr>td {
+	height: 50px;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td>a {
+	color: #000;
+}
+
+.table>tbody>tr>td>a:hover {
+	color: #85969E;
+	text-decoration: none;
+}
+
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -274,7 +292,7 @@ li {
 			<p>오늘도 이것저것 사고팔 수 있는 장터</p>
 		</div>
 		<div class="listArea">
-			<div class="pull-right" style="margin-bottom: 10px;">
+			<div class="pull-right" style="margin-bottom: 20px;">
 				<a id="latestList">최신순</a>
 				<a id="hitList">조회순</a>
 				<a id="picList">이미지</a>

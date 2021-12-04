@@ -12,7 +12,7 @@
 		<tr>
 			<th style="width: 10%;">글번호</th>
 			<th style="width: 54%;">제목</th>
-			<th style="width: 15%;">작성자</th>
+			<th style="width: 15%; text-align: center; padding-right: 18px;">작성자</th>
 			<th style="width: 10%;">작성일</th>
 			<th style="width: 10%;">조회수</th>
 		</tr>
@@ -60,7 +60,7 @@
 				</c:if>
 				<c:if test="${board.USER_NICK ne null }">
 					<td style="text-align: left;">
-						<img alt="#" src="${board.GRADE_URL}" style="width: 20px; height: 20px;"> ${board.USER_NICK }
+						<img alt="#" src="${board.GRADE_URL}" style="width: 20px; height: 20px;">${board.USER_NICK }
 					</td>
 				</c:if>
 				<%-- 시간를 변환(yyyyMMdd)하여 변수에 저장하기 --%>
