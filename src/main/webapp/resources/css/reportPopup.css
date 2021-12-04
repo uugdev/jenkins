@@ -13,9 +13,9 @@
 }
 
 .popupWrap1 .popup1 {
-	position: absolute;
+	position: fixed;
 	left: 50%;
-	top: 21%;
+	top: 50%;
 	margin-left: -200px;
 	margin-top: -200px;
 	width: 400px;
