@@ -102,6 +102,7 @@ input:focus {
 
 #reviewTitle {
 	width: 100%;
+	border: 1px solid #ccc;
 }
 
 #itemName {
@@ -133,6 +134,7 @@ label {
 
 .title {
 	margin: 50px 0;
+	
 }
 
 .title>p {
