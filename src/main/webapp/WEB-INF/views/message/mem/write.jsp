@@ -30,7 +30,7 @@ $(document).ready(function () {
 		
 		var userNick = $("#userNick").val();
 		
-		var nickRegex = /^[가-힣a-zA-z0-9]{4,12}$/;
+		var nickRegex = /^[ㄱ-ㅎㅏ-ㅢ가-힣a-zA-z0-9]{3,8}$/;
 	
 		var nickregex = nickRegex.exec(userNick);
 		
