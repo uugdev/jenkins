@@ -82,9 +82,7 @@ body {
 	border: 0px;
 	background: #5b6e7a;
 	color: #f3f3f3;
-	width: 120px;
-	
-
+	width: 122px;
 }
 
 .contentbtn:hover {
@@ -92,19 +90,18 @@ body {
 	background: #fff;
 	color: #5b6e7a;
 	transition: all .2s ease-in-out;
-	
+	width: 122px;
 }
 
 .btnUpdateY, .btnUpdateN {
 	padding-left: 11.5px;
 	padding-right: 11.5px;
-	
 }
 
 .tablearea {
 	background-color: #fff;
 	padding: 20px 30px 20px 30px;
-	
+	margin-bottom: 100px;
 }
 
 .titlearea > p {
@@ -121,7 +118,7 @@ body {
 
 <c:import url="/WEB-INF/views/layout/myPageSideMenu.jsp" />
 
-<div class="col-md-9" style="height: 650px;">
+<div class="col-md-9">
 	<div class="titlearea">
 		<h2>지출 내역</h2>
 		<p>작성하신 머니토론의 결과를 체크해주세요.</p>

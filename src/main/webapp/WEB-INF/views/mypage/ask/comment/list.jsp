@@ -68,7 +68,7 @@ body {
 .tablearea {
 	background-color: #fff;
 	padding: 20px 50px 20px 50px;
-	
+	margin-bottom: 100px;
 }
 
 .titlearea > p {
@@ -104,7 +104,7 @@ body {
 		<h2>머니토론</h2>
 		<p>머니토론에 작성한 댓글</p>
 	</div>
-	<div class="col-md-9" style="height: 500px;">
+	<div class="col-md-9">
 		<div class="tablearea">
 			<table class="table table-striped table-hover">
 			<thead>
