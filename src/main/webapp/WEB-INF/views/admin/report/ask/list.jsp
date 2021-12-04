@@ -206,6 +206,17 @@ input[type=checkbox] {
     background: tomato;
     color: #fff;
 }
+
+.ellipsis2 {
+ 	word-wrap: break-word;
+ 	-webkit-line-clamp: 1; 
+ 	-webkit-box-orient: vertical;
+ 	width: 270px;
+	width: 260px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;  /* 말줄임 적용 */
+}
 </style>
 
 <!-- 개별 영역 끝 -->
@@ -253,15 +264,21 @@ input[type=checkbox] {
 			<td>기타</td>
 		</c:when>
 	</c:choose>
-	<td style="text-align: left; padding-left: 30px;"><label for="${ask.REPORT_NO }" class="ellipsis2">${ask.REPORT_CONTENT }</label></td>
+	<td style="text-align: left;">
+		<label for="${ask.REPORT_NO }" style="padding-left: 20px;" class="ellipsis2">${ask.REPORT_CONTENT }</label>
+	</td>
 	
-	<td style="text-align: left; padding-left: 30px;"><label for="${ask.ASK_NO }"><a href="/admin/report/ask/detail?reportNo=${ask.REPORT_NO }&askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a></label></td>
+	<td style="text-align: left;">
+		<label for="${ask.ASK_NO }">
+			<a href="/admin/report/ask/detail?reportNo=${ask.REPORT_NO }&askNo=${ask.ASK_NO }" class="ellipsis2">${ask.ASK_TITLE }</a>
+		</label>
+	</td>
 		
 	<c:if test="${ask.USER_NO ne 0}">
-		<td><label for="${ask.ASK_NO }">${ask.USER_NICK }</label></td>
+		<td style="text-align: left;"><label for="${ask.ASK_NO }">${ask.USER_NICK }</label></td>
 	</c:if>
 	<c:if test="${ask.USER_NO eq 0}">
-		<td>탈퇴한 회원입니다</td>
+		<td style="text-align: left;">탈퇴한 회원입니다</td>
 	</c:if>
 
 	<td><fmt:formatDate value="${ask.REPORT_DATE }" pattern="yyyy-MM-dd"/></td>
