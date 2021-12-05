@@ -103,7 +103,7 @@ $(document).ready(function() {
 			<div id="boardNav" class="blockNav container"
 				 style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/ask/list" style="margin-left: 228px;">머니토론</a>
+					<a href="/ask/list" style="margin-left: 117px;">머니토론</a>
 					<a href="/review/list">지출내역서</a>
 					<a href="/trade/list">오이장터</a>
 				</p>
@@ -111,7 +111,7 @@ $(document).ready(function() {
 			<div id="qnaNav" class="blockNav container"
 				style="background: gray; display: none; width: 100%; height: 45px; text-align: left; z-index: 1;">
 				<p style="line-height: 46px;">
-					<a href="/notice/list" style="margin-left: 653px;">공지사항</a>
+					<a href="/notice/list" style="margin-left: 534px;">공지사항</a>
 					<a href="/qna/main">자주 묻는 질문</a>
 					<a href="/qna/list">1:1 문의</a>
 				</p>
