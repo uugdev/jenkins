@@ -402,7 +402,7 @@ function adjustHeight(obj) {
 			${tradeDetail.TRADE_TITLE }
 		</p>
 		
-		<div>
+		<div class="layerbox">
 			<c:if test="${!empty tradeDetail.GRADE_URL }">
 				<img alt="#" src="${tradeDetail.GRADE_URL }" width="20px" height="20px;">
 			</c:if>
@@ -422,6 +422,7 @@ function adjustHeight(obj) {
 						</ul>
 					</div>
 			</c:if>
+		
 			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 			<span><fmt:formatDate value="${tradeDetail.TRADE_DATE }" pattern="yy-MM-dd HH:mm"/></span>
 			<span class="bar">&nbsp;&nbsp;|&nbsp;&nbsp;</span>				
