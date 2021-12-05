@@ -73,14 +73,10 @@ function deleteComment(tradeComNo) {
 					tradeComNo: tradeComNo
 				}
 				, success: function(data){
-					if(data.success) {
-						
-						$("#tradeComCount").html(--tradeComCount, tradeComCount);
-						$("[data-tradeComNo='"+tradeComNo+"']").remove();
-						
-					} else {
-						alert("댓글 삭제 실패");
-					}
+
+					$("#tradeComCount").html(--tradeComCount, tradeComCount);
+					$("[data-tradeComNo='"+tradeComNo+"']").remove();
+
 				}
 				, error: function() {
 					console.log("error");

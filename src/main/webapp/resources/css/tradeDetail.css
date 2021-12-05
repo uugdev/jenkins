@@ -37,6 +37,7 @@ hr {
 
 .layerpopup {
 	width: 500px;
+	color: #333;
 }
 
 .layerpopup:hover {
