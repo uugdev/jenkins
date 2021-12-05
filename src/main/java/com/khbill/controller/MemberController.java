@@ -44,7 +44,12 @@ public class MemberController {
 	public void login(HttpServletRequest req, HttpSession session) {
 				
 		if( req.getHeader("Referer") != null ) {
-			String add = req.getHeader("Referer").substring(21); //localhost:8888 referer			
+			String add = "";
+			if(req.getHeader("Referer").contains("localhost:8888")) {
+				add = req.getHeader("Referer").substring(req.getHeader("Referer").lastIndexOf("88/")+2); //localhost:8888 referer			
+			} else {
+				add = req.getHeader("Referer").substring(req.getHeader("Referer").lastIndexOf("kr/")+2);
+			}
 			logger.info("[GET] member add : {}", add);
 			session.setAttribute("referer", add);
 			if( session.getAttribute("referer").equals("/member/login") || session.getAttribute("referer").equals("/member/joinSuccess") 
