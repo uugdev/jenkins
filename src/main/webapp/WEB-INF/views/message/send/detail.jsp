@@ -257,7 +257,7 @@ body {
 	</div>
 </div> <!-- .tablearea end -->
 <div class="buttonarea">
-	<a href="/message/receive/list"><button class="contentbtn">목록</button></a>
+	<a href="/message/send/list"><button class="contentbtn">목록</button></a>
 	<button id="btnDelete" class="contentbtn">삭제</button>
 </div>
 

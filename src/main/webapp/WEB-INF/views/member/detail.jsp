@@ -90,7 +90,16 @@ h4 {
 	background-color: #fff;
 	padding: 30px;
 	text-align: center;
+}
 
+a {
+	color: #000;
+}
+
+a:hover {
+	color: #85969E;
+	text-decoration: none;
+	cursor: pointer;
 }
 </style>
 
