@@ -307,8 +307,8 @@ li {
 <div class="container">
 	
 <div class="title">	
-<h1 style="text-align: center;">지출내역서</h1>
-<p>선택한 머니가 있다면  후기를 남겨주세요.</p>
+<h1 style="text-align: center;"><a href="/review/list">지출내역서</a></h1>
+<p>선택한 머니가 있다면  후기를 남겨주세요.
 </div>
 
 <div class="listTable">
