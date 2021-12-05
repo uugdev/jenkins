@@ -53,7 +53,7 @@ public class MainServiceImpl implements MainService {
 		
 		//아낀 돈, //지출 퍼센트
 		int saveMoney = 0;
-		int percent = -1; //지출 가능 금액을 설정해주세요 출력
+		double percent = -1; //지출 가능 금액을 설정해주세요 출력
 		
 		//지출 가능 금액을 설정했을 경우, 아낀 돈 계산
 		if( extraMoney != 0 ) {
@@ -62,7 +62,14 @@ public class MainServiceImpl implements MainService {
 		
 		//지출 가능 금액, 결제 여부가 y인 상품 가격의 총합이 0이 아닐 경우, 지출 퍼센트 계산
 		if( extraMoney != 0 && totalPrice != 0 ) {
-			percent = (totalPrice / extraMoney) * 100;
+			percent = ((double)totalPrice / extraMoney) * 100;
+			
+			logger.info("(totalPrice / extraMoney) - {}", (totalPrice / extraMoney));
+			logger.info("(totalPrice / extraMoney) * 100 - {}", (totalPrice / extraMoney) * 100);
+			
+			logger.info("percent - {}", percent);
+			logger.info("extraMoney - {}", extraMoney);
+			logger.info("totalPrice - {}", totalPrice);
 			
 			//지출 가능 금액보다 결제를 많이 했을 경우
 			if( percent > 100) {
@@ -78,7 +85,7 @@ public class MainServiceImpl implements MainService {
 		logger.info("percent - {}", percent);
 		
 		resultMap.put("saveMoney", saveMoney);
-		resultMap.put("percent", percent);
+		resultMap.put("percent", (int) percent);
 		
 		return resultMap;
 	}
