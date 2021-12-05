@@ -73,7 +73,7 @@ td:nth-child(2) {
 							<c:if test="${list.REPORT_STATUS eq 'y' }">
 								<div style="display: none;">Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="좋은 상품">좋은 상품</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 								<a onclick="reportStatusY();">
-									<img style="height: 100%;" alt="#" src="/resources/img/unknownPic.png">
+									<img style="height: 100%;" alt="#" src="https://i.imgur.com/OlYEpre.png">
 								</a>
 							</c:if>
 						</c:if>
