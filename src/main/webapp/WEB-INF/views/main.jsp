@@ -240,7 +240,7 @@
                 <hr style="border: 3px solid black; margin: 0 10px 10px 0; width: 98%;">
 	            </div>
                 
-                <div style="width: auto; height: 454px; overflow: auto;">
+                <div style="width: auto; height: 446px; overflow: auto;">
                     <c:set var = "sum" value = "0" />
                     <c:forEach items="${mainBill }" var="mainBill">
                     	<p style="display: flex;">

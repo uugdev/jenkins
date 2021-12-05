@@ -111,7 +111,7 @@ td:nth-child(2) {
 							<span>탈퇴한 회원</span> 
 						</c:if>
 						<c:if test="${list.USER_NICK ne null }">
-							<span>작성자: <img alt="#" src="${list.GRADE_URL}" style="width: 20px;">${list.USER_NICK}</span> 
+							<span>닉네임: <img alt="#" src="${list.GRADE_URL}" style="width: 20px;">${list.USER_NICK}</span> 
 						</c:if>
 						<span>작성일: <fmt:formatDate value="${list.TRADE_DATE}" pattern="yy-MM-dd" /></span>
 					</div>
