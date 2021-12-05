@@ -45,8 +45,8 @@ public class ReviewController {
 	//후기 게시글 조회순 목록
 	@RequestMapping(value = "/list/hit")
 	public String getReviewHitList(Model model, Paging paramData) {
-		logger.info("/review/hitlist [GET]");
-		logger.info("param {}", paramData);
+//		logger.info("/review/hitlist [GET]");
+//		logger.info("param {}", paramData);
 		
 		Paging paging = reviewService.getPaging(paramData);
 		logger.info("paging.target : {}",paging.getTarget());
@@ -66,7 +66,7 @@ public class ReviewController {
 	//후기 게시글 상세
 	@RequestMapping(value = "/detail", method=RequestMethod.GET)
 	public String reviewDetail(
-			Review review, ReviewComment reviewComment
+			User user, Review review, ReviewComment reviewComment
 			, Item item, File file, Model model, HttpSession session
 		) {
 		logger.info("/review/detail [GET]");
@@ -78,18 +78,29 @@ public class ReviewController {
 		//게시글 상세 리스트 전달
 		HashMap<String, Object> reviewMap = reviewService.getReviewDetail(review);
 		
+		if( reviewMap.get("USER_NO") != null ) {
+		
+			//사용자 정보 전달
+			int userNo = Integer.parseInt(String.valueOf(reviewMap.get("USER_NO")));
+			user = reviewService.getReviewUSER(userNo);
+			logger.info("사용자 번호: {}", userNo); //잘 출력됨
+		
+		}
+		
 		//상품 정보 전달
 		int itemNo = Integer.parseInt(String.valueOf(reviewMap.get("ITEM_NO")));
 		item = reviewService.getReviewItem(itemNo);
-		logger.info("아이템 번호: {}", itemNo);
+//		logger.info("아이템 번호: {}", itemNo);
 	
 		//첨부파일 정보 전달
 		int fileNo = Integer.parseInt(String.valueOf(reviewMap.get("FILE_NO")));
 		file = reviewService.getReviewFile(fileNo);
-		logger.info("파일 번호: {}", fileNo);
+//		logger.info("파일 번호: {}", fileNo);
+		
 		
 		//모델값 전달
 		model.addAttribute("review", reviewMap);
+		model.addAttribute("user", user);
 		model.addAttribute("item", item);
 		model.addAttribute("file", file);
 		
@@ -115,8 +126,8 @@ public class ReviewController {
 		boolean isScrap = reviewService.isScrap(reviewScrap);
 		model.addAttribute("isScrap", isScrap);
 		
-		logger.info("commentList: {}", commentList);
-		logger.info("reviewScrap{}", reviewScrap);		
+//		logger.info("commentList: {}", commentList);
+//		logger.info("reviewScrap{}", reviewScrap);		
 		
 		return "review/detail";
 	}
@@ -124,7 +135,7 @@ public class ReviewController {
 	//후기게시글 작성 - GET
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void reviewWrite(int askNo, Model model) {
-		logger.info("/review/write [GET]");
+//		logger.info("/review/write [GET]");
 		
 		//질문 게시판에 작성한 글 불러오기
 		Ask ask = askService.getAskDetail(askNo);
@@ -157,7 +168,7 @@ public class ReviewController {
 	//후기 게시글 수정 - GET
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String reviewUpdate(Review review, Item item, File file,  Model model) {
-		logger.info("/review/update [GET]");
+//		logger.info("/review/update [GET]");
 		
 		// 게시글 번호가 1보다 작으면 목록으로 보내기
 		if(review.getReviewNo() < 1) {
@@ -188,8 +199,8 @@ public class ReviewController {
 			Review review, User user
 			, MultipartFile file, HttpSession session
 		) {
-		logger.info("/review/update [POST]");
-		logger.info("review{}", review.getReviewNo());
+//		logger.info("/review/update [POST]");
+//		logger.info("review{}", review.getReviewNo());
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		user.setUserNick((String) session.getAttribute("userNick"));
@@ -216,7 +227,7 @@ public class ReviewController {
 	//후기 게시글 스크랩
 	@RequestMapping(value = "/scrap", method = RequestMethod.GET)
 	public ModelAndView scrap(int reviewNo, ReviewScrap reviewScrap, ModelAndView mav, HttpSession session) {
-		logger.info("/review/scrap [GET]");
+//		logger.info("/review/scrap [GET]");
 		
 		//스크랩 정보 토글
 		reviewScrap.setReviewNo(reviewNo);
@@ -233,9 +244,8 @@ public class ReviewController {
 	//후기 게시글 신고
 	@RequestMapping(value ="/report",method = RequestMethod.POST)
 	public ModelAndView reviewReport(int reviewNo, ReviewReport reviewReport, HttpSession session, ModelAndView mav) {
-		logger.info("/reviewreport [POST]");
-		
-		logger.info("reviewReport: {}", reviewReport);
+//		logger.info("/reviewreport [POST]");
+//		logger.info("reviewReport: {}", reviewReport);
 		
 		int userNo = (Integer) session.getAttribute("userNo");
 		

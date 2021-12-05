@@ -21,6 +21,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.User;
 import com.khbill.service.face.ReviewService;
 import com.khbill.util.Paging;
 
@@ -49,45 +50,47 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> getReviewList(Paging paging) {
-		
 		return reviewDao.selectReviewList(paging);
 	}
 
 	@Override
 	public List<Review> getReviewHitList(Paging paging) {
-		
 		return reviewDao.selectReviewHitList(paging);
 	}
 
 	@Override
 	public HashMap<String, Object> getReviewDetail(Review review) {
-		
 		reviewDao.updatehit(review); //조회수 증가
 		
 		return reviewDao.selectReviewByReviewNo(review);
 	}
 
 	@Override
+	public User getReviewUSER(int userNo) {
+	
+		logger.info("사용자: {}", userNo); 	//출력됨
+		logger.info("사용자 출력: {}", userNo); //출력됨
+	
+		return reviewDao.selectItemByUserNo(userNo);
+	}
+	
+	@Override
 	public Item getReviewItem(int itemNo) {
-		
 		return reviewDao.selectItemByItemNo(itemNo);
 	}
 
 	@Override
 	public com.khbill.dto.File getReviewFile(int fileNo) {
-		
 		return reviewDao.selectFileByFile(fileNo);
 	}
 	
 	@Override
 	public List<HashMap<String, Object>> getReviewComList(ReviewComment reviewComment) {
-
 		return reviewCommentDao.selectReviewCommentByReview(reviewComment);
 	}
 
 	@Override
 	public boolean deleteReviewComment(ReviewComment reviewComment) {
-		
 		reviewCommentDao.deleteReviewComment(reviewComment);
 		
 		if( reviewCommentDao.selectCountComment(reviewComment) > 0 ) {
@@ -141,7 +144,6 @@ public class ReviewServiceImpl implements ReviewService {
 	      review.setItemNo(itemNo);
 	      review.setFileNo(fileNo);
 	      
-	      
 	      reviewDao.insertFile(reviewFile);
 	      reviewDao.insertReview(review);
 	      reviewDao.updateUserPoint(review);
@@ -151,7 +153,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public com.khbill.dto.File getAttachFile(Review review) {
-		
 		return reviewDao.selectReviewFileByReviewNo(review);
 	}
 
@@ -209,20 +210,24 @@ public class ReviewServiceImpl implements ReviewService {
 	public void setReviewDelete(Review review) {
 		
 		HashMap<String, Object> reviewMap = reviewDao.selectReviewByReviewNo(review);
+		User user = new User();
 		Item item = new Item();
 		com.khbill.dto.File file = new com.khbill.dto.File();
+		
+		if( reviewMap.get("USER_NO") != null ) {			
+			int userNo = Integer.parseInt(String.valueOf(reviewMap.get("USER_NO")));
+			user.setUserNo(userNo);
+			reviewDao.updateUserPointDelete(userNo);
+		}
 		
 		item.setItemNo(review.getItemNo());
 		file.setFileNo(item.getFileNo());
 		
-		int userNo = review.getUserNo();
-		int fileNo = file.getFileNo();
+		logger.info("사용자 번호 조회 {}", review.getUserNo()); // 0인 상태..
 		
-		reviewDao.updateUserPointDelete(userNo);
 		reviewDao.deleteReport(review);
 		reviewDao.deleteScrap(review);
 		reviewDao.deleteReview(review);
-		reviewDao.deleteFile(fileNo);
 	}
 
 	@Override
@@ -284,19 +289,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void setReviewCommentWrite(ReviewComment reviewComment) {
-		
 		reviewCommentDao.insertReviewComment(reviewComment);
 	}
 	
 	@Override
 	public ReviewComment getReviewCommentWriteByUserNo(int userNo) {
-		
 		return reviewCommentDao.selectReviewCommentByUserNo(userNo);
 	}
 	
 	@Override
 	public String getUserNickByUserNo(int userNo) {
-		
 		return reviewCommentDao.selectUserNickByUserNo(userNo);
 	}
 	
@@ -307,7 +309,6 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public ReviewComment setReviewCommentUpdate(ReviewComment reviewComment) {
-		
 		reviewCommentDao.updateReviewComment(reviewComment);
 		
 		ReviewComment resultComment =  reviewCommentDao.selectOneReviewCommentByReviewNo(reviewComment.getReviewComNo());

@@ -11,6 +11,7 @@ import com.khbill.dto.Review;
 import com.khbill.dto.ReviewComment;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewService {
@@ -52,6 +53,15 @@ public interface ReviewService {
 	 * @return 조회된 상세 게시글 정보
 	 */
 	public HashMap<String, Object> getReviewDetail(Review review);
+	
+	/**
+	 *  후기 글번호롤 사용자 조회
+	 * 
+	 * @param userNo - 상세 조회할 사용자 번호 DTO
+	 * @return 조회된 상세 게시글 정보
+	 */
+	public User getReviewUSER(int userNo);
+
 	
 	/**
 	 *  후기 글번호롤 상품조회
@@ -209,6 +219,7 @@ public interface ReviewService {
 	 * @return
 	 */
 	public Review getReviewByReviewNo(int reviewNo);
+
 
 	
 

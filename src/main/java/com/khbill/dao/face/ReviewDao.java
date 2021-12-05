@@ -8,6 +8,7 @@ import com.khbill.dto.Item;
 import com.khbill.dto.Review;
 import com.khbill.dto.ReviewReport;
 import com.khbill.dto.ReviewScrap;
+import com.khbill.dto.User;
 import com.khbill.util.Paging;
 
 public interface ReviewDao {
@@ -54,6 +55,14 @@ public interface ReviewDao {
 	 */
 	public HashMap<String, Object> selectReviewByReviewNo(Review review);
 
+	/**
+	 * 사용자번호로 사용자조회
+	 * 
+	 * @param userNo
+	 * @return
+	 */
+	public User selectItemByUserNo(int userNo);
+	
 	/**
 	 * 상품번호로 상품조회
 	 * 
@@ -122,8 +131,6 @@ public interface ReviewDao {
 	 * @param u
 	 */
 	public void updateUserPoint(Review review);
-	
-	
 	
 	/**
 	 * 게시글 번호를 이용하여 첨부파일 정보를 조회한다
@@ -260,7 +267,5 @@ public interface ReviewDao {
 	 * @param reviewNo
 	 */
 	public Review selectDeleteReviewByReviewNo(int reviewNo);
-
-
 
 }

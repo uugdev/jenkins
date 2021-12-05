@@ -98,6 +98,11 @@
 	    ) ZREVIEW
 		WHERE review_no = #{reviewNo } 
 	</select>
+
+	<select id="selectItemByUserNo" resultType="com.khbill.dto.User" parameterType="int">
+		SELECT * FROM zuser
+		WHERE user_no = #{userNo }
+	</select>
 	 
 	<select id="selectItemByItemNo" resultType="com.khbill.dto.Item" parameterType="int">
 		SELECT * FROM zitem
@@ -174,7 +179,7 @@
 		WHERE rownum = 1
 	</select>
 	
-	<update id="updateUserPointDelete" parameterType="com.khbill.dto.User">
+	<update id="updateUserPointDelete" parameterType="int">
 		UPDATE zuser
 		SET user_point = user_point - 200
 		WHERE user_no = #{userNo }

@@ -330,8 +330,10 @@ $(function() {
 		action_popup.confirm("후기글을 삭제하시겠습니까?", function (res){
 			if(res){
 				
-				console.log("reviewNo="+${review.REVIEW_NO }+"&userNo="+${review.USER_NO })
-				location.href="/review/delete?reviewNo="+${review.REVIEW_NO }+"&userNo="+${review.USER_NO };
+// 				console.log("reviewNo="+${review.REVIEW_NO }+"&userNo="+${review.USER_NO })
+// 				location.href="/review/delete?reviewNo="+${review.REVIEW_NO }+"&userNo="+${review.USER_NO };
+
+				location.href="/review/delete?reviewNo="+${review.REVIEW_NO };
 			}
 		})
 	});
