@@ -7,8 +7,8 @@
 <table class="table table-hover">
 <tr>
 	<th style="width: 10%; text-align: center;">글 번호</th>
-	<th style="width: 54%; text-align: center;">제목</th>
-	<th style="width: 15%; text-align: center; padding-right: 18px;">닉네임</th>
+	<th style="width: 53%; text-align: center;">제목</th>
+	<th style="width: 16%; text-align: center; padding-right: 18px;">닉네임</th>
 	<th style="width: 10%; text-align: center;">작성일</th>
 	<th style="width: 10%; text-align: center;"">조회</th>
 </tr>
