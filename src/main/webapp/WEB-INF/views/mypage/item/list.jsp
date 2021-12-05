@@ -120,7 +120,7 @@ body {
 
 <div class="col-md-9">
 	<div class="titlearea">
-		<h2>지출 내역</h2>
+		<h2>결제 체크하기</h2>
 		<p>작성하신 머니토론의 결과를 체크해주세요.</p>
 		
 	</div>
