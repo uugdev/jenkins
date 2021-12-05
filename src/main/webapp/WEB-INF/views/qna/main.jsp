@@ -171,8 +171,7 @@ a {
       <span>포인트는 언제 지급되고, 등급은 어떻게 정해지나요?</span>
      </div>
      <div class="answer">
-      <span>포인트와 등급제도에 대한 안내는 공지사항에서 확인하실 수 있습니다<br>
-      공지사항 링크 걸게요</span>
+      <span>포인트와 등급제도에 대한 안내는 <a href="/notice/detail?noticeNo=1" >공지사항</a>에서 확인하실 수 있습니다</span>
      </div>
       <div class="question">
       <span>차단된 회원이라며 로그인이 되지 않아요.</span>
