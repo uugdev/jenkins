@@ -138,7 +138,7 @@ li.active>a {
 		<table class="table table-hover table-condensed">
 			<tr>
 				<th><input type="checkbox" name="select" id="selectAll" /></th>
-				<th>후기글 번호</th>
+				<th>글번호</th>
 				<th>카테고리</th>
 				<th width="45%">제목</th>
 				<th>닉네임</th>
@@ -175,7 +175,7 @@ li.active>a {
 					</td>
 				</c:if>
 				<td><label for="${trade.USER_NO }">${trade.TRADE_HIT }</label></td>
-				<td><fmt:formatDate value="${trade.TRADE_DATE }" pattern="yyyy-MM-dd"/></td>
+				<td><fmt:formatDate value="${trade.TRADE_DATE }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			</c:forEach>
 		</table>
