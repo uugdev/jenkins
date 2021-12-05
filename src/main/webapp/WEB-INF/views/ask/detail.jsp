@@ -974,9 +974,11 @@ comment_inbox {
 				</span> <span class="bar">|</span> <span>댓글 ${cntCom }</span>
 				<div class="btnWrap">
 					<c:if
-						test="${ask.userNo ne userNo and !empty sessionScope.userNo and ask.userNo ne 0 }">
+						test="${ask.userNo ne userNo and !empty sessionScope.userNo }">
 						<button id="scrap">스크랩</button>
-						<button id="report" class="popupOpen1">신고</button>
+						<c:if test="${ask.userNo ne 0 }">
+							<button id="report" class="popupOpen1">신고</button>
+						</c:if>
 					</c:if>
 				</div>
 
