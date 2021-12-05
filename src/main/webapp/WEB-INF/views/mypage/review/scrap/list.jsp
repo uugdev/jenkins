@@ -39,7 +39,7 @@ $(document).ready(function(){
 		action_popup.confirm("선택한 글을 스크랩 해제하시겠습니까?\n해당 작업은 되돌릴 수 없습니다.", function(result) {
 			
 			if(result == true){
-				location.href="/mypage/review/scrap/delete?reviewNo="+delchk;
+				location.href="/mypage/review/scrap/delete?scrapNo="+delchk;
 			} else {
 				return false;
 			}
