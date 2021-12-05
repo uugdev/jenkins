@@ -118,7 +118,7 @@ input[type=checkbox] {
 <tr>
 	<th style="text-align: center; width: 6%;">
 		<input type="checkbox" name="select" id="selectAll" /></th>
-	<th style="width: 8%;">글 번호</th>
+	<th style="width: 8%;">글번호</th>
 	<th style="text-align: center; width: 45%; padding-left: 30px;">제목</th>
 	<th style="text-align: center; width: 12%; padding-right: 30px;">닉네임</th>
 	<th style="text-align: center; width: 10%;">조회수</th>

@@ -237,7 +237,7 @@ input[type=checkbox] {
 <table class="table table-hover table-condensed">
 <tr>
 	<th><input type="checkbox" name="select" id="selectAll" /></th>
-	<th>글 번호</th>
+	<th>글번호</th>
 	<th>신고사유</th>
 	<th>신고 내용</th>
 	<th>게시글 제목</th>
