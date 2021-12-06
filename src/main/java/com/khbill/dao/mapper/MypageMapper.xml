@@ -34,6 +34,7 @@
 				INNER JOIN zask_comment za
 				ON a.ask_no = za.ask_no
 				AND za.user_no = #{userNo }
+				ORDER BY ask_com_date DESC
 			) A
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
@@ -52,6 +53,7 @@
 				INNER JOIN zask_scrap za
 				ON a.ask_no = za.ask_no
 				AND za.user_no = #{userNo }
+				ORDER BY ask_date DESC
 			) A
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
@@ -86,6 +88,8 @@
 				INNER JOIN zreview_comment zr
 				ON v.review_no = zr.review_no
 				AND zr.user_no = #{userNo }
+				ORDER BY review_com_date DESC
+				
 			) V
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
@@ -104,6 +108,8 @@
 				INNER JOIN zreview_scrap zr
 				ON v.review_no = zr.review_no
 				AND zr.user_no = #{userNo }
+				ORDER BY review_date DESC
+				
 			) V
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
@@ -138,6 +144,8 @@
 				INNER JOIN ztrade_comment zt
 				ON t.trade_no = zt.trade_no
 				AND zt.user_no = #{userNo }
+				ORDER BY trade_com_date DESC
+				
 			) T
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
@@ -156,6 +164,7 @@
 				INNER JOIN ztrade_scrap zt
 				ON t.trade_no = zt.trade_no
 				AND zt.user_no = #{userNo }
+				ORDER BY trade_date DESC
 			) T
 		) R
 		WHERE rnum between #{paging.startNo } AND #{paging.endNo }
