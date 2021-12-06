@@ -213,7 +213,7 @@
                 		<c:if test="${mainment ne null }">
 		                	<p class="pull-right" style="font-size: 14px;">회원님이 이번 달 아낀 돈은 
 		                	<fmt:formatNumber type="number" maxFractionDigits="3" value="${moneyAndPercent.saveMoney }" /> 원입니다.</p>
-		                	<p style="font-size: 25px;">아낀 돈으로 무엇을 할 수 있나요?</p>
+		                	<p style="font-size: 25px;">당신을 위한 오늘의 멘트</p>
 		                	<p style="font-size: 35px;">${mainment }</p>
                 		</c:if>
 	                </div>
