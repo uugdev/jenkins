@@ -85,6 +85,63 @@ $(document).ready(function() {
 		history.go(-1);
 	})
 })
+
+// function fileCheck(obj) {
+// 	pathpoint = obj.value.lastIndexOf('.');
+// 	filepoint = obj.value.substring(pathpoint+1, obj.length);
+// 	filetype = filepoint.toLowerCase();
+//     if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+    	
+//     } else {
+//     	alert('이미지 파일만 선택할 수 있습니다.');
+//     	parentObj = obj.parentNode
+//     	node = parentObj.replaceChild(obj.cloneNode(true),obj);
+//     	return false;
+//     }
+//     if(filetype=='bmp') {
+//     	upload = confirm('BMP 파일은 웹상에서 사용하기엔 적절한 이미지 포맷이 아닙니다. \n그래도 계속 하시겠습니까?');
+//     	if(!upload) return false;
+//     }
+// }
+
+function fileCheck(obj) {
+
+	pathpoint = obj.value.lastIndexOf('.');
+
+	filepoint = obj.value.substring(pathpoint+1,obj.length);
+
+	filetype = filepoint.toLowerCase();
+
+	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+
+		// 정상적인 이미지 확장자 파일인 경우
+
+	} else {
+
+        action_popup.alert('이미지 파일만 업로드할 수 있습니다!');
+		
+        /* 닫는 창으로 꼭 필요함 */
+        $(".modal_close").on("click",function() {
+        	action_popup.close(this);
+        });
+
+		parentObj  = obj.parentNode
+
+		node = parentObj.replaceChild(obj.cloneNode(true),obj);
+		
+		document.getElementById("file").select();
+		
+		$('#file').remove();
+		
+		$('#fileLabel').after('<input type="file" id="file" name="file" onchange="fileCheck(this)"' +
+				'accept="image/gif, image/jpeg, image/png" />');
+
+		return false;
+
+	}
+
+}
+
 </script>
 <!-- 개별 영역 끝 -->
 
@@ -113,8 +170,9 @@ $(document).ready(function() {
 			</div>
 			
 			<div class="form-group" style="float: left;">
-				<label for="file">첨부파일</label>
-				<input type="file" id="file" name="file" />
+				<label for="file" id="fileLabel">첨부파일</label>
+				<input type="file" id="file" name="file" onchange="fileCheck(this)"
+					   accept="image/gif, image/jpeg, image/png" />
 			</div>
 			
 			<div class="text-right">
