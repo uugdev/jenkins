@@ -11,7 +11,7 @@ pipeline {
     stage('build') {
       steps {
         withGradle() {
-          tool(name: 'Maven', type: 'buildtool')
+          tool 'maven'
         }
 
       }
